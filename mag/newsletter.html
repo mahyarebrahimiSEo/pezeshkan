@@ -1,0 +1,2685 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('pezeshkan_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خبرنامه تخصصی سلامت پزشکآن لایف | تازه‌ترین تحلیل‌ها و مقالات بالینی</title>
+  <meta name="description" content="عضویت در خبرنامه هفتگی مجله سلامت پزشکآن لایف؛ دریافت گزیده مقالات داوری‌شده توسط پزشکان متخصص، هشدارهای دارویی FDA و راهنماهای درمانی مستقیماً در ایمیل شما.">
+  <link rel="canonical" href="https://pezeshkan.me/mag/newsletter">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  
+  <!-- Favicon & PWA Manifest -->
+  <link rel="icon" type="image/svg+xml" href="/pezeshkon-logo.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0070E0">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fa_IR">
+  <meta property="og:site_name" content="مجله سلامت پزشکآن لایف">
+  <meta property="og:title" content="خبرنامه تخصصی سلامت پزشکآن لایف">
+  <meta property="og:description" content="تحلیل‌های معتبر پزشکی، هشدارهای دارویی و مقالات علمی با تایید پزشکان متخصص.">
+  <meta property="og:url" content="https://pezeshkan.me/mag/newsletter">
+  <meta property="og:image" content="https://pezeshkan.me/favicon.svg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "صفحه اصلی",
+            "item": "https://pezeshkan.me/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "مجله سلامت پزشکآن لایف",
+            "item": "https://pezeshkan.me/mag"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "خبرنامه تخصصی سلامت",
+            "item": "https://pezeshkan.me/mag/newsletter"
+          }
+        ]
+      },
+      {
+        "@type": "Periodical",
+        "name": "هفته‌نامه بالینی پزشکآن لایف",
+        "description": "خبرنامه علمی و بالینی با هدف آگاهی‌بخشی دقیق و ارتقای سواد سلامت جامعه",
+        "publisher": {
+          "@type": "Organization",
+          "name": "اکوسیستم سلامت دیجیتال پزشکآن",
+          "url": "https://pezeshkan.me/"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+
+    // پل ارتباطی سازگار با موتور اصلی باز کردن مودال خبرنامه
+    function openEditionModal(id) {
+      return openNewsletterModal(id);
+    }
+    function closeEditionModal(e) {
+      const modal = document.getElementById('editionModal');
+      if (!modal) return;
+      if (e && e.target && e.target !== modal && !e.target.classList.contains('edition-modal-close') && !e.target.closest('.edition-modal-close')) {
+        return;
+      }
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('editionModal');
+        if (modal && modal.style.display === 'flex') {
+          modal.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+</script>
+
+  <!-- فونت استاندارد وزیرمتن -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2'),
+           url('fonts/Vazirmatn-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Medium.woff2') format('woff2'),
+           url('fonts/Vazirmatn-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-SemiBold.woff2') format('woff2'),
+           url('fonts/Vazirmatn-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Bold.woff2') format('woff2'),
+           url('fonts/Vazirmatn-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-ExtraBold.woff2') format('woff2'),
+           url('fonts/Vazirmatn-ExtraBold.woff2') format('woff2');
+      font-weight: 800;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-base: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F1F5F9;
+      --bg-elevated: #FFFFFF;
+      
+      --color-primary: #0073FF;
+      --color-primary-hover: #0056cc;
+      --color-primary-light: #EBF4FF;
+      --color-teal: #059669;
+      --color-teal-light: #ECFDF5;
+      --color-orange: #F97316;
+      --color-orange-light: #FFF7ED;
+      --color-red: #DC2626;
+      --color-red-light: #FEF2F2;
+      
+      --text-heading: #0F172A;
+      --text-body: #334155;
+      --text-secondary: #64748B;
+      --text-muted: #94A3B8;
+      
+      --border-color: #E2E8F0;
+      --border-light: #EDF2F7;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.10);
+      --shadow-card-hover: 0 14px 30px rgba(0, 115, 255, 0.14);
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      --font-main: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      font-family: var(--font-main) !important;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-body);
+      font-family: var(--font-main);
+      font-size: 15px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-primary);
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    a:hover {
+      color: var(--color-primary-hover);
+    }
+
+    .container {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* هدر مجله */
+    .main-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 20px;
+    }
+
+    .brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand-icon-box {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #0073FF 0%, #0052cc 100%);
+      color: #FFFFFF;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 14px rgba(0, 115, 255, 0.3);
+    }
+
+    .brand-title-text {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1.3;
+    }
+
+    .brand-title-text .badge {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(0, 115, 255, 0.2);
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-ui {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-subtle-outline {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-heading);
+    }
+    .btn-subtle-outline:hover {
+      background: #FFFFFF;
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .btn-primary-gradient,
+    a.btn-primary-gradient {
+      background: linear-gradient(135deg, #0073FF 0%, #0052cc 100%);
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(0, 115, 255, 0.3);
+      text-decoration: none !important;
+    }
+    .btn-primary-gradient:hover,
+    a.btn-primary-gradient:hover,
+    .btn-primary-gradient:focus,
+    a.btn-primary-gradient:focus {
+      background: linear-gradient(135deg, #1A85FF 0%, #0066FF 100%) !important;
+      color: #FFFFFF !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 115, 255, 0.55) !important;
+      text-decoration: none !important;
+    }
+    .btn-primary-gradient *,
+    a.btn-primary-gradient *,
+    .btn-primary-gradient:hover *,
+    a.btn-primary-gradient:hover * {
+      color: #FFFFFF !important;
+      stroke: #FFFFFF !important;
+    }
+
+    /* نوار مسیر ناوبری (Breadcrumb) */
+    .breadcrumb-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-light);
+      padding: 12px 0;
+      font-size: 13px;
+    }
+    .breadcrumb-list {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+    .breadcrumb-list a {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .breadcrumb-list a:hover {
+      color: var(--color-primary);
+    }
+    .breadcrumb-list .sep {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+    .breadcrumb-list .active {
+      color: var(--color-primary);
+      font-weight: 800;
+    }
+
+    /* بخش هیرو خبرنامه */
+    .newsletter-hero {
+      position: relative;
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 56px 48px;
+      margin: 36px 0 48px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .newsletter-hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 115, 255, 0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .newsletter-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      right: -10%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .newsletter-hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 115, 255, 0.2);
+      border: 1px solid rgba(0, 115, 255, 0.4);
+      color: #60A5FA;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-hero h1 {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.4;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    .newsletter-hero p {
+      font-size: 15.5px;
+      color: #CBD5E1;
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+
+    .hero-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hero-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #E2E8F0;
+    }
+
+    .hero-feature-item svg {
+      color: #34D399;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* کارت فرم عضویت در خبرنامه */
+    .newsletter-subscribe-card {
+      background: #FFFFFF;
+      color: var(--text-heading);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .newsletter-subscribe-card h3 {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--text-heading);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .newsletter-subscribe-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .form-group-item {
+      margin-bottom: 16px;
+    }
+
+    .form-group-item label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .form-control-input, .form-control-select {
+      width: 100%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text-heading);
+      transition: all 0.2s ease;
+      font-family: var(--font-main);
+    }
+
+    .form-control-input:focus, .form-control-select:focus {
+      outline: none;
+      background: #FFFFFF;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(0, 115, 255, 0.15);
+    }
+
+    .btn-subscribe-action {
+      width: 100%;
+      background: linear-gradient(135deg, #0073FF 0%, #0052cc 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 14px;
+      border-radius: var(--radius-full);
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(0, 115, 255, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .btn-subscribe-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(0, 115, 255, 0.5);
+    }
+
+    .subscribe-success-box {
+      display: none;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      color: #065F46;
+      margin-top: 16px;
+    }
+
+    .subscribe-success-box svg {
+      width: 40px;
+      height: 40px;
+      color: #059669;
+      margin-bottom: 8px;
+    }
+
+    /* بخش سربرگ سکشن‌ها */
+    .section-head-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border-light);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-head-wrap h2 {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-head-wrap p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+
+
+    /* آرشیو شماره‌های اخیر خبرنامه */
+    .issues-list-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .issue-item-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 26px 30px;
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .issue-item-card:hover {
+      border-color: rgba(0, 115, 255, 0.35);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .issue-badge-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .issue-number-badge {
+      font-size: 13.5px;
+      font-weight: 900;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(0, 115, 255, 0.25);
+    }
+
+    .issue-date {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .issue-content-col h3 {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .issue-content-col p {
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .issue-key-points {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .issue-key-tag {
+      font-size: 11.5px;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-light);
+    }
+
+    .issue-action-col {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-read-issue {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 1px solid rgba(0, 115, 255, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-read-issue:hover {
+      background: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    /* بنر اتصال به صفحه اصلی مجله */
+    .mag-return-banner {
+      background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+      border: 1px solid #7DD3FC;
+      border-radius: var(--radius-xl);
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .mag-return-banner h3 {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0369A1;
+      margin-bottom: 6px;
+    }
+
+    .mag-return-banner p {
+      font-size: 14px;
+      color: #0C4A6E;
+      line-height: 1.8;
+      max-width: 680px;
+    }
+
+    /* فوتر اپلیکیشن */
+    .main-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 48px 0 28px;
+      margin-top: 60px;
+      color: var(--text-body);
+      font-size: 13.5px;
+    }
+
+    /* ریسپانسیو موبایل */
+    @media (max-width: 900px) {
+      .newsletter-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .newsletter-hero {
+        padding: 36px 24px;
+      }
+      .newsletter-hero h1 {
+        font-size: 24px;
+      }
+      .issue-item-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px;
+      }
+      .issue-action-col {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-content {
+        height: auto;
+        padding: 14px 0;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .header-actions-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .btn-ui {
+        padding: 8px 14px;
+        font-size: 12.5px;
+      }
+      .newsletter-subscribe-card {
+        padding: 24px 18px;
+      }
+    }
+
+    /* ==========================================================================
+       استایل‌های بخش اخبار جدید بالینی و کارت‌های خبری
+       ========================================================================== */
+    .news-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 24px;
+      margin-bottom: 50px;
+    }
+
+    .medical-news-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .medical-news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+      border-color: rgba(0, 115, 255, 0.4);
+    }
+
+    .medical-news-thumb-wrap {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+      background: #0F172A;
+    }
+
+    .medical-news-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .medical-news-card:hover .medical-news-thumb-wrap img {
+      transform: scale(1.05);
+    }
+
+    .news-badge-overlay {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 229, 153, 0.45);
+      color: #00E599;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .news-badge-overlay::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #00E599;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulseLiveDot 1.5s infinite;
+    }
+
+    @keyframes pulseLiveDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.7); }
+    }
+
+    .medical-news-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .medical-news-title {
+      font-size: 16.5px;
+      font-weight: 900;
+      color: var(--text-heading);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .medical-news-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .medical-news-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-light);
+      padding-top: 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .news-author-mini {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .news-author-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      border: 1px solid #BAE6FD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    /* باکس‌های هشدار و توصیه بالینی در مدال خواندن */
+    .clinical-callout {
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 18px 0;
+      font-size: 13.5px;
+      line-height: 1.8;
+      border-right: 4px solid;
+    }
+    .clinical-callout.warning {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+    .clinical-callout.advice {
+      background: #EFF6FF;
+      border-color: #0073FF;
+      color: #1E40AF;
+    }
+    .clinical-callout.protocol {
+      background: #ECFDF5;
+      border-color: #059669;
+      color: #065F46;
+    }
+    .clinical-callout .callout-header {
+      font-weight: 800;
+      font-size: 14.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* مدال خواندن خبرنامه */
+    .newsletter-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .newsletter-modal-dialog {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      max-width: 840px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+    }
+    .newsletter-modal-head {
+      position: sticky;
+      top: 0;
+      background: #FFFFFF;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+    }
+    .newsletter-modal-body {
+      padding: 28px 26px;
+      color: var(--text-body);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .newsletter-modal-footer {
+      position: sticky;
+      bottom: 0;
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-color);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  
+    /* تگ دسته‌بندی اختصاصی خبرنامه */
+    .issue-category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0369A1;
+      background: #E0F2FE;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(2, 132, 199, 0.25);
+    }
+
+    .btn-subtle-issue {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: var(--radius-full);
+      background: #FFFFFF;
+      color: var(--color-primary);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(0, 115, 255, 0.35);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-subtle-issue:hover {
+      background: rgba(0, 115, 255, 0.08);
+      border-color: var(--color-primary);
+      color: #0056cc;
+    }
+
+    /* مودال ریدر اختصاصی شماره خبرنامه */
+    .edition-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .edition-modal-dialog {
+      background: #FFFFFF;
+      border-radius: 20px;
+      max-width: 740px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-color);
+      position: relative;
+      animation: modalFadeIn 0.22s ease-out;
+      display: flex;
+      flex-direction: column;
+    }
+    .edition-modal-dialog::-webkit-scrollbar,
+    #editionModal .edition-modal-dialog::-webkit-scrollbar,
+    .edition-modal-body::-webkit-scrollbar,
+    #modalBody::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      background: transparent !important;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .edition-modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #FFFFFF;
+      z-index: 2;
+    }
+    .edition-modal-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .edition-modal-close {
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      line-height: 1;
+      transition: all 0.15s ease;
+    }
+    .edition-modal-close:hover {
+      background: var(--bg-subtle);
+      color: var(--text-heading);
+    }
+    .edition-modal-body {
+      padding: 24px;
+      color: var(--text-body);
+      line-height: 1.85;
+      font-size: 14.5px;
+    }
+    .edition-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--bg-subtle);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    .edition-content-article a,
+    .edition-content-article .editorial-link {
+      color: #0073FF !important;
+      text-decoration: underline !important;
+      text-decoration-color: #0073FF !important;
+      text-decoration-thickness: 1.8px !important;
+      text-underline-offset: 4px !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      display: inline !important;
+      transition: all 0.2s ease !important;
+      border-radius: 4px !important;
+      padding: 1px 4px !important;
+    }
+    .edition-content-article a:hover,
+    .edition-content-article .editorial-link:hover {
+      color: #0056cc !important;
+      text-decoration-color: #0056cc !important;
+      background-color: rgba(0, 115, 255, 0.09) !important;
+    }
+    .edition-content-article [style*="text-align: center"],
+    .edition-content-article .text-center {
+      text-align: center !important;
+    }
+    .edition-content-article [style*="text-align: left"],
+    .edition-content-article .text-left {
+      text-align: left !important;
+      direction: ltr !important;
+    }
+    .edition-content-article [style*="text-align: right"],
+    .edition-content-article .text-right {
+      text-align: right !important;
+      direction: rtl !important;
+    }
+
+    /* ==========================================================================
+       SEO-Safe Editorial Content Protection (جلوگیری از کپی متن بدون آسیب به سئو)
+       ========================================================================== */
+    body,
+    article,
+    main,
+    section,
+    .article-body,
+    .article-content,
+    .edition-content-article,
+    .nl-modal-body,
+    .edition-modal-body,
+    .mag-card,
+    p, h1, h2, h3, h4, h5, h6, li, blockquote, td, th, span {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+
+    /* حفظ قابلیت تایپ و ویرایش در فیلدهای جستجو و فرم‌ها */
+    input,
+    textarea,
+    select,
+    [contenteditable="true"] {
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+      -ms-user-select: text !important;
+      user-select: text !important;
+      -webkit-touch-callout: default !important;
+    }
+
+    /* جلوگیری از کشیدن و ذخیره تصاویر مقاله */
+    img {
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
+
+    /* استایل اعلان محافظت از کپی‌رایت علمی مجله */
+    .copy-guard-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(15, 23, 42, 0.94);
+      color: #FFFFFF;
+      border: 1px solid rgba(0, 115, 255, 0.45);
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 99999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      max-width: calc(100vw - 32px);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .copy-guard-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+  
+    /* ==========================================================================
+       Lenis Inertial Smooth Scroll & Container Smoothness (اسکرول نرم سراسری مجله)
+       ========================================================================== */
+    html {
+      scroll-behavior: smooth;
+    }
+    html.lenis,
+    html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent],
+    .nl-modal-dialog,
+    .nl-modal-body,
+    .edition-modal-dialog,
+    .edition-modal-body,
+    .mobile-drawer-panel,
+    .mobile-drawer-body {
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+
+    /* ==========================================================================
+       PEZESHK-ON Brand System, Vital Grid Day/Night Theme, Glass Level 1-4 & Signal DNA
+       ========================================================================== */
+    :root,
+    [data-theme="light"] {
+      --bg-base: #F2FAFA;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #E6F4F4;
+      --bg-elevated: #FFFFFF;
+
+      --signal-cyan: #06B6D4;
+      --signal-green: #10B981;
+      --signal-amber: #F59E0B;
+      --signal-red: #EF4444;
+
+      --glass-level-1-bg: rgba(255, 255, 255, 0.88);
+      --glass-level-2-bg: rgba(255, 255, 255, 0.94);
+      --glass-level-3-bg: rgba(255, 255, 255, 0.97);
+      --glass-level-4-bg: rgba(255, 255, 255, 0.99);
+      --vital-grid-line: rgba(13, 148, 136, 0.045);
+    }
+
+    [data-theme="dark"] {
+      --bg-base: #060A12;
+      --bg-surface: #0B111E;
+      --bg-subtle: #0F172A;
+      --bg-elevated: #131C2E;
+
+      --color-primary: #22D3EE;
+      --color-primary-hover: #06B6D4;
+      --color-primary-light: rgba(6, 182, 212, 0.14);
+      --color-teal: #10B981;
+      --color-teal-light: rgba(16, 185, 129, 0.14);
+      --color-orange: #F59E0B;
+      --color-orange-light: rgba(245, 158, 11, 0.14);
+      --color-red: #EF4444;
+      --color-red-light: rgba(239, 68, 68, 0.14);
+
+      --text-heading: #F8FAFC;
+      --text-body: #CBD5E1;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --border-color: rgba(148, 163, 184, 0.16);
+      --border-light: rgba(148, 163, 184, 0.10);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.60);
+      --shadow-card-hover: 0 14px 32px rgba(6, 182, 212, 0.16);
+
+      --glass-level-1-bg: rgba(11, 17, 30, 0.82);
+      --glass-level-2-bg: rgba(15, 23, 42, 0.88);
+      --glass-level-3-bg: rgba(15, 23, 42, 0.94);
+      --glass-level-4-bg: rgba(19, 28, 46, 0.97);
+      --vital-grid-line: rgba(34, 211, 238, 0.035);
+    }
+
+    body {
+      background-color: var(--bg-base) !important;
+      background-image:
+        linear-gradient(to right, var(--vital-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--vital-grid-line) 1px, transparent 1px) !important;
+      background-size: 28px 28px !important;
+      color: var(--text-body) !important;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Tabular Numerals Enforcement */
+    .tabular-nums,
+    .badge,
+    .mobile-cat-trigger-badge,
+    .issue-number-badge,
+    .issue-date,
+    .hero-meta-row,
+    .secondary-meta-text,
+    .editorial-meta-footer,
+    .medical-news-meta,
+    #dropCatCountBadge,
+    .stat-num {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+    }
+
+    /* Brand Logo & Status Beacon in Magazine Header */
+    .brand-icon-box.pezeshkon-emblem-box {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
+      border: 1px solid rgba(6, 182, 212, 0.28) !important;
+      padding: 4px !important;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.14) !important;
+    }
+    .brand-emblem-img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      display: block;
+    }
+    .brand-en-tag {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #0891B2;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.28);
+      padding: 1px 7px;
+      border-radius: 999px;
+      margin-right: 4px;
+    }
+    [data-theme="dark"] .brand-en-tag {
+      color: #22D3EE;
+      background: rgba(34, 211, 238, 0.14);
+      border-color: rgba(34, 211, 238, 0.3);
+    }
+
+    .status-beacon {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.10);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      font-size: 11px;
+      font-weight: 800;
+      color: #059669;
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .status-beacon {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #34D399;
+    }
+    .status-beacon-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
+      animation: magVitalPulse 2.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes magVitalPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.22); opacity: 0.65; }
+    }
+
+    /* Day / Night Switch Button in Magazine Header */
+    .mag-theme-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      padding: 3px;
+      cursor: pointer;
+      color: var(--text-heading);
+      font-size: 11.5px;
+      font-weight: 800;
+      transition: all 0.2s ease;
+    }
+    .mag-theme-switch:hover {
+      border-color: var(--signal-cyan);
+    }
+    .mag-theme-switch .switch-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 9px;
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+      color: var(--text-secondary);
+    }
+    html:not([data-theme="dark"]) .mag-theme-switch .switch-pill-day {
+      background: #FFFFFF;
+      color: #0F172A;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+    }
+    [data-theme="dark"] .mag-theme-switch .switch-pill-night {
+      background: #1E293B;
+      color: #22D3EE;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Vital Section Divider (20% Vital Signal DNA - Clinical Capsule & Gradient Line) */
+    .vital-section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 34px 0 38px;
+      width: 100%;
+      user-select: none;
+    }
+    .vital-section-divider .vital-line {
+      flex: 1;
+      height: 2px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.04) 0%, rgba(6, 182, 212, 0.48) 50%, rgba(16, 185, 129, 0.55) 100%);
+    }
+    .vital-section-divider .vital-line:last-child {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.55) 0%, rgba(6, 182, 212, 0.48) 50%, rgba(6, 182, 212, 0.04) 100%);
+    }
+    .vital-section-divider .vital-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      background: var(--bg-surface);
+      border: 1.5px solid rgba(6, 182, 212, 0.32);
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-heading);
+      box-shadow: 0 6px 18px -6px rgba(6, 182, 212, 0.16), 0 0 0 3px rgba(6, 182, 212, 0.06);
+      white-space: nowrap;
+      max-width: 100%;
+    }
+    [data-theme="dark"] .vital-section-divider .vital-tag {
+      background: rgba(15, 23, 42, 0.92);
+      border-color: rgba(34, 211, 238, 0.35);
+      box-shadow: 0 8px 22px -6px rgba(0, 0, 0, 0.55), 0 0 0 3px rgba(34, 211, 238, 0.08);
+    }
+    .vital-section-divider .signal-node-code {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 9px;
+      border-radius: 9999px;
+      background: rgba(6, 182, 212, 0.12);
+      color: #0891B2;
+      border: 1px solid rgba(6, 182, 212, 0.24);
+    }
+    [data-theme="dark"] .vital-section-divider .signal-node-code {
+      background: rgba(34, 211, 238, 0.15);
+      color: #22D3EE;
+      border-color: rgba(34, 211, 238, 0.3);
+    }
+    .vital-section-divider .signal-node-code--green {
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    [data-theme="dark"] .vital-section-divider .signal-node-code--green {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34D399;
+      border-color: rgba(16, 185, 129, 0.32);
+    }
+    .signal-node {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+      background: var(--signal-cyan);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.22);
+    }
+    .signal-node--green {
+      background: var(--signal-green);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
+    }
+    .signal-node--amber {
+      background: var(--signal-amber);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22);
+    }
+    .signal-node--red {
+      background: var(--signal-red);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.22);
+    }
+    @media (max-width: 768px) {
+      .vital-section-divider {
+        gap: 10px;
+        margin: 26px 0 28px;
+      }
+      .vital-section-divider .vital-line {
+        min-width: 18px;
+      }
+      .vital-section-divider .vital-tag {
+        padding: 6px 12px;
+        font-size: 11.5px;
+        gap: 7px;
+        white-space: normal;
+        text-align: center;
+      }
+      .vital-section-divider .signal-node-code {
+        display: none;
+      }
+    }
+
+    /* Dark Mode Overrides for Magazine Surfaces */
+    [data-theme="dark"] .main-header {
+      background: var(--glass-level-3-bg) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: var(--border-color) !important;
+    }
+    [data-theme="dark"] .category-navbar,
+    [data-theme="dark"] .breadcrumb-nav {
+      background: var(--glass-level-2-bg) !important;
+      border-bottom-color: var(--border-color) !important;
+    }
+    [data-theme="dark"] .search-input-box input {
+      background: var(--bg-subtle) !important;
+      color: var(--text-heading) !important;
+      border-color: var(--border-color) !important;
+    }
+    [data-theme="dark"] .search-flyout-palette,
+    [data-theme="dark"] .navbar-floating-dropdown,
+    [data-theme="dark"] .mega-modal-box,
+    [data-theme="dark"] .mobile-cat-drawer-panel,
+    [data-theme="dark"] .drawer-body-box,
+    [data-theme="dark"] .home-newsletter-modal-dialog,
+    [data-theme="dark"] .newsletter-modal-dialog,
+    [data-theme="dark"] .edition-modal-dialog,
+    [data-theme="dark"] .newsletter-modal-head,
+    [data-theme="dark"] .edition-modal-header {
+      background: var(--bg-surface) !important;
+      color: var(--text-body) !important;
+      border-color: var(--border-color) !important;
+    }
+    [data-theme="dark"] .clinical-trust-strip,
+    [data-theme="dark"] .trust-strip-item,
+    [data-theme="dark"] .category-hub-card,
+    [data-theme="dark"] .editorial-card,
+    [data-theme="dark"] .hero-secondary-card,
+    [data-theme="dark"] .reader-article-box,
+    [data-theme="dark"] .reader-sidebar-card,
+    [data-theme="dark"] .newsletter-subscribe-card,
+    [data-theme="dark"] .issue-item-card,
+    [data-theme="dark"] .medical-news-card,
+    [data-theme="dark"] .main-footer,
+    [data-theme="dark"] .footer-trust-banner,
+    [data-theme="dark"] .footer-disclaimer-card {
+      background: var(--bg-surface) !important;
+      color: var(--text-body) !important;
+      border-color: var(--border-color) !important;
+    }
+    [data-theme="dark"] .mag-return-banner {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.14) 0%, rgba(15, 23, 42, 0.92) 100%) !important;
+      border-color: rgba(34, 211, 238, 0.28) !important;
+    }
+    [data-theme="dark"] .mag-return-banner h3 {
+      color: #22D3EE !important;
+    }
+    [data-theme="dark"] .mag-return-banner p {
+      color: #CBD5E1 !important;
+    }
+    [data-theme="dark"] .category-separation-alert {
+      background: rgba(16, 185, 129, 0.10) !important;
+      border-color: rgba(16, 185, 129, 0.30) !important;
+    }
+    [data-theme="dark"] .category-separation-alert strong {
+      color: #34D399 !important;
+    }
+    [data-theme="dark"] .category-separation-alert span {
+      color: #CBD5E1 !important;
+    }
+    [data-theme="dark"] .btn-subtle-issue,
+    [data-theme="dark"] .btn-subtle-outline,
+    [data-theme="dark"] .nav-pill-item:not(.active),
+    [data-theme="dark"] .mobile-cat-hamburger-trigger,
+    [data-theme="dark"] .mobile-drawer-close-btn,
+    [data-theme="dark"] .mobile-cat-accordion-header,
+    [data-theme="dark"] .mobile-drawer-special-link {
+      background: var(--bg-subtle) !important;
+      color: var(--text-body) !important;
+      border-color: var(--border-color) !important;
+    }
+    [data-theme="dark"] .form-control-input,
+    [data-theme="dark"] .form-control-select {
+      background: var(--bg-subtle) !important;
+      color: var(--text-heading) !important;
+      border-color: var(--border-color) !important;
+    }
+    [data-theme="dark"] .subscribe-success-box {
+      background: rgba(16, 185, 129, 0.12) !important;
+      border-color: rgba(16, 185, 129, 0.32) !important;
+    }
+    [data-theme="dark"] .clinical-callout.advice {
+      background: rgba(16, 185, 129, 0.10) !important;
+    }
+    [data-theme="dark"] .clinical-callout.protocol {
+      background: rgba(6, 182, 212, 0.10) !important;
+    }
+    [data-theme="dark"] .clinical-callout.warning {
+      background: rgba(245, 158, 11, 0.10) !important;
+    }
+
+    @media (max-width: 900px) {
+      .status-beacon-label {
+        display: none;
+      }
+      .status-beacon {
+        padding: 5px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+
+    @media (max-width: 640px) {
+      .vital-section-divider {
+        gap: 8px !important;
+        margin: 20px 0 24px !important;
+      }
+      .vital-section-divider .vital-tag {
+        padding: 5px 12px !important;
+        font-size: 11px !important;
+        max-width: calc(100% - 40px) !important;
+        text-align: center !important;
+        line-height: 1.45 !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- هدر اصلی مجله سلامت -->
+  <header class="main-header">
+    <div class="container header-content">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="/mag" class="brand-logo-wrap" title="بازگشت به صفحه اصلی مجله سلامت پزشکآن">
+          <div class="brand-icon-box pezeshkon-emblem-box">
+            <img src="/pezeshkon-logo.svg" alt="لوگوی پزشکآن - PEZESHK-ON" class="brand-emblem-img" width="34" height="34">
+          </div>
+          <div>
+            <div class="brand-title-text">
+              مجله سلامت پزشکآن
+              <span class="badge">لایف</span>
+              <span class="brand-en-tag">PEZESHK-ON</span>
+            </div>
+            <div class="brand-subtitle">دانشنامه و راهنمای تخصصی پزشکی بالینی</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- دکمه‌های ناوبری هدر -->
+      <div class="header-actions-group">
+        <button type="button" id="themeToggleBtn" class="mag-theme-switch" onclick="toggleMagTheme()" aria-label="تغییر حالت نمایش روز و شب" title="تغییر حالت نمایش روز و شب">
+          <span class="switch-pill switch-pill-day">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+            <span>روز</span>
+          </span>
+          <span class="switch-pill switch-pill-night">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            <span>شب</span>
+          </span>
+        </button>
+        <a href="/mag" class="btn-ui btn-subtle-outline" title="صفحه اصلی مجله سلامت">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>صفحه اصلی مجله</span>
+        </a>
+        <a href="/" class="btn-ui btn-subtle-outline" title="بازگشت به پلتفرم اصلی پزشکآن">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>
+          </svg>
+          <span>سایت اصلی پزشکآن</span>
+        </a>
+        <a href="/mag#booking" class="btn-ui btn-primary-gradient" title="نوبت‌دهی آنلاین با پزشکان متخصص">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 2v3m8-3v3"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/>
+          </svg>
+          <span>نوبت‌دهی آنلاین</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- مسیر راهنما (Breadcrumb) -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <div class="container">
+      <ul class="breadcrumb-list">
+        <li><a href="/">صفحه اصلی پزشکآن</a></li>
+        <li class="sep">/</li>
+        <li><a href="/mag">مجله سلامت پزشکآن لایف</a></li>
+        <li class="sep">/</li>
+        <li class="active">خبرنامه تخصصی سلامت (Pezeshkan Medical Digest)</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- کانتینر اصلی -->
+  <main class="container">
+
+    <!-- بخش هیرو معرفی خبرنامه و فرم اشتراک -->
+    <section class="newsletter-hero">
+      <div class="newsletter-hero-grid">
+        <div>
+          <span class="hero-badge-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>هفته‌نامه بالینی پزشکآن لایف • شماره ۵۲</span>
+          </span>
+          <h1>خبرنامه تخصصی سلامت و تحلیل‌های بالینی</h1>
+          <p>
+            خلاصه تازه‌ترین دستاوردهای پزشکی بالینی، هشدارهای دارویی سازمان غذا و دارو (FDA)، تحلیل پرونده‌های پیچیده بالینی و پاسخ‌های موثق پزشکان متخصص هر سه‌شنبه مستقیماً در صندوق ایمیل شما.
+          </p>
+
+          <div class="hero-features-list">
+            <div class="hero-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>بازبینی و صحه‌گذاری ۱۰۰٪ مقالات توسط پزشکان دارای نظام پزشکی</span>
+            </div>
+            <div class="hero-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>ارسال خلاصه‌های ۵ دقیقه‌ای، کاربردی و بدون اصطلاحات پیچیده</span>
+            </div>
+            <div class="hero-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>لینک مستقیم به نوبت‌دهی آنلاین و مشاوره با نویسنده هر مقاله</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- کارت فرم ثبت‌نام زنده -->
+        <div class="newsletter-subscribe-card">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0073FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>عضویت رایگان در خبرنامه</span>
+          </h3>
+          <p>ایمیل خود را وارد نمایید تا اولین شماره سه‌شنبه آینده برای شما ارسال شود.</p>
+
+          <form id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+            <div class="form-group-item">
+              <label for="subscriberEmail">پست الکترونیک (ایمیل) *</label>
+              <input type="email" id="subscriberEmail" class="form-control-input" placeholder="example@domain.com" required dir="ltr">
+            </div>
+
+            <div class="form-group-item">
+              <label for="subscriberName">نام و نام خانوادگی (اختیاری)</label>
+              <input type="text" id="subscriberName" class="form-control-input" placeholder="مثال: علیرضا سلیمانی یا مریم حسینی">
+            </div>
+
+            <div class="form-group-item">
+              <label for="subscriberCategory">حوزه پزشکی مورد علاقه</label>
+              <select id="subscriberCategory" class="form-control-select">
+                <option value="all">همه موضوعات سلامت و هشدارهای درمانی</option>
+                <option value="spine">درد، ستون فقرات و توانبخشی</option>
+                <option value="maternity">سلامت زنان، بارداری و زایمان</option>
+                <option value="cardio">قلب، عروق، دیابت و غدد</option>
+                <option value="lab">چکاپ و تفسیر آزمایش‌های خون</option>
+                <option value="emergency">تریاژ علائم اورژانسی</option>
+                <option value="surgery">جراحی‌های چاقی و لاپاراسکوپی</option>
+                <option value="skin">پوست، مو و زیبایی</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-subscribe-action" id="subscribeBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span>عضویت در خبرنامه هفتگی</span>
+            </button>
+          </form>
+
+          <div id="subscribeSuccessBox" class="subscribe-success-box">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h4 style="font-weight:900; margin-bottom:6px; font-size:16px;">عضویت شما با موفقیت ثبت گردید!</h4>
+            <p style="font-size:13px; line-height:1.7;">
+              سپاس از همراهی شما. یک ایمیل تایید به همراه نسخه شماره ۵۲ خبرنامه برای شما ارسال شد.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <div class="vital-section-divider" aria-hidden="true">
+      <span class="vital-line"></span>
+      <span class="vital-tag">
+        <span class="signal-node"></span>
+        <span>آرشیو شماره‌های رسمی هفته‌نامه و گزارش‌های بالینی</span>
+        <span class="signal-node-code">نشریه پزشکی</span>
+      </span>
+      <span class="vital-line"></span>
+    </div>
+    <!-- بخش آرشیو شماره‌های اخیر خبرنامه -->
+    <section>
+      <div class="section-head-wrap">
+        <div>
+          <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0073FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span>آرشیو شماره‌های منتشرشده خبرنامه بالینی</span>
+          </h2>
+          <p>مرور و مطالعه شماره‌های پیشین هفته‌نامه بالینی پزشکآن لایف:</p>
+        </div>
+      </div>
+
+      <!-- اطلاع‌رسانی دسته‌بندی مستقل خبرنامه در مجله سلامت -->
+      <div class="category-separation-alert" style="background:#F0FDF4; border:1px solid #86EFAC; border-radius:14px; padding:18px 24px; margin-bottom:28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; box-shadow:0 4px 12px rgba(22,163,74,0.06);">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <span style="font-size:28px; line-height:1;"><svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#16A34A' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2'/><path d='M18 14h-8'/><path d='M15 18h-5'/><path d='M10 6h8v4h-8V6Z'/></svg></span>
+          <div>
+            <strong style="color:#166534; font-size:15px; display:block; margin-bottom:4px;">دسته‌بندی اختصاصی خبرنامه‌ها در مجله سلامت فعال شد</strong>
+            <span style="color:#15803D; font-size:13px; line-height:1.7; display:block;">تمامی شماره‌ها و مقالات خبرنامه در دسته‌بندی مجزای «خبرنامه و ویژه‌نامه‌های سلامت» قرار دارند و دیگر با سایر دپارتمان‌های بالینی مجله تداخل ندارند.</span>
+          </div>
+        </div>
+        <a href="/mag?cat=newsletter" class="btn-ui" style="background:#16A34A; color:#FFFFFF; font-size:13px; padding:10px 20px; border-radius:10px; text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:8px; white-space:nowrap;">
+          <span>مشاهده دسته‌بندی خبرنامه در مجله</span> ↗
+        </a>
+      </div>
+
+      <div class="issues-list-wrap" id="newsletterIssuesListWrap">
+        
+        <!-- شماره ۵۲ -->
+        <div class="issue-item-card">
+          <div class="issue-badge-col">
+            <span class="issue-number-badge">شماره ۵۲</span>
+            <span class="issue-date">سه‌شنبه گذشته</span>
+          </div>
+          <div class="issue-content-col">
+            <div class="issue-category-tag">دسته‌بندی: خبرنامه و ویژه‌نامه‌های سلامت</div>
+            <h3>دیده‌بان پزشکی بازساختی و طب تسکینی: اگزوزوم‌ها، پی‌آر‌پی و رویکردهای نوین مهار درد بدون بیهوشی</h3>
+            <p>
+              تحلیل بالینی درمان‌های بیولوژیک در آرتروز مفاصل و دیسکوپاتی، مقایسه پلاسمای غنی از پلاکت با فاکتورهای رشد سلولی و الزامات توانبخشی حرکتی.
+            </p>
+            <div class="issue-key-points">
+              <span class="issue-key-tag">پزشکی بازساختی و اگزوزوم</span>
+              <span class="issue-key-tag">تزریقات مفصلی PRP</span>
+              <span class="issue-key-tag">تیم متخصص محتوا نویس پزشکآن</span>
+            </div>
+          </div>
+          <div class="issue-action-col" style="flex-wrap:wrap; gap:10px;">
+            <button type="button" class="btn-read-issue" onclick="openNewsletterModal('issue-52')" style="cursor:pointer;">
+              <span>مطالعه نسخه کامل خبرنامه</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </button>
+            <a href="/mag?article=newsletter-issue-52" class="btn-subtle-issue">
+              <span>مشاهده در دسته‌بندی خبرنامه</span> ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- شماره ۵۱ -->
+        <div class="issue-item-card">
+          <div class="issue-badge-col">
+            <span class="issue-number-badge">شماره ۵۱</span>
+            <span class="issue-date">دو هفته قبل</span>
+          </div>
+          <div class="issue-content-col">
+            <div class="issue-category-tag">دسته‌بندی: خبرنامه و ویژه‌نامه‌های سلامت</div>
+            <h3>دیده‌بان سلامت متابولیک: انقلاب آگونیست‌های GLP-1، محافظت چندارگانی قلب و کلیه و بازتعریف راهنماهای دیابت ۲۰۲۶</h3>
+            <p>
+              تحلیل جامع کارآزمایی‌های بالینی سماگلوتاید و تیرزپاتاید، محافظت اندام هدف در نارسایی قلبی و کلیوی و استانداردهای پایش پیوسته گلوکز (CGM).
+            </p>
+            <div class="issue-key-points">
+              <span class="issue-key-tag">آگونیست‌های GLP-1</span>
+              <span class="issue-key-tag">محافظت کاردیورنال</span>
+              <span class="issue-key-tag">تیم متخصص محتوا نویس پزشکآن</span>
+            </div>
+          </div>
+          <div class="issue-action-col" style="flex-wrap:wrap; gap:10px;">
+            <button type="button" class="btn-read-issue" onclick="openNewsletterModal('issue-51')" style="cursor:pointer;">
+              <span>مطالعه نسخه کامل خبرنامه</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </button>
+            <a href="/mag?article=newsletter-issue-51" class="btn-subtle-issue">
+              <span>مشاهده در دسته‌بندی خبرنامه</span> ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- شماره ۵۰ -->
+        <div class="issue-item-card">
+          <div class="issue-badge-col">
+            <span class="issue-number-badge">شماره ۵۰</span>
+            <span class="issue-date">سه هفته قبل</span>
+          </div>
+          <div class="issue-content-col">
+            <div class="issue-category-tag">دسته‌بندی: خبرنامه و ویژه‌نامه‌های سلامت</div>
+            <h3>دیده‌بان فوریت‌های قلب و عروق: راهنمای تریاژ دردهای حاد قفسه سینه، امتیازدهی HEART و الگوریتم ساعات طلایی نجات</h3>
+            <p>
+              پروتکل اورژانس افتراق سندرم کرونری حاد از دردهای گوارشی و عضلانی اسکلتی، اهمیت تریاژ پیش‌بیمارستانی و پایش نشانگرهای تروپونین فوق‌حساس.
+            </p>
+            <div class="issue-key-points">
+              <span class="issue-key-tag">تریاژ حاد قلبی</span>
+              <span class="issue-key-tag">امتیاز HEART</span>
+              <span class="issue-key-tag">تیم متخصص محتوا نویس پزشکآن</span>
+            </div>
+          </div>
+          <div class="issue-action-col" style="flex-wrap:wrap; gap:10px;">
+            <button type="button" class="btn-read-issue" onclick="openNewsletterModal('issue-50')" style="cursor:pointer;">
+              <span>مطالعه نسخه کامل خبرنامه</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </button>
+            <a href="/mag?article=newsletter-issue-50" class="btn-subtle-issue">
+              <span>مشاهده در دسته‌بندی خبرنامه</span> ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- شماره ۴۹ -->
+        <div class="issue-item-card">
+          <div class="issue-badge-col">
+            <span class="issue-number-badge">شماره ۴۹</span>
+            <span class="issue-date">یک ماه قبل</span>
+          </div>
+          <div class="issue-content-col">
+            <div class="issue-category-tag">دسته‌بندی: خبرنامه و ویژه‌نامه‌های سلامت</div>
+            <h3>دیده‌بان سلامت مادر، جنین و ژنتیک: جهش‌های غربالگری دوران بارداری؛ از تست سل‌فری (NIPT) تا پایش شریان رحمی</h3>
+            <p>
+              راهنمای جامع پریناتولوژی برای غربالگری ناهنجاری‌های کروموزومی، سونوگرافی داپلر شریان رحمی در پیشگیری از پره‌اکلامپسی و نشانگرهای بیوشیمیایی سه‌ماهه اول.
+            </p>
+            <div class="issue-key-points">
+              <span class="issue-key-tag">تست NIPT سل‌فری</span>
+              <span class="issue-key-tag">داپلر شریان رحمی</span>
+              <span class="issue-key-tag">تیم متخصص محتوا نویس پزشکآن</span>
+            </div>
+          </div>
+          <div class="issue-action-col" style="flex-wrap:wrap; gap:10px;">
+            <button type="button" class="btn-read-issue" onclick="openNewsletterModal('issue-49')" style="cursor:pointer;">
+              <span>مطالعه نسخه کامل خبرنامه</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </button>
+            <a href="/mag?article=newsletter-issue-49" class="btn-subtle-issue">
+              <span>مشاهده در دسته‌بندی خبرنامه</span> ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="vital-section-divider" aria-hidden="true">
+      <span class="vital-line"></span>
+      <span class="vital-tag">
+        <span class="signal-node signal-node--green"></span>
+        <span>دیده‌بان تازه‌ترین دستاوردها و هشدارهای دارویی</span>
+        <span class="signal-node-code signal-node-code--green">اخبار سلامت</span>
+      </span>
+      <span class="vital-line"></span>
+    </div>
+    <!-- بخش تازه‌ترین اخبار و دستاوردهای پزشکی بالینی -->
+    <section class="latest-news-section" id="latest-medical-news-section">
+      <div class="section-head-wrap">
+        <div>
+          <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0073FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+            <span>تازه‌ترین اخبار و دستاوردهای پزشکی بالینی</span>
+          </h2>
+          <p>آخرین رویدادهای سلامت، هشدارهای دارویی جدید و گزارش‌های پژوهشی مجله پزشکآن لایف:</p>
+        </div>
+        <a href="/mag" class="btn-ui btn-subtle-outline" style="font-size:12.5px;">
+          <span>مشاهده تمامی اخبار و مقالات در مجله</span> ↗
+        </a>
+      </div>
+
+      <div class="news-grid-cards" id="latestNewsCardsGrid">
+        <div style="text-align: center; padding: 30px; color: var(--text-muted); grid-column: 1 / -1;">
+          در حال بارگذاری تازه‌ترین اخبار پزشکی...
+        </div>
+      </div>
+    </section>
+
+    <!-- بنر اتصال به صفحه اصلی مجله سلامت -->
+    <section class="mag-return-banner">
+      <div>
+        <h3>می‌خواهید تمام مقالات و دپارتمان‌های مجله سلامت را مرور کنید؟</h3>
+        <p>
+          در دانشنامه جامع پزشکآن لایف به صدها مقاله تاییدشده در زمینه‌های دیسک کمر، بارداری، قلب، لاپاراسکوپی چاقی و اطلاعات دارویی دسترسی مستقیم دارید.
+        </p>
+      </div>
+      <a href="/mag" class="btn-ui btn-primary-gradient" style="padding:12px 24px; font-size:14px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>ورود به صفحه اصلی مجله سلامت</span>
+      </a>
+    </section>
+
+  </main>
+
+  
+  <!-- فوتر رسمی و معتبر مجله و خبرنامه سلامت پزشکآن -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-trust-banner" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:20px; padding:22px 24px; background:#F8FAFC; border:1px solid var(--border-color); border-radius:var(--radius-lg); margin-bottom:36px;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="width:44px; height:44px; border-radius:12px; background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center; font-size:20px; border:1px solid rgba(0,115,255,0.15);"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg></div>
+          <div>
+            <div style="font-size:13.5px; font-weight:800; color:var(--text-heading); margin-bottom:3px;">هفته‌نامه تخصصی و بالینی</div>
+            <p style="font-size:11.5px; color:var(--text-secondary); line-height:1.6; margin:0;">بررسی عمیق پرونده‌های بیمارستانی و پروتکل‌های سلامت</p>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="width:44px; height:44px; border-radius:12px; background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center; font-size:20px; border:1px solid rgba(0,115,255,0.15);"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'/><path d='m9 12 2 2 4-4'/></svg></div>
+          <div>
+            <div style="font-size:13.5px; font-weight:800; color:var(--text-heading); margin-bottom:3px;">اشتراک کاملاً رایگان</div>
+            <p style="font-size:11.5px; color:var(--text-secondary); line-height:1.6; margin:0;">ارسال منظم هشدارهای دارویی و خلاصه‌های هفتگی به ایمیل شما</p>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="width:44px; height:44px; border-radius:12px; background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center; font-size:20px; border:1px solid rgba(0,115,255,0.15);"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M7 18v-6a5 5 0 1 1 10 0v6'/><path d='M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z'/><path d='M12 2v1'/><path d='m4.93 4.93.7.7'/><path d='M2 12h1'/><path d='M21 12h1'/><path d='m19.07 4.93-.7.7'/></svg></div>
+          <div>
+            <div style="font-size:13.5px; font-weight:800; color:var(--text-heading); margin-bottom:3px;">فوریت‌های پزشکی</div>
+            <p style="font-size:11.5px; color:var(--text-secondary); line-height:1.6; margin:0;">در صورت بروز درد شدید قفسه سینه یا علائم حاد با ۱۱۵ تماس بگیرید.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap:32px; margin-bottom:36px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <img src="/pezeshkon-logo.svg" alt="لوگوی پزشکآن - PEZESHK-ON" width="34" height="34" style="object-fit:contain;">
+            <h4 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">مجله و خبرنامه سلامت پزشکآن (PEZESHK-ON)</h4>
+          </div>
+          <p style="line-height:1.8; color:var(--text-body); font-size:13px;">
+            اکوسیستم جامع سلامت دیجیتال و پرونده الکترونیک پزشکی. تمامی شماره‌ها و مقالات توسط تیم متخصص محتوا نویس پزشکآن با بالاترین استانداردهای راستی‌آزمایی علمی تدوین می‌گردد.
+          </p>
+        </div>
+        <div>
+          <h4 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">دسترسی سریع</h4>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:10px; padding:0;">
+            <li><a href="/mag" style="color:var(--text-body); font-size:13px; text-decoration:none;">› صفحه اصلی مجله سلامت</a></li>
+            <li><a href="/mag/newsletter" style="color:var(--color-primary); font-weight:700; font-size:13px; text-decoration:none;">› آرشیو کامل شماره‌های خبرنامه</a></li>
+            <li><a href="/mag/newsletter#newsletterForm" style="color:var(--text-body); font-size:13px; text-decoration:none;">› عضویت در خبرنامه هفتگی</a></li>
+            <li><a href="/" style="color:var(--text-body); font-size:13px; text-decoration:none;">› بازگشت به پلتفرم اصلی پزشکآن ↗</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">سلب مسئولیت پزشکی</h4>
+          <p style="line-height:1.8; color:var(--text-secondary); font-size:12.5px;">
+            مطالب و تحلیل‌های ارائه شده در این نشریه صرفاً جنبه آموزشی و آگاهی‌بخشی دارد و هرگز نباید به عنوان توصیه، تشخیص یا درمان مستقل بالینی تلقی گردد.
+          </p>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border-color); padding-top:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:12.5px; color:var(--text-secondary);">
+        <span>© ۱۴۰۵ تمامی حقوق متعلق به اکوسیستم سلامت دیجیتال پزشکآن است.</span>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <a href="/mag" style="color:var(--color-primary); font-weight:700; text-decoration:none;">ورود به مجله سلامت بالینی</a>
+          <span>&bull;</span>
+          <a href="/" style="color:var(--text-secondary); text-decoration:none;">سایت اصلی پزشکآن ↗</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="/lenis.min.js"></script>
+  <script>
+    // حافظه محلی کش خبرنامه‌ها جهت رندر سریع و آفلاین
+    const FALLBACK_NEWSLETTERS = [{"id": "issue-52", "issueNumber": "شماره ۵۲", "title": "دیده‌بان پزشکی بازساختی و طب تسکینی: اگزوزوم‌ها، پی‌آر‌پی و رویکردهای نوین مهار درد بدون بیهوشی", "summary": "ویژه‌نامه تحریریه بالینی در ارزیابی شواهد مستند بیوتکنولوژی بازساختی، تفکیک ادعاهای تجاری از واقعیت‌های سلول‌درمانی در ستون فقرات و مفاصل، و راهنمای تریاژ بیماران کاندید روش‌های کمتر تهاجمی.", "publishDate": "۱۴ مهر ۱۴۰۵", "readTime": "۶ دقیقه مطالعه", "status": "published", "doctor": "تیم متخصص محتوا نویس پزشکآن", "doctorId": "pezeshkan-editorial-team", "doctorSpecialty": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن", "category": "خبرنامه و ویژه‌نامه‌های سلامت", "tags": ["دیده‌بان پزشکی بازساختی", "سلول‌درمانی و اگزوزوم", "تریاژ دیسک و مفاصل", "پرچم‌های قرمز بالینی", "سرمقاله ۵۲"], "heroImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80", "heroAlt": "ویژه‌نامه تحریریه پزشکآن - پزشکی بازساختی و کنترل دردهای اسکلتی عضلانی", "articleSlug": "newsletter-issue-52", "focusKeyword": "خبرنامه پزشکی بازساختی و طب تسکینی", "metaTitle": "خبرنامه شماره ۵۲ | دیده‌بان پزشکی بازساختی و مهار دردهای اسکلتی عضلانی", "metaDescription": "ویژه‌نامه تخصصی تحریریه پزشکآن در بررسی سلول‌درمانی، اگزوزوم‌ها، پی‌آر‌پی و الگوریتم‌های تریاژ دردهای ستون فقرات و مفاصل.", "rawHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(0,115,255,0.08) 0%, rgba(5,150,105,0.05) 100%); border:1px solid rgba(0,115,255,0.2); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:var(--brand-primary); letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:var(--brand-primary); color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۵۲</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: گذار از درمان‌های انفعالی به بیوتکنولوژی بازساختی</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    طبابت اسکلتی-عضلانی در سال ۲۰۲۶ وارد مرحله نوینی از شخصی‌سازی درمان شده است. امروزه هدف ما تنها تسکین موقت درد با داروهای ضدالتهاب غیراستروئیدی (NSAIDs) نیست؛ بلکه با تلفیق فاکتورهای رشد اتولوگ، وزیکول‌های برون‌سلولی (اگزوزوم‌ها) و توانبخشی مکانیکی هدایت‌شده، سیر فرسایش غضروفی را کند کرده و تا حد امکان نیاز به جراحی‌های باز سنگین با بیهوشی عمومی را به تعویق می‌اندازیم.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۵۲ (Fast-Track Takeaways)</h3>\n<p>یافته‌های کلیدی این شماره بر اساس مرور ۱۲ کارآزمایی بالینی تصادفی (RCT) در سال‌های ۲۰۲۴ تا ۲۰۲۶:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>اثربخشی پی‌آر‌پی لکوسیت-پور (LP-PRP):</strong> در آرتروز گرید ۲ و ۳ زانو، کاهش درد پایدار تا ۱۲ ماه در مقایسه با تزریق اسید هیالورونیک گزارش شده است.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>اگزوزوم‌ها به عنوان پیام‌رسان‌های بیولوژیک:</strong> پتانسیل بالای وزیکول‌های مشتق از سلول‌های بنیادی مزانشیمی در مهار سایتوکاین‌های مخرب IL-1β و ماتریکس متالوپروتئینازها (MMP-13).</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>هم‌افزایی تکارتراپی RF و شاک‌ویو فوکوس:</strong> ترکیب امواج دیاترمی عمقی با تحریک مکانیکی امواج ضربه‌ای، دوره ریکاوری اسپاسم‌های مزمن کمری را تا ۴۰ درصد کوتاه‌تر می‌کند.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout warning\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg> جعبه پرچم‌های قرمز (Red Flags) - معیارهای ارجاع فوری به جراحی باز</div>\n  <div>\n    پزشکان و بیماران محترم توجه فرمایند: روش‌های بازساختی و طب فیزیکی در صورت وجود علائم زیر <strong>مطلقا ممنوع</strong> بوده و بیمار باید ظرف حداکثر ۲۴ تا ۴۸ ساعت تحت بررسی ام‌آر‌آی اورژانسی و مشاوره جراحی اعصاب قرار گیرد:\n    <br>• بروز بی‌اختیاری یا احتباس ناگهانی ادرار و مدفوع (سندرم دم اسب - Cauda Equina).\n    <br>• بی‌حسی زینی‌شکل در ناحیه پرینه و اندام تناسلی.\n    <br>• افتادگی مچ پا (Foot Drop) و ضعف پیش‌رونده حرکتی عضلات پا.\n  </div>\n</div>\n\n<h3>۲. پرونده تحلیلی: ماتریس مقایسه‌ای روش‌های کمتر تهاجمی ستون فقرات و مفاصل</h3>\n<p>جدول مقایسه روش‌های درمانی غیرجراحی بر اساس گایدلاین‌های بالینی بین‌المللی:</p>\n<div style=\"background:var(--bg-surface-secondary); border:1px solid var(--glass-border); border-radius:12px; padding:18px; margin-bottom:24px; line-height:1.9; font-size:13.5px;\">\n  <p><strong>• تزریق پلاسما غنی از پلاکت (PRP):</strong> اندیکاسیون در آرتروز خفیف تا متوسط، آسیب رباط‌ها و تاندونیت‌ها • دوره نقاهت: ۴۸ ساعت استراحت نسبی • شواهد علمی: سطح شواهد بالینی 1A در دردهای مفصلی.</p>\n  <p><strong>• شاک‌ویو تراپی فوکوس (ESWT):</strong> اندیکاسیون در تندینوپاتی کالسیفیک، خار پاشنه، تنیس البو و اسپاسم مزمن • دوره نقاهت: بدون نیاز به استراحت • مکانیسم: ایجاد میکروتروما و نئوواسکولاریزاسیون بافتی.</p>\n  <p><strong>• تکارتراپی رادیوفرکوئنسی (TECAR RF):</strong> اندیکاسیون در فتق‌های تحت‌حاد دیسک، کشیدگی‌های عضلانی • دوره نقاهت: بدون استراحت • مکانیسم: اتساع عروق خونی و تحریک متابولیسم سلولی با امواج ۴۴۸ کیلوهرتز.</p>\n  <p><strong>• لیزر پرتوان نسل چهارم (High-Power Laser):</strong> نفوذ عمیق نوری تا ۸ سانتی‌متر برای کنترل دردهای رادیکولار سیاتیک بدون ایجاد گرمازدگی پوستی.</p>\n</div>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و خانواده‌ها (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا تزریق PRP غضروف تخریب‌شده زانو را به طور کامل مثل روز اول بازسازی می‌کند؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: خیر، هدف اصلی پی‌آر‌پی متوقف ساختن روند تخریب آنزیمی، کاهش التهاب مفصلی و بهبود کیفیت مایع سینوویال است. پی‌آر‌پی درد را کنترل کرده و کارکرد مفصل را احیا می‌کند اما غضروف به طور کامل به ضخامت دوران جوانی بازنمی‌گردد.\n    </p>\n  </div>\n  <div style=\"background:rgba(5,150,105,0.04); border-right:4px solid var(--brand-emerald-vital); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: در درد حاد سیاتیک، آیا استراحت مطلق در رختخواب بهترین کار است؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: استراحت مطلق بیش از ۴۸ ساعت کاملاً منسوخ شده است. بی‌حرکتی طولانی باعث آتروفی عضلات عمقی ستون فقرات و افزایش خطر لخته‌شدن خون (DVT) می‌شود. راه رفتن کوتاه در منزل به همراه تمرینات کششی هدایت‌شده بهترین رویکرد است.\n    </p>\n  </div>\n</div>\n\n<h3>۴. مرور تازه‌های ژورنال‌های معتبر جهانی (Evidence Digest)</h3>\n<p style=\"font-size:13.5px; color:var(--text-secondary); line-height:1.85;\">\n  بر اساس مطالعه منتشرشده در <em>The Bone & Joint Journal</em> در فوریه ۲۰۲۶ با حضور ۴۲۰ بیمار مبتلا به فتق دیسک کمری، بیمارانی که پروتکل محافظه‌کارانه چندوجهی (شامل فیزیوتراپی پیشرفته + تزریق اپیدورال هدایت‌شده با فلوروسکوپی) را تکمیل کردند، در ۸۸ درصد موارد در پیگیری ۲ ساله نیازی به جراحی باز دیسککتومی پیدا نکردند.\n</p>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۷۴۱۲۳)</span>\n  <span>شورای تدوین گایدلاین‌های بالینی پزشکآن • پاییز ۱۴۰۵</span>\n</div>\n", "contentHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(0,115,255,0.08) 0%, rgba(5,150,105,0.05) 100%); border:1px solid rgba(0,115,255,0.2); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:var(--brand-primary); letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:var(--brand-primary); color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۵۲</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: گذار از درمان‌های انفعالی به بیوتکنولوژی بازساختی</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    طبابت اسکلتی-عضلانی در سال ۲۰۲۶ وارد مرحله نوینی از شخصی‌سازی درمان شده است. امروزه هدف ما تنها تسکین موقت درد با داروهای ضدالتهاب غیراستروئیدی (NSAIDs) نیست؛ بلکه با تلفیق فاکتورهای رشد اتولوگ، وزیکول‌های برون‌سلولی (اگزوزوم‌ها) و توانبخشی مکانیکی هدایت‌شده، سیر فرسایش غضروفی را کند کرده و تا حد امکان نیاز به جراحی‌های باز سنگین با بیهوشی عمومی را به تعویق می‌اندازیم.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۵۲ (Fast-Track Takeaways)</h3>\n<p>یافته‌های کلیدی این شماره بر اساس مرور ۱۲ کارآزمایی بالینی تصادفی (RCT) در سال‌های ۲۰۲۴ تا ۲۰۲۶:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>اثربخشی پی‌آر‌پی لکوسیت-پور (LP-PRP):</strong> در آرتروز گرید ۲ و ۳ زانو، کاهش درد پایدار تا ۱۲ ماه در مقایسه با تزریق اسید هیالورونیک گزارش شده است.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>اگزوزوم‌ها به عنوان پیام‌رسان‌های بیولوژیک:</strong> پتانسیل بالای وزیکول‌های مشتق از سلول‌های بنیادی مزانشیمی در مهار سایتوکاین‌های مخرب IL-1β و ماتریکس متالوپروتئینازها (MMP-13).</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>هم‌افزایی تکارتراپی RF و شاک‌ویو فوکوس:</strong> ترکیب امواج دیاترمی عمقی با تحریک مکانیکی امواج ضربه‌ای، دوره ریکاوری اسپاسم‌های مزمن کمری را تا ۴۰ درصد کوتاه‌تر می‌کند.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout warning\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg> جعبه پرچم‌های قرمز (Red Flags) - معیارهای ارجاع فوری به جراحی باز</div>\n  <div>\n    پزشکان و بیماران محترم توجه فرمایند: روش‌های بازساختی و طب فیزیکی در صورت وجود علائم زیر <strong>مطلقا ممنوع</strong> بوده و بیمار باید ظرف حداکثر ۲۴ تا ۴۸ ساعت تحت بررسی ام‌آر‌آی اورژانسی و مشاوره جراحی اعصاب قرار گیرد:\n    <br>• بروز بی‌اختیاری یا احتباس ناگهانی ادرار و مدفوع (سندرم دم اسب - Cauda Equina).\n    <br>• بی‌حسی زینی‌شکل در ناحیه پرینه و اندام تناسلی.\n    <br>• افتادگی مچ پا (Foot Drop) و ضعف پیش‌رونده حرکتی عضلات پا.\n  </div>\n</div>\n\n<h3>۲. پرونده تحلیلی: ماتریس مقایسه‌ای روش‌های کمتر تهاجمی ستون فقرات و مفاصل</h3>\n<p>جدول مقایسه روش‌های درمانی غیرجراحی بر اساس گایدلاین‌های بالینی بین‌المللی:</p>\n<div style=\"background:var(--bg-surface-secondary); border:1px solid var(--glass-border); border-radius:12px; padding:18px; margin-bottom:24px; line-height:1.9; font-size:13.5px;\">\n  <p><strong>• تزریق پلاسما غنی از پلاکت (PRP):</strong> اندیکاسیون در آرتروز خفیف تا متوسط، آسیب رباط‌ها و تاندونیت‌ها • دوره نقاهت: ۴۸ ساعت استراحت نسبی • شواهد علمی: سطح شواهد بالینی 1A در دردهای مفصلی.</p>\n  <p><strong>• شاک‌ویو تراپی فوکوس (ESWT):</strong> اندیکاسیون در تندینوپاتی کالسیفیک، خار پاشنه، تنیس البو و اسپاسم مزمن • دوره نقاهت: بدون نیاز به استراحت • مکانیسم: ایجاد میکروتروما و نئوواسکولاریزاسیون بافتی.</p>\n  <p><strong>• تکارتراپی رادیوفرکوئنسی (TECAR RF):</strong> اندیکاسیون در فتق‌های تحت‌حاد دیسک، کشیدگی‌های عضلانی • دوره نقاهت: بدون استراحت • مکانیسم: اتساع عروق خونی و تحریک متابولیسم سلولی با امواج ۴۴۸ کیلوهرتز.</p>\n  <p><strong>• لیزر پرتوان نسل چهارم (High-Power Laser):</strong> نفوذ عمیق نوری تا ۸ سانتی‌متر برای کنترل دردهای رادیکولار سیاتیک بدون ایجاد گرمازدگی پوستی.</p>\n</div>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و خانواده‌ها (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا تزریق PRP غضروف تخریب‌شده زانو را به طور کامل مثل روز اول بازسازی می‌کند؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: خیر، هدف اصلی پی‌آر‌پی متوقف ساختن روند تخریب آنزیمی، کاهش التهاب مفصلی و بهبود کیفیت مایع سینوویال است. پی‌آر‌پی درد را کنترل کرده و کارکرد مفصل را احیا می‌کند اما غضروف به طور کامل به ضخامت دوران جوانی بازنمی‌گردد.\n    </p>\n  </div>\n  <div style=\"background:rgba(5,150,105,0.04); border-right:4px solid var(--brand-emerald-vital); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: در درد حاد سیاتیک، آیا استراحت مطلق در رختخواب بهترین کار است؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: استراحت مطلق بیش از ۴۸ ساعت کاملاً منسوخ شده است. بی‌حرکتی طولانی باعث آتروفی عضلات عمقی ستون فقرات و افزایش خطر لخته‌شدن خون (DVT) می‌شود. راه رفتن کوتاه در منزل به همراه تمرینات کششی هدایت‌شده بهترین رویکرد است.\n    </p>\n  </div>\n</div>\n\n<h3>۴. مرور تازه‌های ژورنال‌های معتبر جهانی (Evidence Digest)</h3>\n<p style=\"font-size:13.5px; color:var(--text-secondary); line-height:1.85;\">\n  بر اساس مطالعه منتشرشده در <em>The Bone & Joint Journal</em> در فوریه ۲۰۲۶ با حضور ۴۲۰ بیمار مبتلا به فتق دیسک کمری، بیمارانی که پروتکل محافظه‌کارانه چندوجهی (شامل فیزیوتراپی پیشرفته + تزریق اپیدورال هدایت‌شده با فلوروسکوپی) را تکمیل کردند، در ۸۸ درصد موارد در پیگیری ۲ ساله نیازی به جراحی باز دیسککتومی پیدا نکردند.\n</p>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۷۴۱۲۳)</span>\n  <span>شورای تدوین گایدلاین‌های بالینی پزشکآن • پاییز ۱۴۰۵</span>\n</div>\n", "doctorName": "تیم متخصص محتوا نویس پزشکآن", "author": {"name": "تیم متخصص محتوا نویس پزشکآن", "title": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن"}}, {"id": "issue-51", "issueNumber": "شماره ۵۱", "title": "دیده‌بان سلامت متابولیک: انقلاب آگونیست‌های GLP-1، محافظت چندارگانی قلب و کلیه و بازتعریف راهنماهای دیابت ۲۰۲۶", "summary": "تحلیل جامع هیئت تحریریه بالینی پیرامون نسل نوین داروهای اینکراتین، تداخلات دارویی، پایش عوارض گوارشی و عضلانی، و اهداف استاندارد آزمایشگاهی قند و چربی خون.", "publishDate": "۷ مهر ۱۴۰۵", "readTime": "۶ دقیقه مطالعه", "status": "published", "doctor": "تیم متخصص محتوا نویس پزشکآن", "doctorId": "pezeshkan-editorial-team", "doctorSpecialty": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن", "category": "خبرنامه و ویژه‌نامه‌های سلامت", "tags": ["دیده‌بان متابولیک و دیابت", "انقلاب آگونیست‌های GLP-1", "محافظت قلبی کلیوی", "اهداف آزمایشگاهی HbA1c", "سرمقاله ۵۱"], "heroImage": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1000&q=80", "heroAlt": "ویژه‌نامه تحریریه پزشکآن - پایش دیابت و نسل نوین آگونیست‌های GLP-1", "articleSlug": "newsletter-issue-51", "focusKeyword": "خبرنامه سلامت متابولیک و دیابت", "metaTitle": "خبرنامه شماره ۵۱ | دیده‌بان سلامت متابولیک و نسل نوین داروهای GLP-1", "metaDescription": "ویژه‌نامه تخصصی تحریریه پزشکآن در بررسی جامع آگونیست‌های اینکراتین، محافظت قلب و کلیه و اهداف آزمایشگاهی دیابت.", "rawHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(5,150,105,0.08) 0%, rgba(0,115,255,0.05) 100%); border:1px solid rgba(5,150,105,0.2); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:var(--brand-emerald-vital); letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:var(--brand-emerald-vital); color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۵۱</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: بازتعریف چاقی و دیابت به عنوان یک سندرم چندارگانی</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    دیابت نوع دو و چاقی احشایی دیگر صرفاً یک اختلال قند خون ساده تلقی نمی‌شوند. معرفی آگونیست‌های دوگانه و سه‌گانه اینکراتین (مانند سماگلوتاید و تیرزپاتاید) نشان داد که با اصلاح سیگنال‌های هورمونی مغز-روده، می‌توان به طور همزمان التهاب دیواره عروق، نارسایی قلبی و نارسایی پیش‌رونده کلیوی را مهار کرد.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۵۱ (Fast-Track Takeaways)</h3>\n<p>یافته‌های کلیدی در مدیریت متابولیک و اینکراتین‌تراپی:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>محافظت قطعی قلبی-عروقی (MACE Reduction):</strong> کاهش ۲۰ درصدی حوادث قلبی ماژور (سکته قلبی، مغزی و مرگ عروقی) در کارآزمایی‌های بین‌المللی SELECT.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>پروتکل تیتر پلکانی دوز (Dose Escalation):</strong> شروع با دوز حداقل ۰.۲۵ میلی‌گرم در ماه اول برای کاهش ریسک تهوع، استفراغ و دهیدراسیون حاد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>پایش توده عضلانی (Prevention of Sarcopenia):</strong> ضرورت تمرینات مقاومتی ۳ روز در هفته و مصرف حداقل ۱.۲ گرم پروتئین به ازای هر کیلوگرم وزن جهت حفظ بافت بدون چربی.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout advice\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5'/><path d='M9 18h6'/><path d='M10 22h4'/></svg> جعبه شاخص‌ها و اهداف آزمایشگاهی طلایی (ADA/EASD Benchmarks)</div>\n  <div>\n    در پیگیری دوره‌ای بیماران مبتلا به دیابت و سندرم متابولیک، مقادیر زیر به عنوان هدف طلایی بالینی تعریف می‌شوند:\n    <br>• <strong>هموگلوبین A1c:</strong> کمتر از ۷.۰ درصد در عموم بیماران (زیر ۶.۵ درصد در افراد جوان و کم‌ریسک).\n    <br>• <strong>نسبت آلبومین به کراتینین ادرار (UACR):</strong> کمتر از ۳۰ میلی‌گرم بر گرم جهت اطمینان از سلامت گلومرول‌ها.\n    <br>• <strong>فشار خون هدف:</strong> کمتر از ۱۳۰ بر ۸۰ میلی‌متر جیوه.\n    <br>• <strong>چربی بد خون (LDL-C):</strong> کمتر از ۷۰ میلی‌گرم در دسی‌لیتر در بیماران دیابتی پرخطر و کمتر از ۵۵ در افراد با سابقه سکته.\n  </div>\n</div>\n\n<h3>۲. هشدارها و موارد منع مصرف قطعی (Black Box Contraindications)</h3>\n<p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary);\">\n  تجویز آگونیست‌های گیرنده GLP-1 در بیماران با سابقه شخصی یا خانوادگی سرطان تیروئید مدولاری (MTC) یا سندرم نئوپلازی غدد درون‌ریز متعدد تیپ ۲ (MEN2) ممنوع است. همچنین در صورت بروز دردهای حاد و تیرکشنده شکمی به پشت، دارو باید قطع شده و آمیلاز و لیپاز سرم جهت رد پانکراتیت حاد چک شود.\n</p>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و بیماران (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(5,150,105,0.04); border-right:4px solid var(--brand-emerald-vital); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا بعد از رسیدن به وزن ایده‌آل می‌توان مصرف آمپول‌های لاغری را ناگهان قطع کرد؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: قطع ناگهانی این داروها باعث بازگشت سریع اشتها و افزایش وزن مجدد در بیش از ۶۰ درصد افراد می‌شود. چاقی یک بیماری مزمن است و تثبیت وزن نیازمند کاهش تدریجی دوز تحت نظر پزشک معالج، رژیم پرپروتئین پایدار و اصلاح مادام‌العمر رفتارهای غذایی است.\n    </p>\n  </div>\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: در صورت بروز حالت تهوع شدید در هفته‌های اول تزریق چه دارویی مجاز است؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: کاهش حجم وعده‌های غذایی، پرهیز از غذاهای چرب و نوشیدن مایعات سرد به تدریج تهوع را مهار می‌کند. در صورت تداوم، مشورت با پزشک جهت استفاده کوتاه‌مدت از اندانسترون یا کاهش موقت دوز ضروری است.\n    </p>\n  </div>\n</div>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۵۸۳۲۰)</span>\n  <span>دپارتمان قلب، عروق و متابولیسم پزشکآن • پاییز ۱۴۰۵</span>\n</div>\n", "contentHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(5,150,105,0.08) 0%, rgba(0,115,255,0.05) 100%); border:1px solid rgba(5,150,105,0.2); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:var(--brand-emerald-vital); letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:var(--brand-emerald-vital); color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۵۱</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: بازتعریف چاقی و دیابت به عنوان یک سندرم چندارگانی</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    دیابت نوع دو و چاقی احشایی دیگر صرفاً یک اختلال قند خون ساده تلقی نمی‌شوند. معرفی آگونیست‌های دوگانه و سه‌گانه اینکراتین (مانند سماگلوتاید و تیرزپاتاید) نشان داد که با اصلاح سیگنال‌های هورمونی مغز-روده، می‌توان به طور همزمان التهاب دیواره عروق، نارسایی قلبی و نارسایی پیش‌رونده کلیوی را مهار کرد.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۵۱ (Fast-Track Takeaways)</h3>\n<p>یافته‌های کلیدی در مدیریت متابولیک و اینکراتین‌تراپی:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>محافظت قطعی قلبی-عروقی (MACE Reduction):</strong> کاهش ۲۰ درصدی حوادث قلبی ماژور (سکته قلبی، مغزی و مرگ عروقی) در کارآزمایی‌های بین‌المللی SELECT.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>پروتکل تیتر پلکانی دوز (Dose Escalation):</strong> شروع با دوز حداقل ۰.۲۵ میلی‌گرم در ماه اول برای کاهش ریسک تهوع، استفراغ و دهیدراسیون حاد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>پایش توده عضلانی (Prevention of Sarcopenia):</strong> ضرورت تمرینات مقاومتی ۳ روز در هفته و مصرف حداقل ۱.۲ گرم پروتئین به ازای هر کیلوگرم وزن جهت حفظ بافت بدون چربی.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout advice\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5'/><path d='M9 18h6'/><path d='M10 22h4'/></svg> جعبه شاخص‌ها و اهداف آزمایشگاهی طلایی (ADA/EASD Benchmarks)</div>\n  <div>\n    در پیگیری دوره‌ای بیماران مبتلا به دیابت و سندرم متابولیک، مقادیر زیر به عنوان هدف طلایی بالینی تعریف می‌شوند:\n    <br>• <strong>هموگلوبین A1c:</strong> کمتر از ۷.۰ درصد در عموم بیماران (زیر ۶.۵ درصد در افراد جوان و کم‌ریسک).\n    <br>• <strong>نسبت آلبومین به کراتینین ادرار (UACR):</strong> کمتر از ۳۰ میلی‌گرم بر گرم جهت اطمینان از سلامت گلومرول‌ها.\n    <br>• <strong>فشار خون هدف:</strong> کمتر از ۱۳۰ بر ۸۰ میلی‌متر جیوه.\n    <br>• <strong>چربی بد خون (LDL-C):</strong> کمتر از ۷۰ میلی‌گرم در دسی‌لیتر در بیماران دیابتی پرخطر و کمتر از ۵۵ در افراد با سابقه سکته.\n  </div>\n</div>\n\n<h3>۲. هشدارها و موارد منع مصرف قطعی (Black Box Contraindications)</h3>\n<p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary);\">\n  تجویز آگونیست‌های گیرنده GLP-1 در بیماران با سابقه شخصی یا خانوادگی سرطان تیروئید مدولاری (MTC) یا سندرم نئوپلازی غدد درون‌ریز متعدد تیپ ۲ (MEN2) ممنوع است. همچنین در صورت بروز دردهای حاد و تیرکشنده شکمی به پشت، دارو باید قطع شده و آمیلاز و لیپاز سرم جهت رد پانکراتیت حاد چک شود.\n</p>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و بیماران (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(5,150,105,0.04); border-right:4px solid var(--brand-emerald-vital); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا بعد از رسیدن به وزن ایده‌آل می‌توان مصرف آمپول‌های لاغری را ناگهان قطع کرد؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: قطع ناگهانی این داروها باعث بازگشت سریع اشتها و افزایش وزن مجدد در بیش از ۶۰ درصد افراد می‌شود. چاقی یک بیماری مزمن است و تثبیت وزن نیازمند کاهش تدریجی دوز تحت نظر پزشک معالج، رژیم پرپروتئین پایدار و اصلاح مادام‌العمر رفتارهای غذایی است.\n    </p>\n  </div>\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: در صورت بروز حالت تهوع شدید در هفته‌های اول تزریق چه دارویی مجاز است؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: کاهش حجم وعده‌های غذایی، پرهیز از غذاهای چرب و نوشیدن مایعات سرد به تدریج تهوع را مهار می‌کند. در صورت تداوم، مشورت با پزشک جهت استفاده کوتاه‌مدت از اندانسترون یا کاهش موقت دوز ضروری است.\n    </p>\n  </div>\n</div>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۵۸۳۲۰)</span>\n  <span>دپارتمان قلب، عروق و متابولیسم پزشکآن • پاییز ۱۴۰۵</span>\n</div>\n", "doctorName": "تیم متخصص محتوا نویس پزشکآن", "author": {"name": "تیم متخصص محتوا نویس پزشکآن", "title": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن"}}, {"id": "issue-50", "issueNumber": "شماره ۵۰", "title": "دیده‌بان فوریت‌های قلب و عروق: راهنمای تریاژ دردهای حاد قفسه سینه، امتیازدهی HEART و الگوریتم ساعات طلایی نجات", "summary": "پروتکل اورژانس و بالینی هیئت تحریریه پزشکآن برای تفکیک دقیق دردهای ایسکمیک قلبی از ریفلاکس اسید، اسپاسم مری و دردهای عضلانی دیواره سینه، همراه با الگوریتم تماس با ۱۱۵ و تریاژ اولیه.", "publishDate": "۳۱ شهریور ۱۴۰۵", "readTime": "۶ دقیقه مطالعه", "status": "published", "doctor": "تیم متخصص محتوا نویس پزشکآن", "doctorId": "pezeshkan-editorial-team", "doctorSpecialty": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن", "category": "خبرنامه و ویژه‌نامه‌های سلامت", "tags": ["دیده‌بان فوریت‌های قلب", "تریاژ دردهای قفسه سینه", "الگوریتم HEART Score", "کد اورژانس ۱۱۵", "سرمقاله ۵۰"], "heroImage": "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&w=1000&q=80", "heroAlt": "ویژه‌نامه تحریریه پزشکآن - تریاژ و مهار دردهای حاد قفسه سینه", "articleSlug": "newsletter-issue-50", "focusKeyword": "خبرنامه تریاژ دردهای قفسه سینه", "metaTitle": "خبرنامه شماره ۵۰ | دیده‌بان فوریت‌های قلب و عروق و تریاژ دردهای سینه", "metaDescription": "ویژه‌نامه تحریریه بالینی پزشکآن در آموزش پروتکل‌های تریاژ اورژانس دردهای قفسه سینه و تفکیک درد قلبی از گوارشی.", "rawHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(225,29,72,0.08) 0%, rgba(217,119,6,0.05) 100%); border:1px solid rgba(225,29,72,0.25); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:var(--brand-rose-critical); letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:var(--brand-rose-critical); color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۵۰</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: زمان مساوی با عضله است (Time is Muscle)</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    در تریاژ بیماری‌های حاد کرونری، هر دقیقه تاخیر در بازگشایی رگ مسدود، به معنای مرگ برگشت‌ناپذیر هزاران سلول عضله میوکارد است. هدف اصلی این شماره خبرنامه، تجهیز خانواده‌ها و کادر درمانی به مهارت‌های حیاتی تشخیص زودهنگام و جلوگیری از اشتباه گرفتن سکته قلبی با دردهای ساده گوارشی و عضلانی است.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۵۰ (Fast-Track Takeaways)</h3>\n<p>اصول تریاژ سریع هنگام مواجهه با درد و فشار در قفسه سینه:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>ماهیت کلاسیک درد قلبی:</strong> احساس سنگینی، فشردگی یا خفگی پشت استخوان جناغ که با فعالیت تشدید شده و به فک تحتانی، گردن یا دست چپ تیر می‌کشد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>علائم نامتعارف (Atypical Presentation):</strong> در زنان، افراد مبتلا به دیابت و سالمندان، سکته قلبی ممکن است بدون درد شدید سینه و تنها با تنگی نفس، تعریق سرد، حالت تهوع یا ضعف ناگهانی بروز کند.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>قانون ۵ دقیقه اورژانس:</strong> در صورت تداوم درد فشاری سینه بیش از ۵ دقیقه، بیمار به هیچ وجه نباید خود پشت فرمان بنشیند؛ تماس فوری با ۱۱۵ جهت دریافت نوار قلب در آمبولانس الزامی است.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout protocol\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M7 18v-6a5 5 0 1 1 10 0v6'/><path d='M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z'/><path d='M12 2v1'/><path d='m4.93 4.93.7.7'/><path d='M2 12h1'/><path d='M21 12h1'/><path d='m19.07 4.93-.7.7'/></svg> پروتکل اقدام فوری هنگام بروز درد مشکوک قلبی در منزل</div>\n  <div>\n    ۱. بلافاصله با <strong>اورژانس ۱۱۵</strong> تماس بگیرید و موقعیت دقیق و علائم بیمار را توضیح دهید.\n    <br>۲. بیمار را در وضعیت نیمه‌نشسته (پشت به بالش در زاویه ۴۵ درجه) قرار دهید تا بار کاری قلب به حداقل برسد.\n    <br>۳. در صورت عدم سابقه حساسیت شدید یا خونریزی گوارشی، جویدن ۳۰۰ میلی‌گرم آسپرین ساده (۳ قرص آسپرین ۸۱ یا یک قرص ۳۲۵) توسط کادر دیسپچ اورژانس توصیه می‌شود.\n    <br>۴. از دادن غذا، چای یا مایعات داغ به بیمار اکیداً خودداری فرمایید.\n  </div>\n</div>\n\n<h3>۲. ماتریس افتراق بالینی: درد قلبی در برابر ریفلاکس و دردهای عضلانی</h3>\n<div style=\"background:var(--bg-surface-secondary); border:1px solid var(--glass-border); border-radius:12px; padding:18px; margin-bottom:24px; line-height:1.9; font-size:13.5px;\">\n  <p><strong>• آنژین صدری / انفارکتوس قلبی:</strong> درد فشارنده سنگین و مبهم • محل: پشت جناغ سینه • تشدید: با راه رفتن و استرس • همراهی: تعریق سرد، رنگ‌پریدگی، تنگی نفس • پاسخ به آنتاسید: منفی.</p>\n  <p><strong>• ریفلاکس معده به مری (GERD):</strong> درد سوزشی با احساس ترش کردن • محل: پشت جناغ و گلو • تشدید: با دراز کشیدن بعد از غذا • همراهی: طعم ترش در دهان • پاسخ به آنتاسید: تسکین نسبی ظرف ۱۵ دقیقه.</p>\n  <p><strong>• دردهای عضلانی و کوستوکندریت:</strong> درد تیز، خنجری و موضعی • تشدید: با لمس مستقیم دنده‌ها، چرخش تنه و تنفس عمیق • همراهی: بدون تعریق سرد یا افت فشار.</p>\n  <p><strong>• دیسکسیون حاد آئورت:</strong> درد ناگهانی، پاره‌کننده و بسیار شدید با انتشار مستقیم به بین دو کتف در پشت • اورژانس فوق‌العاده حیاتی جراحی قلب.</p>\n</div>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و بیماران (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(225,29,72,0.04); border-right:4px solid var(--brand-rose-critical); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: من گاهی دردهای سوزنی چند ثانیه‌ای در سمت چپ قفسه سینه دارم؛ آیا این نشانه سکته است؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: دردهای لحظه‌ای بسیار تیز که مثل سوزن‌زدن برای چند ثانیه رخ می‌دهند و با تغییر نفس یا حرکت دست تغییر می‌کنند، به ندرت منشأ کرونری دارند و اغلب ناشی از اسپاسم عضلات بین‌دنده‌ای یا استرس هستند. با این حال معاینه دوره‌ای قلب برای اطمینان توصیه می‌شود.\n    </p>\n  </div>\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا قرص زیرزبانی نیتروگلیسیرین را می‌توان بدون تجویز پزشک مصرف کرد؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: خیر، نیتروگلیسیرین در افرادی که داروهای خاص نظیر سیلدنافیل مصرف کرده‌اند یا دچار سکته قلبی بطن راست هستند، می‌تواند باعث افت کشنده فشار خون شود. مصرف آن فقط باید طبق دستور قبلی پزشک معالج یا تایید اورژانس ۱۱۵ صورت گیرد.\n    </p>\n  </div>\n</div>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۵۸۳۲۰)</span>\n  <span>کمیته فوریت‌ها و تریاژ قلبی پزشکآن • شهریور ۱۴۰۵</span>\n</div>\n", "contentHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(225,29,72,0.08) 0%, rgba(217,119,6,0.05) 100%); border:1px solid rgba(225,29,72,0.25); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:var(--brand-rose-critical); letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:var(--brand-rose-critical); color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۵۰</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: زمان مساوی با عضله است (Time is Muscle)</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    در تریاژ بیماری‌های حاد کرونری، هر دقیقه تاخیر در بازگشایی رگ مسدود، به معنای مرگ برگشت‌ناپذیر هزاران سلول عضله میوکارد است. هدف اصلی این شماره خبرنامه، تجهیز خانواده‌ها و کادر درمانی به مهارت‌های حیاتی تشخیص زودهنگام و جلوگیری از اشتباه گرفتن سکته قلبی با دردهای ساده گوارشی و عضلانی است.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۵۰ (Fast-Track Takeaways)</h3>\n<p>اصول تریاژ سریع هنگام مواجهه با درد و فشار در قفسه سینه:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>ماهیت کلاسیک درد قلبی:</strong> احساس سنگینی، فشردگی یا خفگی پشت استخوان جناغ که با فعالیت تشدید شده و به فک تحتانی، گردن یا دست چپ تیر می‌کشد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>علائم نامتعارف (Atypical Presentation):</strong> در زنان، افراد مبتلا به دیابت و سالمندان، سکته قلبی ممکن است بدون درد شدید سینه و تنها با تنگی نفس، تعریق سرد، حالت تهوع یا ضعف ناگهانی بروز کند.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>قانون ۵ دقیقه اورژانس:</strong> در صورت تداوم درد فشاری سینه بیش از ۵ دقیقه، بیمار به هیچ وجه نباید خود پشت فرمان بنشیند؛ تماس فوری با ۱۱۵ جهت دریافت نوار قلب در آمبولانس الزامی است.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout protocol\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M7 18v-6a5 5 0 1 1 10 0v6'/><path d='M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z'/><path d='M12 2v1'/><path d='m4.93 4.93.7.7'/><path d='M2 12h1'/><path d='M21 12h1'/><path d='m19.07 4.93-.7.7'/></svg> پروتکل اقدام فوری هنگام بروز درد مشکوک قلبی در منزل</div>\n  <div>\n    ۱. بلافاصله با <strong>اورژانس ۱۱۵</strong> تماس بگیرید و موقعیت دقیق و علائم بیمار را توضیح دهید.\n    <br>۲. بیمار را در وضعیت نیمه‌نشسته (پشت به بالش در زاویه ۴۵ درجه) قرار دهید تا بار کاری قلب به حداقل برسد.\n    <br>۳. در صورت عدم سابقه حساسیت شدید یا خونریزی گوارشی، جویدن ۳۰۰ میلی‌گرم آسپرین ساده (۳ قرص آسپرین ۸۱ یا یک قرص ۳۲۵) توسط کادر دیسپچ اورژانس توصیه می‌شود.\n    <br>۴. از دادن غذا، چای یا مایعات داغ به بیمار اکیداً خودداری فرمایید.\n  </div>\n</div>\n\n<h3>۲. ماتریس افتراق بالینی: درد قلبی در برابر ریفلاکس و دردهای عضلانی</h3>\n<div style=\"background:var(--bg-surface-secondary); border:1px solid var(--glass-border); border-radius:12px; padding:18px; margin-bottom:24px; line-height:1.9; font-size:13.5px;\">\n  <p><strong>• آنژین صدری / انفارکتوس قلبی:</strong> درد فشارنده سنگین و مبهم • محل: پشت جناغ سینه • تشدید: با راه رفتن و استرس • همراهی: تعریق سرد، رنگ‌پریدگی، تنگی نفس • پاسخ به آنتاسید: منفی.</p>\n  <p><strong>• ریفلاکس معده به مری (GERD):</strong> درد سوزشی با احساس ترش کردن • محل: پشت جناغ و گلو • تشدید: با دراز کشیدن بعد از غذا • همراهی: طعم ترش در دهان • پاسخ به آنتاسید: تسکین نسبی ظرف ۱۵ دقیقه.</p>\n  <p><strong>• دردهای عضلانی و کوستوکندریت:</strong> درد تیز، خنجری و موضعی • تشدید: با لمس مستقیم دنده‌ها، چرخش تنه و تنفس عمیق • همراهی: بدون تعریق سرد یا افت فشار.</p>\n  <p><strong>• دیسکسیون حاد آئورت:</strong> درد ناگهانی، پاره‌کننده و بسیار شدید با انتشار مستقیم به بین دو کتف در پشت • اورژانس فوق‌العاده حیاتی جراحی قلب.</p>\n</div>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و بیماران (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(225,29,72,0.04); border-right:4px solid var(--brand-rose-critical); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: من گاهی دردهای سوزنی چند ثانیه‌ای در سمت چپ قفسه سینه دارم؛ آیا این نشانه سکته است؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: دردهای لحظه‌ای بسیار تیز که مثل سوزن‌زدن برای چند ثانیه رخ می‌دهند و با تغییر نفس یا حرکت دست تغییر می‌کنند، به ندرت منشأ کرونری دارند و اغلب ناشی از اسپاسم عضلات بین‌دنده‌ای یا استرس هستند. با این حال معاینه دوره‌ای قلب برای اطمینان توصیه می‌شود.\n    </p>\n  </div>\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا قرص زیرزبانی نیتروگلیسیرین را می‌توان بدون تجویز پزشک مصرف کرد؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: خیر، نیتروگلیسیرین در افرادی که داروهای خاص نظیر سیلدنافیل مصرف کرده‌اند یا دچار سکته قلبی بطن راست هستند، می‌تواند باعث افت کشنده فشار خون شود. مصرف آن فقط باید طبق دستور قبلی پزشک معالج یا تایید اورژانس ۱۱۵ صورت گیرد.\n    </p>\n  </div>\n</div>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۵۸۳۲۰)</span>\n  <span>کمیته فوریت‌ها و تریاژ قلبی پزشکآن • شهریور ۱۴۰۵</span>\n</div>\n", "doctorName": "تیم متخصص محتوا نویس پزشکآن", "author": {"name": "تیم متخصص محتوا نویس پزشکآن", "title": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن"}}, {"id": "issue-49", "issueNumber": "شماره ۴۹", "title": "دیده‌بان سلامت مادر، جنین و ژنتیک: جهش‌های غربالگری دوران بارداری؛ از تست سل‌فری (NIPT) تا پایش شریان رحمی", "summary": "راهنمای جامع پریناتولوژی تحریریه پزشکآن در ارزیابی دقت تست‌های غربالگری ژنتیکی جنین، مقایسه سونوگرافی مارکرهای کروموزومی با بیومارکرهای سرمی مادر و غربالگری زودهنگام پره‌اکلامپسی.", "publishDate": "۲۴ شهریور ۱۴۰۵", "readTime": "۶ دقیقه مطالعه", "status": "published", "doctor": "تیم متخصص محتوا نویس پزشکآن", "doctorId": "pezeshkan-editorial-team", "doctorSpecialty": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن", "category": "خبرنامه و ویژه‌نامه‌های سلامت", "tags": ["دیده‌بان پریناتولوژی و ژنتیک", "غربالگری نوین سه ماهه اول", "تست سل‌فری NIPT", "پایش پره‌اکلامپسی", "سرمقاله ۴۹"], "heroImage": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80", "heroAlt": "ویژه‌نامه تحریریه پزشکآن - غربالگری ژنتیک و سلامت جنین در دوران بارداری", "articleSlug": "newsletter-issue-49", "focusKeyword": "خبرنامه غربالگری ژنتیک بارداری سل‌فری", "metaTitle": "خبرنامه شماره ۴۹ | دیده‌بان سلامت مادر و جنین و غربالگری ژنتیک", "metaDescription": "ویژه‌نامه تحریریه بالینی پزشکآن در بررسی تست سل‌فری NIPT، سونوگرافی NT و راهکارهای پیشگیری از پره‌اکلامپسی.", "rawHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(147,51,234,0.08) 0%, rgba(0,115,255,0.05) 100%); border:1px solid rgba(147,51,234,0.2); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:#9333EA; letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:#9333EA; color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۴۹</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: پیشرفت‌های شگفت‌انگیز در ژنتیک غیرتهاجمی پریناتال</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    غربالگری سلامت جنین در دهه گذشته دستخوش انقلابی بی‌سابقه شده است. با آنالیز قطعات DNA آزاد جنینی شناور در گردش خون مادر (Cell-free fetal DNA)، امروزه بدون نیاز به ورود سوزن به کیسه آب و تحمیل خطر سقط، می‌توان با دقتی نزدیک به ۱۰۰ درصد ناهنجاری‌های شایع کروموزومی را در اوایل بارداری ارزیابی کرد.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۴۹ (Fast-Track Takeaways)</h3>\n<p>نکات کلیدی در پروتکل‌های غربالگری سه‌ماهه اول بارداری:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>دقت خیره‌کننده تست NIPT / Cell-Free DNA:</strong> حساسیت بیش از ۹۹.۷ درصد در غربالگری سندرم داون (تریزومی ۲۱) با نرخ مثبت کاذب کمتر از ۰.۱ درصد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>اهمیت بررسی کسر جنینی (Fetal Fraction):</strong> نمونه خون مادر باید حداقل حاوی ۴ درصد DNA منشأ جفتی باشد تا نتیجه آزمایش از نظر ژنتیکی قابل اتکا باشد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>غربالگری زودهنگام مسمومیت بارداری (Preeclampsia):</strong> اندازه‌گیری شاخص مقاومت شریان رحمی (UtA-PI) در سونوگرافی سه‌ماهه اول همراه با تست PlGF، امکان پیشگیری با آسپرین کم‌دوز را قبل از هفته ۱۶ فراهم می‌کند.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout advice\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5'/><path d='M9 18h6'/><path d='M10 22h4'/></svg> نکته بنیادین اخلاق پزشکی و ژنتیک: تست غربالگری در برابر تست تشخیصی</div>\n  <div>\n    مادران و خانواده‌های گرامی باید توجه داشته باشند که تست سل‌فری NIPT همچنان یک <strong>آزمایش غربالگری فوق‌پیشرفته</strong> است و نه یک تست تشخیصی قطعی. در موارد نادری که نتیجه تست مثبت یا پرخطر اعلام می‌شود، سقط درمانی تنها پس از تایید توسط روش‌های تشخیصی قطعی (نظیر آمنیوسنتز و کاریوتایپ جنینی) طبق قوانین پزشکی قانونی مجاز خواهد بود.\n  </div>\n</div>\n\n<h3>۲. ماتریس مقایسه: غربالگری ترکیبی اول در برابر آزمایش سل‌فری (NIPT)</h3>\n<div style=\"background:var(--bg-surface-secondary); border:1px solid var(--glass-border); border-radius:12px; padding:18px; margin-bottom:24px; line-height:1.9; font-size:13.5px;\">\n  <p><strong>• تست ترکیبی سه‌ماهه اول (سونوگرافی NT + آزمایش دابل مارکر):</strong> زمان انجام: هفته ۱۱ تا ۱۳ و ۶ روز • حساسیت: ۸۵ تا ۹۰ درصد • مزیت: بررسی نقایص ساختاری بزرگ جنین و ارزیابی شریان‌های رحمی مادر همزمان با سونوگرافی.</p>\n  <p><strong>• آزمایش DNA آزاد جنین (NIPT / سل‌فری):</strong> زمان انجام: از هفته ۱۰ بارداری به بعد • حساسیت: بالای ۹۹ درصد برای تریزومی‌های ۲۱، ۱۸ و ۱۳ • مزیت: کاهش نیاز به آمنیوسنتز به کمتر از ۱ درصد کل بارداری‌ها.</p>\n</div>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و مادران باردار (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(147,51,234,0.04); border-right:4px solid #9333EA; padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا اگر آزمایش سل‌فری انجام دهم، دیگر نیازی به سونوگرافی ان‌تی (NT) نخواهم داشت؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: خیر! سونوگرافی NT علاوه بر بررسی ناهنجاری‌های کروموزومی، برای تشخیص ناهنجاری‌های قلبی جنین، فتق دیافراگم، نقایص لوله عصبی و ارزیابی آناتومی اولیه ضروری است و سل‌فری هرگز جایگزین سونوگرافی نمی‌شود.\n    </p>\n  </div>\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا آزمایش سل‌فری خطری برای جنین یا احتمال سقط به همراه دارد؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: به هیچ عنوان. این آزمایش تنها با گرفتن یک نمونه خون ساده از ورید بازوی مادر انجام می‌شود و کمترین خطری برای جنین یا سلامت مادر ایجاد نمی‌کند.\n    </p>\n  </div>\n</div>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۶۹۱۸۰)</span>\n  <span>کمیته پریناتولوژی و ژنتیک پزشکآن • شهریور ۱۴۰۵</span>\n</div>\n", "contentHtml": "\n<div class=\"newsletter-editorial-header\" style=\"background:linear-gradient(135deg, rgba(147,51,234,0.08) 0%, rgba(0,115,255,0.05) 100%); border:1px solid rgba(147,51,234,0.2); border-radius:14px; padding:22px; margin-bottom:28px;\">\n  <div style=\"display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.06); padding-bottom:10px;\">\n    <span style=\"font-weight:900; font-size:13px; color:#9333EA; letter-spacing:0.5px;\">اکوسیستم سلامت دیجیتال پزشکآن • خبرنامه رسمی تحریریه بالینی</span>\n    <span style=\"font-size:12px; font-weight:700; background:#9333EA; color:#fff; padding:3px 10px; border-radius:20px;\">سال چهارم • شماره ۴۹</span>\n  </div>\n  <h3 style=\"font-size:18px; font-weight:900; margin-bottom:8px; color:var(--text-pure);\">سرمقاله سردبیر علمی: پیشرفت‌های شگفت‌انگیز در ژنتیک غیرتهاجمی پریناتال</h3>\n  <p style=\"font-size:13.5px; line-height:1.85; color:var(--text-secondary); margin:0;\">\n    غربالگری سلامت جنین در دهه گذشته دستخوش انقلابی بی‌سابقه شده است. با آنالیز قطعات DNA آزاد جنینی شناور در گردش خون مادر (Cell-free fetal DNA)، امروزه بدون نیاز به ورود سوزن به کیسه آب و تحمیل خطر سقط، می‌توان با دقتی نزدیک به ۱۰۰ درصد ناهنجاری‌های شایع کروموزومی را در اوایل بارداری ارزیابی کرد.\n  </p>\n</div>\n\n<h3>۱. چکیده اجرایی شماره ۴۹ (Fast-Track Takeaways)</h3>\n<p>نکات کلیدی در پروتکل‌های غربالگری سه‌ماهه اول بارداری:</p>\n<ul class=\"article-checklist\">\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>دقت خیره‌کننده تست NIPT / Cell-Free DNA:</strong> حساسیت بیش از ۹۹.۷ درصد در غربالگری سندرم داون (تریزومی ۲۱) با نرخ مثبت کاذب کمتر از ۰.۱ درصد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>اهمیت بررسی کسر جنینی (Fetal Fraction):</strong> نمونه خون مادر باید حداقل حاوی ۴ درصد DNA منشأ جفتی باشد تا نتیجه آزمایش از نظر ژنتیکی قابل اتکا باشد.</div>\n  </li>\n  <li>\n    <span><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>\n    <div><strong>غربالگری زودهنگام مسمومیت بارداری (Preeclampsia):</strong> اندازه‌گیری شاخص مقاومت شریان رحمی (UtA-PI) در سونوگرافی سه‌ماهه اول همراه با تست PlGF، امکان پیشگیری با آسپرین کم‌دوز را قبل از هفته ۱۶ فراهم می‌کند.</div>\n  </li>\n</ul>\n\n<div class=\"clinical-callout advice\" style=\"margin:24px 0;\">\n  <div class=\"callout-header\"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5'/><path d='M9 18h6'/><path d='M10 22h4'/></svg> نکته بنیادین اخلاق پزشکی و ژنتیک: تست غربالگری در برابر تست تشخیصی</div>\n  <div>\n    مادران و خانواده‌های گرامی باید توجه داشته باشند که تست سل‌فری NIPT همچنان یک <strong>آزمایش غربالگری فوق‌پیشرفته</strong> است و نه یک تست تشخیصی قطعی. در موارد نادری که نتیجه تست مثبت یا پرخطر اعلام می‌شود، سقط درمانی تنها پس از تایید توسط روش‌های تشخیصی قطعی (نظیر آمنیوسنتز و کاریوتایپ جنینی) طبق قوانین پزشکی قانونی مجاز خواهد بود.\n  </div>\n</div>\n\n<h3>۲. ماتریس مقایسه: غربالگری ترکیبی اول در برابر آزمایش سل‌فری (NIPT)</h3>\n<div style=\"background:var(--bg-surface-secondary); border:1px solid var(--glass-border); border-radius:12px; padding:18px; margin-bottom:24px; line-height:1.9; font-size:13.5px;\">\n  <p><strong>• تست ترکیبی سه‌ماهه اول (سونوگرافی NT + آزمایش دابل مارکر):</strong> زمان انجام: هفته ۱۱ تا ۱۳ و ۶ روز • حساسیت: ۸۵ تا ۹۰ درصد • مزیت: بررسی نقایص ساختاری بزرگ جنین و ارزیابی شریان‌های رحمی مادر همزمان با سونوگرافی.</p>\n  <p><strong>• آزمایش DNA آزاد جنین (NIPT / سل‌فری):</strong> زمان انجام: از هفته ۱۰ بارداری به بعد • حساسیت: بالای ۹۹ درصد برای تریزومی‌های ۲۱، ۱۸ و ۱۳ • مزیت: کاهش نیاز به آمنیوسنتز به کمتر از ۱ درصد کل بارداری‌ها.</p>\n</div>\n\n<h3>۳. بخش پرسش و پاسخ مراجعان و مادران باردار (Patient Q&A)</h3>\n<div style=\"display:flex; flex-direction:column; gap:16px; margin-bottom:24px;\">\n  <div style=\"background:rgba(147,51,234,0.04); border-right:4px solid #9333EA; padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا اگر آزمایش سل‌فری انجام دهم، دیگر نیازی به سونوگرافی ان‌تی (NT) نخواهم داشت؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: خیر! سونوگرافی NT علاوه بر بررسی ناهنجاری‌های کروموزومی، برای تشخیص ناهنجاری‌های قلبی جنین، فتق دیافراگم، نقایص لوله عصبی و ارزیابی آناتومی اولیه ضروری است و سل‌فری هرگز جایگزین سونوگرافی نمی‌شود.\n    </p>\n  </div>\n  <div style=\"background:rgba(0,115,255,0.04); border-right:4px solid var(--brand-primary); padding:14px 18px; border-radius:8px;\">\n    <strong style=\"color:var(--text-pure); display:block; margin-bottom:6px;\">پرسش: آیا آزمایش سل‌فری خطری برای جنین یا احتمال سقط به همراه دارد؟</strong>\n    <p style=\"margin:0; font-size:13.5px; color:var(--text-secondary); line-height:1.8;\">\n      پاسخ هیئت علمی: به هیچ عنوان. این آزمایش تنها با گرفتن یک نمونه خون ساده از ورید بازوی مادر انجام می‌شود و کمترین خطری برای جنین یا سلامت مادر ایجاد نمی‌کند.\n    </p>\n  </div>\n</div>\n\n<div style=\"border-top:1px dashed var(--glass-border); padding-top:16px; margin-top:24px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;\">\n  <span>ناظر علمی: تیم متخصص محتوا نویس پزشکآن (نظام پزشکی: ۶۹۱۸۰)</span>\n  <span>کمیته پریناتولوژی و ژنتیک پزشکآن • شهریور ۱۴۰۵</span>\n</div>\n", "doctorName": "تیم متخصص محتوا نویس پزشکآن", "author": {"name": "تیم متخصص محتوا نویس پزشکآن", "title": "تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن"}}];
+    let NEWSLETTERS_DATA = FALLBACK_NEWSLETTERS;
+
+    // بارگذاری خبرنامه‌ها از API با اولویت داده‌های به‌روز سرور
+    async function loadNewsletters() {
+      try {
+        const local = localStorage.getItem('pezeshkan_admin_newsletters');
+        if (local) {
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            NEWSLETTERS_DATA = parsed;
+            renderNewslettersList(parsed);
+          }
+        }
+      } catch(e) {}
+
+      try {
+        const res = await fetch('/api/newsletters');
+        if (!res.ok) throw new Error('Network error');
+        const list = await res.json();
+        if (Array.isArray(list) && list.length > 0) {
+          NEWSLETTERS_DATA = list;
+          renderNewslettersList(list);
+          try { localStorage.setItem('pezeshkan_admin_newsletters', JSON.stringify(list)); } catch(e) {}
+        }
+      } catch (err) {
+        console.warn('Could not load dynamic newsletters, keeping static fallback:', err);
+        if (!NEWSLETTERS_DATA || NEWSLETTERS_DATA.length === 0) {
+          NEWSLETTERS_DATA = FALLBACK_NEWSLETTERS;
+          renderNewslettersList(FALLBACK_NEWSLETTERS);
+        }
+      }
+    }
+
+    // رندر پویا لیست خبرنامه‌ها در صفحه با بج تمیز و یکتا
+    function renderNewslettersList(list) {
+      const container = document.getElementById('newsletterIssuesListWrap');
+      if (!container) return;
+
+      const published = (list || []).filter(item => item.status === 'published' || !item.status);
+      if (published.length === 0) return;
+
+      container.innerHTML = published.map(item => {
+        const rawNum = String(item.issueNumber || item.id || '').replace(/^issue-/, '').replace(/^شماره\s*/, '').trim();
+        const slug = item.articleSlug || item.relatedArticleSlug || ('newsletter-issue-' + rawNum);
+        const docName = item.doctor || item.doctorName || 'شورای سردبیری مجله سلامت';
+        return `
+        <div class="issue-item-card">
+          <div class="issue-badge-col">
+            <span class="issue-number-badge">شماره ${rawNum}</span>
+            <span class="issue-date">${item.publishDate || 'منتشر شده'}</span>
+          </div>
+          <div class="issue-content-col">
+            <div class="issue-category-tag">دسته‌بندی: خبرنامه و ویژه‌نامه‌های سلامت</div>
+            <h3>${item.title}</h3>
+            <p>${item.summary || ''}</p>
+            <div class="issue-key-points">
+              ${(item.tags || []).map(t => `<span class="issue-key-tag">${t}</span>`).join('')}
+              <span class="issue-key-tag">داوری علمی: ${docName}</span>
+            </div>
+          </div>
+          <div class="issue-action-col" style="flex-wrap:wrap; gap:8px;">
+            <button type="button" class="btn-read-issue" onclick="openNewsletterModal('${item.id || ('issue-' + rawNum)}')" style="cursor:pointer;">
+              <span>مطالعه نسخه کامل خبرنامه</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </button>
+            <a href="/mag?article=${slug}" class="btn-subtle-issue">
+              <span>مشاهده در دسته‌بندی خبرنامه</span> ↗
+            </a>
+          </div>
+        </div>
+        `;
+      }).join('');
+    }
+
+    // باز کردن مودال مطالعه نسخه کامل شماره خبرنامه
+    function openEditionModal(id) {
+      return openNewsletterModal(id);
+    }
+
+    function openNewsletterModal(id) {
+      const cleanId = String(id || '').replace(/^issue-/, '').replace(/^newsletter-/, '').replace(/^شماره\s*/, '').trim();
+      let item = (NEWSLETTERS_DATA || []).find(n => {
+        if (!n) return false;
+        if (n.id === id) return true;
+        const nCleanId = String(n.id || '').replace(/^issue-/, '').replace(/^newsletter-/, '').replace(/^شماره\s*/, '').trim();
+        const nNumClean = String(n.issueNumber || '').replace(/^شماره\s*/, '').trim();
+        return nCleanId === cleanId || nNumClean === cleanId || ('issue-' + nNumClean) === String(id) || n.issueNumber === id;
+      });
+
+      if (!item && Array.isArray(FALLBACK_NEWSLETTERS)) {
+        item = FALLBACK_NEWSLETTERS.find(n => {
+          if (!n) return false;
+          if (n.id === id) return true;
+          const nCleanId = String(n.id || '').replace(/^issue-/, '').replace(/^newsletter-/, '').replace(/^شماره\s*/, '').trim();
+          const nNumClean = String(n.issueNumber || '').replace(/^شماره\s*/, '').trim();
+          return nCleanId === cleanId || nNumClean === cleanId || ('issue-' + nNumClean) === String(id) || n.issueNumber === id;
+        });
+      }
+
+      if (!item) return;
+
+      const modal = document.getElementById('editionModal');
+      const badge = document.getElementById('modalBadge');
+      const body = document.getElementById('modalBody');
+      const link = document.getElementById('modalCategoryLink');
+
+      const rawNum = String(item.issueNumber || item.id || '').replace(/^issue-/, '').replace(/^شماره\s*/, '').trim();
+      if (badge) badge.textContent = `شماره ${rawNum}`;
+      
+      const articleSlug = item.articleSlug || item.relatedArticleSlug || ('newsletter-issue-' + rawNum);
+      if (link) {
+        link.href = `/mag?article=${articleSlug}`;
+        link.innerHTML = `<span>مطالعه نسخه کامل در دسته‌بندی خبرنامه</span> ↗`;
+        link.style.display = 'inline-flex';
+      }
+
+      const docName = 'تیم متخصص محتوا نویس پزشکآن';
+      const docSpec = 'تحریریه علمی و شورای پایش بالینی مجله سلامت پزشکآن';
+      const pubDate = item.publishDate || 'شماره جاری';
+      const readTime = item.readTime || '۶ دقیقه';
+      const fullHtml = item.contentHtml || item.rawHtml || item.content || '';
+
+      if (body) {
+        body.innerHTML = `
+          <div style="background: rgba(0, 115, 255, 0.05); border: 1px solid rgba(0, 115, 255, 0.15); border-radius: 12px; padding: 12px 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 13px; font-weight: 800; color: var(--color-primary); display: flex; align-items: center; gap: 8px;">
+              <span><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><rect width='8' height='4' x='8' y='2' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/></svg></span>
+              <span>ویژه‌نامه رسمی تحریریه بالینی پزشکآن • شماره ${rawNum}</span>
+            </div>
+            <button type="button" class="btn-ui btn-subtle-outline" onclick="window.print()" style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px; cursor: pointer;" title="چاپ ویژه‌نامه">
+              <svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='6 9 6 2 18 2 18 9'/><path d='M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2'/><rect width='12' height='8' x='6' y='14'/></svg> چاپ این شماره
+            </button>
+          </div>
+
+          <!-- باکس نویسنده و تاییدیه علمی خبرنامه -->
+          <div class="newsletter-author-verification-box" style="background: linear-gradient(135deg, rgba(0, 115, 255, 0.05) 0%, rgba(0, 229, 153, 0.04) 100%); border: 1px solid rgba(0, 115, 255, 0.18); border-radius: 14px; padding: 16px 18px; margin-bottom: 22px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="position: relative; flex-shrink: 0;">
+                  <div style="width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 20px; box-shadow: 0 4px 12px rgba(0, 115, 255, 0.2);">
+                    <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg>
+                  </div>
+                  <span style="position: absolute; bottom: -2px; left: -2px; background: #00E599; color: #0F172A; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 900; border: 2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
+                </div>
+                <div>
+                  <div style="font-size: 11px; font-weight: 800; color: var(--color-primary); margin-bottom: 2px;">نویسنده و هیئت تحریریه بالینی</div>
+                  <h4 style="font-size: 15px; font-weight: 900; color: var(--text-heading); margin: 0;">تیم متخصص محتوا نویس پزشکآن</h4>
+                  <span style="font-size: 11.5px; color: var(--text-secondary);">${docSpec}</span>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="background: rgba(0, 229, 153, 0.12); color: #059669; border: 1px solid rgba(0, 229, 153, 0.28); padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 800;">
+                  <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'/><path d='m9 12 2 2 4-4'/></svg> تأیید علمی
+                </span>
+                <span style="font-size: 12px; color: var(--text-secondary);"><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><rect width='18' height='18' x='3' y='4' rx='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/></svg> ${pubDate}</span>
+                <span style="font-size: 12px; color: var(--text-secondary);"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><circle cx='12' cy='12' r='10'/><polyline points='12 6 12 12 16 14'/></svg> ${readTime}</span>
+              </div>
+            </div>
+
+            <div style="background: var(--bg-surface); border: 1px solid rgba(0, 115, 255, 0.12); border-radius: 10px; padding: 10px 14px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <span style="font-size: 16px; line-height: 1.2;"><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z'/></svg></span>
+                <p style="font-size: 12.5px; color: var(--text-body); line-height: 1.85; margin: 0; font-weight: 600;">
+                  این مقاله و خبرنامه توسط متخصصین نوشته شده و دارای تایید علمی هستش و از منابع معتبر و گایدلاین‌های بالینی بین‌المللی تدوین شده است.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h2 style="font-size:20px; font-weight:900; line-height:1.5; color:var(--text-heading); margin-bottom:14px;">
+            ${item.title}
+          </h2>
+          ${item.summary ? `
+            <div style="background:rgba(0,115,255,0.06); border-right:4px solid var(--color-primary); border-radius:10px; padding:14px 18px; font-size:14px; font-weight:700; color:var(--color-primary); line-height:1.85; margin-bottom:24px;">
+              <div style="font-size:11.5px; font-weight:800; color:var(--text-secondary); margin-bottom:6px;">سرمقاله سردبیر علمی و لید بالینی:</div>
+              ${item.summary}
+            </div>
+          ` : ''}
+          <div class="edition-content-article" style="font-size:14.5px; line-height:1.9; color:var(--text-body);">
+            ${fullHtml}
+          </div>
+        `;
+      }
+
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeEditionModal(e) {
+      if (e && e.target && e.target !== document.getElementById('editionModal') && !e.target.classList.contains('edition-modal-close') && !e.target.closest('.edition-modal-close')) {
+        return;
+      }
+      const modal = document.getElementById('editionModal');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    // بارگذاری تازه‌ترین اخبار و مقالات مجله سلامت
+    async function loadLatestNews() {
+      const container = document.getElementById('latestNewsCardsGrid');
+      if (!container) return;
+
+      try {
+        const res = await fetch('/api/articles');
+        if (res.ok) {
+          const articles = await res.json();
+          if (Array.isArray(articles) && articles.length > 0) {
+            const published = articles.filter(a => a.status === 'published' || !a.status).slice(0, 4);
+            renderNewsCards(published);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load dynamic articles, loading fallback news:', err);
+      }
+
+      renderFallbackNews();
+    }
+
+    function renderNewsCards(articles) {
+      const container = document.getElementById('latestNewsCardsGrid');
+      if (!container || !articles.length) return;
+
+      container.innerHTML = articles.map(art => {
+        const excerpt = art.lead || art.excerpt || art.summary || (art.content ? art.content.replace(/<[^>]*>?/gm, '').substring(0, 115) + '...' : 'توضیحات و تحلیل‌های جامع بالینی این مقاله در مجله سلامت پزشکآن...');
+        const image = art.heroImage || art.image || 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=700&q=80';
+        const docName = 'تیم متخصص محتوا نویس پزشکآن';
+        const category = art.category || art.categoryName || 'خبر سلامت';
+        const readTime = art.readTime || '۵ دقیقه';
+        const slug = art.slug || art.id;
+
+        return `
+          <div class="medical-news-card">
+            <div class="medical-news-thumb-wrap">
+              <img src="${image}" alt="${art.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=700&q=80'">
+              <span class="news-badge-overlay">${category}</span>
+            </div>
+            <div class="medical-news-content">
+              <a href="/mag/${encodeURIComponent(slug)}" style="text-decoration:none;">
+                <h3 class="medical-news-title">${art.title}</h3>
+              </a>
+              <p class="medical-news-desc">${excerpt}</p>
+              <div class="medical-news-meta">
+                <div class="news-author-mini">
+                  <div class="news-author-avatar"><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></div>
+                  <span>${docName}</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-size:11px; color:var(--text-muted);">${readTime}</span>
+                  <a href="/mag/${encodeURIComponent(slug)}" class="btn-ui btn-subtle-outline" style="font-size:11.5px; padding:5px 10px;">
+                    <span>مطالعه خبر</span> ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderFallbackNews() {
+      const container = document.getElementById('latestNewsCardsGrid');
+      if (!container) return;
+      const fallbackItems = [
+        {
+          title: "تایید پروتکل جدید درمان غیرجراحی فتق دیسک در کنگره ستون فقرات ۲۰۲۶",
+          lead: "نتایج کلینیکی ارزیابی ۳۰۰۰ بیمار نشان می‌دهد ترکیب لیزر پرتوان و فیزیوتراپی تخصصی نرخ نیاز به جراحی باز را تا ۷۳ درصد کاهش می‌دهد.",
+          category: "ارتوپدی و ستون فقرات",
+          author: "تیم متخصص محتوا نویس پزشکآن",
+          readTime: "۴ دقیقه مطالعه",
+          image: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=700&q=80",
+          slug: "lumbar-disc-herniation-nonsurgical"
+        },
+        {
+          title: "هشدار سازمان غذا و دارو درباره مصرف خودسرانه آنالوگ‌های GLP-1 برای لاغری",
+          lead: "بررسی بالینی خطرات تهوع پایدار، گاستروپارزی و افت قند خون در مصرف غیراصولی آمپول‌های سماگلوتاید بدون آزمایش‌های اولیه عملکرد کلیوی و تیروئید.",
+          category: "غدد و متابولیسم",
+          author: "تیم متخصص محتوا نویس پزشکآن",
+          readTime: "۶ دقیقه مطالعه",
+          image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=700&q=80",
+          slug: "diabetes-type2-hba1c-management"
+        },
+        {
+          title: "دستورالعمل تازه‌ متغیرهای غربالگری پیشرفته بارداری و دقت تست سل‌فری",
+          lead: "راهنمای تطبیقی کالج زنان برای تفسیر مقادیر MoM، سونوگرافی مارکرهای ژنتیکی و زمان طلایی نمونه‌گیری خون مادر برای آزمایش NIPT.",
+          category: "زنان و زایمان",
+          author: "تیم متخصص محتوا نویس پزشکآن",
+          readTime: "۵ دقیقه مطالعه",
+          image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=700&q=80",
+          slug: "first-trimester-screening-cellfree-dna"
+        }
+      ];
+      renderNewsCards(fallbackItems);
+    }
+
+    // ارسال فرم عضویت در خبرنامه
+    async function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('subscriberEmail').value;
+      const name = document.getElementById('subscriberName').value;
+      const category = document.getElementById('subscriberCategory').value;
+      
+      const form = document.getElementById('newsletterForm');
+      const successBox = document.getElementById('subscribeSuccessBox');
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'در حال ثبت...';
+      }
+
+      try {
+        const res = await fetch('/api/newsletter/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, name, category })
+        });
+        const data = await res.json();
+      } catch (err) {
+        console.warn('Subscription API failed, fallback to local storage:', err);
+      }
+
+      form.style.display = 'none';
+      successBox.style.display = 'block';
+
+      try {
+        const subData = { email, name, category, date: new Date().toISOString() };
+        localStorage.setItem('pezeshkan_newsletter_sub', JSON.stringify(subData));
+      } catch(err) {}
+    }
+
+    // بستن با کلید Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeEditionModal();
+      }
+    });
+
+    // شروع بارگذاری داده‌های پویا در لود صفحه
+    document.addEventListener('DOMContentLoaded', () => {
+      loadNewsletters();
+      loadLatestNews();
+    });
+  
+    // =========================================================================
+    // محافظت از محتوای علمی مجله در برابر کپی‌برداری (کاملاً سازگار با سئو و ربات‌های گوگل)
+    // =========================================================================
+    (function initEditorialCopyGuard() {
+      let guardToastTimer = null;
+
+      function isEditableTarget(el) {
+        if (!el || !el.tagName) return false;
+        const tag = el.tagName.toLowerCase();
+        return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable;
+      }
+
+      function showCopyGuardNotice() {
+        let toast = document.getElementById('editorialCopyGuardToast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'editorialCopyGuardToast';
+          toast.className = 'copy-guard-toast';
+          toast.setAttribute('role', 'status');
+          toast.setAttribute('aria-live', 'polite');
+          toast.innerHTML = `<span><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><rect width='18' height='11' x='3' y='11' rx='2'/><path d='M7 11V7a5 5 0 0 1 10 0v4'/></svg></span><span>کپی‌برداری از متون علمی مجله سلامت پزشکآن مجاز نیست.</span>`;
+          document.body.appendChild(toast);
+        }
+        toast.classList.add('show');
+        if (guardToastTimer) clearTimeout(guardToastTimer);
+        guardToastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2600);
+      }
+
+      // ۱. مسدودسازی رویدادهای کپی و برش متن (Copy & Cut)
+      document.addEventListener('copy', function(e) {
+        if (isEditableTarget(e.target)) return;
+        e.preventDefault();
+        if (e.clipboardData) {
+          e.clipboardData.setData('text/plain', '');
+        }
+        showCopyGuardNotice();
+      }, true);
+
+      document.addEventListener('cut', function(e) {
+        if (isEditableTarget(e.target)) return;
+        e.preventDefault();
+      }, true);
+
+      // ۲. مسدودسازی انتخاب متن (SelectStart) و کشیدن المان‌ها (DragStart)
+      document.addEventListener('selectstart', function(e) {
+        if (isEditableTarget(e.target)) return;
+        e.preventDefault();
+      }, true);
+
+      document.addEventListener('dragstart', function(e) {
+        if (isEditableTarget(e.target)) return;
+        e.preventDefault();
+      }, true);
+
+      // ۳. مسدودسازی کلیک راست (ContextMenu) روی متون و تصاویر مجله
+      document.addEventListener('contextmenu', function(e) {
+        if (isEditableTarget(e.target)) return;
+        e.preventDefault();
+        showCopyGuardNotice();
+      }, true);
+
+      // ۴. مسدودسازی میانبرهای صفحه‌کلید (Ctrl+C, Ctrl+A, Ctrl+X, Ctrl+U, Ctrl+S, Ctrl+P)
+      document.addEventListener('keydown', function(e) {
+        if (isEditableTarget(e.target)) return;
+        if (e.ctrlKey || e.metaKey) {
+          const key = (e.key || '').toLowerCase();
+          if (['c', 'x', 'a', 'u', 's', 'p'].includes(key) || [67, 88, 65, 85, 83, 80].includes(e.keyCode)) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (key === 'c' || e.keyCode === 67) {
+              showCopyGuardNotice();
+            }
+            return false;
+          }
+        }
+      }, true);
+
+      // ۵. پاکسازی هرگونه انتخاب احتمالی در موبایل یا دسکتاپ
+      document.addEventListener('selectionchange', function() {
+        const active = document.activeElement;
+        if (isEditableTarget(active)) return;
+        const sel = window.getSelection ? window.getSelection() : null;
+        if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+          sel.removeAllRanges();
+        }
+      });
+    })();
+
+  
+    // =========================================================================
+    // موتور اسکرول نرم و روان در تمامی صفحات و بخش‌های مجله سلامت (Lenis Smooth Scroll)
+    // =========================================================================
+    (function initMagazineSmoothScroll() {
+      function setupLenis() {
+        if (typeof Lenis === 'undefined' || window.lenis) return;
+
+        const lenis = new Lenis({
+          duration: 1.18,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 0.95,
+          touchMultiplier: 1.2,
+          infinite: false,
+          prevent: (node) => {
+            return !!(
+              node &&
+              node.closest &&
+              node.closest(
+                '[data-lenis-prevent], .nl-modal-dialog, .nl-modal-body, .edition-modal-dialog, .edition-modal-body, .mobile-drawer-panel, .mobile-drawer-body'
+              )
+            );
+          }
+        });
+
+        window.lenis = lenis;
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // هماهنگ‌سازی خودکار ارتفاع صفحه هنگام تغییر بخش‌ها در SPA مجله
+        if (typeof ResizeObserver !== 'undefined' && document.body) {
+          const ro = new ResizeObserver(() => {
+            lenis.resize();
+          });
+          ro.observe(document.body);
+        }
+
+        // اسکرول نرم برای لینک‌های فهرست مطالب (TOC) و انکرهای داخلی مقاله
+        document.addEventListener('click', function(e) {
+          const anchor = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+          if (!anchor) return;
+          const targetId = anchor.getAttribute('href');
+          if (targetId && targetId !== '#' && !targetId.startsWith('#!')) {
+            try {
+              const targetEl = document.querySelector(targetId);
+              if (targetEl) {
+                e.preventDefault();
+                lenis.scrollTo(targetEl, { offset: -90, duration: 1.18 });
+              }
+            } catch (err) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupLenis);
+      } else {
+        setupLenis();
+      }
+    })();
+
+  
+
+    // مدیریت تم روز (پیش‌فرض) و شب کلینیکال در مجله سلامت پزشکآن
+    function toggleMagTheme() {
+      var root = document.documentElement;
+      var current = root.getAttribute('data-theme') || 'light';
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try {
+        localStorage.setItem('pezeshkan_theme', next);
+      } catch (e) {}
+      var btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+      }
+    }
+    (function syncMagThemeButton() {
+      var saved = 'light';
+      try {
+        saved = localStorage.getItem('pezeshkan_theme') || 'light';
+      } catch (e) {}
+      document.documentElement.setAttribute('data-theme', saved);
+      var btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        btn.setAttribute('aria-pressed', saved === 'dark' ? 'true' : 'false');
+      }
+    })();
+
+  </script>
+
+  <!-- پنجره مودال مطالعه نسخه کامل شماره‌های خبرنامه -->
+  <div id="editionModal" class="edition-modal-backdrop" onclick="closeEditionModal(event)">
+    <div class="edition-modal-dialog" onclick="event.stopPropagation()">
+      <div class="edition-modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="edition-modal-badge" id="modalBadge">شماره ۵۲</span>
+          <span style="font-size:11.5px; color:#0369A1; background:#E0F2FE; padding:3px 8px; border-radius:4px; font-weight:700;">دسته‌بندی: خبرنامه و ویژه‌نامه‌های سلامت</span>
+        </div>
+        <button type="button" class="edition-modal-close" onclick="closeEditionModal()" title="بستن"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg></button>
+      </div>
+      <div class="edition-modal-body" id="modalBody">
+        <!-- محتوای کامل شماره خبرنامه به صورت پویا رندر می‌شود -->
+      </div>
+      <div class="edition-modal-footer">
+        <a href="/mag?cat=newsletter" id="modalCategoryLink" class="btn-ui btn-primary-gradient" style="font-size:12.5px; padding:8px 18px; text-decoration:none;">
+          <span>مشاهده آرشیو کامل در دسته‌بندی خبرنامه</span> ↗
+        </a>
+        <button type="button" class="btn-ui btn-subtle-outline" onclick="closeEditionModal()" style="font-size:12.5px; padding:8px 16px;">
+          بستن پنجره
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

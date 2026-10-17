@@ -1,0 +1,17 @@
+{
+  "name": "اکوسیستم سلامت دیجیتال پزشکآن",
+  "short_name": "پزشکآن",
+  "description": "پلتفرم جامع پرونده الکترونیک سلامت، مدیریت مطب و نوبت‌دهی آنلاین",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0070E0",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

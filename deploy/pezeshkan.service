@@ -1,0 +1,38 @@
+# ==============================================================================
+# سرویس Systemd برای اجرای ۲۴ ساعته سرور امن پزشکآن در لینوکس (Ubuntu/Debian)
+# مسیر نصب در سرور: /etc/systemd/system/pezeshkan.service
+# فعال‌سازی: sudo systemctl enable --now pezeshkan
+# ==============================================================================
+
+[Unit]
+Description=Pezeshkan Digital Healthcare Ecosystem - Hardened Server
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/pezeshkan_design
+ExecStart=/usr/bin/python3 server.py
+Restart=always
+RestartSec=5
+
+# متغیرهای محیطی امنیتی
+Environment=ENVIRONMENT=production
+Environment=PORT=3000
+Environment=HOST=127.0.0.1
+Environment=SECURE_COOKIES=true
+
+# قرنطینه و ایزولاسیون امنیتی کرنل لینوکس (Linux Sandbox Hardening)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+
+[Install]
+WantedBy=multi-user.target

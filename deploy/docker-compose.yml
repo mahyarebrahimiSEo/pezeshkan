@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-production}
+      - HOST=0.0.0.0
+      - PORT=3000
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-mahyarebrahimi}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-ChangeThisPasswordInProduction2026!}
+      - SECRET_SALT=${SECRET_SALT:-production_salt_random_key_x99}
+      - SECURE_COOKIES=${SECURE_COOKIES:-false}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
+    volumes:
+      - ../mag/content:/app/mag/content
+      - ../mag/uploads:/app/mag/uploads
+      - ../robots.txt:/app/robots.txt
+      - ../llms.txt:/app/llms.txt
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3000/api/stats', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp

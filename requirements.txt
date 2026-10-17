@@ -1,0 +1,5 @@
+# Pezeshkan Medical Ecosystem - Python Production Dependencies
+# State-of-the-art Argon2id Password Hashing (OWASP & RFC 9106 Recommended)
+argon2-cffi>=23.1.0
+pillow>=10.0.0
+boto3>=1.34.0

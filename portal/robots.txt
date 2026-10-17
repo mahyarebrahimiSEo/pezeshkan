@@ -1,0 +1,56 @@
+# ==============================================================================
+# اکوسیستم سلامت دیجیتال پزشکآن - پروتکل استاندارد خزنده‌های وب (robots.txt)
+# https://pezeshkan.me
+# ==============================================================================
+
+User-agent: *
+# بخش‌های عمومی و قابل ایندکس وب‌سایت
+Allow: /
+Allow: /product
+Allow: /features
+Allow: /packages
+Allow: /tutorials
+Allow: /about
+Allow: /contact
+Allow: /services
+Allow: /start
+Allow: /appointments
+Allow: /mag
+Allow: /mag/
+Allow: /shared.css
+Allow: /shared.js
+Allow: /fonts/
+Allow: /favicon.svg
+Allow: /site.webmanifest
+
+# دسترسی مجاز خزنده‌ها به API های عمومی محتوا جهت رندر کامل (WRS)
+Allow: /api/articles
+Allow: /api/newsletters
+Allow: /api/pillars
+Allow: /api/doctors
+Allow: /api/settings
+
+# بخش‌های خصوصی، مدیریتی و اندپوینت‌های احراز هویت (عدم ایندکس)
+Disallow: /admin
+Disallow: /admin/
+Disallow: /wp-admin
+Disallow: /wp-admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /mag/admin
+Disallow: /mag/admin/
+Disallow: /mag/login
+Disallow: /mag/login/
+Disallow: /api/admin/
+Disallow: /api/login
+Disallow: /api/logout
+Disallow: /api/backup
+Disallow: /api/restore
+Disallow: /data/
+Disallow: /data.html
+Disallow: /tmp_chrome/
+Disallow: /*.json$
+Allow: /mag/components/*.json
+
+# نقشه سایت رسمی موتورهای جستجو
+Sitemap: https://pezeshkan.me/sitemap.xml

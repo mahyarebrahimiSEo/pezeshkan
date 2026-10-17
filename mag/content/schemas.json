@@ -1,0 +1,181 @@
+[
+  {
+    "id": "schema_global_org",
+    "name": "اکوسیستم جامع سلامت و برند بالینی پزشکآن",
+    "route": "*",
+    "targetUrl": "*",
+    "type": "MedicalOrganization",
+    "schemaType": "MedicalOrganization",
+    "scope": "global",
+    "isActive": true,
+    "description": "معرفی هویت حقوقی، تخصص بالینی، لوگو، شبکه‌های اجتماعی و آدرس به گوگل جهت ایجاد گراف دانش (Knowledge Graph)",
+    "lastReviewed": "امروز",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "MedicalOrganization",
+      "@id": "https://pezeshkan.me/#organization",
+      "name": "اکوسیستم سلامت دیجیتال پزشکآن (Pezeshkan)",
+      "legalName": "شرکت نوآوران سلامت بالینی پزشکآن لایف",
+      "url": "https://pezeshkan.me",
+      "logo": "https://pezeshkan.me/favicon.svg",
+      "email": "info@pezeshkan.me",
+      "telephone": "+98-21-88776655",
+      "medicalSpecialty": [
+        "https://schema.org/GeneralPractice",
+        "https://schema.org/PhysicalMedicine",
+        "https://schema.org/Gynecology",
+        "https://schema.org/Cardiology"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "خیابان ولیعصر، برج سلامت پزشکآن",
+        "addressLocality": "تهران",
+        "addressCountry": "IR"
+      },
+      "sameAs": [
+        "https://instagram.com/pezeshkan_me",
+        "https://t.me/pezeshkan_me",
+        "https://linkedin.com/company/pezeshkan-me"
+      ]
+    },
+    "createdAt": "2026-09-28T10:00:00Z",
+    "updatedAt": "2026-10-01T10:00:00Z"
+  },
+  {
+    "id": "schema_global_website",
+    "name": "سامانه جستجوی سایت و گراف پرتال پزشکآن",
+    "route": "/",
+    "targetUrl": "/",
+    "type": "WebSite",
+    "schemaType": "WebSite",
+    "scope": "global",
+    "isActive": true,
+    "description": "فعال‌سازی جعبه جستجوی مستقیم سایت در نتایج گوگل (Google Sitelinks SearchBox)",
+    "lastReviewed": "امروز",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://pezeshkan.me/#website",
+      "url": "https://pezeshkan.me",
+      "name": "پزشکآن لایف - پلتفرم سلامت و CRM تخصصی مطب",
+      "publisher": {
+        "@id": "https://pezeshkan.me/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://pezeshkan.me/mag?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    "createdAt": "2026-09-28T10:00:00Z",
+    "updatedAt": "2026-10-01T10:00:00Z"
+  },
+  {
+    "id": "schema_page_product",
+    "name": "نرم‌افزار پرونده الکترونیک و CRM مطب (SoftwareApplication)",
+    "route": "/product",
+    "targetUrl": "/product",
+    "type": "SoftwareApplication",
+    "schemaType": "SoftwareApplication",
+    "scope": "page",
+    "isActive": true,
+    "description": "داده‌های ساختاریافته صفحه محصول شامل رتبه‌بندی کاربران (AggregateRating)، سیستم‌عامل و قیمت",
+    "lastReviewed": "امروز",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "نرم‌افزار مدیریت مطب و پرونده الکترونیک سلامت پزشکآن (EMR)",
+      "operatingSystem": "Web, Windows, macOS, Android, iOS",
+      "applicationCategory": "HealthApplication",
+      "url": "https://pezeshkan.me/product",
+      "description": "سامانه یکپارچه پرونده الکترونیک بیمار، اتصال به دستگاه پوز بانکی، قلم نوری و پذیرش آنلاین بیماران ویژه پزشکان و کلینیک‌ها.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "IRR",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "128",
+        "bestRating": "5"
+      }
+    },
+    "createdAt": "2026-09-29T12:00:00Z",
+    "updatedAt": "2026-10-01T10:00:00Z"
+  },
+  {
+    "id": "schema_page_packages",
+    "name": "تعرفه‌ها و پلن‌های اشتراک ابری (Product & AggregateOffer)",
+    "route": "/packages",
+    "targetUrl": "/packages",
+    "type": "Product",
+    "schemaType": "Product",
+    "scope": "page",
+    "isActive": true,
+    "description": "نمایش اسنیپت قیمت و پلن‌های تعرفه در نتایج سرچ گوگل",
+    "lastReviewed": "امروز",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "پلن‌های اشتراک و مدیریت کلینیک پزشکآن",
+      "description": "اشتراک‌های ماهانه و سالانه نرم‌افزار نوبت‌دهی، تشکیل پرونده بالینی و چارت تخصصی پزشک.",
+      "url": "https://pezeshkan.me/packages",
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "4900000",
+        "highPrice": "14900000",
+        "priceCurrency": "IRR",
+        "offerCount": "3"
+      }
+    },
+    "createdAt": "2026-09-29T14:00:00Z",
+    "updatedAt": "2026-10-01T10:00:00Z"
+  },
+  {
+    "id": "schema_page_tutorials_faq",
+    "name": "پرسش‌های متداول آموزش‌های CRM و مطب (FAQPage)",
+    "route": "/tutorials",
+    "targetUrl": "/tutorials",
+    "type": "FAQPage",
+    "schemaType": "FAQPage",
+    "scope": "page",
+    "isActive": true,
+    "description": "نمایش آکاردئونی پرسش‌ها و پاسخ‌های پرتکرار آموزش CRM در نتایج گوگل",
+    "lastReviewed": "امروز",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "url": "https://pezeshkan.me/tutorials",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "آیا سامانه پزشکآن امکان اتصال مستقیم به کارتخوان‌های بانکی را دارد؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بله؛ با پروتکل استاندارد PC-POS مبلغ ویزیت مستقیماً بدون نیاز به تایپ دستی به کارتخوان ارسال می‌شود."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "چگونه می‌توان با قلم نوری در پرونده الکترونیک نسخه و طرح درمان ثبت کرد؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "چارت تخصصی قلم نوری با تفکیک رنگ و فشار دست، اسکن زنده و رسم علائم روی آناتومی بدن را میسر می‌سازد."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "آیا دسترسی منشی و پرسنل پذیرش به سوابق محرمانه بیماران قابل محدودسازی است؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بله؛ با ماژول مدیریت دسترسی نقش‌محور (RBAC)، منشی صرفاً بخش پذیرش، نوبت و صندوق مالی را مشاهده می‌نماید."
+          }
+        }
+      ]
+    },
+    "createdAt": "2026-09-30T09:00:00Z",
+    "updatedAt": "2026-10-01T10:00:00Z"
+  }
+]

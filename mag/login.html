@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ورود به سامانه مدیریت محتوای پزشکآن | ورود امن تحریریه</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --font-sans: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border-color: #E2E8F0;
+      --primary: #0284C7;
+      --primary-hover: #0369A1;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #334155;
+      --accent-emerald: #059669;
+      --accent-rose: #E11D48;
+      --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+    }
+
+    *, *::before, *::after, input, button, select, textarea {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans) !important;
+    }
+
+    body {
+      background: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Background Glow */
+    .bg-glow-1 {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .bg-glow-2 {
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 36px 32px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand-icon-box {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #0284C7, #0D9488);
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      box-shadow: 0 8px 18px rgba(2, 132, 199, 0.25);
+      margin-bottom: 14px;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .brand-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Security Notice Banner */
+    .security-badge {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #166534;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 14px;
+      color: #94A3B8;
+      pointer-events: none;
+      display: flex;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 42px 11px 40px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      background: #FFFFFF;
+      color: var(--text-main);
+      transition: all 0.15s ease;
+      outline: none;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14);
+    }
+
+    .toggle-pwd-btn {
+      position: absolute;
+      left: 12px;
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      cursor: pointer;
+      display: flex;
+      padding: 4px;
+    }
+    .toggle-pwd-btn:hover {
+      color: var(--text-main);
+    }
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.28);
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Error and Status Alert */
+    .alert-box {
+      display: none;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      margin-bottom: 18px;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 0.2s ease;
+    }
+    .alert-box.error {
+      display: flex;
+      background: #FFF1F2;
+      border: 1px solid #FECDD3;
+      color: #BE123C;
+    }
+    .alert-box.success {
+      display: flex;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #166534;
+    }
+
+    .footer-link {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .footer-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-link a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <div class="login-container">
+    
+    <div class="brand-header">
+      <div class="brand-icon-box">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M2 12h20"></path>
+        </svg>
+      </div>
+      <h1 class="brand-title">ورود به پنل مدیریت پزشکآن</h1>
+      <p class="brand-subtitle">سامانه یکپارچه تحریریه سلامت و کنترل مجله</p>
+    </div>
+
+    <!-- Security Assurance Banner -->
+    <div class="security-badge">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
+      <span>ارتباط امن، رمزنگاری PBKDF2 و حفاظت در برابر نفوذ</span>
+    </div>
+
+    <!-- Dynamic Alert Box -->
+    <div id="loginAlert" class="alert-box">
+      <span id="alertIcon" style="display:inline-flex; align-items:center;">
+        <svg class="icon-svg" style="width:16px;height:16px;color:#D97706;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </span>
+      <span id="alertMessage">نام کاربری یا رمز عبور اشتباه است</span>
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      
+      <div class="form-group">
+        <label for="username">نام کاربری</label>
+        <div class="input-wrap">
+          <span class="input-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <input type="text" id="username" class="form-input" placeholder="نام کاربری" required autocomplete="username" autofocus>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">رمز عبور</label>
+        <div class="input-wrap">
+          <span class="input-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </span>
+          <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+          <button type="button" class="toggle-pwd-btn" onclick="togglePasswordVisibility()" title="نمایش/پنهان‌سازی رمز">
+            <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="remember-label">
+          <input type="checkbox" id="rememberMe" checked>
+          <span>مرا در این دستگاه به خاطر بسپار</span>
+        </label>
+      </div>
+
+      <button type="submit" id="btnSubmit" class="btn-submit">
+        <span>ورود به استودیو مدیریت</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+    </form>
+
+    <div class="footer-link">
+      <a href="/mag">بازگشت به صفحه اصلی مجله سلامت ↗</a>
+    </div>
+
+  </div>
+
+  <script>
+    // Password toggle
+    function togglePasswordVisibility() {
+      const pwd = document.getElementById('password');
+      const eye = document.getElementById('eyeIcon');
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        eye.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" x2="22" y1="2" y2="22"></line>';
+      } else {
+        pwd.type = 'password';
+        eye.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle>';
+      }
+    }
+
+    // Handle Login submission
+    async function handleLogin(e) {
+      e.preventDefault();
+      const usernameInput = document.getElementById('username').value.trim();
+      const passwordInput = document.getElementById('password').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      const alertBox = document.getElementById('loginAlert');
+      const alertMsg = document.getElementById('alertMessage');
+      const alertIcon = document.getElementById('alertIcon');
+      const submitBtn = document.getElementById('btnSubmit');
+
+      const errorIconSvg = '<svg class="icon-svg" style="width:16px;height:16px;color:#BE123C;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+      const successIconSvg = '<svg class="icon-svg" style="width:16px;height:16px;color:#166534;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      if (!usernameInput || !passwordInput) {
+        alertBox.className = 'alert-box error';
+        alertIcon.innerHTML = errorIconSvg;
+        alertMsg.innerText = 'لطفاً نام کاربری و رمز عبور را وارد فرمایید.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>در حال بررسی اعتبار و برقراری ارتباط امن...</span>';
+      alertBox.className = 'alert-box';
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: usernameInput,
+            password: passwordInput,
+            remember: rememberMe
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Store session token
+          if (rememberMe) {
+            localStorage.setItem('pezeshkan_admin_token', data.token);
+            localStorage.setItem('pezeshkan_admin_user', JSON.stringify(data.user));
+          } else {
+            sessionStorage.setItem('pezeshkan_admin_token', data.token);
+            sessionStorage.setItem('pezeshkan_admin_user', JSON.stringify(data.user));
+          }
+
+          alertBox.className = 'alert-box success';
+          alertIcon.innerHTML = successIconSvg;
+          alertMsg.innerText = `خوش‌آمدید ${data.user.name}! در حال ورود امن به پیشخوان...`;
+
+          // Check redirect param
+          const urlParams = new URLSearchParams(window.location.search);
+          const redirectUrl = urlParams.get('redirect') || '/admin';
+
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, 600);
+        } else {
+          alertBox.className = 'alert-box error';
+          alertIcon.innerHTML = errorIconSvg;
+          alertMsg.innerText = data.error || 'نام کاربری یا رمز عبور نامعتبر است.';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>ورود به استودیو مدیریت</span>';
+        }
+      } catch (err) {
+        alertBox.className = 'alert-box error';
+        alertIcon.innerHTML = errorIconSvg;
+        alertMsg.innerText = 'خطا در ارتباط با سرور. لطفاً از فعال بودن سرور اطمینان حاصل فرمایید.';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>ورود به استودیو مدیریت</span>';
+      }
+    }
+  </script>
+</body>
+</html>

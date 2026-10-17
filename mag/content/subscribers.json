@@ -1,0 +1,18 @@
+[
+  {
+    "id": "sub-7857d351",
+    "email": "test@example.com",
+    "name": "علی رضایی",
+    "category": "ارتوپدی",
+    "subscribedAt": "2026-10-04 17:36:53",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "sub-6cdedd51",
+    "email": "doctor@pezeshkan.ir",
+    "name": "Mahyar",
+    "category": "cardiology",
+    "subscribedAt": "2026-10-04 17:37:08",
+    "ip": "127.0.0.1"
+  }
+]

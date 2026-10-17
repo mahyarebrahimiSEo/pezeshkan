@@ -1,0 +1,25 @@
+{
+  "siteTitle": "مجله سلامت پزشکآن",
+  "siteSubtitle": "پلتفرم دانش سلامت، ارزیابی بالینی و نوبت‌دهی آنلاین",
+  "editorialLeader": "دکتر مهران رادمنش (متخصص جراحی مغز و اعصاب)",
+  "announcementBanner": {
+    "enabled": true,
+    "text": "ویژه‌نامه راهنمای درمان غیرجراحی ستون فقرات و روش‌های نوین طب فیزیکی منتشر شد.",
+    "ctaText": "مطالعه ویژه‌نامه",
+    "ctaLink": "#article-lumbar"
+  },
+  "contactPhone": "۰۲۱-۸۸۸۸۴۴۴۴",
+  "emergencyTriageEnabled": true,
+  "seo": {
+    "titleTemplate": "%title% | مجله سلامت پزشکآن",
+    "defaultMetaDescription": "پایگاه جامع دانش سلامت، راهنماهای بالینی پزشکی، ارزیابی آنلاین علائم و رزرو نوبت با تایید هیئت علمی و پزشکان متخصص.",
+    "defaultKeywords": "مجله سلامت, دیسک کمر, ارزیابی علائم, سونوگرافی بارداری, تریاژ اورژانس, پزشکآن, مشاوره پزشکی",
+    "googleVerification": "google-site-verification=pezeshkan_mag_secure_token_2026",
+    "bingVerification": "bing-site-verification=pezeshkan_bing_token_2026",
+    "googleAnalyticsId": "G-PEZESHKAN2026",
+    "schemaType": "MedicalOrganization",
+    "canonicalBase": "https://pezeshkan.me",
+    "robotsDefault": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  },
+  "lastUpdated": "2026-09-30T15:30:00Z"
+}

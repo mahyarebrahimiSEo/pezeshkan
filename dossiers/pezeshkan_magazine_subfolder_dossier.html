@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طرح جامع و شناسنامه مهندسی ساب‌فولدر مجله سلامت پزشکآن | Front-End Architecture Dossier</title>
+  
+  <!-- فونت وزیرمتن استاندارد و مدرن -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       سیستم طراحی و توکن‌های اختصاصی پزشکآن (PEZESHKON DESIGN TOKENS)
+       برگرفته از اسناد مصوب V1.0 - معماری Dark-First بالینی
+       ========================================================================== */
+    :root {
+      /* Background Canvas & Surfaces */
+      --color-bg-base: #070A0F;
+      --color-bg-surface-primary: #0B0F17;
+      --color-bg-surface-secondary: #111827;
+      --color-bg-surface-elevated: #1F2937;
+      
+      /* Semantic Signal Colors */
+      --color-signal-primary: #00FFFF;       /* فیروزه‌ای نئونی: اطلاعات، تعامل، پردازش و ارتباطات */
+      --color-signal-primary-glow: rgba(0, 255, 255, 0.25);
+      --color-signal-success: #00E599;       /* سبز حیات: فعال، سلامت، اعتماد بالینی، تایید علمی */
+      --color-signal-success-glow: rgba(0, 229, 153, 0.25);
+      --color-signal-warning: #F59E0B;       /* کهربایی: هشدار مراقبتی، توجه، تفکیک داده */
+      --color-signal-critical: #EF4444;      /* قرمز اورژانس: خطر حاد بالینی (هرگز رنگ برند نیست) */
+      --color-signal-accent: #EC4899;        /* مژنتا: تمایز بصری، اکسنت‌های خاص */
+      
+      /* Typography Colors */
+      --color-text-primary: #F9FAFB;         /* سفید با کنتراست بالا برای تیترها و متون اصلی */
+      --color-text-secondary: #9CA3AF;       /* خاکستری خوانا برای توضیحات و متادیتا */
+      --color-text-muted: #6B7280;           /* رنگ کم‌رنگ برای زمان، برچسب‌ها و جداکننده‌ها */
+      
+      /* Glassmorphism Levels */
+      --glass-primary-bg: rgba(17, 24, 39, 0.75);
+      --glass-primary-border: rgba(255, 255, 255, 0.08);
+      --glass-primary-blur: blur(16px);
+      
+      --glass-secondary-bg: rgba(11, 15, 23, 0.65);
+      --glass-secondary-border: rgba(255, 255, 255, 0.05);
+      --glass-secondary-blur: blur(12px);
+      
+      --glass-floating-bg: rgba(7, 10, 15, 0.85);
+      --glass-floating-border: rgba(0, 255, 255, 0.20);
+      --glass-floating-blur: blur(20px);
+      
+      /* Radii & Shadows */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
+      --shadow-glow-cyan: 0 0 25px rgba(0, 255, 255, 0.15);
+      --shadow-glow-emerald: 0 0 25px rgba(0, 229, 153, 0.15);
+      
+      /* Typography */
+      --font-main: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--color-bg-base);
+      color: var(--color-text-primary);
+      font-family: var(--font-main);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(0, 255, 255, 0.035) 0%, transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(0, 229, 153, 0.03) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    a {
+      color: var(--color-signal-primary);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    a:hover {
+      text-shadow: 0 0 10px var(--color-signal-primary);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       هدر چسبان و تولبار اختصاصی پزشکآن
+       ========================================================================== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass-floating-bg);
+      backdrop-filter: var(--glass-floating-blur);
+      -webkit-backdrop-filter: var(--glass-floating-blur);
+      border-bottom: 1px solid var(--glass-primary-border);
+      padding: 14px 0;
+      box-shadow: var(--shadow-md);
+    }
+    .top-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(0, 229, 153, 0.25));
+      border: 1px solid var(--color-signal-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      position: relative;
+    }
+    .pulse-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-signal-primary);
+      animation: pulseAnim 2.5s infinite;
+      pointer-events: none;
+    }
+    @keyframes pulseAnim {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    .brand-title h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: var(--color-signal-primary);
+      font-weight: 500;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      overflow-x: auto;
+      padding: 4px 0;
+    }
+    .nav-link-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .nav-link-btn:hover, .nav-link-btn.active {
+      color: #FFFFFF;
+      background: rgba(0, 255, 255, 0.12);
+      border-color: var(--color-signal-primary);
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 229, 153, 0.1);
+      border: 1px solid rgba(0, 229, 153, 0.3);
+      font-size: 12px;
+      color: var(--color-signal-success);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-signal-success);
+      box-shadow: 0 0 10px var(--color-signal-success);
+      animation: blinkDot 1.5s infinite alternate;
+    }
+    @keyframes blinkDot {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+
+    /* ==========================================================================
+       بخش هیرو و خلاصه اجرایی
+       ========================================================================== */
+    .hero-section {
+      padding: 50px 0 30px;
+    }
+    .hero-card {
+      background: var(--glass-primary-bg);
+      backdrop-filter: var(--glass-primary-blur);
+      border: 1px solid var(--glass-primary-border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(0, 229, 153, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 255, 255, 0.08);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      color: var(--color-signal-primary);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      max-width: 950px;
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      transition: all 0.2s ease;
+    }
+    .metric-card:hover {
+      border-color: rgba(0, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    .metric-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--color-signal-primary);
+      line-height: 1.2;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .metric-val.emerald {
+      color: var(--color-signal-success);
+    }
+    .metric-val.amber {
+      color: var(--color-signal-warning);
+    }
+    .metric-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 2px;
+    }
+    .metric-detail {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* ==========================================================================
+       بخش‌های محتوایی و کارت‌ها (Sections & Cards)
+       ========================================================================== */
+    .section {
+      padding: 40px 0;
+    }
+    .section-header {
+      margin-bottom: 28px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+    }
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-num {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid var(--color-signal-primary);
+      color: var(--color-signal-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 24px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    /* Panel Card */
+    .panel-card {
+      background: var(--glass-primary-bg);
+      backdrop-filter: var(--glass-primary-blur);
+      border: 1px solid var(--glass-primary-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .panel-card:hover {
+      border-color: rgba(0, 255, 255, 0.2);
+      box-shadow: var(--shadow-glow-cyan);
+    }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .panel-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-icon {
+      font-size: 18px;
+    }
+
+    /* ==========================================================================
+       بخش توکن‌های رنگی و پالت کلیک جهت کپی
+       ========================================================================== */
+    .color-token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .token-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .token-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--color-signal-primary);
+      transform: translateX(-4px);
+    }
+    .color-chip {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .token-info {
+      flex: 1;
+      overflow: hidden;
+    }
+    .token-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FFFFFF;
+      font-family: monospace;
+      direction: ltr;
+      text-align: right;
+    }
+    .token-hex {
+      font-size: 13px;
+      color: var(--color-signal-primary);
+      font-weight: 700;
+      font-family: monospace;
+      direction: ltr;
+      text-align: right;
+    }
+    .token-desc {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       سیستم آکاردئونی پیلارها و خوشه‌ها با قابلیت سرچ
+       ========================================================================== */
+    .search-filter-box {
+      background: var(--glass-secondary-bg);
+      border: 1px solid var(--glass-primary-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      color: #FFFFFF;
+      font-family: var(--font-main);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .search-input:focus {
+      border-color: var(--color-signal-primary);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .search-hint {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    .pillar-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .pillar-item {
+      background: var(--glass-primary-bg);
+      border: 1px solid var(--glass-primary-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .pillar-item.active {
+      border-color: rgba(0, 255, 255, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+    .pillar-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.01);
+      transition: background 0.2s ease;
+    }
+    .pillar-header:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .pillar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .pillar-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(0, 255, 255, 0.08);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .pillar-title-group h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pillar-route-tag {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--color-signal-primary);
+      background: rgba(0, 255, 255, 0.08);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      direction: ltr;
+    }
+    .pillar-intent-txt {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+    }
+    .pillar-meta-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .branch-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+    .toggle-arrow {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      transition: transform 0.3s ease;
+    }
+    .pillar-item.active .toggle-arrow {
+      transform: rotate(180deg);
+      color: var(--color-signal-primary);
+    }
+    .pillar-body {
+      display: none;
+      padding: 0 24px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.25);
+    }
+    .pillar-item.active .pillar-body {
+      display: block;
+    }
+    .dept-banner {
+      background: rgba(0, 229, 153, 0.05);
+      border: 1px solid rgba(0, 229, 153, 0.2);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--color-signal-success);
+    }
+    .branches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .branch-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+    .branch-card:hover {
+      border-color: rgba(0, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .branch-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .branch-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .branch-slug {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--color-text-muted);
+      direction: ltr;
+    }
+    .clusters-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .cluster-tag {
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.12);
+      border-radius: var(--radius-full);
+      padding: 2px 10px;
+      font-size: 11px;
+      color: #D1D5DB;
+      transition: all 0.2s ease;
+    }
+    .cluster-tag:hover {
+      background: rgba(0, 255, 255, 0.15);
+      border-color: var(--color-signal-primary);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       قیف تبدیل محتوا به نوبت‌دهی (HIS Bridge & Conversion Funnel)
+       ========================================================================== */
+    .funnel-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .funnel-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: var(--glass-primary-bg);
+      border: 1px solid var(--glass-primary-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .funnel-step:hover {
+      border-color: var(--color-signal-primary);
+      transform: translateX(-4px);
+    }
+    .step-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.12);
+      border: 1px solid var(--color-signal-primary);
+      color: var(--color-signal-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .step-content {
+      flex: 1;
+    }
+    .step-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .step-code {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--color-signal-success);
+      direction: ltr;
+    }
+
+    /* Live Preview Mockup: HIS Bridge Card */
+    .mockup-preview-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px dashed rgba(0, 255, 255, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .mockup-header-tag {
+      font-size: 11px;
+      color: var(--color-signal-primary);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .live-his-card {
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(11, 15, 23, 0.95));
+      border: 1px solid rgba(0, 229, 153, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-glow-emerald);
+      position: relative;
+    }
+    .his-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .his-doctor-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .doctor-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.1);
+      border: 2px solid var(--color-signal-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .doctor-meta h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .doctor-meta p {
+      font-size: 12px;
+      color: var(--color-signal-primary);
+    }
+    .his-time-badge {
+      background: rgba(0, 229, 153, 0.1);
+      border: 1px solid rgba(0, 229, 153, 0.3);
+      color: var(--color-signal-success);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .his-cta-btn {
+      display: block;
+      width: 100%;
+      background: linear-gradient(90deg, #00E599, #00FFFF);
+      color: #070A0F;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      margin-top: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 229, 153, 0.3);
+      transition: all 0.2s ease;
+    }
+    .his-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(0, 255, 255, 0.4);
+      color: #000000;
+    }
+
+    /* ==========================================================================
+       کامپوننت‌های فرانت‌اند و کدهای استایل
+       ========================================================================== */
+    .component-spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+    }
+    .code-snippet {
+      background: #05070B;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #38BDF8;
+      direction: ltr;
+      text-align: left;
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    /* ==========================================================================
+       چک‌لیست قبل از شروع دیزاین (Pre-Design Checklist)
+       ========================================================================== */
+    .checklist-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+    .checklist-table th, .checklist-table td {
+      padding: 14px 16px;
+      text-align: right;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .checklist-table th {
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-weight: 700;
+    }
+    .checklist-table td {
+      font-size: 13px;
+    }
+    .check-icon {
+      color: var(--color-signal-success);
+      font-weight: 900;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px 0;
+      margin-top: 60px;
+      background: rgba(7, 10, 15, 0.9);
+      text-align: center;
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       نوار بالایی چسبان (Sticky Header)
+       ========================================================================== -->
+  <header class="top-nav">
+    <div class="container top-nav-inner">
+      <div class="brand-box">
+        <div class="brand-logo-badge">
+          <div class="pulse-ring"></div>
+          <svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+        </div>
+        <div class="brand-title">
+          <h1>پزشکـــآن <span style="font-weight:400; font-size:13px; color:var(--color-text-muted);">| شناسنامه ساب‌فولدر مجله</span></h1>
+          <div class="brand-sub">Front-End Architecture & Subfolder Specification V1.0</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#executive" class="nav-link-btn active">۰۱. نمایه اجرایی</a></li>
+          <li><a href="#tokens" class="nav-link-btn">۰۲. سیستم رنگ و توکن</a></li>
+          <li><a href="#taxonomy" class="nav-link-btn">۰۳. اطلس ۹ پیلار و خوشه‌ها</a></li>
+          <li><a href="#funnel" class="nav-link-btn">۰۴. قیف تبدیل و HIS Bridge</a></li>
+          <li><a href="#components" class="nav-link-btn">۰۵. کامپوننت‌های فرانت</a></li>
+          <li><a href="#seo" class="nav-link-btn">۰۶. سئو و E-E-A-T بالینی</a></li>
+          <li><a href="#checklist" class="nav-link-btn">۰۷. چک‌لیست قبل از دیزاین</a></li>
+        </ul>
+      </nav>
+
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        آماده برای فاز دیزاین
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ==========================================================================
+         بخش هیرو و کارت خلاصه وضعیت
+         ========================================================================== -->
+    <section class="hero-section" id="executive">
+      <div class="hero-card">
+        <div class="hero-tag">
+          <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <span>سند رسمی یکپارچه‌سازی فرانت‌اند و طراحی ساب‌فولدر مجله سلامت</span>
+        </div>
+        <h2 class="hero-title">
+          شناسنامه و مهندسی داده ساب‌فولدر مجلات تخصصی پزشکآن
+        </h2>
+        <p class="hero-desc">
+          این پرونده فنی، تمامی نیازمندی‌ها، توکن‌های سیستم طراحی (Design System)، ساختار پوشه‌بندی و مسیردهی (Routing)، اطلس جامع پیلار-کلاستر سئو و اتصال مستقیم مقالات به موتور نوبت‌دهی بیمارستانی (HIS Bridge) را گردآوری و آماده‌سازی نموده است. هدف این فاز، استخراج دقیق تمام داده‌های لازم پیش از شروع مرحله طراحی UI/UX نهایی است.
+        </p>
+
+        <!-- متریک‌های کلیدی مهندسی -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-val">۹</div>
+            <div class="metric-label">پیلار کلان محتوایی</div>
+            <div class="metric-detail">طبقه‌بندی ساختاری حوزه‌های بالینی</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val emerald">۴۹</div>
+            <div class="metric-label">شاخه فرعی تخصصی</div>
+            <div class="metric-detail">پوشش کلینیک‌ها و پاراکلینیک‌ها</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val amber">۱۷۳+</div>
+            <div class="metric-label">کلاستر کلیدواژه سئو</div>
+            <div class="metric-detail">منطبق بر الگوریتم‌های YMYL و E-E-A-T</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">۷۰/۲۰/۱۰</div>
+            <div class="metric-label">نسبت زبان طراحی مصوب</div>
+            <div class="metric-detail">۷۰٪ SaaS مدرن + ۲۰٪ سیگنال حیاتی + ۱۰٪ سخت‌افزار</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۱: نمایه اجرایی و معماری روتینگ ساب‌فولدر
+         ========================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">۰۱</div>
+          <div>
+            <h3 class="section-title">معماری روتینگ و اتصال ساب‌فولدر به اکوسیستم اصلی</h3>
+            <p class="section-subtitle">اصول مهندسی آدرس‌دهی، جلوگیری از جزیره‌ای شدن محتوا و قوانین یکپارچگی</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+              <span>قرارداد ساختار URL و سلسله‌مراتب ساب‌فولدر</span>
+            </div>
+            <span class="pillar-route-tag">Routing Hierarchy</span>
+          </div>
+          <p style="font-size:13px; color:var(--color-text-secondary); margin-bottom:14px;">
+            ساب‌فولدر مجله باید بر بستر ساب‌دایرکتوری اختصاصی <code style="color:var(--color-signal-primary);">/mag/</code> یا <code style="color:var(--color-signal-primary);">/blog/</code> مستقر شود تا کل اعتبار دامنه‌ای (Domain Authority) مستقیماً به دامنه اصلی اکوسیستم سلامت تزریق گردد.
+          </p>
+
+          <table class="checklist-table">
+            <thead>
+              <tr>
+                <th>سطح صفحه</th>
+                <th>الگوی URL در فرانت‌اند</th>
+                <th>کارکرد و هدف اصلی</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>هاب اصلی مجله</strong></td>
+                <td><code style="color:var(--color-signal-primary);">/mag/</code></td>
+                <td>اطلس سلامت، جستجوی زنده، آخرین مقالات، مقالات برگزیده</td>
+              </tr>
+              <tr>
+                <td><strong>صفحه پیلار کلان</strong></td>
+                <td><code style="color:var(--color-signal-primary);">/mag/:pillar_slug/</code></td>
+                <td>مرکز تخصص درمانی (مثلاً ستون فقرات، زنان یا قلب)</td>
+              </tr>
+              <tr>
+                <td><strong>شاخه فرعی / کلاستر</strong></td>
+                <td><code style="color:var(--color-signal-primary);">/mag/:pillar_slug/:sub_slug/</code></td>
+                <td>لیست مقالات تخصصی پیرامون یک بیماری یا رویه بالینی</td>
+              </tr>
+              <tr>
+                <td><strong>صفحه مقاله سینگل</strong></td>
+                <td><code style="color:var(--color-signal-primary);">/mag/:pillar_slug/:article_slug</code></td>
+                <td>صفحه نهایی مطالعه، متادیتای E-E-A-T و ویجت HIS Bridge</td>
+              </tr>
+              <tr>
+                <td><strong>صفحه پروفایل نویسنده</strong></td>
+                <td><code style="color:var(--color-signal-primary);">/mag/author/:doctor_slug</code></td>
+                <td>اعتبارسنجی پزشکی، شماره نظام پزشکی، مقالات و کلینیک</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+              <span>قوانین طلایی اتصال به اپلیکیشن و اکوسیستم</span>
+            </div>
+            <span class="status-badge" style="background:rgba(239, 68, 68, 0.1); border-color:rgba(239, 68, 68, 0.3); color:#EF4444;">Golden Rules</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="background:rgba(255,255,255,0.02); border-right:3px solid var(--color-signal-primary); padding:10px 14px; border-radius:var(--radius-sm);">
+              <strong style="color:#FFFFFF; font-size:13px;">۱. عدم ساخت دیتابیس یا سیستم ورود مجزا:</strong>
+              <p style="font-size:12px; color:var(--color-text-secondary); margin-top:2px;">
+                ساب‌فولدر مجله به هیچ وجه نباید سیستم لاگین، احراز هویت پیامکی (OTP) یا جدول کاربران مجزا بسازد. تمامی دکمه‌های ورود و ثبت‌نام کاربر مستقیماً به <code style="color:var(--color-signal-primary);">NEXT_PUBLIC_APP_URL/register</code> ارجاع می‌شوند.
+              </p>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.02); border-right:3px solid var(--color-signal-success); padding:10px 14px; border-radius:var(--radius-sm);">
+              <strong style="color:#FFFFFF; font-size:13px;">۲. مدل یکپارچه جذب لید (Shared Lead System):</strong>
+              <p style="font-size:12px; color:var(--color-text-secondary); margin-top:2px;">
+                هرگونه فرم دریافت مشاوره یا نوبت داخل مجله از فیلد مشخص <code style="color:var(--color-signal-success);">lead_type = medical_content</code> استفاده می‌کند تا در دیتابیس مرکزی CRM/HIS بدون تداخل تفکیک شود.
+              </p>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.02); border-right:3px solid var(--color-signal-warning); padding:10px 14px; border-radius:var(--radius-sm);">
+              <strong style="color:#FFFFFF; font-size:13px;">۳. نام تجاری پزشکآن (Pezeshkan Governance):</strong>
+              <p style="font-size:12px; color:var(--color-text-secondary); margin-top:2px;">
+                نام کل اکوسیستم «پزشکآن» است؛ نام دکتر ناصح صرفاً مربوط به پایلوت کلینیک است و هرگز نباید در برندینگ اصلی ساب‌فولدر به عنوان نام سامانه استفاده گردد.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۲: سیستم دی‌ان‌ای بصری، پالت رنگ و لایه‌های شیشه‌ای
+         ========================================================================== */
+    <section class="section" id="tokens">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">۰۲</div>
+          <div>
+            <h3 class="section-title">سیستم طراحی بصری، توکن‌های CSS و لایه‌های شیشه‌ای</h3>
+            <p class="section-subtitle">زبان تعامل بالینی Vital Signal، کنترل گلاسمورفیسم و توکن‌های سمانتیک</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- پالت رنگی سمانتیک -->
+      <div class="panel-card" style="margin-bottom:24px;">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
+            <span>پالت رنگی سمانتیک مصوب (Semantic Color Tokens) — برای کپی کلیک کنید</span>
+          </div>
+          <span style="font-size:12px; color:var(--color-text-muted);">Dark Clinical Canvas</span>
+        </div>
+
+        <div class="color-token-grid">
+          <!-- Token 1 -->
+          <div class="token-card" onclick="copyToken('var(--color-signal-primary)', '#00FFFF')">
+            <div class="color-chip" style="background:#00FFFF; box-shadow:0 0 15px rgba(0,255,255,0.4);"></div>
+            <div class="token-info">
+              <div class="token-name">--color-signal-primary</div>
+              <div class="token-hex">#00FFFF</div>
+              <div class="token-desc">سیگنال پردازش، لینک‌ها و تعامل زنده</div>
+            </div>
+          </div>
+
+          <!-- Token 2 -->
+          <div class="token-card" onclick="copyToken('var(--color-signal-success)', '#00E599')">
+            <div class="color-chip" style="background:#00E599; box-shadow:0 0 15px rgba(0,229,153,0.4);"></div>
+            <div class="token-info">
+              <div class="token-name">--color-signal-success</div>
+              <div class="token-hex">#00E599</div>
+              <div class="token-desc">سیگنال حیات، سلامت و تایید پزشک</div>
+            </div>
+          </div>
+
+          <!-- Token 3 -->
+          <div class="token-card" onclick="copyToken('var(--color-signal-warning)', '#F59E0B')">
+            <div class="color-chip" style="background:#F59E0B; box-shadow:0 0 15px rgba(245,158,11,0.4);"></div>
+            <div class="token-info">
+              <div class="token-name">--color-signal-warning</div>
+              <div class="token-hex">#F59E0B</div>
+              <div class="token-desc">هشدار بالینی، احتیاط مصرف دارو</div>
+            </div>
+          </div>
+
+          <!-- Token 4 -->
+          <div class="token-card" onclick="copyToken('var(--color-signal-critical)', '#EF4444')">
+            <div class="color-chip" style="background:#EF4444; box-shadow:0 0 15px rgba(239,68,68,0.4);"></div>
+            <div class="token-info">
+              <div class="token-name">--color-signal-critical</div>
+              <div class="token-hex">#EF4444</div>
+              <div class="token-desc">اورژانس و تریاژ حاد (نه رنگ برند!)</div>
+            </div>
+          </div>
+
+          <!-- Token 5 -->
+          <div class="token-card" onclick="copyToken('var(--color-bg-base)', '#070A0F')">
+            <div class="color-chip" style="background:#070A0F; border:1px solid #1F2937;"></div>
+            <div class="token-info">
+              <div class="token-name">--color-bg-base</div>
+              <div class="token-hex">#070A0F</div>
+              <div class="token-desc">پس‌زمینه عمیق بالینی و خوانا</div>
+            </div>
+          </div>
+
+          <!-- Token 6 -->
+          <div class="token-card" onclick="copyToken('var(--color-bg-surface-primary)', '#0B0F17')">
+            <div class="color-chip" style="background:#0B0F17; border:1px solid #1F2937;"></div>
+            <div class="token-info">
+              <div class="token-name">--color-bg-surface-primary</div>
+              <div class="token-hex">#0B0F17</div>
+              <div class="token-desc">سطح اصلی کارت‌ها و پنل‌های محتوا</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- سطوح گلاسمورفیسم -->
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg></span>
+              <span>سلسله‌مراتب شیشه (Glassmorphism Hierarchy)</span>
+            </div>
+            <span style="font-size:11px; color:var(--color-signal-primary);">«همه چیز شیشه نیست!»</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="background:var(--glass-primary-bg); border:1px solid var(--glass-primary-border); padding:14px; border-radius:var(--radius-md);">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#FFFFFF; font-size:13px;">Primary Glass (کارت‌های محتوا و مقالات)</strong>
+                <span class="pillar-route-tag">blur(16px) - 75% Alpha</span>
+              </div>
+              <p style="font-size:12px; color:var(--color-text-secondary); margin-top:4px;">
+                کارت‌های استاندارد مقالات، هیرو سکشن و باکس‌های پیش‌نمایش محتوا با خط مرزی ۱ پیکسلی خاکستری-شفاف.
+              </p>
+            </div>
+
+            <div style="background:var(--glass-secondary-bg); border:1px solid var(--glass-secondary-border); padding:14px; border-radius:var(--radius-md);">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#FFFFFF; font-size:13px;">Secondary Glass (باکس‌های فرعی و سایدبار)</strong>
+                <span class="pillar-route-tag">blur(12px) - 50% Alpha</span>
+              </div>
+              <p style="font-size:12px; color:var(--color-text-secondary); margin-top:4px;">
+                سایدبار فهرست عناوین (TOC)، فیلترهای ناوبری و ویجت‌های کمکی بدون رقابت با متن اصلی.
+              </p>
+            </div>
+
+            <div style="background:var(--glass-floating-bg); border:1px solid var(--glass-floating-border); padding:14px; border-radius:var(--radius-md);">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#FFFFFF; font-size:13px;">Floating Glass (هدر و تولبار معلق مطالعه)</strong>
+                <span class="pillar-route-tag">blur(20px) - 85% Alpha</span>
+              </div>
+              <p style="font-size:12px; color:var(--color-text-secondary); margin-top:4px;">
+                منوی چسبان، نوار نشانگر درصد مطالعه مقاله، و دکمه‌های اشتراک‌گذاری سریع روی صفحه.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- تایپوگرافی و ارگونومی خواندن مقالات طولانی -->
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+              <span>سیستم تایپوگرافی بالینی (Vazirmatn Clinical Scale)</span>
+            </div>
+            <span class="pillar-route-tag">Persian Typography</span>
+          </div>
+
+          <table class="checklist-table">
+            <thead>
+              <tr>
+                <th>سطح متن</th>
+                <th>اندازه و ارتفاع خط</th>
+                <th>وزن (Weight)</th>
+                <th>کاربرد اختصاصی در مجله</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>H1 Display</strong></td>
+                <td>34px - 40px / 1.4</td>
+                <td>800 (ExtraBold)</td>
+                <td>عنوان اصلی مقاله و نام پیلار کلان</td>
+              </tr>
+              <tr>
+                <td><strong>H2 Section</strong></td>
+                <td>24px - 26px / 1.5</td>
+                <td>700 (Bold)</td>
+                <td>تیترهای بخش‌های درمانی و تشخیصی</td>
+              </tr>
+              <tr>
+                <td><strong>H3 Subtitle</strong></td>
+                <td>18px - 20px / 1.6</td>
+                <td>600 (SemiBold)</td>
+                <td>سرتیترهای فرعی و کارت‌های مقالات</td>
+              </tr>
+              <tr>
+                <td><strong>Body Text</strong></td>
+                <td>16px / 1.85</td>
+                <td>400 (Regular)</td>
+                <td>متن اصلی مقاله (بهترین خوانایی چشم در تاریک)</td>
+              </tr>
+              <tr>
+                <td><strong>Meta & Time</strong></td>
+                <td>12px - 13px / 1.5</td>
+                <td>500 (Medium)</td>
+                <td>زمان مطالعه، نام پزشک، تاریخ بازبینی E-E-A-T</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۳: اطلس ۹ پیلار کلان، ۴۹ شاخه فرعی و ۱۷۳ کلاستر سئو
+         ========================================================================== -->
+    <section class="section" id="taxonomy">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">۰۳</div>
+          <div>
+            <h3 class="section-title">اطلس ساختاری ۹ پیلار کلان، ۴۹ شاخه فرعی و کلاسترهای سئو</h3>
+            <p class="section-subtitle">نقشه جامع موضوعی مجله منطبق بر ساختار کلینیک‌های بیمارستان و سرچ اینتنت بیماران</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- فیلتر و جستجوی آنی -->
+      <div class="search-filter-box">
+        <span style="font-size:20px;"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+        <input type="text" id="taxonomySearch" class="search-input" placeholder="جستجوی بیماری، تخصص یا کلاستر سئو (مثلاً: دیسک کمر، بارداری، دیابت، سونوگرافی، جراحی اسلیو...)" oninput="filterTaxonomy()">
+        <div class="search-hint">قابلیت جستجو در تمامی ۱۷۳ کلاستر</div>
+      </div>
+
+      <!-- آکاردئون پیلارها -->
+      <div class="pillar-accordion" id="pillarsList">
+        <!-- Rendered by Python Generator -->
+        
+      <div class="pillar-item" id="pillar-0">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 1: درد، ستون فقرات و توانبخشی <span class="pillar-route-tag">/mag/physical-rehab/</span></h3>
+              <div class="pillar-intent-txt">درمان غیرجراحی دیسک، مفاصل و بازتوانی بالینی</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">6 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> کلینیک طب فیزیکی، توانبخشی و نوار عصب بیمارستان</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">خدمات تشخیصی (الکترودیاگنوزیس و سونوگرافی)</div>
+              <div class="branch-slug">/diagnostics/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">نوار عصب و عضله (EMG/NCS)</span><span class="cluster-tag">سونوگرافی عضلانی-اسکلتی (MSK)</span><span class="cluster-tag">آنالیز بیومکانیکال و اسکن کف پا</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مداخلات درمانی کم‌تهاجمی و تزریقات پزشک</div>
+              <div class="branch-slug">/interventions/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">تزریق پی‌آر‌پی (PRP زانو و شانه)</span><span class="cluster-tag">پرولوتراپی رباط‌ها و تاندون‌ها</span><span class="cluster-tag">اوزون‌تراپی مفاصل و ستون فقرات</span><span class="cluster-tag">تزریق ژل هیالورونیک اسید</span><span class="cluster-tag">تزریق بوتاکس درمانی (میگرن و اسپاستیسیتی)</span><span class="cluster-tag">بلوک‌های عصبی و اپیدورال ستون فقرات</span><span class="cluster-tag">آزادسازی نقاط ماشه‌ای (Trigger Point)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">درمان‌های دستی و سوزنی</div>
+              <div class="branch-slug">/manual-needling/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">سوزن خشک (Dry Needling)</span><span class="cluster-tag">طب سوزنی پزشکی (Medical Acupuncture)</span><span class="cluster-tag">مانیپولاسیون و درمان دستی ستون فقرات</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مدالیته‌های پیشرفته فیزیکی و فیزیوتراپی</div>
+              <div class="branch-slug">/advanced-modalities/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">شاک‌ویوتراپی خار پاشنه و شانه</span><span class="cluster-tag">لیزر درمانی پرتوان (High Power Laser)</span><span class="cluster-tag">تکارتراپی (Tecar Therapy RF)</span><span class="cluster-tag">مگنت‌تراپی و پوکی استخوان</span><span class="cluster-tag">کشش ستون فقرات (Decompression)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">برنامه‌های جامع توانبخشی و بازتوانی</div>
+              <div class="branch-slug">/rehabilitation/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">توانبخشی پس از تعویض مفصل زانو و لگن</span><span class="cluster-tag">توانبخشی بیماران سکته مغزی و ام‌اس</span><span class="cluster-tag">توانبخشی آسیب‌های ورزشی و ACL</span><span class="cluster-tag">توانبخشی کف لگن و بی‌اختیاری ادرار</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">تجویز ارتز، بریس و کفی طبی اختصاصی</div>
+              <div class="branch-slug">/orthotics/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">طراحی و ساخت کفی طبی با پرینت سه‌بعدی</span><span class="cluster-tag">تجویز انواع بریس و زانوبند Unloader</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-1">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><path d="M9 22v-6a4 4 0 0 1 7.5-2"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 2: سلامت زنان، بارداری و زایمان <span class="pillar-route-tag">/mag/maternity-wellness/</span></h3>
+              <div class="pillar-intent-txt">مراقبت‌های بارداری، زایمان، زیبایی زنان و درمان نازایی</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">6 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> بلوک زایمان، درمانگاه زنان و مرکز ناباروری IVF بیمارستان</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مراقبت‌های دوران بارداری و زایمان</div>
+              <div class="branch-slug">/obstetrics/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">مشاوره و مراقبت‌های پیش از اقدام به بارداری</span><span class="cluster-tag">تقویم هفته به هفته بارداری (۱ تا ۴۰)</span><span class="cluster-tag">مدیریت بارداری‌های پرخطر و پره‌اکلامپسی</span><span class="cluster-tag">زایمان طبیعی بدون درد و سزارین</span><span class="cluster-tag">مراقبت‌های دوران نقاهت پس از زایمان</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">طب مادر، جنین و نوزادان (پریناتولوژی)</div>
+              <div class="branch-slug">/perinatology/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">سونوگرافی‌های تخصصی غربالگری NT و آنومالی</span><span class="cluster-tag">تست‌های تشخیصی تهاجمی آمنیوسنتز و CVS</span><span class="cluster-tag">احیا و پایش سلامت نوزاد در بدو تولد (NICU)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">جراحی‌ها و خدمات زیبایی زنان</div>
+              <div class="branch-slug">/cosmetic-gynecology/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">عمل لابیاپلاستی با لیزر دیود و جراحی</span><span class="cluster-tag">واژینوپلاستی و پرینورافی</span><span class="cluster-tag">سفید کردن واژن (وایتنینگ با لیزر)</span><span class="cluster-tag">تزریق ژل و چربی به لابیا ماژور</span><span class="cluster-tag">جوانسازی با لیزر مونالیزاتاچ و RF واژینال</span><span class="cluster-tag">عمل هودکتومی کلیتوریس</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">بیماری‌ها و مشکلات بالینی زنان</div>
+              <div class="branch-slug">/gynecology/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">چکاپ دوره‌ای پاپ اسمیر و تست HPV</span><span class="cluster-tag">درمان عفونت‌های مقاوم واژینال و STD</span><span class="cluster-tag">اختلالات قاعدگی و منوراژی (خونریزی شدید)</span><span class="cluster-tag">سندرم تخمدان پلی‌کیستیک (PCOS)</span><span class="cluster-tag">مدیریت علائم یائسگی و هورمون‌درمانی (HRT)</span><span class="cluster-tag">تشخیص و درمان کیست تخمدان و آندومتریوز</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">جراحی‌های درمانی زنان و لاپاراسکوپی</div>
+              <div class="branch-slug">/therapeutic-surgeries/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">هیسترکتومی (برداشتن رحم به روش بسته)</span><span class="cluster-tag">میومکتومی (برداشتن فیبروم با حفظ رحم)</span><span class="cluster-tag">جراحی افتادگی مثانه و رکتوسل (پرولاپس)</span><span class="cluster-tag">لاپاراسکوپی و هیستروسکوپی تشخیصی-درمانی</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">خدمات درمان ناباروری و لقاح IVF</div>
+              <div class="branch-slug">/infertility-ivf/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">بررسی علل ناباروری و عکس رنگی رحم (HSG)</span><span class="cluster-tag">لقاح آزمایشگاهی (IVF) و میکرواینجکشن (ICSI)</span><span class="cluster-tag">تلقیح داخل رحمی اسپرم (روش IUI)</span><span class="cluster-tag">تعیین جنسیت جنین (PGD) و فریز تخمک</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-2">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 3: قلب، عروق، دیابت و غدد <span class="pillar-route-tag">/mag/cardio-endocrine/</span></h3>
+              <div class="pillar-intent-txt">پایش بیماری‌های متابولیک، غدد و پروسیجرهای اینترونشنال قلب</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">5 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> بخش کت‌لب آنژیوگرافی، کلینیک قلب و کلینیک غدد و دیابت</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">فوق تخصص غدد درون‌ریز، دیابت و متابولیسم</div>
+              <div class="branch-slug">/endocrinology/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">تشخیص و مدیریت دیابت نوع ۱ و ۲ و بارداری</span><span class="cluster-tag">کم‌کاری و پرکاری تیروئید و ندول FNA</span><span class="cluster-tag">اختلالات رشد و کوتاهی قد کودکان</span><span class="cluster-tag">بیماری‌های هیپوفیز و غده فوق کلیوی</span><span class="cluster-tag">پوکی استخوان و مدیریت چاقی مدیکال</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">خدمات تشخیصی غیرتهاجمی قلب در کلینیک</div>
+              <div class="branch-slug">/cardiology-diagnostics/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">نوار قلب (ECG) و اکوکاردیوگرافی داپلر</span><span class="cluster-tag">تست ورزش قلب (Treadmill Stress Test)</span><span class="cluster-tag">هولتر مانیتورینگ ریتم و فشار خون ۲۴ ساعته</span><span class="cluster-tag">اکوکاردیوگرافی از راه مری (TEE)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">خدمات اینترونشنال و کت‌لب بیمارستان</div>
+              <div class="branch-slug">/interventional-cardio/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">آنژیوگرافی عروق کرونر از دست و پا</span><span class="cluster-tag">آنژیوپلاستی و استنت‌گذاری (بالن و فنر)</span><span class="cluster-tag">بستن سوراخ‌های مادرزادی قلب (ASD/VSD)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مدیریت آریتمی‌ها و الکتروفیزیولوژی قلب</div>
+              <div class="branch-slug">/electrophysiology/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">مطالعه الکتروفیزیولوژی و ابلیشن قلبی (EPS)</span><span class="cluster-tag">تعبیه باتری قلب (پیس‌میکر) و دفیبریلاتور (ICD)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مدیریت بیماری‌های مزمن و توانبخشی قلب</div>
+              <div class="branch-slug">/chronic-care-rehab/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">درمان نارسایی احتقانی قلب و بحران فشار خون</span><span class="cluster-tag">برنامه جامع بازتوانی قلبی (Cardiac Rehab)</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-3">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 4: چکاپ، تفسیر آزمایش‌ها و تصویربرداری <span class="pillar-route-tag">/mag/diagnostics/</span></h3>
+              <div class="pillar-intent-txt">تفسیر آزمایش خون، رزرو سونوگرافی، ام‌آر‌آی، سی‌تی اسکن و ماموگرافی</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">6 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> آزمایشگاه پاتوبیولوژی شبانه‌روزی و مرکز تصویربرداری پزشکی</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">آزمایشگاه پاتوبیولوژی، بیوشیمی و هورمون</div>
+              <div class="branch-slug">/pathobiology-lab/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">پنل بیوشیمی، قند، چربی و آنزیم‌های کبد و کلیه</span><span class="cluster-tag">پنل هورمونی تیروئید، بارداری و ویتامین‌ها</span><span class="cluster-tag">تومورمارکرهای غربالگری سرطان (PSA, CEA, CA-125)</span><span class="cluster-tag">آزمایش خون‌شناسی کامل (CBC) و تست‌های انعقادی</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">ژنتیک پزشکی، مولکولی و سیتولوژی</div>
+              <div class="branch-slug">/molecular-genetics/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">تست مولکولی زگیل تناسلی (HPV Genotyping)</span><span class="cluster-tag">غربالگری ژنتیکی سلامت جنین (آزمایش NIPT سل‌فری)</span><span class="cluster-tag">پاتولوژی بیوپسی بافت و پاپ اسمیر مایع</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">سونوگرافی و کالر داپلر تخصصی</div>
+              <div class="branch-slug">/ultrasound/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">سونوگرافی شکم، لگن، کلیه و مجاری ادراری</span><span class="cluster-tag">سونوگرافی تخصصی بارداری (غربالگری NT و آنومالی)</span><span class="cluster-tag">سونوگرافی نسج نرم پستان و تیروئید</span><span class="cluster-tag">کالر داپلر عروقی (واریس پا و کاروتید گردن)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">ام‌آر‌آی (MRI) و سی‌تی اسکن پیشرفته</div>
+              <div class="branch-slug">/mri-ct-scan/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">ام‌آر‌آی مغز، ستون فقرات و دیسک کمر</span><span class="cluster-tag">ام‌آر‌آی مفاصل زانو و شانه (رباط و مینیسک)</span><span class="cluster-tag">سی‌تی اسکن ریه (HRCT) و مغز</span><span class="cluster-tag">سی‌تی آنژیوگرافی عروق کرونر قلب</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">تصویربرداری تخصصی زنان، رادیوگرافی و تراکم استخوان</div>
+              <div class="branch-slug">/womens-imaging-xray/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">ماموگرافی دیجیتال غربالگری سرطان سینه</span><span class="cluster-tag">عکس رنگی رحم (HSG) با بیهوشی و بدون درد</span><span class="cluster-tag">گرافی‌های دیجیتال ساده، OPG دندان و فک</span><span class="cluster-tag">سنجش تراکم استخوان (DEXA Scan)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">پزشکی هسته‌ای و رادیولوژی مداخله‌ای</div>
+              <div class="branch-slug">/nuclear-interventional/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">اسکن هسته‌ای قلب، استخوان و تیروئید</span><span class="cluster-tag">پت اسکن (PET-CT) مرحله‌بندی سرطان</span><span class="cluster-tag">بیوپسی و تخلیه کیست تحت هدایت سونوگرافی</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-4">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 5: راهنمای علائم و تریاژ اورژانس <span class="pillar-route-tag">/mag/symptoms/</span></h3>
+              <div class="pillar-intent-txt">پاسخ به پرچم‌های قرمز و تریاژ اورژانس بیمارستان</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">5 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> تریاژ اورژانس شبانه‌روزی، پذیرش حاد و بخش مراقبت‌های ویژه</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">سیستم تریاژ ESI و اولویت‌بندی اورژانس</div>
+              <div class="branch-slug">/triage-esi/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">سطوح تریاژ ۱ تا ۵ بیمارستان (ESI)</span><span class="cluster-tag">پرچم‌های قرمز دردهای ارجاعی قفسه سینه</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">اورژانس‌های قلبی، عروقی و فشار خون</div>
+              <div class="branch-slug">/cardiac-emergencies/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">سندرم حاد کرونری و سکته قلبی (MI)</span><span class="cluster-tag">بحران فشار خون و آریتمی‌های کشنده</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">اورژانس‌های مغز، اعصاب و سکته</div>
+              <div class="branch-slug">/neuro-emergencies/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">سکته مغزی و پنجره طلایی معیار FAST</span><span class="cluster-tag">حملات تشنج مداوم و سردرد صاعقه‌ای</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">اورژانس‌های تنفسی، تروما و تصادفات</div>
+              <div class="branch-slug">/trauma-respiratory/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">نارسایی حاد تنفسی و آمبولی ریه (PE)</span><span class="cluster-tag">پلی‌تروما، تصادفات و ترومای ستون فقرات</span><span class="cluster-tag">سوختگی‌های حاد و سوختگی استنشاقی</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مسمومیت‌ها، سم‌شناسی و پروسیجرهای بالین</div>
+              <div class="branch-slug">/toxicology-procedures/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">مسمومیت‌های دارویی، گاز CO و گزیدگی</span><span class="cluster-tag">احیای CPR، اینتوباسیون و سونوگرافی FAST</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-5">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 9h6"/><path d="M12 6v6"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 6: جراحی‌های چاقی و لاپاراسکوپی <span class="pillar-route-tag">/mag/surgeries/</span></h3>
+              <div class="pillar-intent-txt">جراحی‌های لاپاراسکوپیک چاقی، فتق، کیسه صفرا، پستان و غدد</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">5 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> دپارتمان جراحی جنرال، کلینیک چاقی و اتاق عمل بیمارستان</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">جراحی‌های چاقی و متابولیک (لاپاراسکوپی)</div>
+              <div class="branch-slug">/bariatric/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">عمل اسلیو معده لاپاراسکوپیک (Gastric Sleeve)</span><span class="cluster-tag">بای‌پس کلاسیک و مینی بای‌پس معده</span><span class="cluster-tag">جراحی ترکیبی ساسی بای‌پس (SASI)</span><span class="cluster-tag">جراحی‌های اصلاحی چاقی (Revision Bariatric)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">جراحی‌های دستگاه گوارش و کیسه صفرا</div>
+              <div class="branch-slug">/gi-abdominal-surgery/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">کوله سیستکتومی لاپاراسکوپیک (برداشتن صفرا)</span><span class="cluster-tag">آپاندکتومی لاپاراسکوپی در فاز حاد</span><span class="cluster-tag">جراحی تومورهای روده (کولکتومی) و معده</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">جراحی‌های انواع فتق با مش‌گذاری لاپاراسکوپیک</div>
+              <div class="branch-slug">/hernia-repair/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">فتق اینگوینال (کشاله ران) به روش TEP/TAPP</span><span class="cluster-tag">فتق نافی و فتق برشی شکم (Incisional)</span><span class="cluster-tag">فتق هیاتال و جراحی فوندوپلیکاسیون نیسن</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">جراحی‌های پستان و غدد درون‌ریز</div>
+              <div class="branch-slug">/breast-endocrine-surgery/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">برداشتن توده‌های خوش‌خیم فیبروآدنوم پستان</span><span class="cluster-tag">لامپکتومی انکولوپلاستیک و ماستکتومی با بازسازی</span><span class="cluster-tag">تیروئیدکتومی جزئی و کامل با حفظ اعصاب حنجره</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">جراحی‌های سرپایی بافت نرم و پوست</div>
+              <div class="branch-slug">/minor-outpatient-surgery/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">خارج کردن توده‌های چربی (لیپوم) و کیست سباسه</span><span class="cluster-tag">جراحی ناخن فرورفته در گوشت (Ingrown Toenail)</span><span class="cluster-tag">دبریدمان تخصصی زخم پای دیابتی و زخم بستر</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-6">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 7: پوست، مو و زیبایی <span class="pillar-route-tag">/mag/aesthetics-skin/</span></h3>
+              <div class="pillar-intent-txt">تزریقات زیبایی، لیزر، جوانسازی، پیوند مو و بلفاروپلاستی</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">5 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> مرکز تخصصی پوست، لیزر درمانی و اتاق عمل کاشت مو</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">خدمات زیبایی و تزریقات پزشک متخصص</div>
+              <div class="branch-slug">/injectables/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">تزریق بوتاکس صورت، میگرن و تعریق زیر بغل</span><span class="cluster-tag">تزریق فیلر و ژل لب روسی و کانتورینگ صورت</span><span class="cluster-tag">مزوژل‌های جوانساز پروفایلو (Profhilo) و جالوپرو</span><span class="cluster-tag">تزریق چربی و نانوفت به صورت و دست</span><span class="cluster-tag">لیفت صورت و ابرو با نخ‌های خاردار PDO و COG</span><span class="cluster-tag">مزوتراپی و پی‌آر‌پی (PRP) پوست و مو</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">خدمات پیشرفته دستگاهی و لیزر</div>
+              <div class="branch-slug">/lasers-devices/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">لیزر موهای زائد الکساندرایت، دایود و Nd:YAG</span><span class="cluster-tag">هایفوتراپی دابلو و اولترافورمر (HIFU)</span><span class="cluster-tag">آر اف فرکشنال سوزنی (اسکارلت و ویواچه)</span><span class="cluster-tag">لیزر CO2 فرکشنال لایه‌برداری و اسکار آکنه</span><span class="cluster-tag">پاک کردن تتو با کیوسوئیچ و لیزر عروقی واریس</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مراقبت‌های بالینی و پاکسازی پوست (فیشیال)</div>
+              <div class="branch-slug">/clinical-skincare/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">فیشیال تخصصی کلینیکال و هیدرافیشیال</span><span class="cluster-tag">میکرونیدلینگ و میکرودرم ابریژن لایه‌بردار</span><span class="cluster-tag">سابسیژن با کانولا برای جای جوش عمیق</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">بیماری‌های پوست، مو و ناخن (درماتولوژی)</div>
+              <div class="branch-slug">/clinical-dermatology/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">تشخیص و درمان ریزش موی آندروژنیک و سکه‌ای</span><span class="cluster-tag">پروتکل درمان آکنه فعال و تجویز راکوتان</span><span class="cluster-tag">کنترل پسوریازیس، اگزما و ویتیلیگو (پیسی)</span><span class="cluster-tag">کرایوتراپی زگیل‌های تناسلی و جراحی خال‌ها</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">کاشت موی طبیعی و جراحی پلک (بلفاروپلاستی)</div>
+              <div class="branch-slug">/hair-transplant-blepharo/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">کاشت موی طبیعی به روش Micro-FIT و SUT</span><span class="cluster-tag">کاشت طبیعی ابرو با زاویه خواب مناسب مو</span><span class="cluster-tag">بلفاروپلاستی سرپایی پلک بالا و پایین</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-7">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 8: گوارش، کبد و نشیمنگاه (پروکتولوژی) <span class="pillar-route-tag">/mag/proctology-gi/</span></h3>
+              <div class="pillar-intent-txt">درمان سرپایی با لیزر نشیمنگاه، آندوسکوپی، کولونوسکوپی و کبد</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">4 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> کلینیک کولورکتال و لیزر نشیمنگاه، مرکز آندوسکوپی و کبد</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">پروسیجرهای آندوسکوپی و تشخیصی-درمانی</div>
+              <div class="branch-slug">/endoscopy-interventions/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">آندوسکوپی فوقانی دستگاه گوارش با بیهوشی ملایم</span><span class="cluster-tag">کولونوسکوپی کامل و پولیپ‌کتومی روده</span><span class="cluster-tag">ای‌آر‌سی‌پی (ERCP) سنگ مجرای صفراوی</span><span class="cluster-tag">فیبرواسکن کبد (FibroScan) بدون نمونه‌برداری</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">بیماری‌های مری، معده و روده (داخلی)</div>
+              <div class="branch-slug">/upper-lower-gi/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">ریفلاکس اسید معده (GERD) و مری بارت</span><span class="cluster-tag">زخم معده و اثنی‌عشر و ریشه‌کنی میکروب معده</span><span class="cluster-tag">سندرم روده تحریک‌پذیر (IBS) و رژیم فودمپ</span><span class="cluster-tag">بیماری‌های التهابی روده (کرون و کولیت اولسراتیو)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">بیماری‌های کبد، مجاری صفراوی و پانکراس</div>
+              <div class="branch-slug">/hepatology/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">کبد چرب (NAFLD) گرید ۱، ۲ و ۳</span><span class="cluster-tag">هپاتیت‌های ویروسی B و C و خودایمنی</span><span class="cluster-tag">سیروز کبد، آسیت (آب آوردن شکم) و پانکراتیت</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">پروکتولوژی و جراحی‌های لیزری نشیمنگاه</div>
+              <div class="branch-slug">/proctology-laser/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">لیزر هموروئید (بواسیر داخلی و خارجی)</span><span class="cluster-tag">درمان شقاق مقعدی (فیشر) با لیزر و بوتاکس</span><span class="cluster-tag">جراحی فیستول مقعدی با لیزر فیستولوتومی</span><span class="cluster-tag">کیست مویی پایین کمر (سینوس پیلونیدال) با لیزر</span><span class="cluster-tag">تخلیه آبسه مقعدی و درمان زگیل مقعدی با لیزر</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="pillar-item" id="pillar-8">
+        <div class="pillar-header" onclick="togglePillar(this)">
+          <div class="pillar-left">
+            <div class="pillar-icon-box"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></div>
+            <div class="pillar-title-group">
+              <h3>پیلار 9: دانشنامه و اطلاعات دارویی <span class="pillar-route-tag">/mag/drugs/</span></h3>
+              <div class="pillar-intent-txt">اطلاعاتی تخصصی (دوز، عوارض، تداخلات و نحوه مصرف صحیح داروها)</div>
+            </div>
+          </div>
+          <div class="pillar-meta-right">
+            <div class="branch-badge">7 شاخه تخصصی</div>
+            <div class="toggle-arrow">▼</div>
+          </div>
+        </div>
+
+        <div class="pillar-body">
+          <div class="dept-banner">
+            <span><strong>دپارتمان ارجاع بالینی بیمارستان:</strong> سامانه اطلاعات و مشاوره دارویی آنلاین بیمارستان پزشکآن</span>
+            <span class="pillar-route-tag" style="color:var(--color-signal-success);">اتصال فعال به نوبت‌دهی (HIS Bridge)</span>
+          </div>
+
+          <div class="branches-grid">
+            
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">مسکن‌ها، داروهای ضددرد و ضدالتهاب</div>
+              <div class="branch-slug">/analgesics-antiinflammatory/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">مسکن‌های ضدالتهاب غیرکورتونی (NSAIDs)</span><span class="cluster-tag">مسکن‌های غیرمخدر (استامینوفن) و مخدرها</span><span class="cluster-tag">کورتیکواستروئیدها (کورتون‌ها) و شل‌کننده‌ها</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">داروهای گوارشی و ترشح اسید معده</div>
+              <div class="branch-slug">/gastrointestinal-drugs/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">کاهنده‌های اسید معده PPI (امپرازول و پانتوپرازول)</span><span class="cluster-tag">ملین‌ها، ضداسهال‌ها و ضدتهوع‌ها (دمیترون)</span><span class="cluster-tag">داروهای تنظیم‌کننده اسپاسم روده (IBS)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">داروهای قلب، عروق و فشار خون</div>
+              <div class="branch-slug">/cardiovascular-drugs/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">داروهای فشار خون (بتابلاکرها و مهارکننده ACE)</span><span class="cluster-tag">داروهای چربی خون (استاتین‌ها) و دیورتیک‌ها</span><span class="cluster-tag">داروهای ضدانعقاد و رقیق‌کننده خون</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">داروهای اعصاب، روان‌پزشکی و میگرن</div>
+              <div class="branch-slug">/cns-psychiatry-drugs/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">داروهای ضدافسردگی SSRI (سرترالین و فلوکستین)</span><span class="cluster-tag">داروهای ضداضطراب و خواب‌آور (آلپرازولام و زولپیدم)</span><span class="cluster-tag">داروهای ضدتشنج، دردهای عصبی و میگرن</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">آنتی‌بیوتیک‌ها و داروهای ضدمیکروبی</div>
+              <div class="branch-slug">/anti-infectives/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">آنتی‌بیوتیک‌ها (چرک‌خشک‌کن‌ها) و مقاومت دارویی</span><span class="cluster-tag">داروهای ضدویروس، ضدقارچ و ضدانگل</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">داروهای غدد، هورمونی و دیابت</div>
+              <div class="branch-slug">/endocrine-hormonal-drugs/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">داروهای دیابت و آمپول‌های لاغری (متفورمین و اوزمپیک)</span><span class="cluster-tag">داروهای تیروئید و هورمون‌های زنان (لووتیروکسین و ال‌دی)</span>
+            </div>
+          </div>
+        
+          <div class="branch-card">
+            <div class="branch-head">
+              <div class="branch-title">داروهای تنفسی، پوستی و بیولوژیک</div>
+              <div class="branch-slug">/respiratory-dermatology-biologics/</div>
+            </div>
+            <div class="clusters-list">
+              <span class="cluster-tag">اسپری‌های تنفسی آسم و آنتی‌هیستامین‌ها</span><span class="cluster-tag">داروهای جوش راکوتان و ضدریزش ماینوکسیدیل</span><span class="cluster-tag">داروهای بیولوژیک و شیمی‌درمانی (سینورا و آلتبرل)</span>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۴: قیف تبدیل محتوا به نوبت‌دهی (HIS Bridge)
+         ========================================================================== -->
+    <section class="section" id="funnel">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">۰۴</div>
+          <div>
+            <h3 class="section-title">موتور تبدیل محتوا به نوبت‌دهی بالینی (The HIS Bridge Engine)</h3>
+            <p class="section-subtitle">استراتژی تبدیل خواننده مقاله به بیمار واقعی بیمارستان بدون ایجاد بن‌بست</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="funnel-container">
+          <div class="funnel-step">
+            <div class="step-badge">۱</div>
+            <div class="step-content">
+              <div class="step-title">ورود ارگانیک با نیت علامت یا بیماری (Search Intent)</div>
+              <div class="step-desc">
+                کاربر کلیدواژه‌هایی چون «درمان غیرجراحی دیسک گردن» یا «علائم قند خون بالا» را جستجو کرده و وارد مقاله غنی مجله می‌شود.
+              </div>
+              <div class="step-code">User Query → Landing on /mag/:pillar/:article</div>
+            </div>
+          </div>
+
+          <div class="funnel-step">
+            <div class="step-badge">۲</div>
+            <div class="step-content">
+              <div class="step-title">تثبیت اعتبار علمی و پاسخ به پرسش بالینی (E-E-A-T)</div>
+              <div class="step-desc">
+                مقاله با تاییدیه پزشک متخصص، زمان بازبینی و استانداردهای رفرنس‌دهی، اعتماد کامل کاربر را جلب کرده و مشکل را موشکافی می‌کند.
+              </div>
+              <div class="step-code">Verified by Doctor + Zero Cyberpunk Gimmick</div>
+            </div>
+          </div>
+
+          <div class="funnel-step">
+            <div class="step-badge">۳</div>
+            <div class="step-content">
+              <div class="step-title">معرفی راه‌حل درمانی بیمارستان و اکوسیستم پزشکآن</div>
+              <div class="step-desc">
+                مقاله در پاراگراف‌های پایانی یا بین‌متنی، درمانگاه و تجهیزات پیشرفته تشخیصی بیمارستان را به عنوان راه‌حل مطمئن پیشنهاد می‌دهد.
+              </div>
+              <div class="step-code">Solution Mapping → Pezeshkan Clinical Tech</div>
+            </div>
+          </div>
+
+          <div class="funnel-step">
+            <div class="step-badge">۴</div>
+            <div class="step-content">
+              <div class="step-title">فعال‌سازی پل ارتباطی HIS (The Interactive Booking Bridge)</div>
+              <div class="step-desc">
+                ویجت هوشمند داخل مقاله به طور خودکار پزشکان حاضر در دپارتمان مربوطه و اولین زمان آزاد نوبت کلینیک را فراخوانی می‌کند.
+              </div>
+              <div class="step-code">Action: Fast Reservation / Appointment Request</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- پیش‌نمایش تعاملی کامپوننت HIS Bridge -->
+        <div>
+          <div class="mockup-preview-box">
+            <div class="mockup-header-tag">پیش‌نمایش زنده کامپوننت نوبت‌دهی داخل مقاله (Live HIS Bridge Widget)</div>
+            
+            <div class="live-his-card">
+              <div class="his-card-top">
+                <div class="his-doctor-profile">
+                  <div class="doctor-avatar"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></div>
+                  <div class="doctor-meta">
+                    <h4>دکتر فرهاد کیانی</h4>
+                    <p>متخصص طب فیزیکی و توانبخشی ستون فقرات</p>
+                  </div>
+                </div>
+                <div class="his-time-badge">
+                  <span>● نوبت آزاد: فردا ساعت ۱۶:۳۰</span>
+                </div>
+              </div>
+
+              <p style="font-size:13px; color:var(--color-text-secondary); line-height:1.6; margin-bottom:12px;">
+                برای معاینه بالینی، ارزیابی ام‌آر‌آی (MRI) یا دریافت درمان‌های تخصصی غیرجراحی دیسک و مفاصل در کلینیک طب فیزیکی بیمارستان:
+              </p>
+
+              <div style="background:rgba(0,0,0,0.3); border-radius:var(--radius-sm); padding:10px 14px; font-size:12px; color:#E5E7EB; margin-bottom:12px; display:flex; justify-content:space-between;">
+                <span>محل خدمت: درمانگاه طب فیزیکی - طبقه ۲</span>
+                <span style="color:var(--color-signal-primary);">کد خدمت: REHAB-102</span>
+              </div>
+
+              <button class="his-cta-btn" onclick="alert('اتصال به سیستم نوبت‌دهی مرکزی پزشکآن (HIS Bridge Triggered)')">
+                ثبت رزرو نوبت ویزیت در کلینیک ستون فقرات ←
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top:16px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius-lg); padding:16px;">
+            <h4 style="font-size:13px; font-weight:700; color:#FFFFFF; margin-bottom:6px;">قانون عدم بن‌بست محتوایی (Zero Dead-End Policy)</h4>
+            <p style="font-size:12px; color:var(--color-text-secondary); line-height:1.7;">
+              طبق قرارداد اسناد مستندسازی فرانت‌اند پزشکآن، هیچ مقاله‌ای در مجله نباید به صفحه خالی یا پایان بدون اقدام ختم شود. در انتهای هر مقاله باید دست‌کم دو مسیر خروجی فعال تعبیه گردد: <br>
+              ۱) ویجت ثبت نوبت یا مشاوره تخصصی (HIS Bridge) <br>
+              ۲) کلاسترهای مرتبط و زنجیره مقالات مکمل در همان پیلار تخصصی.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۵: کتابخانه کامپوننت‌های فرانت‌اند و مشخصات فنی
+         ========================================================================== -->
+    <section class="section" id="components">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">۰۵</div>
+          <div>
+            <h3 class="section-title">کتابخانه و قرارداد کامپوننت‌های فرانت‌اند (Component Contracts)</h3>
+            <p class="section-subtitle">مشخصات رابط کاربری ماژولار جهت پیاده‌سازی تمیز در مرحله بعدی کدنویسی</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-spec-grid">
+        <!-- کامپوننت 1: هدر مقاله و اعتبار E-E-A-T -->
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></span>
+              <span>کامپوننت: MedicalTrustHeader</span>
+            </div>
+            <span class="pillar-route-tag">Single Article</span>
+          </div>
+          <p style="font-size:13px; color:var(--color-text-secondary);">
+            هدر آغازین مقاله شامل برچسب پیلار، عنوان H1، نام نویسنده با شماره نظام پزشکی، تاریخ بازبینی علمی و نشان تایید پزشکی گوگل.
+          </p>
+          <div class="code-snippet">
+// Component Props Contract
+interface MedicalTrustHeaderProps {
+  title: string;
+  pillar: { name: string; slug: string };
+  author: { name: string; medicalCode: string; avatar: string };
+  reviewer: { name: string; title: string };
+  readingTimeMinutes: number;
+  lastMedicallyReviewedDate: string;
+}
+          </div>
+        </div>
+
+        <!-- کامپوننت 2: فهرست چسبان محتوا (StickyTOC) -->
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+              <span>کامپوننت: StickyTableOfContents</span>
+            </div>
+            <span class="pillar-route-tag">Sidebar / Floating</span>
+          </div>
+          <p style="font-size:13px; color:var(--color-text-secondary);">
+            فهرست شناور سمت چپ/راست متن مقاله همراه با قابلیت ScrollSpy هوشمند، خط نشانگر پیشرفت مطالعه و هایلایت خودکار تیتر در حال خواندن.
+          </p>
+          <div class="code-snippet">
+// Component Props Contract
+interface StickyTOCProps {
+  headings: Array<{ id: string; text: string; level: 2 | 3 }>;
+  activeHeadingId: string;
+  readingProgressPercent: number;
+  onHeadingClick: (id: string) => void;
+}
+          </div>
+        </div>
+
+        <!-- کامپوننت 3: کارت‌های شبکه پیلار (PillarGridCard) -->
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polygon points="12 2 2 7 22 7"/></svg></span>
+              <span>کامپوننت: PillarGridCard</span>
+            </div>
+            <span class="pillar-route-tag">Magazine Hub</span>
+          </div>
+          <p style="font-size:13px; color:var(--color-text-secondary);">
+            کارت‌های معرفی ۹ پیلار در هاب اصلی مجله با افکت شیشه‌ای اولیه، آیکون اختصاصی، تگ شاخه‌ها و ارجاع مستقیم به صفحه جامع پیلار.
+          </p>
+          <div class="code-snippet">
+// Component Props Contract
+interface PillarGridCardProps {
+  name: string;
+  slug: string;
+  icon: string;
+  serviceCountBadge: string;
+  branchesCount: number;
+  deptName: string;
+}
+          </div>
+        </div>
+
+        <!-- کامپوننت 4: باکس هشدار بالینی (ClinicalAlertBox) -->
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+              <span>کامپوننت: ClinicalAlertBox</span>
+            </div>
+            <span class="pillar-route-tag">In-Content Typography</span>
+          </div>
+          <p style="font-size:13px; color:var(--color-text-secondary);">
+            باکس‌های تذکر داخل مقاله با ۳ تم معنایی مجزا: نکته مراقبتی (Cyan)، توصیه بالینی (Emerald)، و هشدار منع مصرف/اورژانس (Warning/Critical).
+          </p>
+          <div class="code-snippet">
+// Component Props Contract
+interface ClinicalAlertBoxProps {
+  type: 'info' | 'clinical_tip' | 'urgent_warning';
+  title: string;
+  content: string;
+  disclaimerText?: string;
+}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۶: الزامات سئو پزشکی، ساختار داده و E-E-A-T
+         ========================================================================== -->
+    <section class="section" id="seo">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">۰۶</div>
+          <div>
+            <h3 class="section-title">استانداردهای سئو پزشکی گوگل و اسکیماهای E-E-A-T</h3>
+            <p class="section-subtitle">الزامات حیاتی الگوریتم‌های سلامت گوگل (YMYL) برای رتبه‌بندی صدر SERP</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+              <span>دستورالعمل داده‌های ساختاریافته (JSON-LD Schema)</span>
+            </div>
+            <span class="pillar-route-tag">Schema.org Validated</span>
+          </div>
+          <p style="font-size:13px; color:var(--color-text-secondary); margin-bottom:12px;">
+            هر صفحه مقاله در فرانت‌اند موظف است این متادیتاهای ساختاریافته سمانتیک را در تگ <code style="color:var(--color-signal-primary);">&lt;head&gt;</code> رندر کند:
+          </p>
+
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; font-size:12px;">
+            <li style="background:rgba(255,255,255,0.02); padding:8px 12px; border-radius:var(--radius-sm); border-right:3px solid var(--color-signal-primary);">
+              <strong style="color:#FFFFFF;">MedicalWebPage:</strong> تعریف نوع صفحه به عنوان یک صفحه تخصصی پزشکی و سلامت
+            </li>
+            <li style="background:rgba(255,255,255,0.02); padding:8px 12px; border-radius:var(--radius-sm); border-right:3px solid var(--color-signal-success);">
+              <strong style="color:#FFFFFF;">Physician / Author:</strong> ثبت نویسنده با کد نظام پزشکی و لینک دانشگاهی
+            </li>
+            <li style="background:rgba(255,255,255,0.02); padding:8px 12px; border-radius:var(--radius-sm); border-right:3px solid var(--color-signal-warning);">
+              <strong style="color:#FFFFFF;">FAQPage:</strong> سوالات متداول انتهای مقاله جهت دریافت فیچرد اسنیپت گوگل (Rich Snippets)
+            </li>
+            <li style="background:rgba(255,255,255,0.02); padding:8px 12px; border-radius:var(--radius-sm); border-right:3px solid var(--color-signal-accent);">
+              <strong style="color:#FFFFFF;">BreadcrumbList:</strong> ساختار مسیر خرده‌نانی از صفحه اصلی به پیلار و مقاله
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+              <span>شاخص‌های عملکردی و سرعت (Core Web Vitals)</span>
+            </div>
+            <span class="status-badge">100/100 Target</span>
+          </div>
+
+          <table class="checklist-table">
+            <thead>
+              <tr>
+                <th>معیار وب وایتال</th>
+                <th>حد مجاز فرانت‌اند</th>
+                <th>راهکار بهینه‌سازی در ساب‌فولدر</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>LCP (لود بزرگترین المان)</strong></td>
+                <td>&lt; ۱.۸ ثانیه</td>
+                <td>استفاده از فرمت WebP/AVIF و Preload برای تصویر هیرو مقاله</td>
+              </tr>
+              <tr>
+                <td><strong>CLS (پایداری چیدمان)</strong></td>
+                <td>صفر (0.0)</td>
+                <td>تعیین دقیق نسبت ابعاد (Aspect Ratio) برای باکس‌های تصویر و ویدیو</td>
+              </tr>
+              <tr>
+                <td><strong>INP (پاسخ‌دهی تعاملی)</strong></td>
+                <td>&lt; ۱۰۰ میلی‌ثانیه</td>
+                <td>سبک نگه‌داشتن جاوااسکریپت، عدم استفاده از کتابخانه‌های حجیم انیمیشن</td>
+              </tr>
+              <tr>
+                <td><strong>فونت‌های فارسی</strong></td>
+                <td>Self-Hosted</td>
+                <td>لود با font-display: swap و کش طولانی‌مدت مرورگر</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۷: چک‌لیست قبل از فاز طراحی نهایی
+         ========================================================================== -->
+    <section class="section" id="checklist">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">۰۷</div>
+          <div>
+            <h3 class="section-title">چک‌لیست تطابق فنی قبل از ورود به مرحله طراحی (Pre-Design Checklist)</h3>
+            <p class="section-subtitle">تطابق کامل داده‌های جمع‌آوری شده با نیازمندی‌های مطرح شده کارفرما</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th style="width:40px;">وضعیت</th>
+              <th>شاخص نیازمندی ساب‌فولدر</th>
+              <th>نتیجه تحلیل اسناد و آماده‌سازی</th>
+              <th>مرحله اجرایی بعد</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="check-icon">✓</span></td>
+              <td><strong>تعیین ساختار روتینگ و URLها</strong></td>
+              <td>طراحی سلسله‌مراتب استاندارد ساب‌فولدر (/mag/ و پیلارهای مرتبط)</td>
+              <td>تاییدیه ساختار پوشه‌ها در فریم‌ورک فرانت‌اند</td>
+            </tr>
+            <tr>
+              <td><span class="check-icon">✓</span></td>
+              <td><strong>استخراج سیستم رنگ و گلاسمورفیسم</strong></td>
+              <td>پالت سمانتیک فیروزه‌ای (#00FFFF)، سبز حیات (#00E599) و سطوح شیشه‌ای</td>
+              <td>پیاده‌سازی در فایل CSS متغیرها (tokens.css)</td>
+            </tr>
+            <tr>
+              <td><span class="check-icon">✓</span></td>
+              <td><strong>اطلس کامل پیلارها و کلاسترهای سئو</strong></td>
+              <td>استخراج دقیق ۹ پیلار کلان، ۴۹ شاخه فرعی و ۱۷۳ کلاستر بالینی</td>
+              <td>ورود به معماری کامپوننت‌های بصری هاب مجله</td>
+            </tr>
+            <tr>
+              <td><span class="check-icon">✓</span></td>
+              <td><strong>مکانیزم اتصال مقالات به سیستم نوبت‌دهی</strong></td>
+              <td>طراحی ویجت HIS Bridge با مدل اختصاصی Lead Type</td>
+              <td>طراحی تعاملی کامپوننت انتخاب پزشک و رزرو</td>
+            </tr>
+            <tr>
+              <td><span class="check-icon">✓</span></td>
+              <td><strong>پروتکل‌های اعتبار پزشکی E-E-A-T</strong></td>
+              <td>قوانین استناد پزشکی، نظام پزشکی، و اسکیماهای JSON-LD</td>
+              <td>اعمال در تمپلیت اختصاصی صفحه مقاله سینگل</td>
+            </tr>
+            <tr>
+              <td><span class="check-icon">✓</span></td>
+              <td><strong>یکپارچگی با دامنه و اکوسیستم پزشکآن</strong></td>
+              <td>اتصال لینک‌های ورود/ثبت‌نام به سیستم مرکزی بدون دیتابیس جدا</td>
+              <td>پیکربندی متغیرهای محیطی اپلیکیشن مرکزی</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="font-weight:700; color:#FFFFFF; margin-bottom:6px;">پزشکـــآن — یکپارچه‌سازی و هوشمندسازی مسیر درمان</p>
+      <p>شناسنامه فنی مهندسی فرانت‌اند و معماری ساب‌فولدر مجله و مقالات پزشکی | تمامی حقوق محفوظ است ۱۴۰۵</p>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       اسکریپت‌های تعاملی: فیلتر پیلارها، آکاردئون و کپی توکن
+       ========================================================================== -->
+  <script>
+    // عملکرد باز و بسته شدن آکاردئون پیلارها
+    function togglePillar(element) {
+      const parent = element.closest('.pillar-item');
+      parent.classList.toggle('active');
+    }
+
+    // عملکرد فیلتر و جستجوی آنی در پیلارها و کلاسترها
+    function filterTaxonomy() {
+      const query = document.getElementById('taxonomySearch').value.toLowerCase().trim();
+      const items = document.querySelectorAll('.pillar-item');
+
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (query === '' || text.includes(query)) {
+          item.style.display = 'block';
+          if (query !== '') {
+            item.classList.add('active');
+          }
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // کپی توکن CSS با کلیک
+    function copyToken(tokenVar, hex) {
+      navigator.clipboard.writeText(tokenVar).then(() => {
+        alert('توکن ' + tokenVar + ' (' + hex + ') در کلیپ‌بورد کپی شد!');
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+[
+  {
+    "id": "med-1792235749478",
+    "filename": "11_1792235748_d87d26a0.webp",
+    "url": "/mag/uploads/2026/10/11_1792235748_d87d26a0.webp",
+    "variants": {
+      "large": "/mag/uploads/2026/10/11_1792235748_d87d26a0.webp",
+      "medium": "/mag/uploads/2026/10/11_1792235748_d87d26a0_medium.webp",
+      "thumb": "/mag/uploads/2026/10/11_1792235748_d87d26a0_thumb.webp"
+    },
+    "dimensions": {
+      "width": 1200,
+      "height": 800,
+      "aspectRatio": 1.5
+    },
+    "format": "webp",
+    "size": 106464,
+    "originalSize": 967759,
+    "savedPercentage": 89.0,
+    "storage": "local",
+    "alt": "تصویر شاخص",
+    "title": "11",
+    "caption": "",
+    "uploadedAt": "2026-10-17 14:45"
+  },
+  {
+    "id": "med-1792234312461",
+    "filename": "6_1792234311_5f6d1878.webp",
+    "url": "/mag/uploads/2026/10/6_1792234311_5f6d1878.webp",
+    "variants": {
+      "large": "/mag/uploads/2026/10/6_1792234311_5f6d1878.webp",
+      "medium": "/mag/uploads/2026/10/6_1792234311_5f6d1878_medium.webp",
+      "thumb": "/mag/uploads/2026/10/6_1792234311_5f6d1878_thumb.webp"
+    },
+    "dimensions": {
+      "width": 1200,
+      "height": 800,
+      "aspectRatio": 1.5
+    },
+    "format": "webp",
+    "size": 88056,
+    "originalSize": 878955,
+    "savedPercentage": 90.0,
+    "storage": "local",
+    "alt": "تصویر جایگزین",
+    "title": "6",
+    "caption": "",
+    "uploadedAt": "2026-10-17 14:21"
+  },
+  {
+    "id": "med-1792233682615",
+    "filename": "img_1792233682_d20b1cb6.webp",
+    "url": "/mag/uploads/2026/10/img_1792233682_d20b1cb6.webp",
+    "variants": {
+      "large": "/mag/uploads/2026/10/img_1792233682_d20b1cb6.webp",
+      "medium": "/mag/uploads/2026/10/img_1792233682_d20b1cb6_medium.webp",
+      "thumb": "/mag/uploads/2026/10/img_1792233682_d20b1cb6_thumb.webp"
+    },
+    "dimensions": {
+      "width": 960,
+      "height": 438,
+      "aspectRatio": 2.192
+    },
+    "format": "webp",
+    "size": 40470,
+    "originalSize": 386840,
+    "savedPercentage": 89.5,
+    "storage": "local",
+    "alt": "کاور مقالات",
+    "title": "کاور مقالات",
+    "caption": "",
+    "uploadedAt": "2026-10-17 14:11"
+  },
+  {
+    "id": "med-1792233622935",
+    "filename": "11_1792233621_b823deb3.webp",
+    "url": "/mag/uploads/2026/10/11_1792233621_b823deb3.webp",
+    "variants": {
+      "large": "/mag/uploads/2026/10/11_1792233621_b823deb3.webp",
+      "medium": "/mag/uploads/2026/10/11_1792233621_b823deb3_medium.webp",
+      "thumb": "/mag/uploads/2026/10/11_1792233621_b823deb3_thumb.webp"
+    },
+    "dimensions": {
+      "width": 1200,
+      "height": 800,
+      "aspectRatio": 1.5
+    },
+    "format": "webp",
+    "size": 106464,
+    "originalSize": 967759,
+    "savedPercentage": 89.0,
+    "storage": "local",
+    "alt": "11",
+    "title": "11",
+    "caption": "",
+    "uploadedAt": "2026-10-17 14:10"
+  },
+  {
+    "id": "med-1",
+    "filename": "lumbar-mri-spine.jpg",
+    "url": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80",
+    "alt": "بررسی ام‌آر‌آی ستون فقرات توسط پزشک متخصص مغز و اعصاب",
+    "title": "ام‌آر‌آی تخصصی ستون فقرات و دیسک کمری",
+    "caption": "بررسی ریشه‌های عصبی L4-L5 و L5-S1 با تصویربرداری رزونانس مغناطیسی",
+    "size": 245000,
+    "uploadedAt": "۱۴۰۵-۰۶-۲۵ ۱۱:۳۰"
+  },
+  {
+    "id": "med-2",
+    "filename": "fetal-ultrasound-nipt.jpg",
+    "url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+    "alt": "سونوگرافی غربالگری جنین در کلینیک پریناتولوژی",
+    "title": "سونوگرافی سه‌بعدی و غربالگری NT جنین",
+    "caption": "سنجش شفافیت نوکال (NT) در هفته ۱۲ بارداری",
+    "size": 189000,
+    "uploadedAt": "۱۴۰۵-۰۶-۲۴ ۰۹:۱۵"
+  },
+  {
+    "id": "med-3",
+    "filename": "cardiac-ecg-monitoring.jpg",
+    "url": "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&w=800&q=80",
+    "alt": "مانیتورینگ قلبی و گوشی پزشکی در بخش اورژانس",
+    "title": "نوار قلب ۱۲ لید و پایش تریاژ درد قفسه سینه",
+    "caption": "ثبت ریتم سینوسی و قطعه ST در تریاژ حاد اورژانس",
+    "size": 210000,
+    "uploadedAt": "۱۴۰۵-۰۶-۲۳ ۱۶:۴۵"
+  },
+  {
+    "id": "med-4",
+    "filename": "knee-joint-rehab-prp.jpg",
+    "url": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+    "alt": "معاینه و ارزیابی بالینی مفصل زانو در کلینیک طب فیزیکی",
+    "title": "ارزیابی مفصل زانو و تزریقات بازساختی PRP",
+    "caption": "معاینه رباط‌های جانبی و مینیسک زانو توسط فوق تخصص توانبخشی",
+    "size": 195000,
+    "uploadedAt": "۱۴۰۵-۰۶-۲۲ ۱۴:۲۰"
+  },
+  {
+    "id": "med-5",
+    "filename": "blood-laboratory-pathology.jpg",
+    "url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    "alt": "تجهیزات مدرن آزمایشگاه پاتوبیولوژی و بیوشیمی بالینی",
+    "title": "آنالیز نمونه‌های خون و سلول‌شناسی",
+    "caption": "تفسیر مکانیزه فاکتورهای هماتولوژی CBC و اسمیر خون محیطی",
+    "size": 230000,
+    "uploadedAt": "۱۴۰5-۰۶-۲۱ ۱۰:۰۰"
+  },
+  {
+    "id": "med-6",
+    "filename": "laparoscopy-operating-room.jpg",
+    "url": "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=800&q=80",
+    "alt": "اتاق عمل پیشرفته جراحی‌های کم‌تهاجمی لاپاراسکوپی",
+    "title": "سیستم لاپاراسکوپی 4K برای جراحی‌های چاقی و کیسه صفرا",
+    "caption": "دید برجسته با دوربین‌های لاپاراسکوپیک با وضوح اولترا اچ‌دی",
+    "size": 275000,
+    "uploadedAt": "۱۴۰۵-۰۶-۲۰ ۱۷:۱۰"
+  }
+]

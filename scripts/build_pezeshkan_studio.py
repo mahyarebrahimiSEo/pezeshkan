@@ -1,0 +1,3608 @@
+# -*- coding: utf-8 -*-
+"""
+Full generator for Pezeshkan Clinical Studio Admin Panel (mag/admin.html)
+- 100% Pezeshkan Clinical Dark Brand Palette
+- ZERO Emojis: Replaced entirely with clean inline SVG vector icons
+- Rock-Solid Native WYSIWYG ContentEditable Editor (Zero failure, instant typing, full formatting)
+- Universal Paste Normalization & Sanitization (Strips foreign fonts, colors, inline styles, MS Word junk; enforces Vazirmatn)
+- WordPress-grade Media Library & Modal
+- Native Clinical Live SEO Suite
+"""
+import os
+import json
+
+BASE_DIR = r"e:\antigravity\pezeshkan_design"
+MAG_DIR = os.path.join(BASE_DIR, "mag")
+
+with open(os.path.join(MAG_DIR, "content", "pillars.json"), encoding="utf-8") as f:
+    pillars_data = json.load(f)
+
+with open(os.path.join(MAG_DIR, "content", "doctors.json"), encoding="utf-8") as f:
+    doctors_data = json.load(f)
+
+with open(os.path.join(MAG_DIR, "content", "articles.json"), encoding="utf-8") as f:
+    articles_data = json.load(f)
+
+with open(os.path.join(MAG_DIR, "content", "settings.json"), encoding="utf-8") as f:
+    settings_data = json.load(f)
+
+media_file = os.path.join(MAG_DIR, "content", "media.json")
+if os.path.exists(media_file):
+    with open(media_file, encoding="utf-8") as f:
+        media_data = json.load(f)
+else:
+    media_data = []
+
+crm_file = os.path.join(MAG_DIR, "content", "crm_tutorials.json")
+if os.path.exists(crm_file):
+    with open(crm_file, encoding="utf-8") as f:
+        crm_data = json.load(f)
+else:
+    crm_data = []
+
+import re
+
+emoji_regex = re.compile('[\U00010000-\U0010ffff]|[\u2600-\u27bf]|[\u2300-\u23ff]|[\u2b50-\u2b55]')
+
+def strip_emojis(data):
+    if isinstance(data, str):
+        return emoji_regex.sub('', data).strip()
+    elif isinstance(data, list):
+        return [strip_emojis(item) for item in data]
+    elif isinstance(data, dict):
+        return {k: strip_emojis(v) for k, v in data.items()}
+    return data
+
+pillars_json = json.dumps(strip_emojis(pillars_data), ensure_ascii=False)
+doctors_json = json.dumps(strip_emojis(doctors_data), ensure_ascii=False)
+articles_json = json.dumps(strip_emojis(articles_data), ensure_ascii=False)
+settings_json = json.dumps(strip_emojis(settings_data), ensure_ascii=False)
+media_json = json.dumps(strip_emojis(media_data), ensure_ascii=False)
+crm_json = json.dumps(strip_emojis(crm_data), ensure_ascii=False)
+
+html_template = f'''<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پیشخوان مدیریت محتوای بالینی مجله سلامت پزشکآن | استودیوی تحریریه و سئو</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {{
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }}
+    @font-face {{
+      font-family: 'Vazirmatn';
+      src: url('/fonts/Vazirmatn-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }}
+
+    /* ==========================================================================
+       پالت رنگ اختصاصی اکوسیستم بالینی پزشکآن (Pezeshkan Clinical Theme DNA)
+       پشتیبانی دوگانه از حالت شب (Dark) و حالت روز (Light)
+       ========================================================================== */
+    :root, [data-theme="dark"] {{
+      --bg-canvas: #060911;
+      --bg-surface: #0A101D;
+      --bg-surface-elevated: #0F172A;
+      --bg-card: #0B132B;
+      --bg-input: #060911;
+      --top-bar-bg: #060911;
+      --sidebar-bg: #080D1A;
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-interactive: rgba(0, 255, 255, 0.25);
+      --border-focus: #0073FF;
+      
+      --color-primary: #0073FF;
+      --color-primary-hover: #0284C7;
+      --color-cyan: #00FFFF;
+      --color-emerald: #00E599;
+      --color-amber: #F59E0B;
+      --color-rose: #EF4444;
+      
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --table-border: rgba(255, 255, 255, 0.06);
+      --table-hover: rgba(255, 255, 255, 0.03);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --scrollbar-track: #060911;
+      --scrollbar-thumb: #1E293B;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      
+      --font-main: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }}
+
+    [data-theme="light"] {{
+      --bg-canvas: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-elevated: #F1F5F9;
+      --bg-card: #FFFFFF;
+      --bg-input: #FFFFFF;
+      --top-bar-bg: #FFFFFF;
+      --sidebar-bg: #FFFFFF;
+      
+      --border-subtle: #E2E8F0;
+      --border-interactive: rgba(0, 112, 224, 0.25);
+      --border-focus: #0070E0;
+      
+      --color-primary: #0070E0;
+      --color-primary-hover: #0056B3;
+      --color-cyan: #0284C7;
+      --color-emerald: #059669;
+      --color-amber: #D97706;
+      --color-rose: #DC2626;
+      
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --table-border: #E2E8F0;
+      --table-hover: rgba(0, 112, 224, 0.04);
+      --card-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+      --scrollbar-track: #F1F5F9;
+      --scrollbar-thumb: #CBD5E1;
+    }}
+
+    *, *::before, *::after {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      font-family: var(--font-main) !important;
+    }}
+
+    body {{
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }}
+
+    /* Sleek Custom Scrollbar */
+    ::-webkit-scrollbar {{
+      width: 7px;
+      height: 7px;
+    }}
+    ::-webkit-scrollbar-track {{
+      background: var(--scrollbar-track);
+    }}
+    ::-webkit-scrollbar-thumb {{
+      background: var(--scrollbar-thumb);
+      border-radius: 9999px;
+    }}
+    ::-webkit-scrollbar-thumb:hover {{
+      background: var(--color-primary);
+    }}
+
+    a {{
+      color: var(--color-cyan);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }}
+    a:hover {{
+      color: #38BDF8;
+    }}
+
+    /* Clean Vector Icons */
+    .icon-svg {{
+      display: inline-block;
+      width: 1.15em;
+      height: 1.15em;
+      vertical-align: -0.18em;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
+    }}
+
+    /* ==========================================================================
+       1. نوار مدیریت بالینی فوقانی (Clinical Top Bar)
+       ========================================================================== */
+    .admin-top-bar {{
+      background: var(--top-bar-bg);
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      height: 52px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }}
+
+    .admin-bar-right {{
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }}
+
+    .admin-bar-brand {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--text-primary);
+    }}
+
+    .brand-cross-icon {{
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #0073FF 0%, #00FFFF 100%);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #060911;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.35);
+    }}
+
+    .admin-badge-clinical {{
+      background: rgba(0, 115, 255, 0.15);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      color: #00FFFF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }}
+
+    .admin-bar-left {{
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }}
+
+    .admin-user-pill {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 12px;
+      border-radius: 9999px;
+    }}
+
+    .admin-user-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-emerald);
+      box-shadow: 0 0 8px var(--color-emerald);
+    }}
+
+    .btn-top-action {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 6px 13px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }}
+    .btn-top-action:hover {{
+      background: var(--table-hover);
+      color: var(--text-primary);
+      border-color: var(--border-interactive);
+    }}
+
+    /* ==========================================================================
+       2. ساختار اصلی پنل (Sidebar + Main Workspace)
+       ========================================================================== */
+    .admin-main-wrap {{
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 52px);
+    }}
+
+    /* Sidebar */
+    .admin-sidebar {{
+      width: 250px;
+      background: var(--sidebar-bg);
+      border-left: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: background-color 0.25s ease;
+    }}
+
+    .sidebar-menu {{
+      list-style: none;
+      padding: 16px 8px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+
+    .sidebar-item {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }}
+
+    .sidebar-item:hover {{
+      background: var(--table-hover);
+      color: var(--text-primary);
+    }}
+
+    .sidebar-item.active {{
+      background: linear-gradient(90deg, rgba(0, 115, 255, 0.18) 0%, rgba(0, 255, 255, 0.08) 100%);
+      color: var(--color-cyan);
+      border-right: 3px solid var(--color-cyan);
+    }}
+
+    .sidebar-item .icon-svg {{
+      font-size: 16px;
+    }}
+
+    .sidebar-divider {{
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 12px 10px;
+    }}
+
+    /* Main Content Area */
+    .admin-content-area {{
+      flex: 1;
+      background: var(--bg-canvas);
+      padding: 28px 32px;
+      overflow-y: auto;
+      transition: background-color 0.25s ease;
+    }}
+
+    /* ==========================================================================
+       3. سربرگ بخش‌ها و کارت‌های متریک (Section Headers & Metric Cards)
+       ========================================================================== */
+    .section-header-box {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }}
+
+    .section-title-wrap h2 {{
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }}
+
+    .section-title-wrap p {{
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }}
+
+    .metrics-row {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }}
+
+    .metric-card {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+    }}
+    .metric-card:hover {{
+      border-color: rgba(0, 115, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }}
+
+    .metric-icon-wrap {{
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }}
+
+    .metric-info h4 {{
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }}
+
+    .metric-num {{
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }}
+
+    /* ==========================================================================
+       4. دکمه‌ها و فرم‌ها (Clinical SaaS Buttons & Form Controls)
+       ========================================================================== */
+    .btn {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }}
+
+    .btn-primary {{
+      background: linear-gradient(135deg, #0073FF 0%, #0284C7 100%);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(0, 115, 255, 0.3);
+    }}
+    .btn-primary:hover {{
+      background: linear-gradient(135deg, #0284C7 0%, #0073FF 100%);
+      box-shadow: 0 6px 20px rgba(0, 115, 255, 0.45);
+    }}
+
+    .btn-success {{
+      background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+    }}
+    .btn-success:hover {{
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.45);
+    }}
+
+    .btn-secondary {{
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }}
+    .btn-secondary:hover {{
+      background: var(--table-hover);
+      border-color: var(--border-interactive);
+      color: var(--color-primary);
+    }}
+
+    .btn-danger {{
+      background: rgba(239, 68, 68, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }}
+    .btn-danger:hover {{
+      background: rgba(239, 68, 68, 0.25);
+      color: #FFFFFF;
+    }}
+
+    .form-control {{
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      font-size: 13.5px;
+      outline: none;
+      transition: all 0.2s ease;
+      width: 100%;
+    }}
+    .form-control:focus {{
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(0, 115, 255, 0.25);
+    }}
+
+    /* ==========================================================================
+       5. جداول داده و فیلترها (Clinical Data Tables & Tabs)
+       ========================================================================== */
+    .card {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }}
+
+    .status-pills-list {{
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }}
+
+    .status-pill {{
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }}
+    .status-pill:hover {{
+      background: var(--table-hover);
+      color: var(--text-primary);
+    }}
+    .status-pill.active {{
+      background: rgba(0, 115, 255, 0.15);
+      border-color: rgba(0, 255, 255, 0.4);
+      color: var(--color-cyan);
+    }}
+
+    .clinical-table-wrap {{
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }}
+
+    .clinical-table {{
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 13.5px;
+    }}
+
+    .clinical-table th {{
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }}
+
+    .clinical-table td {{
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }}
+
+    .clinical-table tr:hover td {{
+      background: var(--table-hover);
+    }}
+
+    .table-actions {{
+      display: flex;
+      gap: 8px;
+    }}
+
+    .table-btn-action {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }}
+    .table-btn-action:hover {{
+      background: var(--table-hover);
+      color: var(--text-primary);
+      border-color: var(--border-interactive);
+    }}
+
+    /* ==========================================================================
+       6. فضای کاری ویرایشگر و تحریریه (2-Column Studio Workspace)
+       ========================================================================== */
+    .article-editor-workspace {{
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 24px;
+      align-items: start;
+    }}
+
+    .editor-paper-card {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--card-shadow);
+      transition: background-color 0.25s ease;
+    }}
+
+    .editor-paper-header {{
+      padding: 24px 24px 16px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background-color 0.25s ease;
+    }}
+
+    .input-title-h1 {{
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 22px;
+      font-weight: 800;
+      padding: 8px 0 12px;
+      outline: none;
+      transition: border-color 0.2s ease, color 0.2s ease;
+      margin-bottom: 16px;
+    }}
+    .input-title-h1:focus {{
+      border-bottom-color: var(--color-cyan);
+    }}
+
+    .textarea-lead {{
+      width: 100%;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      color: var(--text-primary);
+      font-size: 14px;
+      line-height: 1.8;
+      resize: vertical;
+      min-height: 75px;
+      outline: none;
+      transition: border-color 0.2s;
+    }}
+    .textarea-lead:focus {{
+      border-color: var(--color-primary);
+    }}
+
+    /* Sticky Formatting Toolbar */
+    .editorial-toolbar-sticky {{
+      background: var(--bg-surface-elevated);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 52px;
+      z-index: 100;
+      transition: background-color 0.25s ease;
+    }}
+
+    .toolbar-cluster {{
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-left: 1px solid var(--border-subtle);
+      padding-left: 8px;
+      margin-left: 4px;
+    }}
+
+    .tbtn {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      min-width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 8px;
+      transition: all 0.15s ease;
+    }}
+    .tbtn:hover {{
+      background: var(--table-hover);
+      color: var(--text-primary);
+      border-color: var(--border-interactive);
+    }}
+    .tbtn.active {{
+      background: rgba(0, 115, 255, 0.2);
+      border-color: var(--color-primary);
+      color: var(--color-cyan);
+    }}
+
+    /* Clinical Callout Buttons (No Emojis, Pure SVG + Colors) */
+    .tbtn-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }}
+
+    .tbtn-pill.btn-callout-warning {{
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #FBBF24;
+    }}
+    .tbtn-pill.btn-callout-warning:hover {{
+      background: rgba(245, 158, 11, 0.25);
+    }}
+
+    .tbtn-pill.btn-callout-advice {{
+      background: rgba(0, 229, 153, 0.12);
+      border-color: rgba(0, 229, 153, 0.4);
+      color: #00E599;
+    }}
+    .tbtn-pill.btn-callout-advice:hover {{
+      background: rgba(0, 229, 153, 0.25);
+    }}
+
+    .tbtn-pill.btn-callout-protocol {{
+      background: rgba(0, 255, 255, 0.12);
+      border-color: rgba(0, 255, 255, 0.4);
+      color: #00FFFF;
+    }}
+    .tbtn-pill.btn-callout-protocol:hover {{
+      background: rgba(0, 255, 255, 0.25);
+    }}
+
+    .tbtn-pill.btn-callout-media {{
+      background: rgba(0, 115, 255, 0.18);
+      border-color: rgba(0, 115, 255, 0.45);
+      color: #38BDF8;
+    }}
+    .tbtn-pill.btn-callout-media:hover {{
+      background: rgba(0, 115, 255, 0.3);
+    }}
+
+    /* ==========================================================================
+       7. موتور محتوانویسی غنی و تمیزکننده هوشمند پِیست (WYSIWYG Surface)
+       ========================================================================== */
+    .editor-canvas-body {{
+      padding: 24px;
+      background: var(--bg-canvas);
+      min-height: 480px;
+      cursor: text;
+      transition: background-color 0.25s ease;
+    }}
+
+    .editorial-wysiwyg-surface {{
+      min-height: 440px;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.95;
+      direction: rtl;
+      text-align: right;
+    }}
+
+    .editorial-wysiwyg-surface:empty::before {{
+      content: attr(data-placeholder);
+      color: var(--text-muted);
+      pointer-events: none;
+      display: block;
+    }}
+
+    .editorial-wysiwyg-surface p {{
+      margin-bottom: 18px;
+      color: var(--text-primary);
+      line-height: 1.95;
+    }}
+
+    .editorial-wysiwyg-surface h2 {{
+      color: var(--text-primary);
+      font-size: 21px;
+      font-weight: 800;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      border-right: 4px solid var(--color-primary);
+      padding-right: 12px;
+      line-height: 1.5;
+    }}
+
+    .editorial-wysiwyg-surface h3 {{
+      color: var(--text-primary);
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      border-right: 3px solid var(--color-emerald);
+      padding-right: 10px;
+      line-height: 1.5;
+    }}
+
+    .editorial-wysiwyg-surface strong,
+    .editorial-wysiwyg-surface b {{
+      color: var(--text-primary);
+      font-weight: 700;
+    }}
+
+    .editorial-wysiwyg-surface blockquote {{
+      background: rgba(0, 115, 255, 0.08);
+      border-right: 4px solid var(--color-cyan);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      color: #E2E8F0;
+      font-style: italic;
+    }}
+
+    .editorial-wysiwyg-surface ul,
+    .editorial-wysiwyg-surface ol {{
+      margin: 16px 0;
+      padding-right: 24px;
+      color: #CBD5E1;
+    }}
+
+    .editorial-wysiwyg-surface li {{
+      margin-bottom: 8px;
+      line-height: 1.8;
+    }}
+
+    .editorial-wysiwyg-surface a {{
+      color: var(--color-cyan);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }}
+
+    .editorial-wysiwyg-surface img,
+    .editorial-wysiwyg-surface .editorial-body-image {{
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+      margin: 20px auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }}
+
+    .editorial-wysiwyg-surface figure {{
+      margin: 20px 0;
+      text-align: center;
+    }}
+    .editorial-wysiwyg-surface figcaption {{
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }}
+
+    /* Clinical Callouts in Editor */
+    .clinical-callout {{
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 22px 0;
+      direction: rtl;
+    }}
+
+    .clinical-callout .callout-header {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }}
+
+    .clinical-callout p {{
+      margin: 0 !important;
+      font-size: 14px !important;
+      line-height: 1.85 !important;
+    }}
+
+    .clinical-callout.callout-warning {{
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #FDE68A;
+    }}
+    .clinical-callout.callout-warning .callout-header {{
+      color: #FBBF24;
+    }}
+
+    .clinical-callout.callout-advice {{
+      background: rgba(0, 229, 153, 0.1);
+      border: 1px solid rgba(0, 229, 153, 0.4);
+      color: #A7F3D0;
+    }}
+    .clinical-callout.callout-advice .callout-header {{
+      color: #00E599;
+    }}
+
+    .clinical-callout.callout-protocol {{
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      color: #BAE6FD;
+    }}
+    .clinical-callout.callout-protocol .callout-header {{
+      color: #00FFFF;
+    }}
+
+    /* Bottom Status Strip */
+    .editor-status-strip {{
+      background: #080D1A;
+      border-top: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }}
+
+    .status-group {{
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }}
+
+    /* ==========================================================================
+       8. ستون سئو و انتشار مقالات (Clinical SEO Suite)
+       ========================================================================== */
+    .editor-sidebar-col {{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }}
+
+    .sidebar-widget {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }}
+
+    .widget-header {{
+      padding: 14px 18px;
+      background: #080D1A;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #F8FAFC;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+
+    .widget-body {{
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }}
+
+    /* Featured Image Box */
+    .featured-img-preview-box {{
+      width: 100%;
+      height: 160px;
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }}
+    .featured-img-preview-box:hover {{
+      border-color: var(--color-cyan);
+      background: rgba(0, 115, 255, 0.05);
+    }}
+    .featured-img-preview-box img {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }}
+
+    /* Google SERP Preview Box */
+    .google-serp-box {{
+      background: #131B2E;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 14px;
+      direction: rtl;
+    }}
+    .serp-url {{
+      font-size: 12px;
+      color: #81C995;
+      margin-bottom: 4px;
+      word-break: break-all;
+    }}
+    .serp-title {{
+      font-size: 15px;
+      color: #8AB4F8;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }}
+    .serp-desc {{
+      font-size: 12.5px;
+      color: #BDC1C6;
+      line-height: 1.6;
+    }}
+
+    /* Progress bar counter */
+    .char-counter-wrap {{
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }}
+    .progress-bar-bg {{
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 4px;
+    }}
+    .progress-bar-fill {{
+      height: 100%;
+      width: 0%;
+      background: var(--color-emerald);
+      transition: width 0.2s, background-color 0.2s;
+    }}
+
+    /* 9-Point SEO Checklist */
+    .seo-audit-list {{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }}
+
+    .seo-audit-item {{
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }}
+
+    .seo-audit-item .icon-svg {{
+      margin-top: 2px;
+    }}
+
+    .seo-audit-item.passed {{
+      color: #F8FAFC;
+    }}
+    .seo-audit-item.passed .icon-svg {{
+      stroke: var(--color-emerald);
+    }}
+
+    .seo-audit-item.warning {{
+      color: #FDE68A;
+    }}
+    .seo-audit-item.warning .icon-svg {{
+      stroke: var(--color-amber);
+    }}
+
+    .seo-audit-item.failed {{
+      color: #FCA5A5;
+    }}
+    .seo-audit-item.failed .icon-svg {{
+      stroke: var(--color-rose);
+    }}
+
+    /* Score Badge */
+    .seo-score-badge {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: rgba(0, 229, 153, 0.12);
+      border: 1px solid rgba(0, 229, 153, 0.4);
+      color: var(--color-emerald);
+    }}
+
+    /* ==========================================================================
+       9. مدال رسانه و کتابخانه فایل‌ها (Media Modal & Library)
+       ========================================================================== */
+    .modal-backdrop {{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }}
+
+    .modal-box {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 900px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }}
+
+    .modal-header {{
+      padding: 16px 24px;
+      background: #080D1A;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+
+    .modal-body {{
+      padding: 20px 24px;
+      overflow-y: auto;
+      flex: 1;
+    }}
+
+    .modal-footer {{
+      padding: 14px 24px;
+      background: #080D1A;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+
+    /* Media Grid */
+    .media-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }}
+
+    .media-grid-item {{
+      aspect-ratio: 1;
+      border-radius: 8px;
+      border: 2px solid var(--border-subtle);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: var(--bg-canvas);
+      transition: all 0.2s ease;
+    }}
+    .media-grid-item:hover {{
+      border-color: var(--color-cyan);
+      transform: scale(1.02);
+    }}
+    .media-grid-item.selected {{
+      border-color: var(--color-cyan);
+      box-shadow: 0 0 14px rgba(0, 255, 255, 0.4);
+    }}
+    .media-grid-item img {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }}
+
+    /* Drag Drop Upload Box */
+    .upload-drop-zone {{
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 32px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }}
+    .upload-drop-zone:hover,
+    .upload-drop-zone.dragover {{
+      border-color: var(--color-cyan);
+      background: rgba(0, 115, 255, 0.06);
+    }}
+
+    /* Toast Notification */
+    .clinical-toast {{
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-interactive);
+      color: var(--text-primary);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--card-shadow);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }}
+    .clinical-toast.show {{
+      transform: translateY(0);
+      opacity: 1;
+    }}
+
+    /* CRM Tutorials Section & Cards */
+    .crm-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 18px;
+    }}
+
+    .crm-card {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+      box-shadow: var(--card-shadow);
+      position: relative;
+    }}
+    .crm-card:hover {{
+      border-color: var(--border-interactive);
+      transform: translateY(-2px);
+    }}
+
+    .crm-card-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+    }}
+
+    .crm-badge-role {{
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }}
+    .crm-badge-doctor {{
+      background: rgba(0, 115, 255, 0.12);
+      border: 1px solid rgba(0, 115, 255, 0.3);
+      color: #38BDF8;
+    }}
+    .crm-badge-receptionist {{
+      background: rgba(0, 229, 153, 0.12);
+      border: 1px solid rgba(0, 229, 153, 0.3);
+      color: #00E599;
+    }}
+    .crm-badge-user {{
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #F59E0B;
+    }}
+
+    .crm-readtime {{
+      font-size: 11.5px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }}
+
+    .crm-card h3 {{
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }}
+
+    .crm-card p {{
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 18px;
+      flex: 1;
+    }}
+
+    .crm-card-footer {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 14px;
+      margin-top: auto;
+    }}
+
+    /* CRM Reader Modal */
+    .crm-modal-backdrop {{
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }}
+    .crm-modal-backdrop.active {{
+      display: flex;
+    }}
+
+    .crm-modal-dialog {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 840px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      animation: modalFadeIn 0.25s ease;
+    }}
+
+    @keyframes modalFadeIn {{
+      from {{ opacity: 0; transform: translateY(15px); }}
+      to {{ opacity: 1; transform: translateY(0); }}
+    }}
+
+    .crm-modal-header {{
+      padding: 18px 24px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+
+    .crm-modal-body {{
+      padding: 24px 28px;
+      overflow-y: auto;
+      font-size: 14.5px;
+      line-height: 1.95;
+      color: var(--text-primary);
+    }}
+    .crm-modal-body h4 {{
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 22px 0 10px;
+      border-right: 3px solid var(--color-primary);
+      padding-right: 10px;
+    }}
+    .crm-modal-body p {{
+      margin-bottom: 14px;
+      color: var(--text-secondary);
+      line-height: 1.9;
+    }}
+    .crm-modal-body .article-callout {{
+      background: rgba(0, 115, 255, 0.08);
+      border-right: 3px solid var(--color-primary);
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      margin: 18px 0;
+      font-size: 13.5px;
+      color: var(--text-primary);
+    }}
+    .crm-modal-body .article-checklist {{
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }}
+    .crm-modal-body .article-checklist li {{
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--bg-canvas);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }}
+
+    .crm-modal-footer {{
+      padding: 14px 24px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+
+    /* Tab Sections */
+    .tab-section {{
+      display: none;
+    }}
+    .tab-section.active {{
+      display: block;
+    }}
+  </style>
+</head>
+<body>
+
+  <!-- Top Admin Bar -->
+  <header class="admin-top-bar">
+    <div class="admin-bar-right">
+      <a href="javascript:void(0)" onclick="switchTab('dashboard')" class="admin-bar-brand">
+        <span class="brand-cross-icon">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span>پیشخوان مدیریت مجله سلامت پزشکآن</span>
+      </a>
+      <span class="admin-badge-clinical">نسخه استودیو سئو</span>
+    </div>
+
+    <div class="admin-bar-left">
+      <div class="admin-user-pill">
+        <span class="admin-user-dot"></span>
+        <span id="adminLoggedName">دکتر مهیار ابراهیمی (مدیر سیستم)</span>
+      </div>
+
+      <button type="button" class="btn-top-action" id="themeToggleBtn" onclick="toggleTheme()" title="تغییر وضعیت روز و شب">
+        <span id="themeToggleIcon" style="display: inline-flex; align-items: center;">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </span>
+        <span id="themeToggleText">حالت روز</span>
+      </button>
+
+      <a href="/mag" target="_blank" class="btn-top-action" title="مشاهده سایت اصلی مجله">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span>مشاهده مجله</span>
+      </a>
+
+      <button type="button" class="btn-top-action" onclick="handleLogout()" title="خروج امن از سیستم">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>خروج</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Admin Main Workspace -->
+  <div class="admin-main-wrap">
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active" id="menu-dashboard" onclick="switchTab('dashboard')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>پیشخوان مدیریت</span>
+        </li>
+        <li class="sidebar-item" id="menu-posts" onclick="switchTab('posts')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>همه نوشته‌ها</span>
+        </li>
+        <li class="sidebar-item" id="menu-editor" onclick="createNewPost()">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span>افزودن نوشته تازه</span>
+        </li>
+        <li class="sidebar-item" id="menu-media" onclick="switchTab('media')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          <span>کتابخانه چندرسانه‌ای</span>
+        </li>
+        <li class="sidebar-item" id="menu-crm" onclick="switchTab('crm')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
+          <span>آموزش‌های CRM</span>
+        </li>
+        <li class="sidebar-divider"></li>
+        <li class="sidebar-item" id="menu-settings" onclick="switchTab('settings')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+          <span>تنظیمات جامع سئو</span>
+        </li>
+        <li class="sidebar-item" onclick="window.open('/mag', '_blank')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>نمایش مجله سلامت</span>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-content-area">
+
+      <!-- ================= 1. TAB: DASHBOARD ================= -->
+      <section id="tab-dashboard" class="tab-section active">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>پیشخوان سلامت و محتوای مجله</h2>
+            <p>خلاصه آمار وضعیت مقالات، دارایی‌های رسانه‌ای، سلامت فنی سئو و مقالات اخیر</p>
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary" onclick="createNewPost()">
+              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <span>نوشتن مقاله جدید</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(0, 115, 255, 0.15); color: #38BDF8;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>کل مقالات مجله</h4>
+              <div class="metric-num" id="dashTotalArticles">۴ مقاله</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(0, 229, 153, 0.15); color: #00E599;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>رسانه‌های آپلود شده</h4>
+              <div class="metric-num" id="dashTotalMedia">۶ تصویر</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>پزشکان ناظر و تاییدکننده</h4>
+              <div class="metric-num">۵ متخصص</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(0, 255, 255, 0.15); color: #00FFFF;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>وضعیت سئو و E-E-A-T</h4>
+              <div class="metric-num" style="font-size: 18px; color: #00E599;">پایدار و استاندارد</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRM Training Section Banner in Dashboard -->
+        <div class="card" style="background: linear-gradient(135deg, rgba(0, 115, 255, 0.08) 0%, rgba(0, 255, 255, 0.04) 100%); border-color: rgba(0, 255, 255, 0.25);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(0, 115, 255, 0.2); color: #38BDF8; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg class="icon-svg" style="font-size: 22px;" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">مرکز مقالات و آموزش‌های تخصصی CRM پزشکی</h3>
+                <p style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">راهنماهای کاربردی اتصال پوز، پرونده ۳۶۰ درجه، چارت قلم نوری و دستیار هوش مصنوعی برای پزشکان و منشی‌ها</p>
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="switchTab('crm')">
+              <span>مشاهده و مطالعه آموزش‌ها</span>
+              <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+            <h3 style="font-size: 16px; font-weight: 800; color: var(--text-primary);">آخرین مقالات منتشر شده در مجله</h3>
+            <button type="button" class="btn btn-secondary" onclick="switchTab('posts')">مشاهده همه مقالات</button>
+          </div>
+          <div class="clinical-table-wrap">
+            <table class="clinical-table">
+              <thead>
+                <tr>
+                  <th>عنوان مقاله</th>
+                  <th>دپارتمان تخصصی</th>
+                  <th>پزشک ناظر</th>
+                  <th>وضعیت سئو</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody id="dashboardRecentPosts"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. TAB: POSTS LIST ================= -->
+      <section id="tab-posts" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>
+              <span>نوشته‌ها و مقالات مجله سلامت</span>
+              <button type="button" class="btn btn-primary" style="font-size: 12px; padding: 5px 12px;" onclick="createNewPost()">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>افزودن نوشته تازه</span>
+              </button>
+            </h2>
+            <p>مدیریت کامل مقالات علمی منتشرشده، پیش‌نویس‌ها و تنظیمات متای جستجو</p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <select id="postPillarFilter" class="form-control" style="width: 200px;" onchange="filterPosts()">
+              <option value="">همه دپارتمان‌ها</option>
+            </select>
+            <input type="text" id="postSearchInput" class="form-control" placeholder="جستجو در عنوان مقالات..." style="width: 220px;" oninput="filterPosts()">
+          </div>
+        </div>
+
+        <div class="card" style="padding: 16px;">
+          <ul class="status-pills-list">
+            <li class="status-pill active" id="pill-filter-all" onclick="setPostStatusFilter('all')">همه (<span id="countFilterAll">۴</span>)</li>
+            <li class="status-pill" id="pill-filter-published" onclick="setPostStatusFilter('published')">منتشر شده (<span id="countFilterPublished">۴</span>)</li>
+            <li class="status-pill" id="pill-filter-draft" onclick="setPostStatusFilter('draft')">پیش‌نویس‌ها (<span id="countFilterDraft">۰</span>)</li>
+            <li class="status-pill" id="pill-filter-trash" onclick="setPostStatusFilter('trash')">زباله‌دان (<span id="countFilterTrash">۰</span>)</li>
+          </ul>
+
+          <div class="clinical-table-wrap">
+            <table class="clinical-table">
+              <thead>
+                <tr>
+                  <th style="width: 320px;">عنوان مقاله</th>
+                  <th>دپارتمان تخصصی</th>
+                  <th>پزشک ناظر</th>
+                  <th>نمره سئو</th>
+                  <th>وضعیت انتشار</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody id="postsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. TAB: EDITORIAL STUDIO & CMS ================= -->
+      <section id="tab-editor" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>
+              <span id="editorMainHeading">ویرایشگر پیشرفته مقاله و استودیوی سئو</span>
+              <span class="admin-badge-clinical" id="editorModeBadge">مقاله جدید</span>
+            </h2>
+            <p>نگارش مقالات علمی، بارگذاری مستقیم تصاویر، پاک‌سازی خودکار فرمت و تحلیل زنده سئو</p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button type="button" class="btn btn-secondary" onclick="saveCurrentArticle('draft')">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              <span>ذخیره پیش‌نویس</span>
+            </button>
+            <button type="button" class="btn btn-success" onclick="saveCurrentArticle('published')">
+              <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>انتشار نهایی در سایت</span>
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="switchTab('posts')">انصراف</button>
+          </div>
+        </div>
+
+        <!-- 2-Column Structured Document Workspace -->
+        <div class="article-editor-workspace">
+          
+          <!-- Column 1: Main Paper Document Canvas -->
+          <div class="editor-paper-card">
+            
+            <!-- Article Document Header: Title & Lead -->
+            <div class="editor-paper-header">
+              <input type="text" id="editTitle" class="input-title-h1" placeholder="عنوان اصلی مقاله علمی را وارد کنید (H1)..." oninput="handleTitleChange()">
+              
+              <div>
+                <label for="editSummary" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">چکیده و خلاصه بالینی مقاله (جهت نمایش در کارت‌ها، پیش‌نمایش گوگل و شبکه‌های اجتماعی):</label>
+                <textarea id="editSummary" class="textarea-lead" placeholder="خلاصه علمی و پیام کلیدی مقاله برای خوانندگان..." oninput="handleSummaryChange()"></textarea>
+              </div>
+            </div>
+
+            <!-- Sticky Formatting Toolbar (Clean SVG Vector Icons, NO Emojis) -->
+            <div class="editorial-toolbar-sticky">
+              
+              <!-- Headings -->
+              <div class="toolbar-cluster">
+                <button type="button" class="tbtn" onclick="execFormat('formatBlock', '<h2>')" title="تیتر اصلی بخش (H2)">H2</button>
+                <button type="button" class="tbtn" onclick="execFormat('formatBlock', '<h3>')" title="زیرعنوان بخش (H3)">H3</button>
+                <button type="button" class="tbtn" onclick="execFormat('formatBlock', '<p>')" title="متن عادی (پاراگراف)">P</button>
+              </div>
+
+              <!-- Inline Formats -->
+              <div class="toolbar-cluster">
+                <button type="button" class="tbtn" onclick="execFormat('bold')" title="ضخیم (Ctrl+B)">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+                </button>
+                <button type="button" class="tbtn" onclick="execFormat('italic')" title="مورب (Ctrl+I)">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
+                </button>
+                <button type="button" class="tbtn" onclick="execFormat('underline')" title="زیرخط (Ctrl+U)">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
+                </button>
+                <button type="button" class="tbtn" onclick="execFormat('strikeThrough')" title="خط‌خورده">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
+              </div>
+
+              <!-- Lists & Quotes -->
+              <div class="toolbar-cluster">
+                <button type="button" class="tbtn" onclick="execFormat('insertUnorderedList')" title="لیست نشانه‌دار">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </button>
+                <button type="button" class="tbtn" onclick="execFormat('insertOrderedList')" title="لیست شماره‌دار">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+                </button>
+                <button type="button" class="tbtn" onclick="execFormat('formatBlock', '<blockquote>')" title="نقل‌قول بالینی">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/></svg>
+                </button>
+              </div>
+
+              <!-- Clinical Callout Blocks (Clean SVGs) -->
+              <div class="toolbar-cluster">
+                <button type="button" class="tbtn-pill btn-callout-warning" onclick="insertCallout('warning')" title="باکس هشدار بالینی و منع مصرف">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <span>هشدار بالینی</span>
+                </button>
+                <button type="button" class="tbtn-pill btn-callout-advice" onclick="insertCallout('advice')" title="باکس توصیه متخصص">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+                  <span>توصیه پزشک</span>
+                </button>
+                <button type="button" class="tbtn-pill btn-callout-protocol" onclick="insertCallout('protocol')" title="باکس پروتکل تریاژ">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span>پروتکل تریاژ</span>
+                </button>
+              </div>
+
+              <!-- Media Inserter & Links -->
+              <div class="toolbar-cluster">
+                <button type="button" class="tbtn-pill btn-callout-media" onclick="openMediaModal('editor')" title="انتخاب تصویر از کتابخانه یا آپلود فایل تازه">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                  <span>افزودن پرونده چندرسانه‌ای</span>
+                </button>
+                <button type="button" class="tbtn" onclick="promptInsertLink()" title="درج پیوند اینترنتی">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+                <button type="button" class="tbtn" onclick="execFormat('insertHorizontalRule')" title="خط جداکننده">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+
+              <!-- History -->
+              <div class="toolbar-cluster" style="margin-right: auto; border-left: none;">
+                <button type="button" class="tbtn" onclick="execFormat('undo')" title="واگرد (Ctrl+Z)">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+                </button>
+                <button type="button" class="tbtn" onclick="execFormat('redo')" title="بازگرد (Ctrl+Y)">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Bulletproof WYSIWYG ContentEditable Surface -->
+            <div class="editor-canvas-body" onclick="focusEditorCanvas()">
+              <div id="editorialCanvas" 
+                   class="editorial-wysiwyg-surface" 
+                   contenteditable="true" 
+                   spellcheck="false" 
+                   dir="rtl" 
+                   data-placeholder="محتوای علمی مقاله را اینجا بنویسید یا متن را از وُرد، تلگرام یا سایت‌های دیگر جای‌گذاری (Paste) کنید...">
+              </div>
+            </div>
+
+            <!-- Bottom Status Strip -->
+            <div class="editor-status-strip">
+              <div class="status-group">
+                <span>تعداد واژه‌ها: <strong id="statWordCount" style="color: #F8FAFC;">۰</strong></span>
+                <span>حروف و کاراکترها: <strong id="statCharCount" style="color: #F8FAFC;">۰</strong></span>
+                <span>زمان تخمینی مطالعه: <strong id="statReadTimeCalc" style="color: #00FFFF;">۱ دقیقه</strong></span>
+              </div>
+              <div class="status-group">
+                <span id="statSaveIndicator" style="color: var(--color-emerald); font-weight: 700;">آماده برای نگارش</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Column 2: Live SEO Suite & Publishing Sidebar -->
+          <div class="editor-sidebar-col">
+            
+            <!-- Metadata & Attribution Widget -->
+            <div class="sidebar-widget">
+              <div class="widget-header">
+                <span>تنظیمات انتشار و ارجاع بالینی</span>
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="widget-body">
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">دپارتمان تخصصی سلامت:</label>
+                  <select id="editPillar" class="form-control" onchange="runLiveSeoAudit()"></select>
+                </div>
+
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">پزشک ناظر و نویسنده مقاله:</label>
+                  <select id="editDoctor" class="form-control"></select>
+                </div>
+
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">برچسب موضوعی (Tag):</label>
+                  <input type="text" id="editTag" class="form-control" placeholder="مثال: ستون فقرات، ارتوپدی...">
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Image Widget -->
+            <div class="sidebar-widget">
+              <div class="widget-header">
+                <span>تصویر شاخص مقاله (Hero Image)</span>
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+              </div>
+              <div class="widget-body">
+                <div class="featured-img-preview-box" id="heroImagePreviewBox" onclick="openMediaModal('hero')">
+                  <div id="heroEmptyPlaceholder" style="text-align: center;">
+                    <svg class="icon-svg" style="font-size: 32px; color: var(--text-secondary); margin-bottom: 6px;" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    <div style="font-size: 12px; color: var(--text-secondary);">کلیک کنید تا از کتابخانه رسانه‌ها انتخاب شود</div>
+                  </div>
+                  <img id="heroImageEl" style="display: none;" alt="تصویر شاخص مقاله">
+                </div>
+                <input type="hidden" id="editHeroImageUrl">
+                <input type="text" id="editHeroImageAlt" class="form-control" placeholder="متن جایگزین تصویر شاخص (Alt Text)..." oninput="runLiveSeoAudit()">
+              </div>
+            </div>
+
+            <!-- Live Clinical SEO Widget -->
+            <div class="sidebar-widget">
+              <div class="widget-header">
+                <span>تحلیل هوشمند سئو مقاله</span>
+                <span class="seo-score-badge" id="seoScoreBadge">۹۴ / ۱۰۰ — عالی</span>
+              </div>
+              <div class="widget-body">
+                
+                <!-- Focus Keyword -->
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">کلیدواژه کانونی (Focus Keyword):</label>
+                  <input type="text" id="seoFocusKeyword" class="form-control" placeholder="مثال: درمان دیسک کمر بدون جراحی" oninput="runLiveSeoAudit()">
+                </div>
+
+                <!-- Google SERP Snippet Preview -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">پیش‌نمایش گوگل (Google SERP):</span>
+                    <div style="display: flex; gap: 4px;">
+                      <button type="button" class="btn-top-action" id="btnPreviewDesktop" style="padding: 2px 8px; font-size: 11px;" onclick="toggleSerpView('desktop')">دسکتاپ</button>
+                      <button type="button" class="btn-top-action" id="btnPreviewMobile" style="padding: 2px 8px; font-size: 11px;" onclick="toggleSerpView('mobile')">موبایل</button>
+                    </div>
+                  </div>
+                  <div class="google-serp-box" id="googleSerpBox">
+                    <div class="serp-url" id="serpPreviewUrl">https://pezeshkan.me/mag/article</div>
+                    <div class="serp-title" id="serpPreviewTitle">عنوان سئو مقاله در نتایج موتورهای جستجو</div>
+                    <div class="serp-desc" id="serpPreviewDesc">توضیحات متای مقاله که توجه کاربران گوگل را جلب کرده و خلاصه محتوا را بیان می‌کند...</div>
+                  </div>
+                </div>
+
+                <!-- SEO Meta Title -->
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">عنوان سئو (Title Tag):</label>
+                  <input type="text" id="seoMetaTitle" class="form-control" placeholder="عنوان بهینه برای موتورهای جستجو..." oninput="handleMetaTitleChange()">
+                  <div class="char-counter-wrap">
+                    <span>پیشنهادی: ۵۰ تا ۶۰ کاراکتر</span>
+                    <span id="counterMetaTitle">۰ / ۶۰</span>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressMetaTitle"></div>
+                  </div>
+                </div>
+
+                <!-- SEO Meta Description -->
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">توضیحات متا (Meta Description):</label>
+                  <textarea id="seoMetaDescription" class="form-control" style="min-height: 65px; resize: vertical;" placeholder="توضیحات جذاب حاوی کلمه کلیدی اصلی برای نمایش در گوگل..." oninput="handleMetaDescChange()"></textarea>
+                  <div class="char-counter-wrap">
+                    <span>پیشنهادی: ۱۳۰ تا ۱۶۰ کاراکتر</span>
+                    <span id="counterMetaDesc">۰ / ۱۶۰</span>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressMetaDesc"></div>
+                  </div>
+                </div>
+
+                <!-- Slug & Canonical -->
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">نامک اینترنتی (Slug):</label>
+                  <input type="text" id="seoPostSlug" class="form-control" placeholder="lumbar-disc-herniation-guide" oninput="runLiveSeoAudit()">
+                </div>
+
+                <!-- 9-Point SEO Live Checklist (Vector Icons, NO Emojis) -->
+                <div>
+                  <span style="font-size: 12.5px; font-weight: 700; color: #F8FAFC; display: block; margin-bottom: 10px;">چک‌لیست استانداردهای ۹گانه سئو:</span>
+                  <ul class="seo-audit-list">
+                    <li class="seo-audit-item" id="chk-kw-title">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>حضور کلیدواژه کانونی در عنوان سئو مقاله</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-kw-desc">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>حضور کلیدواژه کانونی در توضیحات متای صفحه</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-kw-first">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>به‌کارگیری کلمه کلیدی در پاراگراف آغازین</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-kw-slug">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>وجود کلیدواژه یا مفهوم مرتبط در نامک (Slug)</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-kw-density">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>چگالی استاندارد کلیدواژه در کل متن (بین ۰.۸٪ تا ۲.۵٪)</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-len-title">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>طول استاندارد عنوان سئو (۵۰ تا ۶۰ کاراکتر)</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-len-desc">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>طول بهینه توضیحات متا (۱۳۰ تا ۱۶۰ کاراکتر)</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-structure">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>ساختاربندی با تیترهای H2 و H3 در بدنه مقاله</span>
+                    </li>
+                    <li class="seo-audit-item" id="chk-img-alt">
+                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span>تکمیل متن جایگزین (Alt Text) برای تمامی تصاویر</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- FAQ Builder for Schema Rich Results -->
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 12.5px; font-weight: 700; color: #F8FAFC;">پرسش‌های متداول (FAQ Schema):</span>
+                    <button type="button" class="btn btn-secondary" style="font-size: 11px; padding: 3px 8px;" onclick="addFaqRow()">+ افزودن پرسش</button>
+                  </div>
+                  <div id="faqItemsContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 4. TAB: MEDIA LIBRARY ================= -->
+      <section id="tab-media" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>کتابخانه پرونده‌های چندرسانه‌ای</h2>
+            <p>بارگذاری، مدیریت ابعاد و بهینه‌سازی متن جایگزین (Alt) تصاویر جهت سئو تصاویر در گوگل</p>
+          </div>
+          <div>
+            <label class="btn btn-primary" style="cursor: pointer;">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>بارگذاری تصویر جدید</span>
+              <input type="file" id="mediaUploadFileInput" style="display: none;" accept="image/*" multiple onchange="handleDirectFilesUpload(this.files)">
+            </label>
+          </div>
+        </div>
+
+        <!-- Drag & Drop Upload Zone -->
+        <div class="upload-drop-zone" id="mediaDropZone">
+          <svg class="icon-svg" style="font-size: 40px; color: var(--color-cyan); margin-bottom: 8px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <div style="font-size: 14px; font-weight: 700; color: #F8FAFC; margin-bottom: 4px;">تصاویر خود را بکشید و اینجا رها کنید</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">یا برای انتخاب فایل از رایانه خود، روی دکمه بارگذاری کلیک فرمایید (فرمت‌های مجاز: WebP, PNG, JPG, SVG)</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; margin-top: 24px;">
+          
+          <div class="card" style="padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary);">تصاویر موجود در سرور (<span id="mediaTotalCount">۰</span>):</span>
+              <input type="text" id="mediaSearchInput" class="form-control" placeholder="جستجو در نام یا متن Alt..." style="width: 200px;" oninput="renderMediaGallery()">
+            </div>
+            <div class="media-grid" id="mediaLibraryGrid"></div>
+          </div>
+
+          <!-- Media Inspector Sidebar -->
+          <div class="card" id="mediaInspectorCard" style="padding: 18px; display: none;">
+            <h4 style="font-size: 13.5px; font-weight: 800; color: #F8FAFC; margin-bottom: 12px;">جزئیات پرونده انتخاب‌شده</h4>
+            <div style="width: 100%; height: 160px; border-radius: 8px; overflow: hidden; background: #060911; margin-bottom: 12px;">
+              <img id="inspImg" style="width: 100%; height: 100%; object-fit: contain;" alt="پیش‌نمایش">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div>
+                <label style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 2px;">نشانی تصویر:</label>
+                <div style="display: flex; gap: 4px;">
+                  <input type="text" id="inspUrl" class="form-control" readonly style="font-size: 11px; direction: ltr;">
+                  <button type="button" class="btn btn-secondary" style="padding: 4px 8px;" onclick="copyInspUrl()" title="رونوشت پیوند">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 2px;">متن جایگزین سئو (Alt Text):</label>
+                <input type="text" id="inspAlt" class="form-control" placeholder="توضیح موضوع تصویر برای گوگل...">
+              </div>
+
+              <div>
+                <label style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 2px;">زیرنویس و توضیح بالینی (Caption):</label>
+                <textarea id="inspCaption" class="form-control" style="min-height: 50px; font-size: 12px;"></textarea>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: 8px;">
+                <button type="button" class="btn btn-danger" style="flex: 1; font-size: 12px;" onclick="deleteSelectedMedia()">حذف فایل</button>
+                <button type="button" class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="saveMediaMeta()">ذخیره تغییرات</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 5. TAB: SITE SEO SETTINGS ================= -->
+      <section id="tab-settings" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>تنظیمات جامع و فراداده‌های سئو مجله</h2>
+            <p>پیکربندی قالب عنوان، کدهای تایید گوگل، تگ‌های متا و پروتکل ایندکس موتورهای جستجو</p>
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary" onclick="saveSiteSeoSettings()">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              <span>ذخیره تنظیمات سایت</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="max-width: 800px; display: flex; flex-direction: column; gap: 20px;">
+          <div class="card">
+            <h3 style="font-size: 15px; font-weight: 800; color: #F8FAFC; margin-bottom: 16px;">قالب‌ها و متای پیش‌فرض جستجو</h3>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">قالب عنوان سئو (Title Template):</label>
+                <input type="text" id="cfgTitleTemplate" class="form-control" value="%title% | مجله سلامت پزشکآن">
+                <span style="font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block;">عبارت %title% به صورت خودکار با عنوان مقاله جایگزین می‌گردد.</span>
+              </div>
+
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">توضیحات متای پیش‌فرض مجله:</label>
+                <textarea id="cfgDefaultMetaDesc" class="form-control" style="min-height: 60px;">پایگاه جامع دانش سلامت، راهنماهای بالینی پزشکی، ارزیابی آنلاین علائم و رزرو نوبت با تایید هیئت علمی و پزشکان متخصص.</textarea>
+              </div>
+
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">کلمات کلیدی سراسری (Meta Keywords):</label>
+                <input type="text" id="cfgDefaultKeywords" class="form-control" value="مجله سلامت, دیسک کمر, ارزیابی علائم, سونوگرافی بارداری, تریاژ اورژانس, پزشکآن, مشاوره پزشکی">
+              </div>
+
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">نشانی پایه کانونیکال (Canonical Base URL):</label>
+                <input type="text" id="cfgCanonicalBase" class="form-control" value="https://pezeshkan.me" style="direction: ltr;">
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size: 15px; font-weight: 800; color: #F8FAFC; margin-bottom: 16px;">تایید هویت موتورهای جستجو و ابزارهای تحلیلی</h3>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">شناسه تایید گوگل (Google Search Console Verification):</label>
+                <input type="text" id="cfgGoogleVerification" class="form-control" value="google-site-verification=pezeshkan_mag_secure_token_2026" style="direction: ltr;">
+              </div>
+
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">شناسه تایید بینگ (Bing Webmaster Tools):</label>
+                <input type="text" id="cfgBingVerification" class="form-control" value="bing-site-verification=pezeshkan_bing_token_2026" style="direction: ltr;">
+              </div>
+
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">شناسه رهگیری گوگل آنالیتیکس (GA4 Measurement ID):</label>
+                <input type="text" id="cfgGoogleAnalyticsId" class="form-control" value="G-PEZESHKAN2026" style="direction: ltr;">
+              </div>
+
+              <div>
+                <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">دستورالعمل ربات‌ها (Robots Default Directive):</label>
+                <input type="text" id="cfgRobotsDefault" class="form-control" value="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" style="direction: ltr;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 6. TAB: CRM TRAINING & TUTORIALS ================= -->
+      <section id="tab-crm" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>
+              <span>مرکز مقالات و آموزش‌های تخصصی CRM پزشکی</span>
+              <button type="button" class="btn btn-primary" style="font-size: 12px; padding: 5px 12px;" onclick="openCrmEditor()">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>افزودن آموزش CRM</span>
+              </button>
+            </h2>
+            <p>راهنماهای استانداردسازی پرونده الکترونیک، اتصال پوز، چارت قلم نوری و دستیار هوش مصنوعی</p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="text" id="crmSearchInput" class="form-control" placeholder="جستجو در مقالات CRM..." style="width: 250px;" oninput="renderCrmTutorials()">
+          </div>
+        </div>
+
+        <ul class="status-pills-list">
+          <li class="status-pill active" id="crm-pill-all" onclick="filterCrmRole('all')">همه آموزش‌ها (<span id="crmCountAll">۶</span>)</li>
+          <li class="status-pill" id="crm-pill-doctor" onclick="filterCrmRole('doctor')">ویژه پزشک (<span id="crmCountDoctor">۲</span>)</li>
+          <li class="status-pill" id="crm-pill-receptionist" onclick="filterCrmRole('receptionist')">منشی و پذیرش (<span id="crmCountReceptionist">۲</span>)</li>
+          <li class="status-pill" id="crm-pill-user" onclick="filterCrmRole('user')">مدیریت و مراجعین (<span id="crmCountUser">۲</span>)</li>
+        </ul>
+
+        <div class="crm-grid" id="crmGridContainer"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= MODAL: WORDPRESS-STYLE MEDIA INSERTION ================= -->
+  <div class="modal-backdrop" id="mediaModalBackdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size: 15px; font-weight: 800; color: var(--text-primary);">کتابخانه و گزینش پرونده چندرسانه‌ای</h3>
+        <button type="button" class="btn btn-secondary" style="padding: 4px 8px;" onclick="closeMediaModal()">
+          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="status-pill active" id="modalTabGallery" onclick="switchModalTab('gallery')">گالری رسانه‌ها</button>
+            <button type="button" class="status-pill" id="modalTabUpload" onclick="switchModalTab('upload')">بارگذاری فایل از رایانه</button>
+          </div>
+          <input type="text" id="modalSearchInput" class="form-control" placeholder="جستجو در تصاویر..." style="width: 200px;" oninput="renderModalGrid()">
+        </div>
+
+        <div id="modalViewGallery">
+          <div class="media-grid" id="modalGridItems" style="grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));"></div>
+        </div>
+
+        <div id="modalViewUpload" style="display: none;">
+          <div class="upload-drop-zone" id="modalDropZone">
+            <svg class="icon-svg" style="font-size: 36px; color: var(--color-cyan); margin-bottom: 8px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">فایل تصویر خود را بکشید و رها کنید</div>
+            <label class="btn btn-primary" style="margin-top: 8px; cursor: pointer; font-size: 12px;">
+              <span>انتخاب از کامپیوتر</span>
+              <input type="file" style="display: none;" accept="image/*" onchange="handleModalFileUpload(this.files)">
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <div id="modalSelectedMetaInfo" style="font-size: 12px; color: var(--text-secondary);">هیچ تصویری انتخاب نشده است</div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-secondary" onclick="closeMediaModal()">انصراف</button>
+          <button type="button" class="btn btn-primary" id="btnConfirmMediaInsert" onclick="confirmMediaModalAction()">درج در مقاله</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CRM TUTORIAL READER ================= -->
+  <div class="crm-modal-backdrop" id="crmReaderModalBackdrop" onclick="handleCrmModalBackdropClick(event)">
+    <div class="crm-modal-dialog">
+      <div class="crm-modal-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span id="crmReaderBadge" class="crm-badge-role crm-badge-doctor">آموزش CRM</span>
+          <span id="crmReaderTime" class="crm-readtime">
+            <svg class="icon-svg" style="font-size: 13px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="crmReaderTimeText">۵ دقیقه مطالعه</span>
+          </span>
+        </div>
+        <button type="button" class="btn btn-secondary" style="padding: 4px 8px;" onclick="closeCrmReader()">
+          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="crm-modal-body" id="crmReaderContent">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="crm-modal-footer">
+        <span style="font-size: 12px; color: var(--text-muted);">اکوسیستم سلامت دیجیتال پزشکآن • پایگاه دانش CRM مطب</span>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-secondary" onclick="window.print()">
+            <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            <span>چاپ راهنما</span>
+          </button>
+          <button type="button" class="btn btn-primary" onclick="closeCrmReader()">بستن پنجره</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CRM TUTORIAL EDITOR ================= -->
+  <div class="crm-modal-backdrop" id="crmEditorModalBackdrop">
+    <div class="crm-modal-dialog" style="max-width: 760px;">
+      <div class="crm-modal-header">
+        <h3 style="font-size: 15px; font-weight: 800; color: var(--text-primary);" id="crmEditorModalTitle">افزودن / ویرایش مقاله آموزش CRM</h3>
+        <button type="button" class="btn btn-secondary" style="padding: 4px 8px;" onclick="closeCrmEditor()">
+          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="crm-modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+        <input type="hidden" id="editCrmId">
+        <div>
+          <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">عنوان راهنما:</label>
+          <input type="text" id="editCrmTitle" class="form-control" placeholder="عنوان مقاله آموزش CRM...">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">گروه مخاطب:</label>
+            <select id="editCrmRole" class="form-control">
+              <option value="doctor">ویژه پزشک و ویزیت</option>
+              <option value="receptionist">ویژه منشی و پذیرش</option>
+              <option value="user">مدیریت و پرتال مراجعین</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">مدت زمان تقریبی مطالعه:</label>
+            <input type="text" id="editCrmReadTime" class="form-control" value="۶ دقیقه مطالعه">
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">چکیده راهنما:</label>
+          <textarea id="editCrmSummary" class="form-control" style="min-height: 60px;" placeholder="توضیح کوتاه و کاربردی راهنما..."></textarea>
+        </div>
+
+        <div>
+          <label style="font-size: 12.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">متن کامل راهنما (قالب HTML یا توضیحات متنی):</label>
+          <textarea id="editCrmHtml" class="form-control" style="min-height: 160px; font-family: monospace; font-size: 12.5px;" placeholder="متن کامل یا بخش‌های HTML راهنما..."></textarea>
+        </div>
+      </div>
+
+      <div class="crm-modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeCrmEditor()">انصراف</button>
+        <button type="button" class="btn btn-primary" onclick="saveCrmTutorial()">ذخیره راهنمای CRM</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Element -->
+  <div class="clinical-toast" id="clinicalToast">
+    <svg class="icon-svg" style="stroke: var(--color-cyan); font-size: 18px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toastMessage">عملیات با موفقیت انجام شد</span>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    // Embedded Data from Pezeshkan Health Magazine
+    let ARTICLES = {articles_json};
+    let PILLARS = {pillars_json};
+    let DOCTORS = {doctors_json};
+    let SETTINGS = {settings_json};
+    let MEDIA = {media_json};
+    let CRM_TUTORIALS = {crm_json};
+
+    let activeTab = 'dashboard';
+    let currentEditingArticleId = null;
+    let selectedMediaItem = null;
+    let modalMode = 'editor'; // 'editor' or 'hero'
+    let postFilterStatus = 'all';
+    let currentCrmRoleFilter = 'all';
+
+    // 0. Theme Manager (Day & Night Mode Engine)
+    function initTheme() {{
+      const saved = localStorage.getItem('pezeshkan_admin_theme') || 'dark';
+      applyTheme(saved);
+    }}
+
+    function toggleTheme() {{
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    }}
+
+    function applyTheme(theme) {{
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('pezeshkan_admin_theme', theme);
+      const iconWrap = document.getElementById('themeToggleIcon');
+      const textWrap = document.getElementById('themeToggleText');
+      if (theme === 'light') {{
+        if (iconWrap) iconWrap.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+        if (textWrap) textWrap.textContent = 'حالت شب';
+      }} else {{
+        if (iconWrap) iconWrap.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
+        if (textWrap) textWrap.textContent = 'حالت روز';
+      }}
+    }}
+
+    // 1. Initialization
+    document.addEventListener('DOMContentLoaded', () => {{
+      initTheme();
+      initData();
+      renderDashboard();
+      renderPostsTable();
+      renderMediaGallery();
+      renderCrmTutorials();
+      setupPasteSanitizer();
+      setupDropZones();
+    }});
+
+    function initData() {{
+      // Populate Pillar selects with correct name attribute
+      const pFilter = document.getElementById('postPillarFilter');
+      const pEdit = document.getElementById('editPillar');
+      pFilter.innerHTML = '<option value="">همه دپارتمان‌ها</option>' + PILLARS.map(p => `<option value="${{p.id}}">${{p.name || p.title}}</option>`).join('');
+      pEdit.innerHTML = PILLARS.map(p => `<option value="${{p.id}}">${{p.name || p.title}}</option>`).join('');
+
+      // Populate Doctor select
+      const dEdit = document.getElementById('editDoctor');
+      dEdit.innerHTML = DOCTORS.map(d => `<option value="${{d.id}}">${{d.name}} — ${{d.title}} (نظام: ${{d.mc}})</option>`).join('');
+    }}
+
+    // 2. Navigation Tabs
+    function switchTab(tabId) {{
+      activeTab = tabId;
+      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
+
+      const menuEl = document.getElementById('menu-' + tabId);
+      const tabEl = document.getElementById('tab-' + tabId);
+      if (menuEl) menuEl.classList.add('active');
+      if (tabEl) tabEl.classList.add('active');
+
+      if (tabId === 'dashboard') renderDashboard();
+      if (tabId === 'posts') renderPostsTable();
+      if (tabId === 'media') renderMediaGallery();
+      if (tabId === 'crm') renderCrmTutorials();
+      window.scrollTo({{ top: 0, behavior: 'smooth' }});
+    }}
+
+    // 3. Dashboard Renderer
+    function renderDashboard() {{
+      document.getElementById('dashTotalArticles').textContent = ARTICLES.length + ' مقاله';
+      document.getElementById('dashTotalMedia').textContent = MEDIA.length + ' تصویر';
+
+      const tbody = document.getElementById('dashboardRecentPosts');
+      tbody.innerHTML = ARTICLES.slice(0, 5).map(art => {{
+        const pillar = PILLARS.find(p => String(p.id) === String(art.pillarId) || (art.pillarSlug && p.slug === art.pillarSlug)) || {{ name: art.categoryName || 'پزشکی عمومی' }};
+        const pillarName = pillar.name || pillar.title || 'پزشکی عمومی';
+        const doctor = DOCTORS.find(d => d.id === art.doctorId) || {{ name: art.author?.name || 'تیم علمی' }};
+        return `
+          <tr>
+            <td>
+              <strong style="color: var(--text-primary); display: block; font-size: 14px;">${{art.title}}</strong>
+              <span style="font-size: 11px; color: var(--text-muted);">${{art.slug || ''}}</span>
+            </td>
+            <td><span class="status-pill">${{pillarName}}</span></td>
+            <td>${{doctor.name}}</td>
+            <td><span class="seo-score-badge">۹۴٪ عالی</span></td>
+            <td>
+              <button type="button" class="table-btn-action" onclick="loadArticleForEditing('${{art.id}}')">ویرایش</button>
+            </td>
+          </tr>
+        `;
+      }}).join('');
+    }}
+
+    // 4. Posts List Renderer & Filters
+    function renderPostsTable() {{
+      const tbody = document.getElementById('postsTableBody');
+      const pillarFilter = document.getElementById('postPillarFilter').value;
+      const searchVal = (document.getElementById('postSearchInput').value || '').trim().toLowerCase();
+
+      let filtered = ARTICLES.filter(art => {{
+        if (postFilterStatus === 'published' && art.status === 'draft') return false;
+        if (postFilterStatus === 'draft' && art.status !== 'draft') return false;
+        if (postFilterStatus === 'trash' && art.status !== 'trash') return false;
+        if (postFilterStatus !== 'trash' && art.status === 'trash') return false;
+        if (pillarFilter && String(art.pillarId) !== String(pillarFilter)) return false;
+        if (searchVal && !art.title.toLowerCase().includes(searchVal) && !(art.summary || '').toLowerCase().includes(searchVal)) return false;
+        return true;
+      }});
+
+      // Update counters
+      const pubCount = ARTICLES.filter(a => a.status !== 'draft' && a.status !== 'trash').length;
+      const draftCount = ARTICLES.filter(a => a.status === 'draft').length;
+      const trashCount = ARTICLES.filter(a => a.status === 'trash').length;
+      document.getElementById('countFilterAll').textContent = ARTICLES.length;
+      document.getElementById('countFilterPublished').textContent = pubCount;
+      document.getElementById('countFilterDraft').textContent = draftCount;
+      document.getElementById('countFilterTrash').textContent = trashCount;
+
+      if (!filtered.length) {{
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-secondary); padding: 32px;">هیچ مقاله‌ای با این مشخصات یافت نشد.</td></tr>`;
+        return;
+      }}
+
+      tbody.innerHTML = filtered.map(art => {{
+        const pillar = PILLARS.find(p => String(p.id) === String(art.pillarId) || (art.pillarSlug && p.slug === art.pillarSlug)) || {{ name: art.categoryName || 'پزشکی عمومی' }};
+        const pillarName = pillar.name || pillar.title || 'پزشکی عمومی';
+        const doctor = DOCTORS.find(d => d.id === art.doctorId) || {{ name: art.author?.name || 'تیم علمی' }};
+        const isDraft = art.status === 'draft';
+        const isTrash = art.status === 'trash';
+        const statusLabel = isTrash ? 'زباله‌دان' : (isDraft ? 'پیش‌نویس' : 'منتشر شده');
+        const statusClass = isTrash ? 'btn-callout-warning' : (isDraft ? 'btn-callout-advice' : 'btn-callout-protocol');
+
+        return `
+          <tr>
+            <td>
+              <strong style="color: var(--text-primary); font-size: 14px; display: block; margin-bottom: 2px;">${{art.title}}</strong>
+              <span style="font-size: 11px; color: var(--text-muted); direction: ltr; display: inline-block;">/${{art.slug || ''}}</span>
+            </td>
+            <td><span class="status-pill">${{pillarName}}</span></td>
+            <td>${{doctor.name}}</td>
+            <td><span class="seo-score-badge">۹۴٪</span></td>
+            <td><span class="tbtn-pill ${{statusClass}}" style="font-size: 11px; height: 24px; padding: 0 8px;">${{statusLabel}}</span></td>
+            <td>
+              <div class="table-actions">
+                <button type="button" class="table-btn-action" onclick="loadArticleForEditing('${{art.id}}')">ویرایش</button>
+                <button type="button" class="table-btn-action" onclick="window.open('/mag#${{art.id}}', '_blank')">مشاهده</button>
+                ${{isTrash ? 
+                  `<button type="button" class="table-btn-action" style="color: #00E599;" onclick="restorePost('${{art.id}}')">بازیابی</button>` :
+                  `<button type="button" class="table-btn-action" style="color: #F87171;" onclick="trashPost('${{art.id}}')">حذف</button>`
+                }}
+              </div>
+            </td>
+          </tr>
+        `;
+      }}).join('');
+    }}
+
+    function filterPosts() {{
+      renderPostsTable();
+    }}
+
+    function setPostStatusFilter(status) {{
+      postFilterStatus = status;
+      document.querySelectorAll('.status-pills-list .status-pill').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById('pill-filter-' + status);
+      if (activeEl) activeEl.classList.add('active');
+      renderPostsTable();
+    }}
+
+    function trashPost(id) {{
+      const art = ARTICLES.find(a => a.id === id);
+      if (art) {{
+        art.status = 'trash';
+        saveArticleToServer(art);
+        renderPostsTable();
+        showToast('مقاله به زباله‌دان منتقل شد');
+      }}
+    }}
+
+    function restorePost(id) {{
+      const art = ARTICLES.find(a => a.id === id);
+      if (art) {{
+        art.status = 'published';
+        saveArticleToServer(art);
+        renderPostsTable();
+        showToast('مقاله بازیابی شد');
+      }}
+    }}
+
+    // ==========================================================================
+    // 5. موتور فوق‌سریع و پایدار محتوانویسی (WYSIWYG Core & Formatting Engine)
+    // ==========================================================================
+    const canvas = document.getElementById('editorialCanvas');
+
+    function focusEditorCanvas() {{
+      canvas.focus();
+    }}
+
+    function execFormat(command, value = null) {{
+      canvas.focus();
+      document.execCommand(command, false, value);
+      onEditorContentChanged();
+    }}
+
+    function promptInsertLink() {{
+      const url = prompt('نشانی اینترنتی پیوند را وارد فرمایید (مانند https://...):', 'https://');
+      if (url) {{
+        execFormat('createLink', url);
+      }}
+    }}
+
+    function insertCallout(type) {{
+      canvas.focus();
+      let iconSvg = '';
+      let title = '';
+      let desc = '';
+      let calloutClass = '';
+
+      if (type === 'warning') {{
+        iconSvg = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+        title = 'هشدار بالینی و احتیاط مصرف:';
+        desc = 'نکته بسیار مهم دارویی یا منع مصرف بیمار را در این قسمت درج نمایید...';
+        calloutClass = 'callout-warning';
+      }} else if (type === 'advice') {{
+        iconSvg = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>';
+        title = 'توصیه پزشک متخصص:';
+        desc = 'توصیه و راهنمای بالینی پزشک معالج برای ارتقای سلامت بیمار را اینجا بنویسید...';
+        calloutClass = 'callout-advice';
+      }} else if (type === 'protocol') {{
+        iconSvg = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+        title = 'پروتکل تریاژ و ارزیابی علائم:';
+        desc = 'مراحل مرحله‌به‌مرحله پایش علائم و شرایط اورژانس را در این باکس تشریح فرمایید...';
+        calloutClass = 'callout-protocol';
+      }}
+
+      const html = `
+        <div class="clinical-callout ${{calloutClass}}">
+          <div class="callout-header">${{iconSvg}}<span>${{title}}</span></div>
+          <p>${{desc}}</p>
+        </div>
+        <p><br></p>
+      `;
+
+      document.execCommand('insertHTML', false, html);
+      onEditorContentChanged();
+    }}
+
+    function insertImageToEditor(url, alt, caption) {{
+      canvas.focus();
+      const safeAlt = escapeHtml(alt || 'تصویر علمی مقاله');
+      const safeCaption = escapeHtml(caption || safeAlt);
+      const html = `
+        <figure class="editorial-figure">
+          <img src="${{url}}" alt="${{safeAlt}}" class="editorial-body-image">
+          <figcaption>${{safeCaption}}</figcaption>
+        </figure>
+        <p><br></p>
+      `;
+      document.execCommand('insertHTML', false, html);
+      onEditorContentChanged();
+    }}
+
+    // ==========================================================================
+    // 6. پاک‌سازی عمیق و استانداردسازی متن پِیست شده (Universal Paste Sanitizer)
+    // ==========================================================================
+    function setupPasteSanitizer() {{
+      canvas.addEventListener('paste', function(e) {{
+        e.preventDefault();
+        const html = e.clipboardData.getData('text/html');
+        const text = e.clipboardData.getData('text/plain');
+
+        let cleanContent = '';
+
+        if (html) {{
+          cleanContent = cleanAndNormalizePastedHtml(html);
+        }} else if (text) {{
+          const paragraphs = text.split(/\\r?\\n\\r?\\n/);
+          cleanContent = paragraphs.map(p => {{
+            const trimmed = p.trim().replace(/\\r?\\n/g, '<br>');
+            return trimmed ? `<p>${{escapeHtml(trimmed)}}</p>` : '';
+          }}).join('');
+        }}
+
+        if (cleanContent) {{
+          document.execCommand('insertHTML', false, cleanContent);
+        }}
+        onEditorContentChanged();
+      }});
+
+      canvas.addEventListener('input', onEditorContentChanged);
+      canvas.addEventListener('keyup', onEditorContentChanged);
+    }}
+
+    function cleanAndNormalizePastedHtml(rawHtml) {{
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(rawHtml, 'text/html');
+
+      // 1. Remove non-content tags
+      const removeSelectors = ['script', 'style', 'meta', 'link', 'xml', 'o\\\\:p', 'title', 'head'];
+      removeSelectors.forEach(sel => {{
+        try {{
+          doc.querySelectorAll(sel).forEach(el => el.remove());
+        }} catch(e) {{}}
+      }});
+
+      // 2. Clean each element
+      const elements = doc.body.querySelectorAll('*');
+      elements.forEach(el => {{
+        const tag = el.tagName.toLowerCase();
+
+        // Strip foreign fonts, sizes, colors, and inline margins
+        if (el.hasAttribute('style')) {{
+          let style = el.getAttribute('style') || '';
+          style = style.replace(/font-family\\s*:[^;]+;?/gi, '')
+                       .replace(/font-size\\s*:[^;]+;?/gi, '')
+                       .replace(/color\\s*:[^;]+;?/gi, '')
+                       .replace(/background(-color)?\\s*:[^;]+;?/gi, '')
+                       .replace(/line-height\\s*:[^;]+;?/gi, '')
+                       .replace(/margin[^;]*;?/gi, '')
+                       .replace(/padding[^;]*;?/gi, '')
+                       .replace(/text-align\\s*:[^;]+;?/gi, '')
+                       .trim();
+          if (style) {{
+            el.setAttribute('style', style);
+          }} else {{
+            el.removeAttribute('style');
+          }}
+        }}
+
+        // Remove deprecated presentation attributes
+        el.removeAttribute('face');
+        el.removeAttribute('size');
+        el.removeAttribute('color');
+        el.removeAttribute('bgcolor');
+        el.removeAttribute('align');
+
+        // Remove Microsoft Word mso- attributes
+        for (let i = el.attributes.length - 1; i >= 0; i--) {{
+          const attr = el.attributes[i].name;
+          if (attr.startsWith('mso-') || attr.startsWith('v:') || attr.startsWith('o:')) {{
+            el.removeAttribute(attr);
+          }}
+        }}
+
+        // Unwrap <font>
+        if (tag === 'font') {{
+          const parent = el.parentNode;
+          while (el.firstChild) parent.insertBefore(el.firstChild, el);
+          parent.removeChild(el);
+        }}
+
+        // Unwrap <span> without attributes
+        if (tag === 'span' && el.attributes.length === 0) {{
+          const parent = el.parentNode;
+          while (el.firstChild) parent.insertBefore(el.firstChild, el);
+          parent.removeChild(el);
+        }}
+
+        // Normalize H1 to H2
+        if (tag === 'h1') {{
+          const h2 = doc.createElement('h2');
+          h2.innerHTML = el.innerHTML;
+          el.parentNode.replaceChild(h2, el);
+        }}
+      }});
+
+      return doc.body.innerHTML;
+    }}
+
+    function onEditorContentChanged() {{
+      updateWordStats();
+      runLiveSeoAudit();
+    }}
+
+    function updateWordStats() {{
+      const text = canvas.innerText || '';
+      const words = text.trim() ? text.trim().split(/\\s+/).length : 0;
+      const chars = text.length;
+      const readMinutes = Math.max(1, Math.ceil(words / 180));
+
+      document.getElementById('statWordCount').textContent = words;
+      document.getElementById('statCharCount').textContent = chars;
+      document.getElementById('statReadTimeCalc').textContent = readMinutes + ' دقیقه';
+    }}
+
+    // ==========================================================================
+    // 7. نگارش و ویرایش مقالات (Post Editor Operations)
+    // ==========================================================================
+    function createNewPost() {{
+      currentEditingArticleId = null;
+      document.getElementById('editorMainHeading').textContent = 'نگارش مقاله جدید در مجله سلامت';
+      document.getElementById('editorModeBadge').textContent = 'مقاله تازه';
+
+      document.getElementById('editTitle').value = '';
+      document.getElementById('editSummary').value = '';
+      canvas.innerHTML = '<p><br></p>';
+
+      document.getElementById('editHeroImageUrl').value = '';
+      document.getElementById('editHeroImageAlt').value = '';
+      document.getElementById('heroImageEl').style.display = 'none';
+      document.getElementById('heroEmptyPlaceholder').style.display = 'block';
+
+      document.getElementById('seoFocusKeyword').value = '';
+      document.getElementById('seoMetaTitle').value = '';
+      document.getElementById('seoMetaDescription').value = '';
+      document.getElementById('seoPostSlug').value = '';
+      document.getElementById('faqItemsContainer').innerHTML = '';
+
+      switchTab('editor');
+      runLiveSeoAudit();
+    }}
+
+    function loadArticleForEditing(id) {{
+      const art = ARTICLES.find(a => a.id === id);
+      if (!art) return;
+
+      currentEditingArticleId = id;
+      document.getElementById('editorMainHeading').textContent = 'ویرایش مقاله: ' + art.title;
+      document.getElementById('editorModeBadge').textContent = 'در حال ویرایش';
+
+      document.getElementById('editTitle').value = art.title || '';
+      document.getElementById('editSummary').value = art.summary || '';
+      
+      // Load rich HTML or fallback to sections
+      if (art.rawHtml) {{
+        canvas.innerHTML = art.rawHtml;
+      }} else if (art.contentHtml) {{
+        canvas.innerHTML = art.contentHtml;
+      }} else if (art.sections && art.sections.length) {{
+        canvas.innerHTML = art.sections.map(s => `<h2>${{s.title}}</h2><p>${{s.content}}</p>`).join('');
+      }} else {{
+        canvas.innerHTML = '<p><br></p>';
+      }}
+
+      // Attribution
+      if (art.pillarId !== undefined && art.pillarId !== null) {{
+        document.getElementById('editPillar').value = String(art.pillarId);
+      }} else if (art.pillarSlug) {{
+        const found = PILLARS.find(p => p.slug === art.pillarSlug);
+        if (found) document.getElementById('editPillar').value = String(found.id);
+      }}
+      if (art.doctorId) document.getElementById('editDoctor').value = art.doctorId;
+      document.getElementById('editTag').value = art.tag || '';
+
+      // Hero Image
+      const heroUrl = art.image || '';
+      const heroAlt = art.imageAlt || '';
+      document.getElementById('editHeroImageUrl').value = heroUrl;
+      document.getElementById('editHeroImageAlt').value = heroAlt;
+      if (heroUrl) {{
+        document.getElementById('heroImageEl').src = heroUrl;
+        document.getElementById('heroImageEl').style.display = 'block';
+        document.getElementById('heroEmptyPlaceholder').style.display = 'none';
+      }} else {{
+        document.getElementById('heroImageEl').style.display = 'none';
+        document.getElementById('heroEmptyPlaceholder').style.display = 'block';
+      }}
+
+      // SEO
+      document.getElementById('seoFocusKeyword').value = art.focusKeyword || '';
+      document.getElementById('seoMetaTitle').value = art.metaTitle || art.title || '';
+      document.getElementById('seoMetaDescription').value = art.metaDescription || art.summary || '';
+      document.getElementById('seoPostSlug').value = art.slug || art.id || '';
+
+      // FAQs
+      const faqCont = document.getElementById('faqItemsContainer');
+      faqCont.innerHTML = '';
+      if (art.faqs && art.faqs.length) {{
+        art.faqs.forEach(f => addFaqRow(f.q, f.a));
+      }}
+
+      switchTab('editor');
+      runLiveSeoAudit();
+    }}
+
+    async function saveCurrentArticle(targetStatus = 'published') {{
+      const title = document.getElementById('editTitle').value.trim();
+      if (!title) {{
+        alert('لطفاً عنوان مقاله را وارد فرمایید.');
+        document.getElementById('editTitle').focus();
+        return;
+      }}
+
+      const summary = document.getElementById('editSummary').value.trim();
+      const rawHtml = canvas.innerHTML;
+      const pillarId = document.getElementById('editPillar').value;
+      const doctorId = document.getElementById('editDoctor').value;
+      const tag = document.getElementById('editTag').value.trim() || 'مقاله علمی';
+      const heroImage = document.getElementById('editHeroImageUrl').value;
+      const heroAlt = document.getElementById('editHeroImageAlt').value.trim() || title;
+
+      const focusKeyword = document.getElementById('seoFocusKeyword').value.trim();
+      const metaTitle = document.getElementById('seoMetaTitle').value.trim() || title;
+      const metaDescription = document.getElementById('seoMetaDescription').value.trim() || summary;
+      let slug = document.getElementById('seoPostSlug').value.trim();
+      if (!slug) {{
+        slug = generateSlugFromTitle(title);
+      }}
+
+      // Collect FAQs
+      const faqs = [];
+      document.querySelectorAll('.faq-input-row').forEach(row => {{
+        const q = row.querySelector('.faq-q').value.trim();
+        const a = row.querySelector('.faq-a').value.trim();
+        if (q && a) faqs.push({{ q, a }});
+      }});
+
+      const articleId = currentEditingArticleId || ('art-' + Date.now());
+      const selectedDoctor = DOCTORS.find(d => d.id === doctorId) || DOCTORS[0];
+      const selectedPillar = PILLARS.find(p => String(p.id) === String(pillarId)) || PILLARS[0];
+
+      const articleObj = {{
+        id: articleId,
+        title: title,
+        slug: slug,
+        summary: summary,
+        rawHtml: rawHtml,
+        contentHtml: rawHtml,
+        image: heroImage || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+        imageAlt: heroAlt,
+        pillarId: pillarId,
+        categoryName: selectedPillar.name || selectedPillar.title || 'پزشکی عمومی',
+        categoryIcon: selectedPillar.icon || 'stethoscope',
+        doctorId: doctorId,
+        author: {{
+          name: selectedDoctor.name,
+          title: selectedDoctor.title,
+          mc: selectedDoctor.mc,
+          avatar: selectedDoctor.avatar || 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=200&q=80'
+        }},
+        readTime: document.getElementById('statReadTimeCalc').textContent,
+        lastReviewed: 'امروز',
+        tag: tag,
+        tagClass: 'tag-blue',
+        status: targetStatus,
+        metaTitle: metaTitle,
+        metaDescription: metaDescription,
+        focusKeyword: focusKeyword,
+        faqs: faqs,
+        lastModified: new Date().toISOString()
+      }};
+
+      const isNew = !currentEditingArticleId;
+      if (isNew) {{
+        ARTICLES.unshift(articleObj);
+      }} else {{
+        const idx = ARTICLES.findIndex(a => a.id === articleId);
+        if (idx !== -1) ARTICLES[idx] = articleObj;
+        else ARTICLES.unshift(articleObj);
+      }}
+
+      await saveArticleToServer(articleObj);
+      showToast(targetStatus === 'draft' ? 'پیش‌نویس با موفقیت ذخیره شد' : 'مقاله با موفقیت ذخیره و در مجله منتشر شد');
+      renderDashboard();
+      renderPostsTable();
+      switchTab('posts');
+    }}
+
+    async function saveArticleToServer(article) {{
+      try {{
+        await fetch('/api/articles', {{
+          method: 'PUT',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify(article)
+        }});
+      }} catch(e) {{
+        console.error('Error saving article to server:', e);
+      }}
+    }}
+
+    // ==========================================================================
+    // 8. تحلیل زنده سئو مقاله (Clinical SEO Live Engine)
+    // ==========================================================================
+    function handleTitleChange() {{
+      const title = document.getElementById('editTitle').value;
+      const metaTitleInput = document.getElementById('seoMetaTitle');
+      const slugInput = document.getElementById('seoPostSlug');
+
+      if (!metaTitleInput.value || metaTitleInput.dataset.touched !== 'true') {{
+        metaTitleInput.value = title;
+      }}
+      if (!slugInput.value || slugInput.dataset.touched !== 'true') {{
+        slugInput.value = generateSlugFromTitle(title);
+      }}
+      runLiveSeoAudit();
+    }}
+
+    function handleSummaryChange() {{
+      const summary = document.getElementById('editSummary').value;
+      const metaDescInput = document.getElementById('seoMetaDescription');
+      if (!metaDescInput.value || metaDescInput.dataset.touched !== 'true') {{
+        metaDescInput.value = summary;
+      }}
+      runLiveSeoAudit();
+    }}
+
+    function handleMetaTitleChange() {{
+      document.getElementById('seoMetaTitle').dataset.touched = 'true';
+      runLiveSeoAudit();
+    }}
+
+    function handleMetaDescChange() {{
+      document.getElementById('seoMetaDescription').dataset.touched = 'true';
+      runLiveSeoAudit();
+    }}
+
+    function generateSlugFromTitle(text) {{
+      return text.toLowerCase()
+                 .replace(/[^\\u0600-\\u06FFa-zA-Z0-9\\s-]/g, '')
+                 .replace(/\\s+/g, '-')
+                 .slice(0, 70);
+    }}
+
+    function toggleSerpView(mode) {{
+      const box = document.getElementById('googleSerpBox');
+      const btnD = document.getElementById('btnPreviewDesktop');
+      const btnM = document.getElementById('btnPreviewMobile');
+      if (mode === 'mobile') {{
+        box.style.maxWidth = '360px';
+        btnM.style.borderColor = 'var(--color-cyan)';
+        btnD.style.borderColor = 'var(--border-subtle)';
+      }} else {{
+        box.style.maxWidth = '100%';
+        btnD.style.borderColor = 'var(--color-cyan)';
+        btnM.style.borderColor = 'var(--border-subtle)';
+      }}
+    }}
+
+    function runLiveSeoAudit() {{
+      const focusKw = (document.getElementById('seoFocusKeyword').value || '').trim().toLowerCase();
+      const metaTitle = document.getElementById('seoMetaTitle').value || document.getElementById('editTitle').value || '';
+      const metaDesc = document.getElementById('seoMetaDescription').value || document.getElementById('editSummary').value || '';
+      const slug = document.getElementById('seoPostSlug').value || '';
+      const editorText = (canvas.innerText || '').toLowerCase();
+      const editorHtml = canvas.innerHTML || '';
+
+      // Update SERP Snippet
+      document.getElementById('serpPreviewTitle').textContent = metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو';
+      document.getElementById('serpPreviewDesc').textContent = metaDesc || 'توضیحات متای مقاله که توجه کاربران گوگل را جلب می‌کند...';
+      document.getElementById('serpPreviewUrl').textContent = 'https://pezeshkan.me/mag/' + (slug || 'article-slug');
+
+      // Title Length
+      const tLen = metaTitle.length;
+      document.getElementById('counterMetaTitle').textContent = tLen + ' / ۶۰';
+      const tProgress = Math.min(100, Math.round((tLen / 60) * 100));
+      const pBarTitle = document.getElementById('progressMetaTitle');
+      pBarTitle.style.width = tProgress + '%';
+      pBarTitle.style.backgroundColor = (tLen >= 45 && tLen <= 65) ? 'var(--color-emerald)' : (tLen > 65 ? 'var(--color-rose)' : 'var(--color-amber)');
+
+      // Description Length
+      const dLen = metaDesc.length;
+      document.getElementById('counterMetaDesc').textContent = dLen + ' / ۱۶۰';
+      const dProgress = Math.min(100, Math.round((dLen / 160) * 100));
+      const pBarDesc = document.getElementById('progressMetaDesc');
+      pBarDesc.style.width = dProgress + '%';
+      pBarDesc.style.backgroundColor = (dLen >= 120 && dLen <= 165) ? 'var(--color-emerald)' : (dLen > 165 ? 'var(--color-rose)' : 'var(--color-amber)');
+
+      // 9-Point Audit Checklist Verification
+      let score = 0;
+
+      // 1. Keyword in Title
+      const passKwTitle = focusKw && metaTitle.toLowerCase().includes(focusKw);
+      setChecklistItem('chk-kw-title', passKwTitle ? 'passed' : (focusKw ? 'failed' : 'warning'));
+      if (passKwTitle) score += 15;
+
+      // 2. Keyword in Meta Desc
+      const passKwDesc = focusKw && metaDesc.toLowerCase().includes(focusKw);
+      setChecklistItem('chk-kw-desc', passKwDesc ? 'passed' : (focusKw ? 'failed' : 'warning'));
+      if (passKwDesc) score += 12;
+
+      // 3. Keyword in First Paragraph
+      const firstPara = editorText.slice(0, 300);
+      const passKwFirst = focusKw && firstPara.includes(focusKw);
+      setChecklistItem('chk-kw-first', passKwFirst ? 'passed' : (focusKw ? 'failed' : 'warning'));
+      if (passKwFirst) score += 10;
+
+      // 4. Keyword in Slug
+      const passKwSlug = focusKw && (slug.toLowerCase().includes(focusKw.replace(/\\s+/g, '-')) || slug.toLowerCase().includes(focusKw));
+      setChecklistItem('chk-kw-slug', passKwSlug ? 'passed' : (focusKw ? 'failed' : 'warning'));
+      if (passKwSlug) score += 8;
+
+      // 5. Keyword Density
+      let passKwDensity = false;
+      if (focusKw && editorText) {{
+        const kwMatches = editorText.split(focusKw).length - 1;
+        const totalWords = editorText.split(/\\s+/).length;
+        const density = (kwMatches / Math.max(1, totalWords)) * 100;
+        passKwDensity = density >= 0.7 && density <= 3.0;
+      }}
+      setChecklistItem('chk-kw-density', passKwDensity ? 'passed' : (focusKw ? 'failed' : 'warning'));
+      if (passKwDensity) score += 12;
+
+      // 6. Optimal Title Length
+      const passTitleLen = tLen >= 45 && tLen <= 65;
+      setChecklistItem('chk-len-title', passTitleLen ? 'passed' : 'warning');
+      if (passTitleLen) score += 10;
+
+      // 7. Optimal Desc Length
+      const passDescLen = dLen >= 120 && dLen <= 165;
+      setChecklistItem('chk-len-desc', passDescLen ? 'passed' : 'warning');
+      if (passDescLen) score += 10;
+
+      // 8. Structure with H2/H3
+      const passStructure = editorHtml.includes('<h2') || editorHtml.includes('<h3');
+      setChecklistItem('chk-structure', passStructure ? 'passed' : 'failed');
+      if (passStructure) score += 13;
+
+      // 9. Image Alt Texts
+      const heroAlt = document.getElementById('editHeroImageAlt').value.trim();
+      const passAlt = heroAlt.length > 3;
+      setChecklistItem('chk-img-alt', passAlt ? 'passed' : 'failed');
+      if (passAlt) score += 10;
+
+      // Update Score Badge
+      const badge = document.getElementById('seoScoreBadge');
+      if (score >= 80) {{
+        badge.textContent = score + ' / ۱۰۰ — عالی';
+        badge.style.color = 'var(--color-emerald)';
+        badge.style.borderColor = 'rgba(0, 229, 153, 0.4)';
+        badge.style.background = 'rgba(0, 229, 153, 0.12)';
+      }} else if (score >= 50) {{
+        badge.textContent = score + ' / ۱۰۰ — متوسط';
+        badge.style.color = 'var(--color-amber)';
+        badge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+        badge.style.background = 'rgba(245, 158, 11, 0.12)';
+      }} else {{
+        badge.textContent = score + ' / ۱۰۰ — نیازمند بهبود';
+        badge.style.color = 'var(--color-rose)';
+        badge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+        badge.style.background = 'rgba(239, 68, 68, 0.12)';
+      }}
+    }}
+
+    function setChecklistItem(elementId, status) {{
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      el.classList.remove('passed', 'warning', 'failed');
+      el.classList.add(status);
+
+      const iconSvg = el.querySelector('svg');
+      if (iconSvg) {{
+        if (status === 'passed') {{
+          iconSvg.innerHTML = '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>';
+          iconSvg.style.stroke = 'var(--color-emerald)';
+        }} else if (status === 'warning') {{
+          iconSvg.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+          iconSvg.style.stroke = 'var(--color-amber)';
+        }} else {{
+          iconSvg.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>';
+          iconSvg.style.stroke = 'var(--color-rose)';
+        }}
+      }}
+    }}
+
+    function addFaqRow(q = '', a = '') {{
+      const cont = document.getElementById('faqItemsContainer');
+      const div = document.createElement('div');
+      div.className = 'faq-input-row';
+      div.style.background = 'rgba(255, 255, 255, 0.02)';
+      div.style.border = '1px solid var(--border-subtle)';
+      div.style.borderRadius = '6px';
+      div.style.padding = '8px';
+      div.innerHTML = `
+        <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+          <input type="text" class="form-control faq-q" placeholder="پرسش متداول بیمار..." value="${{escapeHtml(q)}}" style="font-size: 12px; padding: 6px;">
+          <button type="button" class="btn btn-secondary" style="padding: 4px 8px; color: #F87171;" onclick="this.closest('.faq-input-row').remove()">
+            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <textarea class="form-control faq-a" placeholder="پاسخ کوتاه و علمی..." style="font-size: 12px; min-height: 45px; resize: vertical;">${{escapeHtml(a)}}</textarea>
+      `;
+      cont.appendChild(div);
+    }}
+
+    // ==========================================================================
+    // 9. کتابخانه چندرسانه‌ای و مدال آپلود (Media Library & Modal)
+    // ==========================================================================
+    function renderMediaGallery() {{
+      const grid = document.getElementById('mediaLibraryGrid');
+      const searchVal = (document.getElementById('mediaSearchInput')?.value || '').trim().toLowerCase();
+      document.getElementById('mediaTotalCount').textContent = MEDIA.length;
+
+      let list = MEDIA;
+      if (searchVal) {{
+        list = list.filter(m => (m.alt || '').toLowerCase().includes(searchVal) || (m.filename || '').toLowerCase().includes(searchVal));
+      }}
+
+      if (!list.length) {{
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 24px;">هیچ تصویری در کتابخانه یافت نشد.</div>';
+        return;
+      }}
+
+      grid.innerHTML = list.map(item => `
+        <div class="media-grid-item ${{selectedMediaItem?.id === item.id ? 'selected' : ''}}" onclick="selectMediaItem('${{item.id}}')">
+          <img src="${{item.url}}" alt="${{escapeHtml(item.alt || '')}}" loading="lazy">
+        </div>
+      `).join('');
+    }}
+
+    function selectMediaItem(id) {{
+      selectedMediaItem = MEDIA.find(m => m.id === id);
+      renderMediaGallery();
+
+      const insp = document.getElementById('mediaInspectorCard');
+      if (selectedMediaItem && insp) {{
+        insp.style.display = 'block';
+        document.getElementById('inspImg').src = selectedMediaItem.url;
+        document.getElementById('inspUrl').value = selectedMediaItem.url;
+        document.getElementById('inspAlt').value = selectedMediaItem.alt || '';
+        document.getElementById('inspCaption').value = selectedMediaItem.caption || '';
+      }}
+    }}
+
+    function copyInspUrl() {{
+      const url = document.getElementById('inspUrl').value;
+      navigator.clipboard.writeText(url).then(() => showToast('پیوند تصویر رونوشت شد'));
+    }}
+
+    async function saveMediaMeta() {{
+      if (!selectedMediaItem) return;
+      selectedMediaItem.alt = document.getElementById('inspAlt').value.trim();
+      selectedMediaItem.caption = document.getElementById('inspCaption').value.trim();
+      showToast('مشخصات فراداده تصویر ذخیره شد');
+    }}
+
+    async function deleteSelectedMedia() {{
+      if (!selectedMediaItem) return;
+      if (!confirm('آیا از حذف این فایل تصویر از سرور اطمینان دارید؟')) return;
+
+      try {{
+        await fetch('/api/media?id=' + encodeURIComponent(selectedMediaItem.id), {{ method: 'DELETE' }});
+        MEDIA = MEDIA.filter(m => m.id !== selectedMediaItem.id);
+        selectedMediaItem = null;
+        document.getElementById('mediaInspectorCard').style.display = 'none';
+        renderMediaGallery();
+        showToast('تصویر با موفقیت از سرور حذف گردید');
+      }} catch(e) {{
+        console.error('Error deleting media:', e);
+      }}
+    }}
+
+    // Setup Drag and Drop
+    function setupDropZones() {{
+      const zone1 = document.getElementById('mediaDropZone');
+      const zone2 = document.getElementById('modalDropZone');
+      [zone1, zone2].forEach(zone => {{
+        if (!zone) return;
+        ['dragenter', 'dragover'].forEach(ev => {{
+          zone.addEventListener(ev, (e) => {{ e.preventDefault(); zone.classList.add('dragover'); }});
+        }});
+        ['dragleave', 'drop'].forEach(ev => {{
+          zone.addEventListener(ev, (e) => {{ e.preventDefault(); zone.classList.remove('dragover'); }});
+        }});
+        zone.addEventListener('drop', (e) => {{
+          const files = e.dataTransfer.files;
+          if (files && files.length) {{
+            handleDirectFilesUpload(files);
+          }}
+        }});
+      }});
+    }}
+
+    async function handleDirectFilesUpload(files) {{
+      for (let i = 0; i < files.length; i++) {{
+        await uploadSingleFile(files[i]);
+      }}
+      renderMediaGallery();
+      showToast('تصاویر با موفقیت در سرور بارگذاری شدند');
+    }}
+
+    async function handleModalFileUpload(files) {{
+      if (!files.length) return;
+      const uploaded = await uploadSingleFile(files[0]);
+      if (uploaded) {{
+        renderModalGrid();
+        selectModalMediaItem(uploaded.id);
+        switchModalTab('gallery');
+        showToast('تصویر بارگذاری و انتخاب شد');
+      }}
+    }}
+
+    function uploadSingleFile(file) {{
+      return new Promise((resolve) => {{
+        const reader = new FileReader();
+        reader.onload = async (e) => {{
+          const b64 = e.target.result;
+          try {{
+            const res = await fetch('/api/upload', {{
+              method: 'POST',
+              headers: {{ 'Content-Type': 'application/json' }},
+              body: JSON.stringify({{
+                filename: file.name,
+                data: b64,
+                alt: file.name.replace(/\\.[^/.]+$/, ''),
+                caption: ''
+              }})
+            }});
+            const data = await res.json();
+            if (data.success && data.media) {{
+              MEDIA.unshift(data.media);
+              resolve(data.media);
+            }} else {{
+              resolve(null);
+            }}
+          }} catch(err) {{
+            console.error(err);
+            resolve(null);
+          }}
+        }};
+        reader.readAsDataURL(file);
+      }});
+    }}
+
+    // Media Modal Functions
+    let modalSelectedId = null;
+
+    function openMediaModal(mode = 'editor') {{
+      modalMode = mode;
+      modalSelectedId = null;
+      document.getElementById('mediaModalBackdrop').style.display = 'flex';
+      document.getElementById('btnConfirmMediaInsert').textContent = mode === 'hero' ? 'تنظیم به عنوان تصویر شاخص' : 'درج در متن مقاله';
+      renderModalGrid();
+    }}
+
+    function closeMediaModal() {{
+      document.getElementById('mediaModalBackdrop').style.display = 'none';
+    }}
+
+    function switchModalTab(tab) {{
+      if (tab === 'upload') {{
+        document.getElementById('modalViewGallery').style.display = 'none';
+        document.getElementById('modalViewUpload').style.display = 'block';
+        document.getElementById('modalTabGallery').classList.remove('active');
+        document.getElementById('modalTabUpload').classList.add('active');
+      }} else {{
+        document.getElementById('modalViewGallery').style.display = 'block';
+        document.getElementById('modalViewUpload').style.display = 'none';
+        document.getElementById('modalTabGallery').classList.add('active');
+        document.getElementById('modalTabUpload').classList.remove('active');
+        renderModalGrid();
+      }}
+    }}
+
+    function renderModalGrid() {{
+      const cont = document.getElementById('modalGridItems');
+      const q = (document.getElementById('modalSearchInput')?.value || '').trim().toLowerCase();
+
+      let list = MEDIA;
+      if (q) list = list.filter(m => (m.alt || '').toLowerCase().includes(q) || (m.filename || '').toLowerCase().includes(q));
+
+      cont.innerHTML = list.map(item => `
+        <div class="media-grid-item ${{modalSelectedId === item.id ? 'selected' : ''}}" onclick="selectModalMediaItem('${{item.id}}')">
+          <img src="${{item.url}}" alt="${{escapeHtml(item.alt || '')}}" loading="lazy">
+        </div>
+      `).join('');
+    }}
+
+    function selectModalMediaItem(id) {{
+      modalSelectedId = id;
+      renderModalGrid();
+      const item = MEDIA.find(m => m.id === id);
+      if (item) {{
+        document.getElementById('modalSelectedMetaInfo').textContent = `فایل انتخاب‌شده: ${{item.filename}} (${{item.alt || 'بدون Alt'}})`;
+      }}
+    }}
+
+    function confirmMediaModalAction() {{
+      if (!modalSelectedId) {{
+        alert('لطفاً یک تصویر را انتخاب فرمایید.');
+        return;
+      }}
+      const item = MEDIA.find(m => m.id === modalSelectedId);
+      if (!item) return;
+
+      if (modalMode === 'hero') {{
+        document.getElementById('editHeroImageUrl').value = item.url;
+        document.getElementById('editHeroImageAlt').value = item.alt || document.getElementById('editTitle').value || '';
+        document.getElementById('heroImageEl').src = item.url;
+        document.getElementById('heroImageEl').style.display = 'block';
+        document.getElementById('heroEmptyPlaceholder').style.display = 'none';
+        closeMediaModal();
+        runLiveSeoAudit();
+        showToast('تصویر شاخص تنظیم شد');
+      }} else {{
+        insertImageToEditor(item.url, item.alt, item.caption);
+        closeMediaModal();
+        showToast('تصویر در متن مقاله درج شد');
+      }}
+    }}
+
+    // ==========================================================================
+    // 10. ذخیره تنظیمات سئو سایت (Site SEO Settings)
+    // ==========================================================================
+    async function saveSiteSeoSettings() {{
+      const settings = {{
+        titleTemplate: document.getElementById('cfgTitleTemplate').value.trim(),
+        defaultMetaDescription: document.getElementById('cfgDefaultMetaDesc').value.trim(),
+        defaultKeywords: document.getElementById('cfgDefaultKeywords').value.trim(),
+        canonicalBase: document.getElementById('cfgCanonicalBase').value.trim(),
+        googleVerification: document.getElementById('cfgGoogleVerification').value.trim(),
+        bingVerification: document.getElementById('cfgBingVerification').value.trim(),
+        googleAnalyticsId: document.getElementById('cfgGoogleAnalyticsId').value.trim(),
+        robotsDefault: document.getElementById('cfgRobotsDefault').value.trim()
+      }};
+
+      try {{
+        await fetch('/api/settings', {{
+          method: 'PUT',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{ seo: settings }})
+        }});
+        showToast('تنظیمات سراسری سئو با موفقیت ذخیره گردید');
+      }} catch(e) {{
+        console.error('Error saving settings:', e);
+      }}
+    }}
+
+    // 10.1 CRM Tutorials Manager & Reader Engine
+    function renderCrmTutorials() {{
+      const container = document.getElementById('crmGridContainer');
+      if (!container) return;
+
+      const searchVal = (document.getElementById('crmSearchInput')?.value || '').trim().toLowerCase();
+
+      let filtered = CRM_TUTORIALS.filter(tut => {{
+        if (currentCrmRoleFilter !== 'all' && tut.role !== currentCrmRoleFilter) return false;
+        if (searchVal && !tut.title.toLowerCase().includes(searchVal) && !(tut.summary || '').toLowerCase().includes(searchVal)) return false;
+        return true;
+      }});
+
+      // Update counters
+      const totalCount = CRM_TUTORIALS.length;
+      const docCount = CRM_TUTORIALS.filter(t => t.role === 'doctor').length;
+      const recCount = CRM_TUTORIALS.filter(t => t.role === 'receptionist').length;
+      const usrCount = CRM_TUTORIALS.filter(t => t.role === 'user').length;
+
+      const cAll = document.getElementById('crmCountAll');
+      const cDoc = document.getElementById('crmCountDoctor');
+      const cRec = document.getElementById('crmCountReceptionist');
+      const cUsr = document.getElementById('crmCountUser');
+      if (cAll) cAll.textContent = totalCount;
+      if (cDoc) cDoc.textContent = docCount;
+      if (cRec) cRec.textContent = recCount;
+      if (cUsr) cUsr.textContent = usrCount;
+
+      if (!filtered.length) {{
+        container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-secondary); padding: 48px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">هیچ مقاله آموزشی با این مشخصات یافت نشد.</div>`;
+        return;
+      }}
+
+      container.innerHTML = filtered.map(tut => {{
+        let badgeClass = 'crm-badge-doctor';
+        let badgeIcon = '<svg class="icon-svg" style="font-size: 13px;" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>';
+        if (tut.role === 'receptionist') {{
+          badgeClass = 'crm-badge-receptionist';
+          badgeIcon = '<svg class="icon-svg" style="font-size: 13px;" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>';
+        }} else if (tut.role === 'user') {{
+          badgeClass = 'crm-badge-user';
+          badgeIcon = '<svg class="icon-svg" style="font-size: 13px;" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+        }}
+
+        return `
+          <div class="crm-card">
+            <div class="crm-card-header">
+              <span class="crm-badge-role ${{badgeClass}}">
+                ${{badgeIcon}}
+                <span>${{tut.badge || tut.category}}</span>
+              </span>
+              <span class="crm-readtime">
+                <svg class="icon-svg" style="font-size: 12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>${{tut.readTime || '۵ دقیقه مطالعه'}}</span>
+              </span>
+            </div>
+            <h3>${{escapeHtml(tut.title)}}</h3>
+            <p>${{escapeHtml(tut.summary || '')}}</p>
+            <div class="crm-card-footer">
+              <div style="font-size: 11px; color: var(--text-muted);">
+                <span>آخرین ویرایش: ${{tut.updatedAt || '۱۴۰۵/۰۷/۰۸'}}</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="btn btn-secondary" style="font-size: 11.5px; padding: 5px 10px;" onclick="openCrmEditor('${{tut.id}}')">
+                  <svg class="icon-svg" style="font-size: 12px;" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                  <span>ویرایش</span>
+                </button>
+                <button type="button" class="btn btn-primary" style="font-size: 11.5px; padding: 5px 12px;" onclick="openCrmReader('${{tut.id}}')">
+                  <span>مطالعه کامل</span>
+                  <svg class="icon-svg" style="font-size: 12px;" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }}).join('');
+    }}
+
+    function filterCrmRole(role) {{
+      currentCrmRoleFilter = role;
+      document.querySelectorAll('#tab-crm .status-pill').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById('crm-pill-' + role);
+      if (activeEl) activeEl.classList.add('active');
+      renderCrmTutorials();
+    }}
+
+    function openCrmReader(tutId) {{
+      const tut = CRM_TUTORIALS.find(t => t.id === tutId || t.code === tutId);
+      if (!tut) return;
+
+      const badgeEl = document.getElementById('crmReaderBadge');
+      if (badgeEl) {{
+        badgeEl.textContent = tut.badge || tut.category || 'آموزش CRM';
+        badgeEl.className = 'crm-badge-role ' + (tut.role === 'receptionist' ? 'crm-badge-receptionist' : (tut.role === 'user' ? 'crm-badge-user' : 'crm-badge-doctor'));
+      }}
+
+      const timeText = document.getElementById('crmReaderTimeText');
+      if (timeText) timeText.textContent = tut.readTime || '۵ دقیقه مطالعه';
+
+      const contentEl = document.getElementById('crmReaderContent');
+      if (contentEl) {{
+        contentEl.innerHTML = `
+          <h2 style="font-size: 19px; font-weight: 800; color: var(--text-primary); margin-bottom: 16px; line-height: 1.6;">${{escapeHtml(tut.title)}}</h2>
+          ${{tut.html || `<p>${{escapeHtml(tut.summary)}}</p>`}}
+        `;
+      }}
+
+      const modal = document.getElementById('crmReaderModalBackdrop');
+      if (modal) modal.classList.add('active');
+    }}
+
+    function closeCrmReader() {{
+      const modal = document.getElementById('crmReaderModalBackdrop');
+      if (modal) modal.classList.remove('active');
+    }}
+
+    function handleCrmModalBackdropClick(e) {{
+      if (e.target && e.target.id === 'crmReaderModalBackdrop') {{
+        closeCrmReader();
+      }}
+    }}
+
+    function openCrmEditor(tutId = null) {{
+      const modalTitle = document.getElementById('crmEditorModalTitle');
+      const idInput = document.getElementById('editCrmId');
+      const titleInput = document.getElementById('editCrmTitle');
+      const roleSelect = document.getElementById('editCrmRole');
+      const timeInput = document.getElementById('editCrmReadTime');
+      const summaryInput = document.getElementById('editCrmSummary');
+      const htmlInput = document.getElementById('editCrmHtml');
+
+      if (tutId) {{
+        const tut = CRM_TUTORIALS.find(t => t.id === tutId);
+        if (!tut) return;
+        modalTitle.textContent = 'ویرایش آموزش CRM: ' + tut.title;
+        idInput.value = tut.id;
+        titleInput.value = tut.title || '';
+        roleSelect.value = tut.role || 'doctor';
+        timeInput.value = tut.readTime || '۶ دقیقه مطالعه';
+        summaryInput.value = tut.summary || '';
+        htmlInput.value = tut.html || '';
+      }} else {{
+        modalTitle.textContent = 'افزودن راهنمای جدید آموزش CRM';
+        idInput.value = '';
+        titleInput.value = '';
+        roleSelect.value = 'doctor';
+        timeInput.value = '۶ دقیقه مطالعه';
+        summaryInput.value = '';
+        htmlInput.value = '';
+      }}
+
+      const modal = document.getElementById('crmEditorModalBackdrop');
+      if (modal) modal.classList.add('active');
+    }}
+
+    function closeCrmEditor() {{
+      const modal = document.getElementById('crmEditorModalBackdrop');
+      if (modal) modal.classList.remove('active');
+    }}
+
+    async function saveCrmTutorial() {{
+      const id = document.getElementById('editCrmId').value.trim();
+      const title = document.getElementById('editCrmTitle').value.trim();
+      if (!title) {{
+        alert('لطفاً عنوان راهنمای CRM را وارد فرمایید.');
+        document.getElementById('editCrmTitle').focus();
+        return;
+      }}
+
+      const role = document.getElementById('editCrmRole').value;
+      const readTime = document.getElementById('editCrmReadTime').value.trim() || '۵ دقیقه مطالعه';
+      const summary = document.getElementById('editCrmSummary').value.trim();
+      const html = document.getElementById('editCrmHtml').value.trim();
+
+      let roleLabel = 'ویژه پزشک';
+      let badge = 'برای پزشک • بالینی و ویزیت';
+      if (role === 'receptionist') {{
+        roleLabel = 'ویژه منشی و پذیرش';
+        badge = 'برای منشی • پایانه و نوبت‌دهی';
+      }} else if (role === 'user') {{
+        roleLabel = 'مدیریت و پرتال مراجعین';
+        badge = 'برای کاربر • پرتال و وفاداری';
+      }}
+
+      const tutId = id || ('crm-' + Date.now());
+      const tutObj = {{
+        id: tutId,
+        code: id || tutId,
+        title: title,
+        role: role,
+        roleLabel: roleLabel,
+        badge: badge,
+        readTime: readTime,
+        summary: summary,
+        html: html,
+        updatedAt: 'امروز',
+        status: 'published'
+      }};
+
+      const idx = CRM_TUTORIALS.findIndex(t => t.id === tutId);
+      if (idx !== -1) {{
+        CRM_TUTORIALS[idx] = tutObj;
+      }} else {{
+        CRM_TUTORIALS.unshift(tutObj);
+      }}
+
+      // Persist to server
+      try {{
+        await fetch('/api/crm-tutorials', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify(tutObj)
+        }});
+      }} catch(e) {{
+        console.error('Failed to save CRM tutorial to server:', e);
+      }}
+
+      closeCrmEditor();
+      renderCrmTutorials();
+      showToast('راهنمای CRM با موفقیت ذخیره شد');
+    }}
+
+    // 11. Utilities
+    function showToast(msg) {{
+      const toast = document.getElementById('clinicalToast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }}
+
+    function escapeHtml(text) {{
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }}
+
+    async function handleLogout() {{
+      if (!confirm('آیا از خروج از سامانه مدیریت اطمینان دارید؟')) return;
+      try {{
+        await fetch('/api/logout', {{ method: 'POST' }});
+      }} catch(e) {{}}
+      window.location.href = '/login';
+    }}
+  </script>
+</body>
+</html>
+'''
+
+output_path = os.path.join(MAG_DIR, "admin.html")
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(html_template)
+
+print(f"Pezeshkan Studio Admin generated successfully: {output_path} ({len(html_template)} bytes)")

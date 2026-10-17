@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شناسنامه طراحی و بنچ‌مارک ساب‌فولدر مجله سلامت پزشکآن (برگرفته از آکسون‌لایف) | Master Design Blueprint</title>
+  
+  <!-- فونت استاندارد وزیرمتن -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       توکن‌های سیستم طراحی پزشکآن (Pezeshkan Clinical Dark DNA)
+       تلفیق الگوهای کاربردی Axon Life با هویت بصری مدرن و اختصاصی پزشکآن
+       ========================================================================== */
+    :root {
+      /* Backgrounds */
+      --bg-base: #06090E;
+      --bg-surface-primary: #0A0F18;
+      --bg-surface-secondary: #111827;
+      --bg-surface-elevated: #1F2937;
+      
+      /* Semantic Signals */
+      --cyan-signal: #00FFFF;
+      --cyan-signal-glow: rgba(0, 255, 255, 0.25);
+      --emerald-vital: #00E599;
+      --emerald-vital-glow: rgba(0, 229, 153, 0.25);
+      --amber-caution: #F59E0B;
+      --red-alert: #EF4444;
+      --magenta-accent: #EC4899;
+      
+      /* Text Colors */
+      --text-white: #FFFFFF;
+      --text-primary: #F3F4F6;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      
+      /* Glassmorphism */
+      --glass-bg: rgba(17, 24, 39, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-blur: blur(16px);
+      
+      --glass-floating-bg: rgba(10, 15, 24, 0.85);
+      --glass-floating-border: rgba(0, 255, 255, 0.20);
+      --glass-floating-blur: blur(20px);
+      
+      /* Radii */
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --radius-full: 9999px;
+      
+      /* Shadows */
+      --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.5);
+      --shadow-glow-cyan: 0 0 25px rgba(0, 255, 255, 0.15);
+      --shadow-glow-emerald: 0 0 25px rgba(0, 229, 153, 0.15);
+      
+      /* Fonts */
+      --font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-family);
+      font-size: 15px;
+      line-height: 1.75;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(0, 255, 255, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 60%, rgba(0, 229, 153, 0.035) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    a {
+      color: var(--cyan-signal);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    a:hover {
+      text-shadow: 0 0 10px var(--cyan-signal);
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       هدر چسبان و ناوبری
+       ========================================================================== */
+    .top-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass-floating-bg);
+      backdrop-filter: var(--glass-floating-blur);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 14px 0;
+      box-shadow: var(--shadow-subtle);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 229, 153, 0.2));
+      border: 1px solid var(--cyan-signal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      position: relative;
+    }
+    .brand-text h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-text span {
+      font-size: 11px;
+      color: var(--cyan-signal);
+      font-weight: 500;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      overflow-x: auto;
+      padding: 4px 0;
+    }
+    .nav-menu-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .nav-menu-btn:hover, .nav-menu-btn.active {
+      color: #FFFFFF;
+      background: rgba(0, 255, 255, 0.12);
+      border-color: var(--cyan-signal);
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+    }
+    .action-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 229, 153, 0.1);
+      border: 1px solid rgba(0, 229, 153, 0.3);
+      font-size: 12px;
+      color: var(--emerald-vital);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald-vital);
+      box-shadow: 0 0 10px var(--emerald-vital);
+      animation: blink 1.5s infinite alternate;
+    }
+    @keyframes blink {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+
+    /* ==========================================================================
+       بخش هیرو و کارت خلاصه وضعیت
+       ========================================================================== */
+    .hero-banner {
+      padding: 45px 0 25px;
+    }
+    .hero-box {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-subtle);
+    }
+    .hero-box::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 255, 255, 0.08);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      color: var(--cyan-signal);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .hero-heading {
+      font-size: 30px;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+    .hero-summary {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 950px;
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+
+    /* Comparison Quick Summary */
+    .benchmark-pills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .bench-pill {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      transition: all 0.2s ease;
+    }
+    .bench-pill:hover {
+      border-color: rgba(0, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .bench-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan-signal);
+      margin-bottom: 4px;
+    }
+    .bench-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+    .bench-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       ساختار سکشن‌ها و پنل‌ها
+       ========================================================================== */
+    .section-wrap {
+      padding: 36px 0;
+    }
+    .sec-head {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+    }
+    .sec-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sec-num {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid var(--cyan-signal);
+      color: var(--cyan-signal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    .sec-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .sec-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Grids */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 24px;
+    }
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .card-panel {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .card-panel:hover {
+      border-color: rgba(0, 255, 255, 0.25);
+      box-shadow: var(--shadow-glow-cyan);
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge-tag {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--cyan-signal);
+      background: rgba(0, 255, 255, 0.08);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      direction: ltr;
+    }
+
+    /* Tables */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+    .custom-table th, .custom-table td {
+      padding: 12px 14px;
+      text-align: right;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .custom-table th {
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+    .custom-table td {
+      font-size: 13px;
+    }
+
+    /* ==========================================================================
+       پیش‌نمایش‌های تعاملی وایرفریم‌ها (Interactive Layout Mockups)
+       ========================================================================== */
+    .wireframe-container {
+      background: #04060A;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-top: 16px;
+      position: relative;
+    }
+    .wireframe-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan-signal);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Axon-Inspired Asymmetrical 5-Story Hero Grid */
+    .hero-story-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      grid-template-rows: repeat(2, 170px);
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .story-main {
+      grid-row: 1 / 3;
+      background: linear-gradient(180deg, rgba(0, 255, 255, 0.05), rgba(0, 0, 0, 0.85));
+      border: 1px solid rgba(0, 255, 255, 0.25);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+    }
+    .story-sub {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .story-sub:hover {
+      border-color: var(--cyan-signal);
+      background: rgba(0, 255, 255, 0.04);
+    }
+    .story-pill {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .pill-cyan { background: rgba(0, 255, 255, 0.15); color: var(--cyan-signal); border: 1px solid rgba(0, 255, 255, 0.3); }
+    .pill-emerald { background: rgba(0, 229, 153, 0.15); color: var(--emerald-vital); border: 1px solid rgba(0, 229, 153, 0.3); }
+    .pill-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber-caution); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .pill-red { background: rgba(239, 68, 68, 0.15); color: var(--red-alert); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    .story-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.5;
+    }
+    .story-title.lg {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .story-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Axon Top 3 Strip (Pezeshkan Hardware Inspiration) */
+    .top-3-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .strip-item {
+      background: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+    .strip-item:hover {
+      border-color: var(--cyan-signal);
+      transform: translateY(-2px);
+    }
+    .strip-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .strip-info h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .strip-info p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Live InsideBanner Mockup (Axon insidebanner-box translated to Pezeshkan HIS) */
+    .insidebanner-preview {
+      background: linear-gradient(135deg, rgba(10, 15, 24, 0.95), rgba(7, 25, 30, 0.95));
+      border: 1px solid var(--emerald-vital);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: var(--shadow-glow-emerald);
+      position: relative;
+      overflow: hidden;
+    }
+    .insidebanner-preview::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--emerald-vital), var(--cyan-signal));
+    }
+    .insidebanner-text h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+    .insidebanner-text p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .insidebanner-btn {
+      background: linear-gradient(90deg, var(--emerald-vital), var(--cyan-signal));
+      color: #05080E;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 12px 22px;
+      border-radius: var(--radius-md);
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 229, 153, 0.3);
+      transition: all 0.2s ease;
+    }
+    .insidebanner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
+    }
+
+    /* Post Card Spec */
+    .postcard-preview {
+      background: rgba(17, 24, 39, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    .postcard-preview:hover {
+      border-color: rgba(0, 255, 255, 0.3);
+      transform: translateY(-3px);
+    }
+    .postcard-img-box {
+      height: 160px;
+      background: #1F2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      position: relative;
+    }
+    .postcard-img-box .cat-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 255, 255, 0.85);
+      color: #070A0F;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+    .postcard-body {
+      padding: 14px;
+    }
+    .postcard-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .postcard-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 8px;
+      margin-top: 10px;
+    }
+
+    /* Single Post Layout Wireframe */
+    .article-blueprint-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .article-sidebar {
+      background: rgba(17, 24, 39, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .article-main-content {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .trust-header-box {
+      background: rgba(0, 229, 153, 0.06);
+      border: 1px solid rgba(0, 229, 153, 0.2);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .trust-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .trust-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.1);
+      border: 2px solid var(--emerald-vital);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    /* Code Box */
+    .code-box {
+      background: #040609;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #38BDF8;
+      direction: ltr;
+      text-align: left;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 36px 0;
+      margin-top: 50px;
+      background: rgba(6, 9, 14, 0.95);
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       نوار چسبان بالایی (Sticky Header)
+       ========================================================================== -->
+  <header class="top-navbar">
+    <div class="container nav-inner">
+      <div class="brand-wrap">
+        <div class="brand-badge"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div>
+        <div class="brand-text">
+          <h1>پزشکـــآن <span style="font-weight:400; font-size:12px; color:var(--text-muted);">| مهندسی ساب‌فولدر مجله سلامت</span></h1>
+          <span>Axon Life Benchmark & Front-End Design Blueprint V1.0</span>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#analysis" class="nav-menu-btn active">۰۱. آنالیز Axon Life</a></li>
+          <li><a href="#comparison" class="nav-menu-btn">۰۲. مقایسه تطبیقی</a></li>
+          <li><a href="#tokens" class="nav-menu-btn">۰۳. توکن‌ها و تم بالینی</a></li>
+          <li><a href="#wireframes" class="nav-menu-btn">۰۴. وایرفریم‌های هاب</a></li>
+          <li><a href="#single" class="nav-menu-btn">۰۵. آناتومی تک‌مقاله</a></li>
+          <li><a href="#conversion" class="nav-menu-btn">۰۶. موتور تبدیل HIS</a></li>
+          <li><a href="#components" class="nav-menu-btn">۰۷. کامپوننت‌های فرانت</a></li>
+        </ul>
+      </nav>
+
+      <div class="action-badge">
+        <div class="pulse-dot"></div>
+        آماده طراحی و کدنویسی
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ==========================================================================
+         بخش هیرو و خلاصه وضعیت بنچ‌مارک
+         ========================================================================== -->
+    <section class="hero-banner">
+      <div class="hero-box">
+        <div class="hero-tagline">
+          <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <span>سند جامع تطبیقی: الگوبرداری از آکسون لایف با دی‌ان‌ای اختصاصی پزشکآن</span>
+        </div>
+        <h2 class="hero-heading">
+          شناسنامه فنی و معماری طراحی ساب‌فولدر مجله سلامت «پزشکآن»
+        </h2>
+        <p class="hero-summary">
+          سایت مرجع <strong>Axon Life (axon.me/life/)</strong> به عنوان یکی از پلتفرم‌های پرمخاطب تولید محتوای سلامت و مقالات پزشکی بررسی شد. در این سند، نقاط قوت و الگوهای موفق تجربه کاربری (UX) آکسون استخراج شده و با ارتقا به استانداردهای سیستم طراحی اختصاصی پزشکآن (تم دارک بالینی، سیستم شیشه‌ای، اطلس ۹ پیلار و اتصال تعاملی HIS Bridge) آماده پیاده‌سازی گشته است.
+        </p>
+
+        <!-- خلاصه‌وضعیت شاخص‌ها -->
+        <div class="benchmark-pills">
+          <div class="bench-pill">
+            <div class="bench-label">موقعیت ساب‌فولدر</div>
+            <div class="bench-val">domain.com/mag/ یا /life/</div>
+            <div class="bench-desc">انتقال مستقیم اعتبار دامنه‌ای به اکوسیستم اصلی</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-label">استراتژی چیدمان هاب</div>
+            <div class="bench-val">Asymmetrical Hero + 3 Tab Feeds</div>
+            <div class="bench-desc">هیرو ۵تایی نامتقارن + تب‌های تندرستی، داروها و زنگ خطر</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-label">موتور تبدیل (Conversion)</div>
+            <div class="bench-val">HIS Bridge vs. InsideBanner</div>
+            <div class="bench-desc">ارتقای بنر استاتیک آکسون به رزرو زنده نوبت بیمارستانی</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-label">هویت بصری مصوب</div>
+            <div class="bench-val">Clinical Dark (70/20/10)</div>
+            <div class="bench-desc">۷۰٪ SaaS مدرن + ۲۰٪ سیگنال حیاتی نئونی + ۱۰٪ سخت‌افزار</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۱: آنالیز عمیق سایت آکسون لایف (Axon Life Deep-Dive Analysis)
+         ========================================================================== -->
+    <section class="section-wrap" id="analysis">
+      <div class="sec-head">
+        <div class="sec-title-group">
+          <div class="sec-num">۰۱</div>
+          <div>
+            <h3 class="sec-title">آنالیز ساختاری و تجربه کاربری مجله آکسون لایف (axon.me/life/)</h3>
+            <p class="sec-desc">بررسی کالبدشکافی صفحات، کدهای ماژول‌ها و دلایل موفقیت در رتبه‌بندی و جذب کاربر</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polygon points="12 2 2 7 22 7"/></svg></span>
+              <span>کالبدشکافی اجزای صفحه اصلی مجله آکسون لایف</span>
+            </div>
+            <span class="badge-tag">Axon Layout Breakdown</span>
+          </div>
+
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; font-size:13px;">
+            <li style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--cyan-signal);">
+              <strong style="color:#FFFFFF;">۱. نوار اخبار فوری سلامت (Content Ticker):</strong> یک ردیف متحرک در بالاترین نقطه که جدیدترین یا جنجالی‌ترین مقالات سلامت (مانند علائم بارداری یا کاهش چربی) را با برچسب موضوعی نمایش می‌دهد.
+            </li>
+            <li style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--emerald-vital);">
+              <strong style="color:#FFFFFF;">۲. بنر اسلایدر مطالب برگزیده (axon-popular-banner):</strong> اسلایدر افقی مقالات برگزیده با برچسب‌های برجسته، تصاویر باکیفیت ۷۵۰×۴۹۰ و تایپوگرافی خوانا.
+            </li>
+            <li style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--amber-caution);">
+              <strong style="color:#FFFFFF;">۳. نوار سه‌تایی خدمات متمایز (axon-top-item):</strong> سه ستون کلیدی در بالای سایت شامل دسترسی به ویزیت آنلاین، اطلاعات دارویی و آزمایشگاه.
+            </li>
+            <li style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--red-alert);">
+              <strong style="color:#FFFFFF;">۴. بلوک‌های موضوعی تفکیک‌شده (Tab Blocks):</strong> دسته‌بندی مقالات در سه حوزه: «تازه‌های تندرستی»، «دانستنی‌های دارویی» و بخش فوق‌العاده حساس «زنگ خطرهای سلامتی» (سرطان، ام‌اس، نارسایی قلبی).
+            </li>
+            <li style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--magenta-accent);">
+              <strong style="color:#FFFFFF;">۵. بنرهای دعوت به اقدام میانی (insidebanner-box):</strong> بنرهای افقی با زمینه گرادیانی تیره و دکمه کنتراست بالا جهت هدایت کاربر به رزرو یا مشاوره آنلاین.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+              <span>نقاط ضعف آکسون لایف که در «پزشکآن» رفع و بازطراحی می‌شود</span>
+            </div>
+            <span class="badge-tag" style="color:var(--amber-caution); background:rgba(245, 158, 11, 0.1);">Areas of Improvement</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px; font-size:13px;">
+            <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:var(--radius-sm);">
+              <strong style="color:#FFFFFF;">۱. طراحی عمومی و وابسته به قالب‌های سنتی وردپرس (Elementor/Liona):</strong>
+              <p style="color:var(--text-secondary); margin-top:4px; font-size:12px;">
+                آکسون از پس‌زمینه سفید ساده و رنگ نارنجی/آبی عمومی استفاده کرده که هویت سازمانی متمایز یک اکوسیستم پزشکی های‌تک را القا نمی‌کند. در پزشکآن از معماری <strong>Dark Clinical Canvas</strong> و گلاسمورفیسم مهندسی‌شده استفاده خواهد شد.
+              </p>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:var(--radius-sm);">
+              <strong style="color:#FFFFFF;">۲. تبدیل استاتیک به جای تعامل زنده (Static Banners vs. Live HIS Bridge):</strong>
+              <p style="color:var(--text-secondary); margin-top:4px; font-size:12px;">
+                بنرهای آکسون صرفاً کاربر را به یک صفحه لندینگ عمومی ارجاع می‌دهند. در پزشکآن، ویجت هوشمند داخل مقاله به سامانه HIS بیمارستان متصل شده و پزشک متخصص مربوطه و ساعت نوبت خالی را فوراً داخل متن نشان می‌دهد.
+              </p>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:var(--radius-sm);">
+              <strong style="color:#FFFFFF;">۳. ساختار موضوعی محدود در برابر اطلس پیلار-کلاستر پزشکآن:</strong>
+              <p style="color:var(--text-secondary); margin-top:4px; font-size:12px;">
+                آکسون دارای ۸ دسته عمومی است؛ در حالی که پزشکآن مجهز به <strong>۹ پیلار کلان، ۴۹ شاخه فرعی و ۱۷۳ کلاستر سئو</strong> منطبق بر کلینیک‌های واقعی بیمارستان است.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۲: جدول مقایسه تطبیقی جامع (Axon Life vs. Pezeshkan)
+         ========================================================================== -->
+    <section class="section-wrap" id="comparison">
+      <div class="sec-head">
+        <div class="sec-title-group">
+          <div class="sec-num">۰۲</div>
+          <div>
+            <h3 class="sec-title">ماتریس مقایسه تطبیقی: آکسون لایف در برابر ساب‌فولدر پزشکآن</h3>
+            <p class="sec-desc">مقایسه دقیق تمامی فاکتورهای معماری، فرانت‌اند، طراحی و کسب‌وکار</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>ویژگی / لایه معماری</th>
+              <th>سایت مرجع: آکسون لایف (Axon Life)</th>
+              <th>نسخه توسعه‌یافته: ساب‌فولدر مجله پزشکآن</th>
+              <th>مزیت فرانت‌اند و بیزینسی پزشکآن</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>هسته پلتفرم و روتینگ</strong></td>
+              <td>ساب‌فولدر <code style="color:var(--cyan-signal);">/life/</code> بر بستر WordPress</td>
+              <td>ساب‌فولدر <code style="color:var(--cyan-signal);">/mag/</code> بر بستر فریم‌ورک فرانت‌اند مدرن</td>
+              <td>سرعت لود زیر ۱ ثانیه و استقلال در پیاده‌سازی کامپوننت‌های پیچیده</td>
+            </tr>
+            <tr>
+              <td><strong>هویت بصری و تم رنگی</strong></td>
+              <td>Light Theme، پالت نارنجی (#f77528) و آبی (#0073FF)</td>
+              <td><strong>Dark Clinical Canvas</strong>، فیروزه‌ای (#00FFFF)، سبز حیات (#00E599)</td>
+              <td>حس بالینی معتبر، کاهش خستگی چشم در مطالعه طولانی و عدم شباهت به سایبرپانک</td>
+            </tr>
+            <tr>
+              <td><strong>لایه‌های سطوح (Material)</strong></td>
+              <td>کارت‌های مسطح سفید با سایه ملایم باکس‌ها</td>
+              <td><strong>سیستم گلاسمورفیسم سه‌سطحی</strong> (Primary, Secondary, Floating Glass)</td>
+              <td>عمق بصری فوق‌العاده مدرن با خطوط مرزی نیمه‌شفاف و بلور بک‌دراپ</td>
+            </tr>
+            <tr>
+              <td><strong>عمق معماری محتوایی</strong></td>
+              <td>۸ دسته بندی سنتی و مجزا</td>
+              <td><strong>۹ پیلار کلان + ۴۹ شاخه فرعی + ۱۷۳ کلاستر سئو</strong></td>
+              <td>پوشش کامل کلیدواژه‌های بیماری‌ها، آزمایش‌ها و رتبه‌گیری قدرتمند گوگل</td>
+            </tr>
+            <tr>
+              <td><strong>موتور تبدیل به بیمار</strong></td>
+              <td>بنرهای گرافیکی ثابت (<code style="color:var(--amber-caution);">insidebanner-box</code>)</td>
+              <td><strong>ویجت تعاملی نوبت‌دهی (HIS Booking Bridge)</strong></td>
+              <td>رزرو بدون واسطه و بدون افتادن در حلقه سردرگمی (Zero Dead-End Policy)</td>
+            </tr>
+            <tr>
+              <td><strong>شاخص‌های E-E-A-T گوگل</strong></td>
+              <td>نام نویسنده و متادیتای معمول رنک‌مث</td>
+              <td>باکس جامع تایید پزشک، شماره نظام پزشکی، تاریخ بازبینی و اسکیماهای JSON-LD</td>
+              <td>کسب بالاترین امتیاز اعتماد در الگوریتم‌های سلامت و YMYL گوگل</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۳: توکن‌های دی‌ان‌ای بصری و استایل پزشکآن
+         ========================================================================== -->
+    <section class="section-wrap" id="tokens">
+      <div class="sec-head">
+        <div class="sec-title-group">
+          <div class="sec-num">۰۳</div>
+          <div>
+            <h3 class="sec-title">سیستم توکن‌های فرانت‌اند و ترجمه پالت آکسون به پزشکآن</h3>
+            <p class="sec-desc">نقشه تبدیل کلاس‌های رنگی و توکن‌های CSS جهت استفاده مستقیم در مرحله کدنویسی</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3col">
+        <!-- کارت 1: توکن‌های رنگی -->
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
+              <span>پالت رنگی بالینی سمانتیک</span>
+            </div>
+            <span class="badge-tag">CSS Variables</span>
+          </div>
+
+          <div class="code-box">
+:root {
+  /* Surfaces */
+  --bg-base: #06090E;
+  --bg-surface: #0A0F18;
+  --bg-elevated: #111827;
+
+  /* Signals */
+  --color-signal-primary: #00FFFF;
+  --color-signal-success: #00E599;
+  --color-signal-warning: #F59E0B;
+  --color-signal-critical: #EF4444;
+  --color-signal-accent: #EC4899;
+
+  /* Typography */
+  --color-text-main: #FFFFFF;
+  --color-text-body: #F3F4F6;
+  --color-text-muted: #9CA3AF;
+}
+          </div>
+        </div>
+
+        <!-- کارت 2: لایه‌های گلاسمورفیسم -->
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg></span>
+              <span>کلاس‌های شیشه‌ای سه‌سطحی</span>
+            </div>
+            <span class="badge-tag">Glass Styles</span>
+          </div>
+
+          <div class="code-box">
+.glass-primary-card {
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.glass-secondary-sidebar {
+  background: rgba(10, 15, 24, 0.60);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-floating-header {
+  background: rgba(6, 9, 14, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+          </div>
+        </div>
+
+        <!-- کارت 3: تایپوگرافی وزیرمتن -->
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+              <span>مقیاس ارگونومیک تایپوگرافی</span>
+            </div>
+            <span class="badge-tag">Vazirmatn Scale</span>
+          </div>
+
+          <div class="code-box">
+/* H1 Title */
+font-size: 32px;
+font-weight: 900;
+line-height: 1.4;
+
+/* H2 Section Headings */
+font-size: 24px;
+font-weight: 800;
+line-height: 1.5;
+
+/* Body (Reading Comfort) */
+font-size: 16px;
+font-weight: 400;
+line-height: 1.85; /* ارگونومی بالا */
+letter-spacing: -0.2px;
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۴: وایرفریم‌ها و چیدمان‌های هاب مجله (Magazine Hub Wireframes)
+         ========================================================================== -->
+    <section class="section-wrap" id="wireframes">
+      <div class="sec-head">
+        <div class="sec-title-group">
+          <div class="sec-num">۰۴</div>
+          <div>
+            <h3 class="sec-title">وایرفریم‌ها و چیدمان ماژول‌های هاب اصلی مجله (/mag/)</h3>
+            <p class="sec-desc">نقشه مهندسی چیدمان هیرو ۵تایی آکسون، نوار تیکر، تب‌های سه‌گانه و لیست کارت‌ها</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- وایرفریم ۱: هیرو ۵تایی نامتقارن -->
+      <div class="card-panel" style="margin-bottom:24px;">
+        <div class="card-head">
+          <div class="card-title">
+            <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22h20"/><path d="M2 22L22 2"/><path d="M2 17l5-5"/><path d="M2 12l10-10"/></svg></span>
+            <span>ماژول ۱: هیرو ۵تایی نامتقارن مطالب ویژه (Asymmetrical 5-Story Hero Grid)</span>
+          </div>
+          <span class="badge-tag">Hero Component</span>
+        </div>
+        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">
+          الگوبرداری از هیرو اسلایدر محبوب آکسون؛ یک مقاله محوری بزرگ در سمت راست (۶۰٪ عرض) به همراه ۴ مقاله ترند کوچک در سمت چپ در ۲ ردیف:
+        </p>
+
+        <div class="wireframe-container">
+          <div class="wireframe-tag">پیش‌نمایش زنده چیدمان هیرو بر اساس دی‌ان‌ای شیشه‌ای پزشکآن</div>
+          
+          <div class="hero-story-grid">
+            <!-- داستان اصلی بزرگ -->
+            <div class="story-main">
+              <span class="story-pill pill-cyan">مقاله جامع ویژه | طب فیزیکی و توانبخشی</span>
+              <h3 class="story-title lg">درمان غیرجراحی دیسک کمر و تنگی کانال نخاعی؛ روش‌های مدرن بازتوانی در کلینیک بیمارستان</h3>
+              <div class="story-meta">
+                <span>نویسنده: دکتر مهرداد حسینی</span>
+                <span>• زمان مطالعه: ۸ دقیقه</span>
+                <span>• ۵ روز پیش</span>
+              </div>
+            </div>
+
+            <!-- داستان‌های کوچک سمت چپ -->
+            <div class="story-sub">
+              <span class="story-pill pill-emerald">سلامت زنان و بارداری</span>
+              <h4 class="story-title">راهنمای غربالگری سه ماهه اول بارداری و سونوگرافی NT</h4>
+              <div class="story-meta">
+                <span>دکتر مریم ناصری • ۵ دقیقه</span>
+              </div>
+            </div>
+
+            <div class="story-sub">
+              <span class="story-pill pill-red">زنگ خطر بالینی | قلب و عروق</span>
+              <h4 class="story-title">تفاوت درد قفسه سینه ناشی از استرس و آنژین قلبی حاد</h4>
+              <div class="story-meta">
+                <span>بخش کت‌لب بیمارستان • ۶ دقیقه</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- وایرفریم ۲: نوار سه‌تایی خدمات متمایز -->
+      <div class="card-panel" style="margin-bottom:24px;">
+        <div class="card-head">
+          <div class="card-title">
+            <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            <span>ماژول ۲: نوار سه‌تایی خدمات سریع سلامت (الهام‌گرفته از axon-top-item)</span>
+          </div>
+          <span class="badge-tag">Service Strip</span>
+        </div>
+
+        <div class="top-3-strip">
+          <div class="strip-item">
+            <div class="strip-icon"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div>
+            <div class="strip-info">
+              <h4>نوبت‌دهی آنلاین کلینیک‌ها</h4>
+              <p>انتخاب مستقیم پزشک و ساعت ویزیت</p>
+            </div>
+          </div>
+          <div class="strip-item">
+            <div class="strip-icon" style="color:var(--emerald-vital); border-color:rgba(0,229,153,0.3); background:rgba(0,229,153,0.1);"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></div>
+            <div class="strip-info">
+              <h4>دانشنامه جامع اطلاعات دارویی</h4>
+              <p>بررسی دوز، تداخلات و عوارض بالینی</p>
+            </div>
+          </div>
+          <div class="strip-item">
+            <div class="strip-icon" style="color:var(--amber-caution); border-color:rgba(245,158,11,0.3); background:rgba(245,158,11,0.1);"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/></svg></div>
+            <div class="strip-info">
+              <h4>راهنمای تفسیر آنلاین آزمایش</h4>
+              <p>پاتوبیولوژی، سونوگرافی و تصویربرداری</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- وایرفریم ۳: بلوک‌های موضوعی ۳گانه و کارت مقالات -->
+      <div class="grid-3col">
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span>
+              <span>بلوک ۱: تازه‌های تندرستی</span>
+            </div>
+            <span class="story-pill pill-cyan">Wellness</span>
+          </div>
+
+          <div class="postcard-preview">
+            <div class="postcard-img-box">
+              <span>[تصویر تغذیه و تناسب اندام]</span>
+              <span class="cat-tag">رژیم بالینی</span>
+            </div>
+            <div class="postcard-body">
+              <h4 class="postcard-title">بهترین رژیم غذایی برای کنترل کبد چرب گرید ۲ و ۳</h4>
+              <p style="font-size:12px; color:var(--text-secondary); line-height:1.6;">
+                بررسی برنامه غذایی ضدالتهاب، نقش امگا ۳ و راهکارهای سم‌زدایی کبد بر اساس جدیدترین متدهای گوارش.
+              </p>
+              <div class="postcard-meta">
+                <span>دکتر علی رضایی</span>
+                <span>۴ دقیقه مطالعه</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span>
+              <span>بلوک ۲: دانستنی‌های دارویی</span>
+            </div>
+            <span class="story-pill pill-emerald">Pharmacology</span>
+          </div>
+
+          <div class="postcard-preview">
+            <div class="postcard-img-box">
+              <span>[تصویر تداخلات دارویی]</span>
+              <span class="cat-tag" style="background:var(--emerald-vital);">اطلاعات دارو</span>
+            </div>
+            <div class="postcard-body">
+              <h4 class="postcard-title">متفورمین چیست و چگونه قند خون و وزن را تنظیم می‌کند؟</h4>
+              <p style="font-size:12px; color:var(--text-secondary); line-height:1.6;">
+                همه چیز درباره مکانیسم اثر متفورمین در افراد دیابتی، عوارض گوارشی شایع و نحوه مصرف صحیح.
+              </p>
+              <div class="postcard-meta">
+                <span>واحد فارماکولوژی</span>
+                <span>۶ دقیقه مطالعه</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+              <span>بلوک ۳: زنگ خطرهای بالینی</span>
+            </div>
+            <span class="story-pill pill-red">Red Flags</span>
+          </div>
+
+          <div class="postcard-preview" style="border-color:rgba(239, 68, 68, 0.3);">
+            <div class="postcard-img-box">
+              <span>[تصویر تریاژ و علائم حاد]</span>
+              <span class="cat-tag" style="background:var(--red-alert); color:#fff;">هشدار اورژانسی</span>
+            </div>
+            <div class="postcard-body">
+              <h4 class="postcard-title">علائم اولیه سکته مغزی؛ آزمون FAST و زمان طلایی ۴.۵ ساعت</h4>
+              <p style="font-size:12px; color:var(--text-secondary); line-height:1.6;">
+                انحراف چهره، ضعف بازو، اختلال تکلم؛ چرا ثانیه‌ها در نجات بافت مغز حیاتی هستند.
+              </p>
+              <div class="postcard-meta">
+                <span style="color:var(--red-alert);">تریاژ اورژانس</span>
+                <span>۳ دقیقه مطالعه</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۵: آناتومی صفحه تک‌مقاله (Single Post Blueprint)
+         ========================================================================== -->
+    <section class="section-wrap" id="single">
+      <div class="sec-head">
+        <div class="sec-title-group">
+          <div class="sec-num">۰۵</div>
+          <div>
+            <h3 class="sec-title">آناتومی مهندسی صفحه تک‌مقاله (Single Article Page)</h3>
+            <p class="sec-desc">چیدمان ارگونومیک، فهرست عناوین هوشمند، استانداردهای E-E-A-T و جلوگیری از خستگی کاربر</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-blueprint-grid">
+        <!-- سایدبار چسبان راست (فهرست عناوین) -->
+        <aside class="article-sidebar">
+          <div style="font-size:13px; font-weight:700; color:#FFFFFF; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:8px;">
+            <svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> فهرست عناوین مقاله (Sticky TOC)
+          </div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; font-size:12px; color:var(--text-secondary);">
+            <li style="color:var(--cyan-signal); font-weight:700;">• مقدمه و تعریف عارضه</li>
+            <li>• علائم شایع بیرون‌زدگی دیسک</li>
+            <li>• چه زمانی عمل جراحی لازم نیست؟</li>
+            <li>• روش‌های طب فیزیکی و لیزر پرتوان</li>
+            <li>• زمان مراجعه به پزشک متخصص</li>
+            <li>• سوالات متداول بیماران</li>
+          </ul>
+
+          <div style="margin-top:20px; background:rgba(0,255,255,0.05); border:1px solid rgba(0,255,255,0.15); border-radius:var(--radius-sm); padding:12px;">
+            <div style="font-size:11px; color:var(--cyan-signal); font-weight:700;">درصد پیشرفت مطالعه</div>
+            <div style="width:100%; height:4px; background:rgba(255,255,255,0.1); border-radius:var(--radius-full); margin-top:6px; overflow:hidden;">
+              <div style="width:45%; height:100%; background:var(--cyan-signal);"></div>
+            </div>
+            <div style="font-size:10px; color:var(--text-muted); margin-top:4px;">۴۵٪ از مقاله مطالعه شده</div>
+          </div>
+        </aside>
+
+        <!-- بدنه اصلی مقاله -->
+        <article class="article-main-content">
+          <!-- هدر اعتبار بالینی E-E-A-T -->
+          <div class="trust-header-box">
+            <div class="trust-author">
+              <div class="trust-avatar"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></div>
+              <div>
+                <h4 style="font-size:14px; font-weight:800; color:#FFFFFF;">دکتر فرهاد کیانی (نظام پزشکی: ۹۸۲۳۴)</h4>
+                <p style="font-size:11px; color:var(--cyan-signal);">متخصص طب فیزیکی و توانبخشی • تاییدشده توسط هیئت علمی پزشکآن</p>
+              </div>
+            </div>
+            <div style="text-align:left; font-size:11px; color:var(--emerald-vital);">
+              <div>✓ آخرین بازبینی علمی: ۲ مهر ۱۴۰۵</div>
+              <div style="color:var(--text-muted);">زمان تخمینی مطالعه: ۷ دقیقه</div>
+            </div>
+          </div>
+
+          <h2 style="font-size:24px; font-weight:900; color:#FFFFFF; line-height:1.4; margin-bottom:14px;">
+            روش‌های غیرتهاجمی درمان دیسک کمر؛ از فیزیوتراپی پیشرفته تا تزریقات تخصصی اپیدورال
+          </h2>
+
+          <p style="font-size:15px; color:var(--text-secondary); line-height:1.85; margin-bottom:18px;">
+            بیش از ۸۵ درصد از مبتلایان به فتق یا بیرون‌زدگی دیسک کمر، بدون نیاز به تیغ جراحی و صرفاً با پروتکل‌های هدفمند طب فیزیکی، لیزردرمانی پرتوان و بازتوانی عضلات عمقی ستون فقرات درمان می‌شوند. نکته کلیدی، تشخیص زودهنگام و پرهیز از رفتارهای آسیب‌رسان حرکتی است...
+          </p>
+
+          <!-- باکس هشدار بالینی داخل متن -->
+          <div style="background:rgba(245, 158, 11, 0.08); border-right:4px solid var(--amber-caution); border-radius:var(--radius-sm); padding:14px 18px; margin:20px 0;">
+            <div style="font-weight:700; color:var(--amber-caution); font-size:13px; margin-bottom:4px;"><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> توجه تشخیصی و هشدار به بیمار:</div>
+            <div style="font-size:12px; color:#F3F4F6; line-height:1.7;">
+              در صورت بروز بی‌اختیاری ادرار یا مدفوع، بی‌حسی کامل ناحیه زین اسبی (نشیمنگاه) یا فلج ناگهانی مچ پا، بلافاصله به اورژانس جراحی اعصاب مراجعه کنید؛ این حالت علامت نشانگان دم‌اسب (Cauda Equina) بوده و نیازمند اقدام فوری است.
+            </div>
+          </div>
+
+          <!-- کامپوننت ارتقایافته InsideBanner: اتصال به HIS بیمارستان -->
+          <div class="insidebanner-preview">
+            <div class="insidebanner-text">
+              <span class="story-pill pill-emerald">خدمت تشخیصی و درمانی بیمارستان</span>
+              <h3>آیا از درد تیرکشنده به ساق پا یا گزگز رنج می‌برید؟</h3>
+              <p>درمانگاه تخصصی طب فیزیکی پزشکآن مجهز به پیشرفته‌ترین دستگاه‌های نوار عصب و عضله (EMG-NCV) و لیزر رباتیک پرتوان.</p>
+            </div>
+            <button class="insidebanner-btn" onclick="alert('رزرو نوبت در کلینیک طب فیزیکی بیمارستان')">
+              ثبت نوبت معاینه و ویزیت ←
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۶: موتور تبدیل نوبت‌دهی (HIS Bridge Conversion Engine)
+         ========================================================================== -->
+    <section class="section-wrap" id="conversion">
+      <div class="sec-head">
+        <div class="sec-title-group">
+          <div class="sec-num">۰۶</div>
+          <div>
+            <h3 class="sec-title">موتور تبدیل خواننده به بیمار: ارتقای بنرهای آکسون به HIS Bridge</h3>
+            <p class="sec-desc">استراتژی Zero Dead-End Policy و قرارداد اتصال محتوا به دیتابیس درمانگاه</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
+              <span>جریان فنی تبدیل (Data Contract)</span>
+            </div>
+            <span class="badge-tag">Lead Engine</span>
+          </div>
+
+          <p style="font-size:13px; color:var(--text-secondary); margin-bottom:14px;">
+            بر خلاف آکسون لایف که بنرها را به صورت تصویر ساده و لینک خارجی قرار می‌دهد، پزشکآن از یک قرارداد دیتایی دوطرفه استفاده می‌کند:
+          </p>
+
+          <div class="code-box">
+// ساختار داده پاس داده‌شده به ویجت HIS داخل مقاله
+interface ArticleHISBridgePayload {
+  articleSlug: string;
+  pillarId: 0; // درد و ستون فقرات
+  targetDepartment: "PHYSICAL_REHAB_CLINIC";
+  targetDepartmentFa: "کلینیک طب فیزیکی و نوار عصب";
+  suggestedDoctorId: "DR-98234";
+  serviceCode: "REHAB-DISC-01";
+  leadType: "medical_content"; // عدم تداخل با دیتابیس اصلی
+  redirectOnSuccess: "/dr.naseh/booking-success";
+}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="card-head">
+            <div class="card-title">
+              <span><svg class="icon-svg" style="width:16px;height:16px;display:inline-block;vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+              <span>سه سناریوی تبدیل در هر مقاله</span>
+            </div>
+            <span class="badge-tag">Action Matrix</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px; font-size:13px;">
+            <div style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--cyan-signal);">
+              <strong style="color:#FFFFFF;">سناریو الف (رزرو حضوری کلینیک):</strong> بیمار پس از خواندن مقاله، فوراً ساعت حضور پزشک در درمانگاه بیمارستان را مشاهده و نوبت رزرو می‌کند.
+            </div>
+            <div style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--emerald-vital);">
+              <strong style="color:#FFFFFF;">سناریو ب (مشاوره تلفنی/متنی):</strong> بیمار در شهر دیگری حضور دارد و مایل به ارسال تصویر MRI جهت بررسی اولیه آنلاین است.
+            </div>
+            <div style="background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:var(--radius-sm); border-right:3px solid var(--amber-caution);">
+              <strong style="color:#FFFFFF;">سناریو ج (ادامه در کلاستر مرتبط):</strong> بیمار هنوز نیاز به اطلاعات بیشتر دارد و به مقاله مکمل در همان کلاستر هدایت می‌شود (جلوگیری از خروج کاربر از سایت).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         بخش ۰۷: کامپوننت‌های آماده کدنویسی (Code-Ready Front-End Specs)
+         ========================================================================== -->
+    <section class="section-wrap" id="components">
+      <div class="sec-head">
+        <div class="sec-title-group">
+          <div class="sec-num">۰۷</div>
+          <div>
+            <h3 class="sec-title">کامپوننت‌های آماده فرانت‌اند جهت شروع پیاده‌سازی ساب‌فولدر</h3>
+            <p class="sec-desc">ساختار استاندارد و متغیرهای لازم برای فاز بعدی طراحی و کدنویسی</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>نام کامپوننت فرانت‌اند</th>
+              <th>الگوبرداری از آکسون</th>
+              <th>ارتقا در دی‌ان‌ای پزشکآن</th>
+              <th>اولویت پیاده‌سازی</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MagHeaderWithTicker</strong></td>
+              <td>content-ticker-wrapper + search</td>
+              <td>طراحی شیشه‌ای با افکت نئونی و مگامنوی ۹ پیلار</td>
+              <td>فاز ۱ (حیاتی)</td>
+            </tr>
+            <tr>
+              <td><strong>HeroAsymmetricalGrid</strong></td>
+              <td>axon-popular-banner</td>
+              <td>چیدمان گرید ۱+۴ با نشان‌های سمانتیک دسته‌ها</td>
+              <td>فاز ۱ (حیاتی)</td>
+            </tr>
+            <tr>
+              <td><strong>TabbedPillarFeed</strong></td>
+              <td>news_tab_Block</td>
+              <td>تب‌های تعاملی با انیمیشن‌های روان فید و لود بیشتر</td>
+              <td>فاز ۱ (حیاتی)</td>
+            </tr>
+            <tr>
+              <td><strong>HISBridgeBanner</strong></td>
+              <td>insidebanner-box</td>
+              <td>اتصال فعال به نوبت‌دهی با دکمه گرادیان کنتراست بالا</td>
+              <td>فاز ۲</td>
+            </tr>
+            <tr>
+              <td><strong>SingleArticleLayout</strong></td>
+              <td>blog-details-content + sidebar</td>
+              <td>هدر E-E-A-T + سایدبار TOC چسبان با نوار درصد مطالعه</td>
+              <td>فاز ۲</td>
+            </tr>
+            <tr>
+              <td><strong>ClusterRecommendationRail</strong></td>
+              <td>tab-small-post-list</td>
+              <td>اسلایدر افقی مقالات هم‌خوشه جهت بهبود بازگشت کاربر</td>
+              <td>فاز ۳</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="font-weight:700; color:#FFFFFF; margin-bottom:4px;">اکوسیستم سلامت دیجیتال و درمانگاه بیمارستانی پزشکـــآن</p>
+      <p>شناسنامه طراحی و بنچ‌مارک ساب‌فولدر مجله سلامت (الگوبرداری از آکسون‌لایف با سیستم دی‌ان‌ای پزشکآن) | پاییز ۱۴۰۵</p>
+    </div>
+  </footer>
+
+</body>
+</html>

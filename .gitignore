@@ -1,0 +1,34 @@
+# Pezeshkan Medical Ecosystem - Hardened .gitignore
+# Prevents accidental credential leaks, customer data leaks, and server artifacts
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+secrets/
+
+# Patient / Clinician Sensitive Data (PHI / PII)
+mag/content/leads.json
+mag/content/inquiries.json
+data/secure/
+*.tmp.*
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# OS Artifacts & Logs
+.DS_Store
+Thumbs.db
+*.log
+logs/
+tmp_chrome/
+scratch/
+tools/universal_cms/cms_data/
+tools/universal_cms/uploads/

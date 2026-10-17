@@ -1,0 +1,46 @@
+/* ==========================================================================
+   سیستم توکن‌های طراحی بالینی پزشکآن لایف (Day Mode - Clinical Light Theme)
+   برگرفته از وب‌سایت Axon Life (axon.me/life)
+   مختص ساب‌فولدر مجله سلامت (/mag)
+   ========================================================================== */
+:root {
+  /* Canvas & Surfaces (Day Mode) */
+  --color-bg-base: #F8FAFC;                 /* پس‌زمینه اصلی روشن و آرام */
+  --color-bg-surface-primary: #FFFFFF;      /* کارت‌های اصلی با کنتراست بالا */
+  --color-bg-surface-secondary: #F1F5F9;    /* پس‌زمینه بخش‌های تفکیک‌شده */
+  --color-bg-surface-elevated: #FFFFFF;     /* کارت‌های پاپ‌آپ و معلق */
+  
+  /* Semantic Clinical Accents (Axon Style) */
+  --color-signal-primary: #0073FF;          /* آبی شاخص اکسون: تعامل، نوبت‌دهی، لینک‌ها */
+  --color-signal-primary-hover: #0056cc;
+  --color-signal-primary-light: #EBF4FF;
+  --color-signal-success: #059669;          /* سبز بالینی: تایید پزشک، نشان سلامت */
+  --color-signal-success-light: #ECFDF5;
+  --color-signal-warning: #F97316;          /* نارنجی هشدار سلامتی و زمان مطالعه */
+  --color-signal-warning-light: #FFF7ED;
+  --color-signal-critical: #DC2626;         /* قرمز فوریت‌های پزشکی */
+  --color-signal-critical-light: #FEF2F2;
+  
+  /* Typography Colors */
+  --color-text-primary: #0F172A;            /* تیترهای سرمه‌ای خوانا و بولد */
+  --color-text-secondary: #334155;          /* متن بدنه با خوانایی بالا */
+  --color-text-muted: #64748B;              /* متادیتا، تاریخ، دسته‌بندی */
+  --color-text-subtle: #94A3B8;             /* خطوط راهنما */
+  
+  /* Borders & Shadows */
+  --color-border: #E2E8F0;
+  --color-border-light: #EDF2F7;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 30px -4px rgba(15, 23, 42, 0.08);
+  --shadow-card-hover: 0 12px 28px rgba(0, 115, 255, 0.1);
+  
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  --font-main: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
