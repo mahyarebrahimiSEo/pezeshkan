@@ -20,7 +20,7 @@ from django.core.files.storage import default_storage
 from apps.pezeshkan_core.models import (
     Pillar, Doctor, Article, Appointment, MediaItem,
     Redirect, SiteSetting, UserAccount, Newsletter,
-    Subscriber, Inquiry, CrmTutorial
+    Subscriber, Inquiry, CrmTutorial, SubscriptionPlan, ClinicLead
 )
 
 try:
@@ -643,3 +643,110 @@ def api_schema_validate(request):
 def api_crm_tutorials(request):
     tuts = [t.to_dict() for t in CrmTutorial.objects.all()]
     return JsonResponse(tuts, safe=False)
+
+
+# ==============================================================================
+# 9. Blueprint 2.2.0 Integration Flows (Directory, Plans, Leads)
+# ==============================================================================
+
+def api_clinic_directory(request):
+    """
+    FLOW_01_PATIENT_QUICK_BOOKING: Public directory endpoint returning doctors
+    with clinic slugs and external Quick Booking bridge URLs.
+    """
+    doctors = Doctor.objects.all().order_by('id')
+    results = []
+    for doc in doctors:
+        slug = doc.clinic_slug or doc.custom_id or f"doc-{doc.id}"
+        results.append({
+            "slug": slug,
+            "name": f"کلینیک {doc.name}",
+            "doctor_name": doc.name,
+            "specialty": doc.pillar_slug or "general",
+            "title": doc.title,
+            "mc_number": doc.mc_number,
+            "dept": doc.dept,
+            "phone": doc.phone,
+            "address": doc.address,
+            "center_type": doc.center_type or "solo",
+            "rating": float(doc.rating) if doc.rating else 5.0,
+            "reviews_count": doc.reviews_count,
+            "quick_booking_url": doc.quick_booking_url,
+        })
+    return JsonResponse({
+        "count": len(results),
+        "results": results
+    })
+
+
+def api_platform_plans(request):
+    """
+    FLOW_02_PACKAGES_AND_PLANS: Public plans endpoint returning active subscription packages.
+    """
+    plans = SubscriptionPlan.objects.filter(is_active=True).order_by('order', 'id')
+    return JsonResponse([p.to_dict() for p in plans], safe=False)
+
+
+@csrf_exempt
+def api_leads_start(request):
+    """
+    FLOW_03_CLINIC_ONBOARDING_LEADS: Captures clinic onboarding leads from /start wizard,
+    stores them in marketing DB, and returns redirect_url to live interactive demo.
+    """
+    if request.method != "POST":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+
+    data = read_json(request)
+    doctor_name = (data.get("doctorName") or data.get("doctor_name") or data.get("name") or "").strip()
+    mobile = (data.get("mobile") or data.get("phone") or "").strip()
+
+    if not doctor_name or not mobile:
+        return JsonResponse({
+            "success": False,
+            "error": "نام پزشک و شماره همراه الزامی است"
+        }, status=400)
+
+    # Extract client IP
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    specialty = data.get("specialty") or ""
+    patients_volume = data.get("patientsVolume") or data.get("patients_volume") or ""
+    challenges = data.get("challenges") or []
+    if isinstance(challenges, str):
+        challenges = [challenges]
+    clinic_address = data.get("clinicAddress") or data.get("clinic_address") or data.get("address") or ""
+    chosen_plan = data.get("chosenPlan") or data.get("chosen_plan") or data.get("plan") or ""
+
+    lead = ClinicLead.objects.create(
+        doctor_name=doctor_name,
+        mobile=mobile,
+        specialty=specialty,
+        patients_volume=patients_volume,
+        challenges=challenges,
+        clinic_address=clinic_address,
+        chosen_plan=chosen_plan,
+        status="new",
+        ip=ip
+    )
+
+    return JsonResponse({
+        "success": True,
+        "message": "درخواست دمو و شروع همکاری با موفقیت ثبت شد",
+        "lead": lead.to_dict(),
+        "redirect_url": "https://app.pezeshk-on.ir/demo/doctor"
+    }, status=201)
+
+
+def api_admin_leads(request):
+    """
+    Admin endpoint to view captured clinic onboarding leads.
+    """
+    if not is_admin(request):
+        return JsonResponse({"error": "Unauthorized"}, status=403)
+    leads = [lead.to_dict() for lead in ClinicLead.objects.all().order_by('-created_at')]
+    return JsonResponse(leads, safe=False)
+

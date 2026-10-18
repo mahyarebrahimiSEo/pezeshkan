@@ -47,6 +47,8 @@ class Pillar(models.Model):
 class Doctor(models.Model):
     custom_id = models.CharField(max_length=100, blank=True, db_index=True)
     name = models.CharField(max_length=255, verbose_name="نام پزشک")
+    clinic_slug = models.SlugField(max_length=100, blank=True, verbose_name="اسلاگ کلینیک/مطب")
+    center_type = models.CharField(max_length=50, default="solo", verbose_name="نوع مرکز")
     title = models.CharField(max_length=255, verbose_name="عنوان و تخصص")
     mc_number = models.CharField(max_length=100, blank=True, verbose_name="شماره نظام پزشکی")
     dept = models.CharField(max_length=100, blank=True, verbose_name="بخش")
@@ -70,10 +72,19 @@ class Doctor(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def quick_booking_url(self):
+        slug = self.clinic_slug or self.custom_id or f"doc-{self.id}"
+        return f"https://app.pezeshk-on.ir/{slug}/quick-booking"
+
     def to_dict(self):
+        slug = self.clinic_slug or self.custom_id or f"doc-{self.id}"
         return {
             "id": self.custom_id or str(self.id),
             "name": self.name,
+            "clinicSlug": self.clinic_slug or self.custom_id,
+            "centerType": self.center_type or "solo",
+            "quickBookingUrl": self.quick_booking_url,
             "title": self.title,
             "mcNumber": self.mc_number,
             "dept": self.dept,
@@ -464,3 +475,108 @@ class CrmTutorial(models.Model):
             "description": self.description,
             "lastModified": self.last_modified.isoformat() if self.last_modified else None,
         }
+
+
+class SubscriptionPlan(models.Model):
+    slug = models.SlugField(max_length=100, unique=True, verbose_name="شناسه پلن")
+    title = models.CharField(max_length=255, verbose_name="عنوان پکیج")
+    duration = models.CharField(max_length=100, default="ماهانه", verbose_name="دوره زمانی")
+    price = models.BigIntegerField(default=0, verbose_name="قیمت به تومان")
+    price_formatted = models.CharField(max_length=100, blank=True, verbose_name="قیمت نمایشی")
+    period = models.CharField(max_length=50, blank=True, default="/ ماهانه")
+    badge = models.CharField(max_length=100, blank=True, verbose_name="برچسب محبوب/ویژه")
+    is_featured = models.BooleanField(default=False, verbose_name="پلن برگزیده")
+    description = models.TextField(blank=True, verbose_name="توضیحات پلن")
+    max_doctors = models.IntegerField(default=1, verbose_name="سقف پزشکان مطب")
+    max_secretaries = models.IntegerField(default=1, verbose_name="سقف منشی‌ها")
+    max_appointments = models.IntegerField(default=100, verbose_name="سقف نوبت در ماه")
+    is_unlimited = models.BooleanField(default=False, verbose_name="فلگ پکیج VIP")
+    sms_credits = models.IntegerField(default=500, verbose_name="سهمیه پیامک هدیه")
+    flag_analytics = models.BooleanField(default=False, verbose_name="گزارشات پیشرفته مالی")
+    flag_eprescribe = models.BooleanField(default=False, verbose_name="نسخه الکترونیک")
+    flag_custom_sms = models.BooleanField(default=False, verbose_name="پیامک سفارشی")
+    features = models.JSONField(default=list, blank=True, verbose_name="ویژگی‌های پلن")
+    is_active = models.BooleanField(default=True, verbose_name="فعال")
+    order = models.IntegerField(default=0, verbose_name="ترتیب نمایش")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "pezeshkan_subscription_plans"
+        verbose_name = "پکیج اشتراک مطب"
+        verbose_name_plural = "پکیج‌های اشتراک مطب"
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return self.title
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "slug": self.slug,
+            "title": self.title,
+            "duration": self.duration,
+            "price": self.price,
+            "priceFormatted": self.price_formatted or f"{self.price:,} تومان",
+            "period": self.period,
+            "badge": self.badge,
+            "isFeatured": self.is_featured,
+            "description": self.description,
+            "maxDoctors": self.max_doctors,
+            "maxSecretaries": self.max_secretaries,
+            "maxAppointments": self.max_appointments,
+            "isUnlimited": self.is_unlimited,
+            "smsCredits": self.sms_credits,
+            "flagAnalytics": self.flag_analytics,
+            "flagEprescribe": self.flag_eprescribe,
+            "flagCustomSms": self.flag_custom_sms,
+            "features": self.features,
+            "isActive": self.is_active,
+            "ctaUrl": f"/start?plan={self.slug}",
+        }
+
+
+class ClinicLead(models.Model):
+    STATUS_CHOICES = (
+        ("new", "جدید / بررسی نشده"),
+        ("contacted", "تماس گرفته شده"),
+        ("demo_scheduled", "دمو هماهنگ شده"),
+        ("converted", "تبدیل به مشتری"),
+        ("rejected", "عدم تمایل / ناموفق"),
+    )
+
+    doctor_name = models.CharField(max_length=255, verbose_name="نام پزشک یا مدیر مرکز")
+    mobile = models.CharField(max_length=50, verbose_name="شماره همراه")
+    specialty = models.CharField(max_length=150, blank=True, verbose_name="تخصص بالینی")
+    patients_volume = models.CharField(max_length=100, blank=True, verbose_name="حجم مراجعین روزانه")
+    challenges = models.JSONField(default=list, blank=True, verbose_name="دغدغه‌ها و نیازها")
+    clinic_address = models.TextField(blank=True, verbose_name="شهر و نشانی مطب")
+    chosen_plan = models.CharField(max_length=100, blank=True, verbose_name="پلن انتخابی")
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="new", verbose_name="وضعیت لید")
+    notes = models.TextField(blank=True, verbose_name="یادداشت تیم فروش")
+    ip = models.GenericIPAddressField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
+
+    class Meta:
+        db_table = "pezeshkan_clinic_leads"
+        verbose_name = "لید کلینیک و شروع همکاری"
+        verbose_name_plural = "لیدهای کلینیک و شروع همکاری"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.doctor_name} ({self.mobile})"
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "doctorName": self.doctor_name,
+            "mobile": self.mobile,
+            "specialty": self.specialty,
+            "patientsVolume": self.patients_volume,
+            "challenges": self.challenges,
+            "clinicAddress": self.clinic_address,
+            "chosenPlan": self.chosen_plan,
+            "status": self.status,
+            "notes": self.notes,
+            "createdAt": self.created_at.isoformat() if self.created_at else None,
+        }
+

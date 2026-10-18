@@ -554,9 +554,15 @@
           </div>
           <h3 style="font-size:22px; font-weight:900; color:var(--text-pure); margin-bottom:10px;">درخواست شما با موفقیت ثبت گردید</h3>
           <p style="color:var(--text-secondary); line-height:1.85; max-width:540px; margin:0 auto 24px; font-size:14.5px;">
-            همکاران بخش پشتیبانی بالینی پزشکآن ظرف حداکثر ۲ ساعت کاری جهت هماهنگی جلسه دمو حضوری و تقدیم بسته هدیه کنگره با شما تماس خواهند گرفت.
+            اطلاعات شما با موفقیت در پایگاه داده ثبت شد. همکاران بخش پشتیبانی بالینی پزشکآن ظرف حداکثر ۲ ساعت کاری جهت هماهنگی جلسه دمو حضوری و استقرار با شما تماس خواهند گرفت. همچنین می‌توانید هم‌اکنون دموی تعاملی پزشک را بررسی نمایید.
           </p>
-          <a href="/" class="wizard-btn-submit" style="display:inline-flex; text-decoration:none;">بازگشت به صفحه اصلی</a>
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+            <a id="wizardLiveDemoBtn" href="https://app.pezeshk-on.ir/demo/doctor" target="_blank" rel="noopener noreferrer" class="wizard-btn-submit" style="display:inline-flex; text-decoration:none;">
+              <span>مشاهده دموی زنده پزشکآن (سامانه مطب)</span>
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <a href="/" class="wizard-btn-back" style="display:inline-flex; text-decoration:none; padding:12px 24px;">بازگشت به صفحه اصلی</a>
+          </div>
         </div>
 
       </div>
@@ -565,6 +571,10 @@
   </section>
 
   <script>
+    // Extract plan from query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const chosenPlan = urlParams.get('plan') || '';
+
     function nextWizardStep(stepNum) {
       for (let i = 1; i <= 4; i++) {
         const el = document.getElementById('wizardStep' + i);
@@ -588,18 +598,43 @@
         alert('لطفا نام و شماره همراه را وارد فرمایید.');
         return;
       }
+
+      // Collect wizard values
+      const specialtyRadio = document.querySelector('input[name="specialty"]:checked');
+      const specialty = specialtyRadio ? specialtyRadio.value : '';
+
+      const volumeRadio = document.querySelector('input[name="patientsVolume"]:checked');
+      const patientsVolume = volumeRadio ? volumeRadio.value : '';
+
+      const challengeBoxes = document.querySelectorAll('input[name="challenges"]:checked');
+      const challenges = Array.from(challengeBoxes).map(cb => cb.value);
+
+      const clinicAddress = (document.getElementById('docAddress') ? document.getElementById('docAddress').value : '').trim();
+
+      const payload = {
+        doctorName: name,
+        mobile: phone,
+        specialty: specialty,
+        patientsVolume: patientsVolume,
+        challenges: challenges,
+        clinicAddress: clinicAddress,
+        chosenPlan: chosenPlan
+      };
+
       try {
-        await fetch('/api/start-lead', {
+        const res = await fetch('/api/v1/leads/start/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: name,
-            phone: phone,
-            address: document.getElementById('docAddress').value,
-            createdAt: new Date().toISOString()
-          })
+          body: JSON.stringify(payload)
         });
-      } catch(e) {}
+        const data = await res.json();
+        if (data && data.redirect_url) {
+          const demoBtn = document.getElementById('wizardLiveDemoBtn');
+          if (demoBtn) demoBtn.href = data.redirect_url;
+        }
+      } catch(e) {
+        console.warn('Leads submit fallback:', e);
+      }
       
       for (let i = 1; i <= 4; i++) {
         const el = document.getElementById('wizardStep' + i);

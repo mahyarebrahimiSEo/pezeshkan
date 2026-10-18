@@ -1709,8 +1709,11 @@ function renderClinicalAuthModalContent(role) {
       </li>
     </ul>
     <div class="auth-modal-actions">
-      <a href="/download" class="btn btn-primary" style="width:100%; justify-content:center; font-size:13.5px;">دریافت و نصب اپلیکیشن بیمار ↗</a>
-      <a href="/mag" class="btn btn-secondary" style="width:100%; justify-content:center; font-size:12.5px;">مشاهده مجله و دانشنامه سلامت</a>
+      <a href="/appointments" class="btn btn-primary" style="width:100%; justify-content:center; font-size:13.5px; gap:8px;">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+        <span>نوبت‌دهی آنلاین و دریافت نوبت سریع مطب</span>
+      </a>
+      <a href="/download?role=patients" class="btn btn-secondary" style="width:100%; justify-content:center; font-size:12.5px;">دریافت و نصب اپلیکیشن بیمار</a>
     </div>
   `;
 
@@ -1754,8 +1757,15 @@ function renderClinicalAuthModalContent(role) {
       </li>
     </ul>
     <div class="auth-modal-actions">
-      <a href="/start" class="btn btn-primary" style="width:100%; justify-content:center; font-size:13.5px;">شروع همکاری و فعالسازی ۳ ماه رایگان ↗</a>
-      <a href="/features" class="btn btn-secondary" style="width:100%; justify-content:center; font-size:12.5px;">بررسی تمام امکانات پنل پزشکان</a>
+      <a href="https://app.pezeshk-on.ir/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%; justify-content:center; font-size:13.5px; gap:8px;">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        <span>ورود به پنل مطب (app.pezeshk-on.ir) ↗</span>
+      </a>
+      <a href="https://app.pezeshk-on.ir/demo/doctor" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width:100%; justify-content:center; font-size:12.5px; gap:8px;">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span>مشاهده دموی زنده و بدون لاگین پزشک</span>
+      </a>
+      <a href="/start" style="text-align:center; font-size:11.8px; color:var(--brand-primary); text-decoration:none; margin-top:4px; font-weight:700;">هنوز عضو پزشکآن نشده‌اید؟ ثبت‌نام و دریافت ۳ ماه رایگان ←</a>
     </div>
   `;
 

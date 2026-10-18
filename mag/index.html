@@ -6817,14 +6817,16 @@ function applyArticlesData(data) {
     }
 
     function bookCardQuickAppointment(btn, doctorId, service) {
-      const card = btn.closest('.clinical-quick-booking-card');
-      let selectedSlot = card ? (card.getAttribute('data-selected-slot') || card.querySelector('.cbr-slot-chip.active')?.textContent?.trim()) : '';
-      if (!selectedSlot && card) {
-        const first = card.querySelector('.cbr-slot-chip');
-        if (first) selectedSlot = first.textContent.trim();
+      const doc = (typeof doctorsList !== 'undefined' && Array.isArray(doctorsList))
+        ? doctorsList.find(d => d.id === doctorId || d.slug === doctorId || d.clinicSlug === doctorId)
+        : null;
+      const clinicSlug = (doc && (doc.clinicSlug || doc.slug || doc.custom_id)) ? (doc.clinicSlug || doc.slug || doc.custom_id) : doctorId;
+      if (clinicSlug) {
+        window.open(`https://app.pezeshk-on.ir/${clinicSlug}/quick-booking`, '_blank', 'noopener,noreferrer');
+        return;
       }
       if (typeof openBookingDrawer === 'function') {
-        openBookingDrawer(doctorId, selectedSlot, service);
+        openBookingDrawer(doctorId, null, service);
       }
     }
 

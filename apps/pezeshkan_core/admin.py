@@ -7,7 +7,7 @@ from django.contrib import admin
 from apps.pezeshkan_core.models import (
     Pillar, Doctor, Article, Appointment, MediaItem,
     Redirect, SiteSetting, UserAccount, Newsletter,
-    Subscriber, Inquiry, CrmTutorial
+    Subscriber, Inquiry, CrmTutorial, SubscriptionPlan, ClinicLead
 )
 
 @admin.register(Pillar)
@@ -18,9 +18,9 @@ class PillarAdmin(admin.ModelAdmin):
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'title', 'mc_number', 'dept', 'rating', 'available')
-    list_filter = ('available', 'dept')
-    search_fields = ('name', 'title', 'mc_number', 'phone')
+    list_display = ('id', 'name', 'clinic_slug', 'center_type', 'title', 'mc_number', 'dept', 'rating', 'available')
+    list_filter = ('available', 'center_type', 'dept')
+    search_fields = ('name', 'clinic_slug', 'title', 'mc_number', 'phone')
 
 
 @admin.register(Article)
@@ -87,3 +87,20 @@ class InquiryAdmin(admin.ModelAdmin):
 class CrmTutorialAdmin(admin.ModelAdmin):
     list_display = ('custom_id', 'title', 'category', 'last_modified')
     search_fields = ('title', 'category')
+
+
+@admin.register(SubscriptionPlan)
+class SubscriptionPlanAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'slug', 'price', 'duration', 'is_active', 'is_featured', 'order')
+    list_filter = ('is_active', 'is_featured', 'duration')
+    search_fields = ('title', 'slug', 'description')
+    prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(ClinicLead)
+class ClinicLeadAdmin(admin.ModelAdmin):
+    list_display = ('id', 'doctor_name', 'mobile', 'specialty', 'chosen_plan', 'status', 'created_at')
+    list_filter = ('status', 'specialty', 'chosen_plan')
+    search_fields = ('doctor_name', 'mobile', 'clinic_address', 'notes')
+    readonly_fields = ('created_at',)
+

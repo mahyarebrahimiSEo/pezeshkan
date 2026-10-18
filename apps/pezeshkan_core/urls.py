@@ -66,4 +66,22 @@ urlpatterns = [
     path('api/schemas', views.api_schemas, name='api_schemas'),
     path('api/admin/schemas/validate', views.api_schema_validate, name='api_schema_validate'),
     path('api/crm-tutorials', views.api_crm_tutorials, name='api_crm_tutorials'),
+
+    # 9. Blueprint 2.2.0 Integration Routes
+    # FLOW_01: Doctor Directory & Quick Booking Bridge
+    path('api/v1/clinic/public/directory/', views.api_clinic_directory, name='api_v1_clinic_directory'),
+    path('api/v1/clinic/public/directory', views.api_clinic_directory, name='api_v1_clinic_directory_noslash'),
+    path('api/directory', views.api_clinic_directory, name='api_directory'),
+
+    # FLOW_02: Subscription Plans
+    path('api/v1/platform/public/plans/', views.api_platform_plans, name='api_v1_platform_plans'),
+    path('api/v1/platform/public/plans', views.api_platform_plans, name='api_v1_platform_plans_noslash'),
+    path('api/packages', views.api_platform_plans, name='api_packages'),
+
+    # FLOW_03: Clinic Onboarding Leads (/start)
+    path('api/v1/leads/start/', views.api_leads_start, name='api_v1_leads_start'),
+    path('api/v1/leads/start', views.api_leads_start, name='api_v1_leads_start_noslash'),
+    path('api/start-lead', views.api_leads_start, name='api_start_lead'),
+    path('api/admin/leads', views.api_admin_leads, name='api_admin_leads'),
 ]
+
