@@ -32,6 +32,6 @@ start "" "http://localhost:3000/mag"
 timeout /t 1 /nobreak > nul
 start "" "http://localhost:3000/admin"
 
-python "%~dp0server.py"
+python "%~dp0manage.py" runserver 0.0.0.0:3000
 
 pause

@@ -6146,29 +6146,20 @@
     async function ensureAdminSession(forceRefresh = false) {
       if (adminAuthToken && !forceRefresh) return adminAuthToken;
       try {
-        const loginRes = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({
-            username: 'mahyarebrahimi',
-            password: 'mahyebi86',
-            remember: true
-          })
-        });
-        if (loginRes.ok) {
-          const data = await loginRes.json();
-          if (data && data.token) {
-            adminAuthToken = data.token;
-            localStorage.setItem('pezeshkan_admin_token', adminAuthToken);
-            localStorage.setItem('pezeshkan_admin_user', JSON.stringify(data.user || {}));
+        // 1. Verify active session via /api/me without transmitting hardcoded plaintext passwords
+        const meRes = await fetch('/api/me', { credentials: 'include' });
+        if (meRes.ok) {
+          const meData = await meRes.json();
+          if (meData.authenticated && meData.user) {
+            adminAuthToken = meData.csrfToken || 'session_active';
+            localStorage.setItem('pezeshkan_admin_user', JSON.stringify(meData.user || {}));
             return adminAuthToken;
           }
         }
       } catch (err) {
-        console.warn('[Admin Auth] Auto-authentication notice:', err);
+        console.warn('[Admin Auth] Session check notice:', err);
       }
-      return adminAuthToken;
+      return adminAuthToken || '';
     }
 
     async function apiFetch(url, options = {}) {

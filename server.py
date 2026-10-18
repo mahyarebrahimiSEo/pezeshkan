@@ -131,6 +131,9 @@ S3_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME", "pezeshkan-media").strip()
 S3_REGION = os.environ.get("S3_REGION", "auto").strip()
 S3_PUBLIC_DOMAIN = os.environ.get("S3_PUBLIC_DOMAIN", "").strip().rstrip("/")
 
+# 4.0.1. External / Connected Clinic Appointment System Configuration
+APPOINTMENT_SYSTEM_URL = os.environ.get("APPOINTMENT_SYSTEM_URL", "").strip().rstrip("/")
+
 # 4.1. Enterprise Application & Security Audit Logging (OWASP A10 Compliant)
 SECURITY_LOG_FILE = os.path.join(LOGS_DIR, "security_audit.log")
 
@@ -228,7 +231,7 @@ SESSION_MAX_AGE = 24 * 3600         # 24 Hours Max Session Lifetime
 SESSION_IDLE_TIMEOUT = 4 * 3600     # 4 Hours Inactivity Timeout
 
 # 5. Concurrency Locks & Storage
-WRITE_LOCK = threading.Lock()
+WRITE_LOCK = threading.RLock()
 SESSIONS_LOCK = threading.Lock()
 SESSIONS = {}
 
@@ -271,15 +274,27 @@ def atomic_write_text(filepath, text):
                     pass
 
 def load_json_file(filepath, default=None):
-    """Safely and robustly loads JSON using context manager, preventing descriptor leaks."""
+    """Safely and robustly loads JSON with retry logic, preventing silent file wipeout."""
     if not os.path.isfile(filepath):
         return default if default is not None else []
-    try:
-        with open(filepath, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        print(f"[Storage Warning] Error reading {os.path.basename(filepath)}: {e}")
-        return default if default is not None else []
+    for attempt in range(3):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            if attempt < 2:
+                time.sleep(0.04 * (2 ** attempt))
+                continue
+            logger.error(f"[Storage Warning] Error reading {os.path.basename(filepath)} on attempt {attempt+1}: {e}")
+            try:
+                if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
+                    bak_path = filepath + f".err_bak_{int(time.time())}"
+                    with open(filepath, "rb") as sf, open(bak_path, "wb") as df:
+                        df.write(sf.read())
+                    logger.warning(f"[Storage Backup] Created emergency backup of {os.path.basename(filepath)} at {bak_path}")
+            except Exception:
+                pass
+            return default if default is not None else []
 
 def save_json_file(filepath, data):
     """Thread-safe atomic wrapper to write JSON data."""
@@ -3319,6 +3334,11 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
         if path in ["/learn", "/learn.html", "/learn/"]:
             return self.send_redirect_301("/tutorials")
 
+        # Clinic Appointment Booking System Redirects & Aliases
+        apt_target = APPOINTMENT_SYSTEM_URL or "/appointments"
+        if path in ["/nobat", "/nobat/", "/nobat-dehi", "/reserve", "/reserve/", "/booking", "/booking/", "/appointment", "/appointment/"]:
+            return self.send_redirect_301(apt_target)
+
         # Strip .html and trailing slashes for canonical URLs
         portal_canonicals = ["/product", "/features", "/packages", "/tutorials", "/start", "/services", "/about", "/contact", "/download", "/appointments"]
         for p in portal_canonicals:
@@ -3551,6 +3571,39 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             if path == "/api/doctors":
                 doctors = load_json_file(os.path.join(CONTENT_DIR, "doctors.json"), [])
                 return self.send_json(doctors)
+
+            if path in ("/api/appointments", "/api/appointments/"):
+                query = urllib.parse.parse_qs(parsed.query)
+                tracking_code = query.get("code", [""])[0].strip()
+                phone = query.get("phone", [""])[0].strip()
+                appointments = load_json_file(os.path.join(CONTENT_DIR, "appointments.json"), [])
+
+                # Public patient tracking lookup
+                if tracking_code or phone:
+                    filtered = [
+                        a for a in appointments
+                        if (tracking_code and a.get("trackingCode") == tracking_code) or \
+                           (phone and a.get("patientPhone") == phone)
+                    ]
+                    single_app = filtered[0] if filtered else None
+                    return self.send_json({
+                        "success": True,
+                        "trackingCode": tracking_code,
+                        "appointment": single_app,
+                        "appointments": filtered
+                    })
+
+                # If authenticated administrator or editor, return all appointments
+                if self.is_authenticated():
+                    return self.send_json(appointments)
+
+                return self.send_json({"error": "جهت پیگیری نوبت، ارسال کد رهگیری یا شماره تماس الزامی است"}, 400)
+
+            if path in ("/api/admin/appointments", "/api/admin/appointments/"):
+                if not self.require_role("administrator", "editor"):
+                    return
+                appointments = load_json_file(os.path.join(CONTENT_DIR, "appointments.json"), [])
+                return self.send_json(appointments)
 
             if path in ("/api/newsletters", "/api/newsletters/"):
                 newsletters = load_json_file(os.path.join(CONTENT_DIR, "newsletters.json"), [])
@@ -4641,6 +4694,107 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             atomic_write_json(newsletters_path, newsletters)
             return self.send_json({"success": True, "newsletters": newsletters, "newsletter": data})
 
+        # 11. Create or Update Doctor via POST (Admin Doctors Management)
+        if path in ("/api/doctors", "/api/doctors/"):
+            if not self.require_role("administrator", "editor"):
+                return
+            if not isinstance(data, dict) or not data.get("name"):
+                return self.send_json({"error": "نام پزشک الزامی است"}, 400)
+
+            doctors_path = os.path.join(CONTENT_DIR, "doctors.json")
+            doctors = load_json_file(doctors_path, default=[])
+
+            doc_id = data.get("id")
+            if not doc_id:
+                doc_id = "dr-" + secrets.token_hex(4)
+                data["id"] = doc_id
+
+            data["name"] = sanitize_string(data.get("name", ""), 150)
+            data["title"] = sanitize_string(data.get("title", ""), 200)
+            data["dept"] = sanitize_string(data.get("dept", ""), 200)
+            if "phone" in data:
+                data["phone"] = sanitize_string(data.get("phone", ""), 50)
+            if "address" in data:
+                data["address"] = sanitize_string(data.get("address", ""), 300)
+            if "workHours" in data:
+                data["workHours"] = sanitize_string(data.get("workHours", ""), 150)
+
+            idx = next((i for i, d in enumerate(doctors) if d.get("id") == doc_id), None)
+            if idx is not None:
+                doctors[idx] = data
+            else:
+                doctors.append(data)
+
+            atomic_write_json(doctors_path, doctors)
+            AUDIT_LOGGER.log_event("DOCTOR_SAVED", ip=self.get_client_ip(), status="SUCCESS", details={"doc_id": doc_id})
+            return self.send_json({"success": True, "doctors": doctors, "doctor": data})
+
+        # 12. Clinical Online Appointment Booking Engine via POST
+        if path in ("/api/appointments", "/api/appointments/"):
+            patient_name = sanitize_string(data.get("patientName", ""), 150).strip()
+            patient_phone = sanitize_string(data.get("patientPhone", ""), 50).strip()
+            doctor_id = sanitize_string(data.get("doctorId", ""), 80).strip()
+            time_slot = sanitize_string(data.get("timeSlot", ""), 50).strip()
+            date_label = sanitize_string(data.get("dateLabel", "امروز"), 80).strip()
+            visit_type = sanitize_string(data.get("visitType", "ویزیت حضوری مطب"), 100).strip()
+            national_id = sanitize_string(data.get("nationalId", ""), 30).strip()
+            notes = sanitize_string(data.get("notes", ""), 400).strip()
+
+            if not patient_name or not patient_phone:
+                return self.send_json({"error": "نام و شماره همراه متقاضی نوبت الزامی است"}, 400)
+            if not doctor_id or not time_slot:
+                return self.send_json({"error": "انتخاب پزشک و ساعت نوبت الزامی است"}, 400)
+
+            # Look up doctor name
+            doctor_name = sanitize_string(data.get("doctorName", ""), 150).strip()
+            if not doctor_name:
+                doctors = load_json_file(os.path.join(CONTENT_DIR, "doctors.json"), default=[])
+                matched_doc = next((d for d in doctors if d.get("id") == doctor_id), None)
+                if matched_doc:
+                    doctor_name = matched_doc.get("name", "پزشک متخصص")
+
+            appointments_path = os.path.join(CONTENT_DIR, "appointments.json")
+            appointments = load_json_file(appointments_path, default=[])
+
+            # Concurrency / Double-booking prevention
+            has_conflict = any(
+                str(a.get("doctorId", "")) == str(doctor_id) and
+                str(a.get("dateLabel", "")).strip() == str(date_label).strip() and
+                str(a.get("timeSlot", "")).strip() == str(time_slot).strip() and
+                a.get("status") not in ("cancelled", "لغو شده")
+                for a in appointments
+            )
+            if has_conflict:
+                return self.send_json({
+                    "error": "این زمان نوبت قبلاً برای این پزشک رزرو شده است. لطفاً ساعت دیگری را انتخاب فرمایید."
+                }, 409)
+
+            tracking_code = "PZ-" + str(secrets.randbelow(900000) + 100000)
+            entry = {
+                "id": "apt-" + str(int(time.time() * 1000)),
+                "trackingCode": tracking_code,
+                "doctorId": doctor_id,
+                "doctorName": doctor_name or "پزشک متخصص",
+                "patientName": patient_name,
+                "patientPhone": patient_phone,
+                "nationalId": national_id,
+                "visitType": visit_type,
+                "timeSlot": time_slot,
+                "dateLabel": date_label,
+                "notes": notes,
+                "status": "confirmed",
+                "createdAt": time.strftime("%Y-%m-%d %H:%M:%S")
+            }
+            appointments.insert(0, entry)
+            atomic_write_json(appointments_path, appointments)
+            AUDIT_LOGGER.log_event(
+                "APPOINTMENT_BOOKED",
+                ip=self.get_client_ip(),
+                status="SUCCESS",
+                details={"trackingCode": tracking_code, "doctorId": doctor_id, "timeSlot": time_slot}
+            )
+            return self.send_json({"success": True, "ok": True, "trackingCode": tracking_code, "appointment": entry})
+
         self.send_error(404, "API Endpoint Not Found")
 
     # 13. PUT Request Router
@@ -4732,9 +4886,16 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             if not self.require_role("administrator"):
                 return
             settings_path = os.path.join(CONTENT_DIR, "settings.json")
-            data["lastUpdated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-            atomic_write_json(settings_path, data)
-            return self.send_json({"success": True, "settings": data})
+            current_settings = load_json_file(settings_path, default={})
+            # Deep merge incoming keys so partial updates (e.g. SEO) do not wipe existing settings
+            for k, v in data.items():
+                if isinstance(v, dict) and isinstance(current_settings.get(k), dict):
+                    current_settings[k].update(v)
+                else:
+                    current_settings[k] = v
+            current_settings["lastUpdated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+            atomic_write_json(settings_path, current_settings)
+            return self.send_json({"success": True, "settings": current_settings})
 
         if path in ("/api/crm-tutorials", "/api/crm-tutorials/"):
             if not self.require_role("administrator", "editor", "author"):
@@ -4795,26 +4956,25 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             return self.send_json({"success": True, "doctors": doctors, "doctor": data})
 
         if path in ("/api/appointments", "/api/appointments/"):
+            if not self.require_role("administrator", "editor"):
+                return
+            apt_id = data.get("id") or data.get("trackingCode")
+            if not apt_id:
+                return self.send_json({"error": "شناسه یا کد رهگیری نوبت الزامی است"}, 400)
             appointments_path = os.path.join(CONTENT_DIR, "appointments.json")
             appointments = load_json_file(appointments_path, default=[])
-            tracking_code = "PZ-" + str(int(time.time()))[-6:]
-            entry = {
-                "id": "apt-" + str(int(time.time() * 1000)),
-                "trackingCode": tracking_code,
-                "doctorId": sanitize_string(data.get("doctorId", ""), 80),
-                "doctorName": sanitize_string(data.get("doctorName", ""), 150),
-                "patientName": sanitize_string(data.get("patientName", ""), 150),
-                "patientPhone": sanitize_string(data.get("patientPhone", ""), 50),
-                "nationalId": sanitize_string(data.get("nationalId", ""), 30),
-                "visitType": sanitize_string(data.get("visitType", "ویزیت حضوری مطب"), 100),
-                "timeSlot": sanitize_string(data.get("timeSlot", ""), 50),
-                "dateLabel": sanitize_string(data.get("dateLabel", "امروز"), 80),
-                "notes": sanitize_string(data.get("notes", ""), 400),
-                "createdAt": time.strftime("%Y-%m-%d %H:%M:%S")
-            }
-            appointments.insert(0, entry)
+
+            idx = next((i for i, a in enumerate(appointments) if a.get("id") == apt_id or a.get("trackingCode") == apt_id), None)
+            if idx is None:
+                return self.send_json({"error": "نوبت مورد نظر یافت نشد"}, 404)
+
+            for field in ("status", "notes", "visitType", "timeSlot", "dateLabel"):
+                if field in data:
+                    appointments[idx][field] = sanitize_string(data[field], 200)
+
+            appointments[idx]["updatedAt"] = time.strftime("%Y-%m-%d %H:%M:%S")
             atomic_write_json(appointments_path, appointments)
-            return self.send_json({"success": True, "trackingCode": tracking_code, "appointment": entry})
+            return self.send_json({"success": True, "appointment": appointments[idx], "appointments": appointments})
 
         if path in ("/api/newsletter/subscribe", "/api/newsletter/subscribe/"):
             email = sanitize_string(data.get("email", ""), 100).strip().lower()
@@ -5031,6 +5191,20 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             doctors = [d for d in doctors if d.get("id") != doc_id]
             atomic_write_json(doctors_path, doctors)
             return self.send_json({"success": True, "doctors": doctors})
+
+        if path in ("/api/appointments", "/api/appointments/"):
+            if not self.require_role("administrator", "editor"):
+                return
+            query = urllib.parse.parse_qs(parsed.query)
+            apt_id = query.get("id", [""])[0].strip()
+            if not apt_id:
+                return self.send_json({"error": "شناسه یا کد رهگیری نوبت ارسال نشده است"}, 400)
+            appointments_path = os.path.join(CONTENT_DIR, "appointments.json")
+            appointments = load_json_file(appointments_path, default=[])
+            appointments = [a for a in appointments if a.get("id") != apt_id and a.get("trackingCode") != apt_id]
+            atomic_write_json(appointments_path, appointments)
+            AUDIT_LOGGER.log_event("APPOINTMENT_DELETED", ip=self.get_client_ip(), status="SUCCESS", details={"apt_id": apt_id})
+            return self.send_json({"success": True, "appointments": appointments})
 
         if path in ("/api/newsletters", "/api/newsletters/"):
             if not self.require_role("administrator", "editor"):

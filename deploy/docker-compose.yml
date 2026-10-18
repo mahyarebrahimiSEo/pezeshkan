@@ -1,35 +1,64 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-pezeshkan_db}
+      POSTGRES_USER: ${POSTGRES_USER:-pezeshkan_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pezeshkan_secure_pass_2026}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../data/migration/schema_and_data.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pezeshkan_user} -d ${POSTGRES_DB:-pezeshkan_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   app:
     build:
       context: ..
       dockerfile: deploy/Dockerfile
     restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
       - "3000:3000"
     environment:
       - ENVIRONMENT=${ENVIRONMENT:-production}
       - HOST=0.0.0.0
       - PORT=3000
+      - POSTGRES_DB=${POSTGRES_DB:-pezeshkan_db}
+      - POSTGRES_USER=${POSTGRES_USER:-pezeshkan_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-pezeshkan_secure_pass_2026}
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
       - ADMIN_USERNAME=${ADMIN_USERNAME:-mahyarebrahimi}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-ChangeThisPasswordInProduction2026!}
-      - SECRET_SALT=${SECRET_SALT:-production_salt_random_key_x99}
-      - SECURE_COOKIES=${SECURE_COOKIES:-false}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-production_secret_key_django_pezeshkan_x99}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
     volumes:
       - ../mag/content:/app/mag/content
       - ../mag/uploads:/app/mag/uploads
+      - ../data:/app/data
       - ../robots.txt:/app/robots.txt
       - ../llms.txt:/app/llms.txt
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3000/api/stats', timeout=3)"]
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3000/api/settings', timeout=3)"]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 5s
+      start_period: 10s
     security_opt:
       - no-new-privileges:true
     read_only: false
     tmpfs:
       - /tmp
+
+volumes:
+  postgres_data:

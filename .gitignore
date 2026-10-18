@@ -32,3 +32,7 @@ tmp_chrome/
 scratch/
 tools/universal_cms/cms_data/
 tools/universal_cms/uploads/
+
+# Local Database Binaries
+*.sqlite3
+data/*.sqlite3
