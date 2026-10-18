@@ -1,33 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Pezeshkan Medical Ecosystem - Master URL Configuration
+Routes All Clinical APIs, Portal Pages, Magazine SPA, and Universal Static Assets
 """
 
-import os
-from pathlib import Path
 from django.contrib import admin
 from django.urls import path, include, re_path
-from django.conf import settings
-from django.views.static import serve
-from django.http import HttpResponseNotFound
-
-BASE_DIR = settings.BASE_DIR
-
-def serve_any_static(request, path):
-    # Try different static locations
-    search_dirs = [
-        BASE_DIR / 'mag' / 'uploads',
-        BASE_DIR / 'assets',
-        BASE_DIR / 'fonts',
-        BASE_DIR / 'mag',
-        BASE_DIR / 'portal',
-        BASE_DIR,
-    ]
-    for d in search_dirs:
-        candidate = d / path
-        if candidate.exists() and candidate.is_file():
-            return serve(request, path, document_root=str(d))
-    return HttpResponseNotFound("Asset Not Found")
+from apps.pezeshkan_core import views
 
 urlpatterns = [
     # 1. Django Admin
@@ -36,9 +15,6 @@ urlpatterns = [
     # 2. Pezeshkan Core Application URLs (HTML pages + APIs)
     path('', include('apps.pezeshkan_core.urls')),
 
-    # 3. Direct Static & Media File Servicing
-    re_path(r'^uploads/(?P<path>.*)$', serve, {'document_root': str(settings.MEDIA_ROOT)}),
-    re_path(r'^assets/(?P<path>.*)$', serve, {'document_root': str(BASE_DIR / 'assets')}),
-    re_path(r'^fonts/(?P<path>.*)$', serve, {'document_root': str(BASE_DIR / 'fonts')}),
-    re_path(r'^(?P<path>(css|js|images)/.*)$', serve_any_static),
+    # 3. Universal Direct Static & Asset Servicing (shared.css, shared.js, logos, fonts, uploads, etc.)
+    re_path(r'^(?P<path>.+\.(css|js|svg|png|jpg|jpeg|webp|woff2|woff|ttf|xml|webmanifest|txt|ico|json))$', views.serve_static_asset, name='static_asset'),
 ]

@@ -47,26 +47,93 @@ def is_admin(request):
     return bool(request.session.get('is_admin'))
 
 
-# Helper: Serve file safely
+MIME_MAP = {
+    ".css": "text/css; charset=utf-8",
+    ".js": "application/javascript; charset=utf-8",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".woff2": "font/woff2",
+    ".woff": "font/woff",
+    ".ttf": "font/ttf",
+    ".xml": "application/xml; charset=utf-8",
+    ".webmanifest": "application/manifest+json; charset=utf-8",
+    ".txt": "text/plain; charset=utf-8",
+    ".ico": "image/x-icon",
+    ".html": "text/html; charset=utf-8",
+}
+
+# Helper: Serve file safely with exact MIME types
 def serve_static_file(file_path):
     path = Path(file_path)
     if not path.exists() or not path.is_file():
         return HttpResponseNotFound("Page Not Found")
-    content_type, _ = mimetypes.guess_type(str(path))
-    content_type = content_type or "application/octet-stream"
-    if content_type.startswith("text/") or content_type in ("application/javascript", "application/json"):
-        content_type += "; charset=utf-8"
+    
+    ext = path.suffix.lower()
+    content_type = MIME_MAP.get(ext)
+    if not content_type:
+        content_type, _ = mimetypes.guess_type(str(path))
+        content_type = content_type or "application/octet-stream"
+        if content_type.startswith("text/") or content_type in ("application/javascript", "application/json"):
+            content_type += "; charset=utf-8"
+
     try:
         with open(path, "rb") as f:
             content = f.read()
-        return HttpResponse(content, content_type=content_type)
+        response = HttpResponse(content, content_type=content_type)
+        if ext in (".css", ".js", ".svg", ".png", ".jpg", ".webp", ".woff2", ".woff", ".ttf"):
+            response["Cache-Control"] = "public, max-age=86400"
+        return response
     except Exception as e:
         return HttpResponse(f"Error loading file: {e}", status=500)
+
+
+def serve_static_asset(request, path):
+    """
+    Universal static asset resolver. Searches portal, mag, assets, and fonts folders.
+    Guarantees that files like /shared.css, /shared.js, /pezeshkon-logo.svg, etc., always resolve.
+    """
+    clean_path = path.lstrip("/")
+    base_name = Path(clean_path).name
+
+    candidates = [
+        settings.BASE_DIR / 'portal' / clean_path,
+        settings.BASE_DIR / 'mag' / clean_path,
+        settings.BASE_DIR / 'assets' / clean_path,
+        settings.BASE_DIR / 'fonts' / clean_path,
+        settings.BASE_DIR / 'portal' / 'fonts' / base_name,
+        settings.BASE_DIR / 'mag' / 'fonts' / base_name,
+        settings.BASE_DIR / 'fonts' / base_name,
+        settings.BASE_DIR / 'mag' / 'uploads' / clean_path,
+        settings.BASE_DIR / clean_path,
+    ]
+
+    for c in candidates:
+        if c.exists() and c.is_file():
+            return serve_static_file(c)
+
+    return HttpResponseNotFound(f"Static Asset Not Found: {clean_path}")
 
 
 # ==============================================================================
 # 1. HTML Page Views
 # ==============================================================================
+
+PORTAL_PAGE_NAMES = {
+    "product": "product.html",
+    "features": "features.html",
+    "packages": "packages.html",
+    "start": "start.html",
+    "services": "services.html",
+    "about": "about.html",
+    "contact": "contact.html",
+    "tutorials": "tutorials.html",
+    "download": "download.html",
+    "appointments": "appointments.html",
+    "404": "404.html",
+}
 
 def index_page(request):
     """Serves the portal landing page or root index.html."""
@@ -76,11 +143,27 @@ def index_page(request):
     return serve_static_file(settings.BASE_DIR / 'index.html')
 
 
+def portal_page(request, page_name="index"):
+    """Serves portal HTML pages (/product, /features, /packages, etc.)."""
+    clean = page_name.strip("/").replace(".html", "")
+    if not clean or clean == "index":
+        target = settings.BASE_DIR / 'portal' / 'index.html'
+    elif clean in PORTAL_PAGE_NAMES:
+        target = settings.BASE_DIR / 'portal' / PORTAL_PAGE_NAMES[clean]
+    else:
+        target = settings.BASE_DIR / 'portal' / f"{clean}.html"
+        if not target.exists():
+            target = settings.BASE_DIR / 'portal' / '404.html'
+    return serve_static_file(target)
+
+
 def magazine_page(request, path=""):
     """Serves magazine SPA and subpages."""
     clean = path.strip("/")
     if not clean:
         target = settings.BASE_DIR / 'mag' / 'index.html'
+    elif clean == "newsletter":
+        target = settings.BASE_DIR / 'mag' / 'newsletter.html'
     else:
         # Check if direct file exists
         target = settings.BASE_DIR / 'mag' / clean
@@ -97,20 +180,15 @@ def admin_page(request):
     return serve_static_file(target)
 
 
-def appointments_page(request):
-    """Serves the public patient appointment booking and tracking portal."""
-    target = settings.BASE_DIR / 'portal' / 'appointments.html'
+def login_page(request):
+    """Serves the login page."""
+    target = settings.BASE_DIR / 'mag' / 'login.html'
     return serve_static_file(target)
 
 
-def portal_page(request, path=""):
-    """Serves portal assets and subpages."""
-    clean = path.strip("/")
-    target = settings.BASE_DIR / 'portal' / clean
-    if not target.exists() and not clean.endswith(".html"):
-        target = settings.BASE_DIR / 'portal' / f"{clean}.html"
-    if not target.exists():
-        target = settings.BASE_DIR / 'portal' / 'index.html'
+def appointments_page(request):
+    """Serves the public patient appointment booking and tracking portal."""
+    target = settings.BASE_DIR / 'portal' / 'appointments.html'
     return serve_static_file(target)
 
 
