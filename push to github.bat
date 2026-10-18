@@ -4,7 +4,7 @@ title ارسال به گیت‌هاب - پزشکآن
 cd /d "%~dp0"
 echo ========================================================================
 echo   🚀 در حال ارسال آخرین تغییرات پروژه به ریپازیتوری گیت‌هاب...
-echo   مخزن: https://github.com/mahyarebrahimiSEo/pezeshkan-design.git
+echo   مخزن: https://github.com/mahyarebrahimiSEo/pezeshkan.git
 echo ========================================================================
 echo.
 git push -u origin main
