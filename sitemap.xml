@@ -5,25 +5,25 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://pezeshkan.me/</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/mag</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/appointments</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/mag/newsletter</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -53,55 +53,55 @@
   </url>
   <url>
     <loc>https://pezeshkan.me/product</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/features</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/packages</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/tutorials</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/services</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/start</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/about</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/contact</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pezeshkan.me/download</loc>
-    <lastmod>2026-10-14T10:29:26+03:30</lastmod>
+    <lastmod>2026-10-18T09:20:15+03:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

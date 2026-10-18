@@ -15,44 +15,47 @@
 
 ```text
 pezeshkan_design/
+├── portal/                              # صفحات و است‌های پرتال اصلی وب‌سایت
+│   ├── index.html                       # صفحه اصلی پرتال پزشکآن (/)
+│   ├── product.html                     # صفحه معرفی پرونده الکترونیک سلامت (/product)
+│   ├── features.html                    # امکانات و قابلیت‌ها (/features)
+│   ├── packages.html                    # تعرفه‌ها و بسته‌ها (/packages)
+│   ├── start.html                       # فرم هوشمند ارزیابی نیاز مطب (/start)
+│   ├── services.html                    # خدمات سازمانی (/services)
+│   ├── about.html                       # درباره پزشکآن (/about)
+│   ├── contact.html                     # تماس با ما (/contact)
+│   ├── tutorials.html                   # آموزش‌ها و راهنما (/tutorials)
+│   ├── download.html                    # دریافت اپلیکیشن (/download)
+│   ├── appointments.html                # سیستم نوبت‌دهی (/appointments)
+│   ├── 404.html                         # صفحه اختصاصی خطای ۴۰۴
+│   ├── shared.css & shared.js           # سیستم طراحی مشترک و اسکریپت‌های هسته
+│   └── fonts/                           # فونت‌های وب
+│
+├── mag/                                 # ساختار ساب‌فولدر مجله سلامت بالینی (/mag)
+│   ├── admin.html                       # استودیو مدیریت محتوای Tiptap (/admin)
+│   ├── index.html                       # صفحه اصلی مجله سلامت
+│   ├── login.html                       # درگاه ورود امن
+│   ├── newsletter.html                  # خبرنامه تخصصی سلامت
+│   ├── content/                         # پایگاه داده مقالات ۹ پیلار
+│   ├── components/                      # کامپوننت‌های بالینی
+│   ├── schemas/                         # ساختارهای اسکیما E-E-A-T
+│   └── uploads/                         # تصاویر و رسانه‌های بهینه‌شده
+│
+├── data for backend/                    # اسناد و گزارش‌های اختصاصی بک‌اند
+│   └── backend_audit_report.html        # گزارش ممیزی معماری بک‌اند
+│
+├── assets/                              # فایل‌های وکتور برند و منابع دیزاین
+│   ├── inspection/                      # تصاویر و اسکریپت‌های تست رندرینگ
+│   └── vital-*.svg                      # آیکون‌ها و المان‌های وایتال برند
+│
+├── data/                                # منشورهای طراحی، قراردادها و مستندات پایه
+├── deploy/                              # فایل‌های داکر و تنظیمات استقرار (Nginx / Docker)
 ├── docs/                                # مستندات راهبردی و مصوب سیستم
-│   ├── architecture/                    # مشخصات فنی و معماری وب‌سایت و اتصال به اپلیکیشن
-│   │   ├── PEZESHK.docx                 # سند جامع ساخت صفحات وب‌سایت و دستور Coding Agent
-│   │   ├── PEZESHKAN_Website_Front_End_Implementation_&_AI_Coding_Agent_Master.docx
-│   │   ├── PEZESHKON_FRONT_06_END_ARCHITECTURE_&_IMPLEMENTATION_SPECIFICATION.odt
-│   │   ├── PEZESHKAN Web-App Integration Master Plan.docx
-│   │   └── Product Growth & Release Master Plan.odt
-│   │
-│   ├── design-system/                   # سیستم طراحی، هویت بصری، کامپوننت‌ها و انیمیشن
-│   │   ├── PEZESHKON Brand and Visual Identity System v1.0.docx
-│   │   ├── Brand & Digital Experience Design Charter - V1.1.odt
-│   │   ├── PEZESHKON_UI_UX_DESIGN_SYSTEM_&_INTERACTION_SPECIFICATION.odt
-│   │   ├── 07-PEZESHKON COMPONENT LIBRARY DOCUMENTATION & CONTRACT.odt
-│   │   ├── 08_Untitled_1PEZESHKON_PANEL_BY_PANEL_UX_&_COMPONENT_APPLICATION.odt
-│   │   ├── MOTION DESIGN SYSTEM & VITAL INTERACTION LANGUAGE.odt
-│   │   └── prompts/                     # دستورالعمل‌ها و پرامپت‌های استودیو طراحی
-│   │       ├── VISUAL PROMPT.odt
-│   │       └── VISUAL PROMPT 1.docx
-│   │
-│   └── archive_duplicates/              # آرشیو فایل‌های تکراری و هم‌پوشان (حفظ سوابق)
-│       ├── 08_Untitled_1PEZESHKON_PANEL_BY_PANEL_UX_&_COMPONENT_APPLICATION (1).odt
-│       └── PEZESHKAN Web ↔ App Integration Master Plan.docx
-│
 ├── dossiers/                            # شناسنامه‌ها و پروتوتایپ‌های تعاملی Front-End
-│   ├── pezeshkan_magazine_subfolder_dossier.html   # شناسنامه جامع و طرح مهندسی ساب‌فولدر مجله
-│   ├── pezeshkan_axon_life_design_dossier.html    # بنچ‌مارک طراحی بر پایه آکسون‌لایف
-│   ├── pezeshkan_pillar_clusters.html             # اطلس تعاملی پیلارها و کلاسترهای سئو
-│   └── pezeshkan_pillar_clusters.zip              # فایل فشرده پیلارها
-│
-├── scripts/                             # اسکریپت‌های کمکی و استخراج داده
-│   ├── scratch_node.js
-│   └── output_pillars.json
-│
-└── mag/                                 # ساختار مهندسی ساب‌فولدر مجله (در حال توسعه)
-    ├── content/                         # ساختار داده‌ای ۹ پیلار و مقالات کلاستر
-    ├── components/                      # کامپوننت‌های بالینی فرانت‌اند
-    ├── schemas/                         # ساختارهای اسکیما و سئو پزشکی گوگل
-    └── public/                          # مدیا و است‌های بهینه‌شده
+├── fonts/                               # تایپ‌فیس وزیرمتن استاندارد
+├── scripts/                             # اسکریپت‌های اتوماسیون، بیلد و سئو
+├── tools/                               # ابزارهای کاربردی سیستم
+└── server.py                            # سرور پروداکشن پایتون (Hardened Production Server)
 ```
 
 ---

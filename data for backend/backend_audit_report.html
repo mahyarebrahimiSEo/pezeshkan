@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>گزارش تخصصی ممیزی و آسیب‌شناسی بک‌اند - اکوسیستم سلامت پزشکآن</title>
+  <style>
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('fonts/Vazirmatn-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('fonts/Vazirmatn-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('fonts/Vazirmatn-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('fonts/Vazirmatn-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-primary: #070d18;
+      --bg-surface: #0e1726;
+      --bg-card: #141f33;
+      --bg-elevated: #1a2742;
+      --border-color: rgba(30, 48, 80, 0.8);
+      --border-accent: rgba(0, 229, 153, 0.3);
+      
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-sub: #cbd5e1;
+      
+      --brand-cyan: #00f0ff;
+      --brand-emerald: #00e599;
+      --brand-amber: #f59e0b;
+      --brand-rose: #f43f5e;
+      --brand-blue: #3b82f6;
+
+      --badge-critical-bg: rgba(244, 63, 94, 0.15);
+      --badge-critical-border: rgba(244, 63, 94, 0.4);
+      --badge-critical-text: #fda4af;
+
+      --badge-high-bg: rgba(245, 158, 11, 0.15);
+      --badge-high-border: rgba(245, 158, 11, 0.4);
+      --badge-high-text: #fcd34d;
+
+      --badge-medium-bg: rgba(59, 130, 246, 0.15);
+      --badge-medium-border: rgba(59, 130, 246, 0.4);
+      --badge-medium-text: #93c5fd;
+
+      --badge-success-bg: rgba(0, 229, 153, 0.15);
+      --badge-success-border: rgba(0, 229, 153, 0.4);
+      --badge-success-text: #6ee7b7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.8;
+      padding: 32px 16px;
+      direction: rtl;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header Bar */
+    header.report-header {
+      background: linear-gradient(135deg, rgba(14, 23, 38, 0.9) 0%, rgba(20, 31, 51, 0.95) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header.report-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand-cyan), var(--brand-emerald), var(--brand-amber), var(--brand-rose));
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .title-group h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .title-group p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .actions-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-print {
+      background: rgba(0, 229, 153, 0.15);
+      color: var(--brand-emerald);
+      border: 1px solid rgba(0, 229, 153, 0.4);
+    }
+
+    .btn-print:hover {
+      background: var(--brand-emerald);
+      color: #070d18;
+    }
+
+    /* Meta stats banner */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .meta-item {
+      background: rgba(7, 13, 24, 0.5);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .meta-item span.label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .meta-item span.value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .meta-item span.value.danger {
+      color: var(--brand-rose);
+    }
+
+    .meta-item span.value.warning {
+      color: var(--brand-amber);
+    }
+
+    .meta-item span.value.success {
+      color: var(--brand-emerald);
+    }
+
+    /* Sections */
+    section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h2.section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+    }
+
+    h3.sub-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--brand-cyan);
+      margin: 24px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Bug Cards */
+    .defect-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .defect-card:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .defect-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .defect-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+
+    .badge-critical {
+      background: var(--badge-critical-bg);
+      border: 1px solid var(--badge-critical-border);
+      color: var(--badge-critical-text);
+    }
+
+    .badge-high {
+      background: var(--badge-high-bg);
+      border: 1px solid var(--badge-high-border);
+      color: var(--badge-high-text);
+    }
+
+    .badge-medium {
+      background: var(--badge-medium-bg);
+      border: 1px solid var(--badge-medium-border);
+      color: var(--badge-medium-text);
+    }
+
+    .badge-success {
+      background: var(--badge-success-bg);
+      border: 1px solid var(--badge-success-border);
+      color: var(--badge-success-text);
+    }
+
+    .defect-code-ref {
+      font-family: monospace;
+      font-size: 13px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--brand-amber);
+      direction: ltr;
+      display: inline-block;
+    }
+
+    .defect-body {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 14px;
+    }
+
+    .defect-body strong {
+      color: #fff;
+    }
+
+    .django-solution {
+      background: rgba(0, 229, 153, 0.06);
+      border-right: 3px solid var(--brand-emerald);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13.5px;
+      color: #e2e8f0;
+    }
+
+    .django-solution strong {
+      color: var(--brand-emerald);
+    }
+
+    /* Architecture Box */
+    .arch-diagram {
+      background: #09101d;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .arch-diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Code blocks */
+    pre {
+      background: #09101d;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      color: #e2e8f0;
+      overflow-x: auto;
+      direction: ltr;
+      text-align: left;
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      color: var(--brand-cyan);
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 14px;
+    }
+
+    table th {
+      background: var(--bg-elevated);
+      color: #fff;
+      padding: 12px 16px;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    table td {
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+    }
+
+    table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    table tr:hover {
+      background: rgba(0, 240, 255, 0.04);
+    }
+
+    /* Alert Box */
+    .alert {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fde68a;
+    }
+
+    .alert-danger {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fecdd3;
+    }
+
+    .alert-success {
+      background: rgba(0, 229, 153, 0.1);
+      border: 1px solid rgba(0, 229, 153, 0.3);
+      color: #a7f3d0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        padding: 0;
+      }
+      header.report-header, section {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        background: #fff;
+        color: #000;
+      }
+      .btn-print {
+        display: none;
+      }
+      pre {
+        background: #f8fafc;
+        color: #0f172a;
+        border: 1px solid #cbd5e1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="report-header">
+    <div class="header-top">
+      <div class="title-group">
+        <h1>
+          <span>🛡️</span>
+          گزارش ممیزی تخصصی و آسیب‌شناسی فنی بک‌اند
+        </h1>
+        <p>پروژه اکوسیستم سلامت دیجیتال پزشکآن (Pezeshkan Ecosystem) • بررسی خط‌به‌خط جهت بازنویسی و مهاجرت به فریم‌ورک جنگو (Django)</p>
+      </div>
+      <div class="actions-group">
+        <button class="btn btn-print" onclick="window.print()">
+          <span>🖨️</span> چاپ / ذخیره PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="label">پروتکل اجرایی</span>
+        <span class="value">Autonomous Enterprise v3.1</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">تیم ممیزی</span>
+        <span class="value">۴ ساب‌ایجنت تخصصی موازی</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">تعداد باگ‌ها و آسیب‌پذیری‌ها</span>
+        <span class="value danger">۱۶ نقص ساختاری</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">معماری پیشنهادی هدف</span>
+        <span class="value success">Django 5 + PostgreSQL + Celery</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: Executive Summary -->
+  <section id="summary">
+    <h2 class="section-title"><span>📌</span> خلاصه اجرایی و چرایی ماجرا</h2>
+    <p>
+      بک‌اند فعلی این پروژه در قالب یک فایل ۵,۱۸۲ خطی به نام <code>server.py</code> با زبان پایتون خام و بدون فریم‌ورک نوشته شده و دیتابیس آن مجموعه‌ای از فایل‌های ناپایدار JSON در مسیر <code>mag/content/</code> است. 
+    </p>
+    <div class="alert alert-warning">
+      <strong>نتیجه ارزیابی مهندسی:</strong> این ساختار صرفاً برای یک «پروتوتایپ اولیه با صفر پیش‌نیاز» مناسب بوده است؛ اما استقرار آن در محیط عملیاتی به دلیل نبود تراکنش‌های ACID، نبود سیستم Migration، قفل‌های همزمانی معیوب، و ذخیره فایل‌های پزشکی در پوشه‌های عمومی، منجر به <strong>قفل شدن سرور، نابودی اطلاعات بیماران و از دست رفتن مقالات</strong> خواهد شد.
+    </div>
+  </section>
+
+  <!-- Section 2: RCA Defect Catalog -->
+  <section id="defects">
+    <h2 class="section-title"><span>🎯</span> کالبدشکافی خط‌به‌خط باگ‌ها و آسیب‌پذیری‌های کشف‌شده (RCA)</h2>
+
+    <h3 class="sub-title">دسته اول: باگ‌های کشنده عملکردی و قطع ارتباط کلاینت-سرور</h3>
+
+    <!-- Defect 1 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۱. قطع کامل نوبت‌دهی آنلاین بیماران (ثبت نشدن در سرور)</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">P0 - بحرانی / شکست کامل سرویس</span>
+          <span class="defect-code-ref">server.py:4797 vs appointments.html:980</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> در فرانت‌اند نوبت‌دهی، فرم با متد <code>POST /api/appointments</code> ارسال می‌شود؛ اما در سرور، اندپوینت نوبت‌دهی اشتباهاً داخل تابع <code>_handle_PUT</code> قرار گرفته است! در نتیجه درخواست ثبت نوبت بیمار همواره خطای <code>404 Not Found</code> می‌گیرد و در دیتابیس سرور ذخیره نمی‌شود. بیمار تنها یک کد رهگیری فیک که در کلاینت تولید شده را مشاهده می‌کند در حالی که مطب هیچ اطلاعی از نوبت ندارد!
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> ایجاد <code>AppointmentViewSet</code> یا <code>AppointmentCreateAPIView</code> با متد استاندارد <code>POST</code>، اعتبارسنجی تلفن و کد ملی، بازگرداندن وضعیت <code>201 Created</code> و ذخیره تراکنشی در جدول دیتابیس.
+      </div>
+    </div>
+
+    <!-- Defect 2 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۲. ذخیره نشدن پزشکان جدید در پنل مدیریت</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">P0 - بحرانی</span>
+          <span class="defect-code-ref">server.py:4766 vs admin.html:7784</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> فرم ثبت پزشک در پنل ادمین درخواست <code>POST /api/doctors</code> ارسال می‌کند، اما در سرور اندپوینت <code>/api/doctors</code> فقط برای متد <code>PUT</code> رجیستر شده است. درخواست با ۴۰۴ رد می‌شود و پزشک جدید فقط در <code>localStorage</code> مرورگر ذخیره می‌گردد و با باز کردن مرورگر دیگر ناپدید می‌شود.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> استفاده از <code>DoctorViewSet(ModelViewSet)</code> استاندارد در DRF که متدهای <code>POST</code> (ایجاد) و <code>PUT/PATCH</code> (ویرایش) را به صورت خودکار پشتیبانی می‌کند.
+      </div>
+    </div>
+
+    <!-- Defect 3 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۳. پاک شدن کامل تنظیمات سایت با ذخیره تنظیمات سئو</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">P0 - از دست رفتن داده‌ها</span>
+          <span class="defect-code-ref">server.py:4731 vs admin.html:9439</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> فرانت‌اند هنگام ذخیره تنظیمات سئو، فقط آبجکت <code>{ seo: {...} }</code> را می‌فرستد. سرور بدون Merge کردن، کل فایل <code>settings.json</code> را با این آبجکت جایگزین می‌کند و عنوان سایت، شماره تماس اضطراری، بیوگرافی و وضعیت تریاژ پاک می‌شوند.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> استفاده از مدل سینگلتون <code>SiteSetting</code> و سریالایزر با متد <code>PATCH (partial=True)</code> که فقط فیلد ارسال‌شده را ویرایش می‌کند.
+      </div>
+    </div>
+
+    <h3 class="sub-title">دسته دوم: فجایع همزمانی، بن‌بست سرور و قفل شدن دیتابیس</h3>
+
+    <!-- Defect 4 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۴. بن‌بست قطعی سرور در آمار ریدایرکت‌ها (Re-entrant Deadlock)</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">P0 - بن‌بست کامل سیستم</span>
+          <span class="defect-code-ref">server.py:731-756 & server.py:231, 237</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> برای ثبت کلیک ریدایرکت، یک ترد پس‌زمینه با <code>with WRITE_LOCK:</code> اجرا می‌شود و سپس <code>atomic_write_json</code> را صدا می‌زند که آن هم دوباره <code>with WRITE_LOCK:</code> را اجرا می‌کند. چون قفل از نوع <code>threading.Lock()</code> است (غیر بازگشتی)، سرور وارد Self-Deadlock شده و قفل تا ابد آزاد نمی‌شود! تمام درخواست‌های بعدی سرور که نیاز به نوشتن دارند (لاگین، تماس، مقاله) تا ابد فریز می‌شوند.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> حذف قفل‌های نرم‌افزاری و استفاده از امکانات اتمیک SQL در سطح PostgreSQL:
+        <code>RedirectRule.objects.filter(id=rule_id).update(hit_count=models.F('hit_count') + 1)</code>
+      </div>
+    </div>
+
+    <!-- Defect 5 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۵. پاک شدن خاموش کل دیتابیس مقالات در یک میلی‌ثانیه!</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">P0 - فاجعه پاک شدن داده‌ها</span>
+          <span class="defect-code-ref">server.py:273-282 & server.py:3948-3958</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> تابع <code>load_json_file</code> در صورت بروز هرگونه خطای کوچک خواندن (مانند تداخل ویندوز WinError 32 یا اسکن آنتی‌ویروس)، بی‌صدا یک لیست خالی <code>[]</code> برمی‌گرداند. سرور مقاله جدید را به این لیست خالی اضافه کرده و روی فایل قبلی می‌نویسد؛ یعنی ۱۰۰ مقاله تخصصی پزشکی در یک لحظه بدون بک‌آپ برای همیشه پاک می‌شوند!
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> دیتابیس پایدار PostgreSQL با معماری WAL که به هیچ وجه بر اثر خطاهای گذرا دیتابیس را خالی نمی‌کند.
+      </div>
+    </div>
+
+    <!-- Defect 6 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۶. رزرو دوگانه نوبت‌ها توسط چند بیمار (Double-Booking Race Condition)</span>
+        </div>
+        <div>
+          <span class="badge badge-high">P1 - اختلال در مطب</span>
+          <span class="defect-code-ref">server.py:4801-4816</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> هیچ اعتبارسنجی برای رزرو بودن تایم‌اسلات وجود ندارد. دو بیمار همزمان می‌توانند یک نوبت (مثلاً دکتر رادمنش ساعت ۱۷:۳۰) را رزرو کنند و به هر دو پیام موفقیت داده می‌شود که باعث ازدحام و هرج‌ومرج در مطب می‌شود.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> قید یکتایی در مدل دیتابیس و قفل بدبینانه سطری:
+        <code>models.UniqueConstraint(fields=['doctor', 'appointment_date', 'time_slot'], condition=~models.Q(status='cancelled'))</code>
+      </div>
+    </div>
+
+    <h3 class="sub-title">دسته سوم: آسیب‌پذیری‌های امنیتی بحرانی و سرقت نشست</h3>
+
+    <!-- Defect 7 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۷. افشای رمز عبور ادمین در سورس‌کد جاوااسکریپت فرانت‌اند</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">CWE-798 - پسورد هاردکد شده</span>
+          <span class="defect-code-ref">admin.html:6154-6156</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> در کدهای جاوااسکریپت پنل ادمین، تابع <code>ensureAdminSession()</code> نام کاربری و پسورد اصلی مدیر کل (<code>mahyarebrahimi</code> / <code>mahyebi86</code>) را با متن خام ذخیره کرده و به سرور می‌فرستد! هر بازدیدکننده‌ای با باز کردن سورس صفحه به پسورد دسترسی دارد.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> حذف کامل این کدهای خطرناک و واگذاری احراز هویت به فرم لاگین امن جنگو (<code>django.contrib.auth</code>).
+      </div>
+    </div>
+
+    <!-- Defect 8 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۸. خنثی شدن امنیت کوکی HttpOnly با ذخیره در LocalStorage</span>
+        </div>
+        <div>
+          <span class="badge badge-high">CWE-922 / نشت توکن</span>
+          <span class="defect-code-ref">server.py:3815 & login.html:444</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> با اینکه سرور کوکی HttpOnly صادر می‌کند، توکن سشن را داخل پاسخ JSON نیز می‌فرستد و فرانت‌اند آن را در <code>localStorage</code> ذخیره می‌کند. این کار امنیت کوکی را به صفر می‌رساند و با یک حمله XSS ساده سشن کاربر ربوده می‌شود.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> استفاده اختصاصی از سشن‌های کوکی‌محور امن جنگو با فلگ‌های <code>HttpOnly; Secure; SameSite=Strict</code> بدون ارسال توکن در متن JSON.
+      </div>
+    </div>
+
+    <!-- Defect 9 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۹. دور زدن محافظت ضد CSRF با ارسال هدر Origin</span>
+        </div>
+        <div>
+          <span class="badge badge-high">CWE-352 / دور زدن CSRF</span>
+          <span class="defect-code-ref">server.py:3022-3034</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> در تابع اعتبارسنجی CSRF سرور، اگر هدر <code>X-CSRF-Token</code> فرستاده نشود ولی هدر Origin موجود باشد، اعتبارسنجی توکن نادیده گرفته شده و درخواست مجاز شمرده می‌شود!
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> میدلور ضدگلوله جنگو <code>CsrfViewMiddleware</code> که روی تمامی متدهای تغییردهنده داده (POST/PUT/DELETE) توکن را الزامی می‌کند.
+      </div>
+    </div>
+
+    <h3 class="sub-title">دسته چهارم: مدیا، نقض حریم خصوصی بیماران و سرریز حافظه</h3>
+
+    <!-- Defect 10 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۱۰. افشای عمومی پرونده‌های بالینی، اسکن‌های MRI و سونوگرافی بیماران</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">HIPAA / نقض حریم خصوصی PHI</span>
+          <span class="defect-code-ref">server.py:2332 & media.json:100</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> تمام فایل‌های آپلودی (شامل مدارک پزشکی و اسکن‌های ام‌آر‌آی بیماران) در یک پوشه عمومی با هدر <code>Cache-Control: public</code> ذخیره می‌شوند و هر شخصی با حدس زدن نام فایل می‌تواند به سوابق پزشکی بیماران دسترسی پیدا کند.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> تفکیک دو لایه ذخیره‌سازی: باکت عمومی برای کاور مقالات و باکت خصوصی رمزنگاری‌شده (SSE-KMS) برای مدارک بالینی بیماران با لینک‌های موقت ۱۵ دقیقه‌ای (Presigned URLs).
+      </div>
+    </div>
+
+    <!-- Defect 11 -->
+    <div class="defect-card">
+      <div class="defect-header">
+        <div class="defect-title">
+          <span>۱۱. سرریز حافظه RAM و از کار افتادن سرور در آپلود عکس (Memory DoS)</span>
+        </div>
+        <div>
+          <span class="badge badge-high">CWE-400 / خارج از حافظه (OOM)</span>
+          <span class="defect-code-ref">server.py:3256 & 4002</span>
+        </div>
+      </div>
+      <div class="defect-body">
+        <strong>علت فنی:</strong> عکس‌ها به صورت رشته حجیم Base64 در بدنه JSON ارسال می‌شوند. یک عکس ۱۵ مگابایتی بیش از ۷۰ تا ۹۰ مگابایت رم را در مراحل مختلف دیکود اشغال می‌کند. چند آپلود همزمان باعث پر شدن حافظه و کشته شدن فرآیند سرور توسط سیستم‌عامل می‌شود.
+      </div>
+      <div class="django-solution">
+        <strong>راهکار اصولی در جنگو:</strong> استفاده از <code>MultiPartParser</code> استاندارد در DRF و آپلود مستقیم کلاینت به فضای ابری S3 بدون مصرف رم سرور.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Section 3: Converged Django Architecture -->
+  <section id="architecture">
+    <h2 class="section-title"><span>🏗️</span> معماری استاندارد و همگراشده جنگو (Target Architecture)</h2>
+    <p>
+      برای انتقال اصولی این پروژه، معماری تمیز سازمانی به صورت زیر پیاده‌سازی خواهد شد:
+    </p>
+
+    <div class="arch-diagram">
+      <svg viewBox="0 0 900 380" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .box { fill: #141f33; stroke: #1e3050; stroke-width: 2; rx: 8; }
+          .box-accent { fill: #0e1726; stroke: #00e599; stroke-width: 2; rx: 8; }
+          .box-db { fill: #101c2e; stroke: #00f0ff; stroke-width: 2; rx: 8; }
+          .text-t { font-family: 'Vazirmatn', sans-serif; fill: #fff; font-size: 14px; font-weight: bold; text-anchor: middle; }
+          .text-s { font-family: 'Vazirmatn', sans-serif; fill: #94a3b8; font-size: 12px; text-anchor: middle; }
+          .line { stroke: #3b82f6; stroke-width: 2; marker-end: url(#arrow); stroke-dasharray: 4; }
+        </style>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6"/>
+          </marker>
+        </defs>
+
+        <!-- Client Layer -->
+        <rect x="50" y="40" width="220" height="70" class="box" />
+        <text x="160" y="70" class="text-t">فرانت‌اند کلاینت (HTML / JS)</text>
+        <text x="160" y="92" class="text-s">GSAP • Three.js • Lenis • Dark Glass</text>
+
+        <!-- Gateway / Nginx -->
+        <rect x="340" y="40" width="220" height="70" class="box" />
+        <text x="450" y="70" class="text-t">وب‌سرور Nginx + Gunicorn</text>
+        <text x="450" y="92" class="text-s">مدیریت SSL • استاتیک • Rate Limit</text>
+
+        <!-- Django Core -->
+        <rect x="50" y="160" width="510" height="190" class="box-accent" />
+        <text x="305" y="190" class="text-t" fill="#00e599">اکوسیستم بک‌اند جنگو (Django 5.x + DRF)</text>
+        
+        <!-- Apps Inside Django -->
+        <rect x="70" y="210" width="140" height="60" class="box" />
+        <text x="140" y="235" class="text-t">apps.clinical</text>
+        <text x="140" y="255" class="text-s">نوبت‌دهی و پزشکان</text>
+
+        <rect x="230" y="210" width="140" height="60" class="box" />
+        <text x="300" y="235" class="text-t">apps.content</text>
+        <text x="300" y="255" class="text-s">مقالات و E-E-A-T</text>
+
+        <rect x="390" y="210" width="140" height="60" class="box" />
+        <text x="460" y="235" class="text-t">apps.accounts</text>
+        <text x="460" y="255" class="text-s">کاربران و سشن‌ها</text>
+
+        <rect x="70" y="280" width="220" height="55" class="box" />
+        <text x="180" y="305" class="text-t">apps.crm (لیدها و پیام‌ها)</text>
+
+        <rect x="310" y="280" width="220" height="55" class="box" />
+        <text x="420" y="305" class="text-t">apps.media (آپلود و ذخیره ابری)</text>
+
+        <!-- Database Layer -->
+        <rect x="630" y="40" width="220" height="140" class="box-db" />
+        <text x="740" y="80" class="text-t">PostgreSQL Database</text>
+        <text x="740" y="105" class="text-s">تراکنش‌های ACID</text>
+        <text x="740" y="125" class="text-s">قفل‌های سطری (select_for_update)</text>
+        <text x="740" y="145" class="text-s">قیدهای یکتایی چندگانه</text>
+
+        <!-- Async Celery Layer -->
+        <rect x="630" y="220" width="220" height="130" class="box" />
+        <text x="740" y="260" class="text-t">Celery Worker + Redis</text>
+        <text x="740" y="285" class="text-s">تولید ناهمگام WebP</text>
+        <text x="740" y="305" class="text-s">ارسال پیامک نوبت به بیمار</text>
+        <text x="740" y="325" class="text-s">کش سشن‌ها و تراتلینگ</text>
+
+        <!-- Connections -->
+        <line x1="270" y1="75" x2="335" y2="75" class="line" />
+        <line x1="450" y1="110" x2="450" y2="155" class="line" />
+        <line x1="560" y1="230" x2="625" y2="110" class="line" />
+        <line x1="560" y1="285" x2="625" y2="285" class="line" />
+      </svg>
+    </div>
+
+    <h3 class="sub-title">نمونه سرویس تراکنشی نوبت‌دهی بدون باگ (با قفل بدبینانه سطری)</h3>
+    <pre><code>from django.db import transaction
+from django.core.exceptions import ValidationError
+from .models import DoctorProfile, Appointment, AppointmentStatus
+import secrets
+
+@transaction.atomic
+def book_appointment_service(doctor_id, appointment_date, time_slot, patient_data):
+    """
+    تضمین عدم رزرو همزمان (Double-Booking) تحت بار ترافیکی شدید با قفل بدبینانه سطری
+    """
+    # ۱. قفل کردن سطر پزشک در دیتابیس تا پایان تراکنش
+    doctor = DoctorProfile.objects.select_for_update().get(id=doctor_id, is_active=True)
+    
+    # ۲. بررسی تداخل ساعت رزرو در دیتابیس
+    has_conflict = Appointment.objects.filter(
+        doctor=doctor,
+        appointment_date=appointment_date,
+        time_slot=time_slot
+    ).exclude(status=AppointmentStatus.CANCELLED).exists()
+    
+    if has_conflict:
+        raise ValidationError("این نوبت در همین لحظه توسط متقاضی دیگری رزرو گردید.")
+        
+    # ۳. تولید کد رهگیری امن بالینی
+    tracking_code = f"PZ-{secrets.token_hex(3).upper()}"
+    
+    # ۴. ذخیره در جدول تراکنشی
+    appointment = Appointment.objects.create(
+        doctor=doctor,
+        tracking_code=tracking_code,
+        appointment_date=appointment_date,
+        time_slot=time_slot,
+        patient_name=patient_data["name"],
+        patient_phone=patient_data["phone"],
+        patient_national_id=patient_data.get("national_id", ""),
+        visit_type=patient_data.get("visit_type", "ویزیت حضوری مطب"),
+        notes=patient_data.get("notes", ""),
+        status=AppointmentStatus.CONFIRMED
+    )
+    return appointment</code></pre>
+  </section>
+
+  <!-- Section 4: Code Surgery Table -->
+  <section id="surgery">
+    <h2 class="section-title"><span>📝</span> جدول جراحی کدها و فایل‌های مورد نیاز (Code Surgery Table)</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ردیف</th>
+            <th>نام فایل / ماژول</th>
+            <th>نوع عملیات</th>
+            <th>شرح تغییرات و نقش فنی در مهاجرت</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>۱</td>
+            <td><code>admin.html</code></td>
+            <td>اصلاح فرانت‌اند</td>
+            <td>حذف پسورد هاردکد شده ادمین، اصلاح متد ذخیره پزشک به <code>POST</code>، اصلاح کلیدهای ارسالی اسکیما به سرور.</td>
+          </tr>
+          <tr>
+            <td>۲</td>
+            <td><code>portal/appointments.html</code></td>
+            <td>اصلاح فرانت‌اند</td>
+            <td>اصلاح روت ثبت نوبت به متد <code>POST /api/appointments/</code> و دریافت کد رهگیری واقعی از سرور جنگو.</td>
+          </tr>
+          <tr>
+            <td>۳</td>
+            <td><code>pezeshkan/settings.py</code></td>
+            <td>ایجاد فایل</td>
+            <td>پیکربندی جنگو: اتصال به PostgreSQL، هشرهای Argon2id، کوکی‌های ایمن HttpOnly و تنظیمات Celery/Redis.</td>
+          </tr>
+          <tr>
+            <td>۴</td>
+            <td><code>apps/clinical/models.py</code></td>
+            <td>ایجاد فایل</td>
+            <td>تعریف مدل‌های <code>DoctorProfile</code> و <code>Appointment</code> با قید یکتایی <code>unique_active_doctor_slot</code>.</td>
+          </tr>
+          <tr>
+            <td>۵</td>
+            <td><code>apps/clinical/services.py</code></td>
+            <td>ایجاد فایل</td>
+            <td>سرویس تراکنشی نوبت‌دهی با <code>select_for_update()</code> جهت جلوگیری قطعی از تداخل ساعت نوبت‌ها.</td>
+          </tr>
+          <tr>
+            <td>۶</td>
+            <td><code>apps/content/models.py</code></td>
+            <td>ایجاد فایل</td>
+            <td>مدل‌های مقالات، پیلارهای ۹گانه سلامت، ارجاعات علمی و اسکیماهای E-E-A-T گوگل.</td>
+          </tr>
+          <tr>
+            <td>۷</td>
+            <td><code>apps/media/storage_backends.py</code></td>
+            <td>ایجاد فایل</td>
+            <td>پیاده‌سازی دو لایه ذخیره‌سازی: باکت عمومی و باکت امن مدارک پزشکی (PHI) با امضای دیجیتال.</td>
+          </tr>
+          <tr>
+            <td>۸</td>
+            <td><code>scripts/migrate_json_to_postgres.py</code></td>
+            <td>ایجاد اسکریپت</td>
+            <td>اسکریپت انتقال خودکار تمام داده‌های موجود در فایل‌های JSON به پایگاه داده PostgreSQL جنگو بدون از دست رفتن رکوردها.</td>
+          </tr>
+          <tr>
+            <td>۹</td>
+            <td><code>tests/test_concurrency_appointments.py</code></td>
+            <td>ایجاد تست خودکار</td>
+            <td>تست همزمانی جهت اثبات غیرممکن بودن رزرو همزمان دو نوبت در یک تایم‌اسلات توسط دو متقاضی.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 5: Risk Assessment -->
+  <section id="risks">
+    <h2 class="section-title"><span>🛡️</span> ماتریس ارزیابی ریسک و احتمال شکست (Risk Assessment)</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>بخش تحت تغییر</th>
+            <th>سطح ریسک</th>
+            <th>حالت بالقوه شکست</th>
+            <th>اثر روی سیستم و کاربران</th>
+            <th>استراتژی مهار ریسک</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>مهاجرت داده‌های مقالات (JSON to DB)</strong></td>
+            <td><span class="badge badge-medium">متوسط</span></td>
+            <td>تغییر فرمت اسلاگ‌ها یا متون HTML ادیتور</td>
+            <td>شکستن لینک‌های سئو و ۴۰۴ شدن مقالات در گوگل</td>
+            <td>انتقال دقیق اسلاگ‌های قبلی با قید یکتایی و ثبت خودکار در جدول ۳۰۱ Redirects جنگو.</td>
+          </tr>
+          <tr>
+            <td><strong>اصلاح مسیر نوبت‌دهی در فرانت‌اند</strong></td>
+            <td><span class="badge badge-success">پایین</span></td>
+            <td>خطای کلاینت در ارسال توکن CSRF</td>
+            <td>عدم ثبت نوبت برای بیمار</td>
+            <td>تنظیم <code>CSRF_TRUSTED_ORIGINS</code> و ارائه اندپوینت عمومی امن با محافظت Rate-Limiting.</td>
+          </tr>
+          <tr>
+            <td><strong>تفکیک مدارک پزشکی خصوصی (PHI)</strong></td>
+            <td><span class="badge badge-medium">متوسط</span></td>
+            <td>خطای ۴۰۳ در باز شدن اسکن‌های پزشکی پیشین</td>
+            <td>باز نشدن عکس ام‌آر‌آی برای پزشک</td>
+            <td>اسکریپت تولید Presigned URL داینامیک برای لینک‌های قدیمی هنگام خواندن از دیتابیس.</td>
+          </tr>
+          <tr>
+            <td><strong>حذف پسورد هاردکدشده در ادمین</strong></td>
+            <td><span class="badge badge-success">بسیار پایین</span></td>
+            <td>خروج نشست‌های فعال آزمایشی</td>
+            <td>نیاز به یک‌بار ورود با نام کاربری و پسورد</td>
+            <td>ایجاد سوپریوزر رسمی در جنگو با دستور <code>createsuperuser</code> و رمز دلخواه.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 6: Next Steps -->
+  <section id="next-steps">
+    <h2 class="section-title"><span>🚀</span> گام‌های اجرایی فاز ۲</h2>
+    <ol style="margin-right: 24px; line-height: 2.2;">
+      <li><strong>راه‌اندازی ساختار استاندارد جنگو:</strong> ایجاد پروژه جنگو در کنار فرانت‌اند فعلی با تنظیمات بهینه امنیتی.</li>
+      <li><strong>انتقال داده‌های موجود (JSON Data Migration):</strong> اجرای اسکریپت تبدیل فایل‌های JSON مقالات، پزشکان و پیلارها به دیتابیس رابطه‌ای.</li>
+      <li><strong>اصلاح خطاهای اتصال در فرانت‌اند:</strong> هماهنگ کردن آدرس‌های API در <code>appointments.html</code> و <code>admin.html</code> با متدهای استاندارد جنگو.</li>
+      <li><strong>اجرای تست‌های خودکار همزمانی و امنیت:</strong> اجرای تست‌های اعتبارسنجی نوبت‌دهی، تراکنش‌ها و سطوح دسترسی (RBAC).</li>
+    </ol>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>این سند بر اساس ممیزی جامع کدهای منبع اکوسیستم پزشکآن و استانداردهای جهانی OWASP Top 10 و HIPAA تهیه شده است.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
