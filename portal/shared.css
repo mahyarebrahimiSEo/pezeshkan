@@ -2058,12 +2058,12 @@ a:hover {
     padding: 4px 6px 16px;
   }
   .pez-shell {
-    --rail: 112px;
+    --rail: 0px;
     --edge: 6px;
     --radius: 26px;
     height: auto;
     max-height: none;
-    min-height: 600px;
+    min-height: auto;
   }
   .pez-shell-screen {
     overflow-y: visible;
@@ -2072,7 +2072,7 @@ a:hover {
   }
   .pez-shell-header-bar {
     margin-top: 6px;
-    margin-right: calc(var(--rail) + 8px);
+    margin-right: 8px;
     margin-bottom: 6px;
     margin-left: 8px;
     padding: 6px 12px;
@@ -2142,16 +2142,14 @@ a:hover {
     flex-shrink: 0 !important;
   }
   .pez-shell-vital {
-    height: auto !important;
-    bottom: auto !important;
-    border-left: none !important;
+    display: none !important;
   }
   .pez-shell-vital-actions {
     display: none !important;
   }
   .pez-shell-content {
     margin-right: 0;
-    padding: calc(var(--rail) * 1.5 + 8px) 14px 24px;
+    padding: 12px 14px 24px;
     overflow: visible;
   }
   .pez-shell-title {
