@@ -2922,7 +2922,7 @@ body.intro-device-locked {
 }
 
 /* ==========================================================================
-   Mobile Navigation Drawer (Glass Slide-in from Left)
+   Mobile Navigation Drawer (Glass Slide-in from Right)
    ========================================================================== */
 #mobileNavDrawer {
   position: fixed;
@@ -2946,8 +2946,8 @@ body.intro-device-locked {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: auto;
+  left: auto;
+  right: 0;
   background: var(--bg-surface-primary);
   width: 310px;
   max-width: 86vw;
@@ -2956,9 +2956,10 @@ body.intro-device-locked {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.65);
-  border-right: 1px solid var(--glass-border);
-  transform: translateX(-100%);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.65);
+  border-left: 1px solid var(--glass-border);
+  border-right: none;
+  transform: translateX(100%);
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
 }
