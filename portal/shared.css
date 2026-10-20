@@ -2587,7 +2587,7 @@ body.intro-device-locked {
 }
 
 /* ==========================================================================
-   Treatment Journey Timeline
+   Treatment Journey Timeline & Animated Connecting Vital Beam
    ========================================================================== */
 .journey-timeline {
   display: grid;
@@ -2604,10 +2604,69 @@ body.intro-device-locked {
   }
 }
 
+/* Background Timeline Connecting Beam Track (Desktop Only) */
+.journey-timeline-beam-track {
+  position: absolute;
+  top: 39px;
+  left: 28px;
+  right: 28px;
+  height: 2px;
+  background: rgba(6, 182, 212, 0.22);
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 9999px;
+}
+
+[data-theme="dark"] .journey-timeline-beam-track {
+  background: rgba(79, 203, 209, 0.22);
+}
+
+.journey-timeline-beam-pulse {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 150px;
+  border-radius: 9999px;
+  background: linear-gradient(270deg, transparent 0%, rgba(94, 230, 237, 0.3) 25%, #00B4D8 75%, #FFFFFF 92%, transparent 100%);
+  box-shadow: 0 0 12px rgba(0, 180, 216, 0.85), 0 0 24px rgba(94, 230, 237, 0.6);
+  pointer-events: none;
+  animation: journeyBeamLoop 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+[data-theme="dark"] .journey-timeline-beam-pulse {
+  background: linear-gradient(270deg, transparent 0%, rgba(79, 203, 209, 0.3) 25%, #4fcbd1 75%, #FFFFFF 92%, transparent 100%);
+  box-shadow: 0 0 14px rgba(79, 203, 209, 0.95), 0 0 28px rgba(79, 203, 209, 0.7);
+}
+
+@keyframes journeyBeamLoop {
+  0% {
+    right: -160px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    right: calc(100% + 160px);
+    opacity: 0;
+  }
+}
+
+/* Hide horizontal timeline track on mobile and tablet when cards wrap */
+@media (max-width: 1179px) {
+  .journey-timeline-beam-track {
+    display: none !important;
+  }
+}
+
 .journey-step {
   display: flex;
   flex-direction: column;
-  background: var(--bg-surface-primary);
+  background: #FFFFFF !important; /* solid opaque white in light mode - completely hides background grid */
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 22px 18px 24px;
@@ -2616,19 +2675,20 @@ body.intro-device-locked {
   border-top: 3.5px solid var(--signal-cyan);
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-  z-index: 1;
+  z-index: 2; /* always in front of the timeline beam and body grid */
 }
 
 [data-theme="dark"] .journey-step {
-  background: rgba(11, 61, 89, 0.35);
-  border-color: rgba(79, 203, 209, 0.22);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  background: #082d42 !important; /* solid opaque clinical dark surface in dark mode - completely blocks background grid & beam line */
+  border-color: rgba(79, 203, 209, 0.25) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
 .journey-step:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 28px -6px rgba(6, 182, 212, 0.18);
+  box-shadow: 0 14px 28px -6px rgba(6, 182, 212, 0.22);
   border-color: var(--brand-cyan-neon);
+  z-index: 3;
 }
 
 .journey-step-top {
@@ -2728,6 +2788,61 @@ body.intro-device-locked {
 .journey-step:nth-child(4) { border-top-color: var(--signal-cyan); }
 .journey-step:nth-child(5) { border-top-color: var(--signal-magenta); }
 .journey-step:nth-child(6) { border-top-color: var(--signal-green); }
+
+/* Responsive Adaptation for Tablet & Mobile */
+@media (min-width: 769px) and (max-width: 1179px) {
+  .journey-timeline {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+  }
+  .journey-step {
+    padding: 20px 16px !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .journey-timeline {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+    margin: 24px 0 !important;
+  }
+  .journey-step {
+    padding: 18px 15px !important;
+    border-radius: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .journey-timeline {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin: 20px 0 !important;
+  }
+  .journey-step {
+    padding: 16px 14px !important;
+    border-radius: 13px !important;
+  }
+  .journey-step-top {
+    margin-bottom: 12px !important;
+  }
+  .journey-step-num {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 13px !important;
+  }
+  .journey-step-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .journey-step-title {
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+  }
+  .journey-step-desc {
+    font-size: 11.8px !important;
+    line-height: 1.62 !important;
+  }
+}
 
 /* ==========================================================================
    Pricing Table
@@ -5889,25 +6004,7 @@ body.intro-device-locked {
   box-shadow: 0 0 8px rgba(239, 68, 68, 0.65);
 }
 
-/* Enhanced Journey Timeline Steppers */
-.journey-timeline::before {
-  content: '';
-  position: absolute;
-  top: 39px;
-  left: 32px;
-  right: 32px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--signal-green) 0%, var(--signal-cyan) 50%, var(--signal-amber) 100%);
-  opacity: 0.25;
-  z-index: 0;
-  pointer-events: none;
-}
-
-@media (max-width: 900px) {
-  .journey-timeline::before {
-    display: none;
-  }
-}
+/* Journey Timeline Steppers */
 
 /* 22.4. 10% Console Metaphor: Modular Vital Dial (Circular KPI Gauge) */
 .vital-dial-card {
