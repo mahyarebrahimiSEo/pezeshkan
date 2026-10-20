@@ -8,28 +8,30 @@
 
 /* 1. تم روز و روشن بالینی (Day Mode Default - Light Vital Grid) */
 :root, [data-theme="light"] {
-  --bg-canvas: #F2FAFA; /* پس‌زمینه روز Light Vital Grid */
+  --bg-canvas: #edf9fd; /* پس‌زمینه روز با ته‌رنگ آبی آسمانی c6eefb */
   --bg-surface-primary: #FFFFFF;
-  --bg-surface-secondary: #F8FAFC;
+  --bg-surface-secondary: #c6eefb; /* 75% ابی آسمانی c6eefb */
   --bg-surface-elevated: #FFFFFF;
   
-  /* 4 Semantic Vital Signal Colors */
-  --signal-cyan: #06B6D4;
-  --signal-green: #10B981;
-  --signal-amber: #F59E0B;
+  /* Official PEZESHK-ON Day Palette: 75% c6eefb | 16% 5ee6ed | 3% 8ef75d | 3% F579D8 | 3% fbc448 */
+  --signal-cyan: #5ee6ed; /* 16% فیروزه ای */
+  --signal-green: #8ef75d; /* 3% سبز */
+  --signal-amber: #fbc448; /* 3% زرد */
+  --signal-magenta: #F579D8; /* 3% سرخابی */
   --signal-red: #EF4444;
 
-  --brand-primary: #0073FF;
+  --brand-primary: #0b3d59; /* سرمه ای هویت ساز 0B3D59 */
   --brand-primary-light: #0284C7;
-  --brand-cyan-neon: #06B6D4;
-  --brand-gradient-primary: linear-gradient(135deg, #0073FF 0%, #06B6D4 100%);
-  --brand-gradient-glow: rgba(6, 182, 212, 0.16);
+  --brand-cyan-neon: #5ee6ed; /* 16% فیروزه ای */
+  --brand-gradient-primary: linear-gradient(135deg, #0b3d59 0%, #5ee6ed 100%);
+  --brand-gradient-glow: rgba(94, 230, 237, 0.22);
   
-  --brand-emerald: #059669;
-  --brand-emerald-vital: #10B981;
-  --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #10B981 100%);
-  --brand-amber: #F59E0B;
-  --brand-rose-critical: #EF4444;
+  --brand-emerald: #10B981;
+  --brand-emerald-vital: #8ef75d; /* 3% سبز */
+  --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #8ef75d 100%);
+  --brand-amber: #fbc448; /* 3% زرد */
+  --brand-magenta: #F579D8; /* 3% سرخابی */
+  --brand-rose-critical: #F579D8;
   
   --text-pure: #0F172A;
   --text-primary: #1E293B;
@@ -77,30 +79,34 @@
   --ecg-line: #06B6D4;
 }
 
-/* 2. تم شب کلینیکال (Clinical Dark Mode - #060A12 & #0B111E) */
+/* 2. تم شب کلینیکال (Clinical Dark Mode - Official Palette: 75% 0B3D59 | 16% 4FCBD1 | 3% E27D2A | 3% E463C6 | 3% FBC448) */
 [data-theme="dark"] {
-  --bg-canvas: #060A12;
-  --bg-surface-primary: #0B111E;
-  --bg-surface-secondary: #0F172A;
-  --bg-surface-elevated: #131C2E;
+  --bg-canvas: #061c29;
+  --bg-surface-primary: #0b3d59; /* 75% سورمه ای 0B3D59 */
+  --bg-surface-secondary: #082d42;
+  --bg-surface-elevated: #0e4c6f;
   
-  /* 4 Semantic Vital Signal Colors */
-  --signal-cyan: #06B6D4;
+  /* Official PEZESHK-ON Dark Palette */
+  --signal-cyan: #4fcbd1; /* 16% فیروزه ای 4FCBD1 */
+  --signal-orange: #e27d2a; /* 3% نارنجی E27D2A */
+  --signal-magenta: #e463c6; /* 3% سرخابی E463C6 */
+  --signal-amber: #fbc448; /* 3% زرد FBC448 */
   --signal-green: #10B981;
-  --signal-amber: #F59E0B;
-  --signal-red: #EF4444;
+  --signal-red: #e463c6;
 
-  --brand-primary: #0073FF;
-  --brand-primary-light: #38BDF8;
-  --brand-cyan-neon: #06B6D4;
-  --brand-gradient-primary: linear-gradient(135deg, #0073FF 0%, #06B6D4 100%);
-  --brand-gradient-glow: rgba(6, 182, 212, 0.25);
+  --brand-primary: #4fcbd1; /* 16% فیروزه ای شاخص */
+  --brand-primary-light: #72e5ea;
+  --brand-cyan-neon: #4fcbd1;
+  --brand-gradient-primary: linear-gradient(135deg, #0b3d59 0%, #4fcbd1 100%);
+  --brand-gradient-glow: rgba(79, 203, 209, 0.28);
   
-  --brand-emerald: #059669;
-  --brand-emerald-vital: #10B981;
-  --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #10B981 100%);
-  --brand-amber: #F59E0B;
-  --brand-rose-critical: #EF4444;
+  --brand-emerald: #10B981;
+  --brand-emerald-vital: #4fcbd1;
+  --brand-gradient-vital: linear-gradient(135deg, #0b3d59 0%, #4fcbd1 100%);
+  --brand-amber: #fbc448; /* 3% زرد */
+  --brand-orange: #e27d2a; /* 3% نارنجی */
+  --brand-magenta: #e463c6; /* 3% سرخابی */
+  --brand-rose-critical: #e463c6;
   
   --text-pure: #FFFFFF;
   --text-primary: #F1F5F9;
@@ -807,7 +813,7 @@ a:hover {
   --rail: 168px;
   --edge: 4px;
   --radius: 26px;
-  --surface: #b5ddee;
+  --surface: #c6eefb; /* 75% ابی آسمانی C6EEFB */
   --metal: #E2E8F0;
   position: relative;
   isolation: isolate;
@@ -852,7 +858,7 @@ a:hover {
 /* Day Mode Styling (.pez-shell-day & [data-theme="light"]) */
 .pez-shell-day,
 [data-theme="light"] .pez-shell {
-  --surface: #b5ddee;
+  --surface: #c6eefb; /* 75% ابی آسمانی C6EEFB */
   --metal: #E2E8F0;
   background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 25%, #F8FAFC 50%, #CBD5E1 75%, #FFFFFF 100%);
   border: 1px solid rgba(136, 165, 173, 0.22);
@@ -861,13 +867,13 @@ a:hover {
 
 .pez-shell-day .pez-shell-screen,
 [data-theme="light"] .pez-shell .pez-shell-screen {
-  background-color: #b5ddee;
+  background-color: #c6eefb; /* 75% ابی آسمانی C6EEFB */
   background-image: 
-    linear-gradient(rgba(14, 116, 144, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 116, 144, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(11, 61, 89, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 61, 89, 0.12) 1px, transparent 1px);
   background-size: 28px 28px;
   background-position: right 0px top 0px;
-  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(94, 230, 237, 0.22);
 }
 
 .pez-shell-day .pez-shell-content,
@@ -877,18 +883,18 @@ a:hover {
 
 /* Dark Mode Overrides when data-theme="dark" */
 [data-theme="dark"] .pez-shell {
-  --surface: #0A1B27;
-  --metal: #1E293B;
-  background: linear-gradient(135deg, #334155 0%, #1E293B 30%, #475569 60%, #1E293B 85%, #334155 100%);
-  border: 1px solid rgba(80, 113, 126, 0.3);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --surface: #0b3d59; /* 75% سورمه ای 0B3D59 */
+  --metal: #082d42;
+  background: linear-gradient(135deg, #0e4c6f 0%, #0b3d59 30%, #082d42 60%, #0b3d59 85%, #0e4c6f 100%);
+  border: 1px solid rgba(79, 203, 209, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 [data-theme="dark"] .pez-shell .pez-shell-screen,
 .pez-shell:not(.pez-shell-day) .pez-shell-screen {
-  background-color: #0A1B27;
+  background-color: #0b3d59; /* 75% سورمه ای 0B3D59 */
   background-image: none !important;
-  box-shadow: inset 0 0 0 1px rgba(0, 240, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(79, 203, 209, 0.22);
 }
 
 [data-theme="dark"] .pez-shell .pez-shell-content {
@@ -1042,8 +1048,8 @@ a:hover {
 }
 
 [data-theme="dark"] .pez-shell-header-bar {
-  background: #0B1924 !important;
-  border-color: rgba(80, 113, 126, 0.4);
+  background: #072538 !important;
+  border-color: rgba(79, 203, 209, 0.35);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
@@ -1455,7 +1461,7 @@ a:hover {
 
 [data-theme="dark"] .pez-shell-metric-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, #112936 100%);
-  border-color: rgba(80, 113, 126, 0.4);
+  border-color: rgba(79, 203, 209, 0.35);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
@@ -1559,7 +1565,7 @@ a:hover {
 
 [data-theme="dark"] .pez-shell-ecg-panel {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, #0e222e 100%);
-  border-color: rgba(80, 113, 126, 0.4);
+  border-color: rgba(79, 203, 209, 0.35);
 }
 
 .pez-shell-ecg-header {

@@ -1,39 +1,44 @@
 /* ==========================================================================
-   سیستم توکن‌های طراحی بالینی پزشکآن لایف (Day Mode - Clinical Light Theme)
-   برگرفته از وب‌سایت Axon Life (axon.me/life)
-   مختص ساب‌فولدر مجله سلامت (/mag)
+   سیستم توکن‌های طراحی بالینی پزشکآن لایف (PEZESHK-ON Life Magazine DNA)
+   بر اساس پالت رنگی رسمی پزشکآن:
+   - تم روز (Day Mode): ۷۵٪ آبی آسمانی (#C6EEFB) | ۱۶٪ فیروزه‌ای (#5EE6ED) | ۳٪ سبز (#8EF75D) | ۳٪ سرخابی (#F579D8) | ۳٪ زرد (#FBC448)
+   - تم شب (Dark Mode): ۷۵٪ سرمه‌ای (#0B3D59) | ۱۶٪ فیروزه‌ای (#4FCBD1) | ۳٪ نارنجی (#E27D2A) | ۳٪ سرخابی (#E463C6) | ۳٪ زرد (#FBC448)
    ========================================================================== */
-:root {
-  /* Canvas & Surfaces (Day Mode) */
-  --color-bg-base: #F8FAFC;                 /* پس‌زمینه اصلی روشن و آرام */
+
+:root, [data-theme="light"] {
+  /* Canvas & Surfaces (Day Mode - 75% Light Sky Blue C6EEFB) */
+  --color-bg-base: #edf9fd;                 /* پس‌زمینه روز آرام و تنفس‌پذیر بر پایه C6EEFB */
   --color-bg-surface-primary: #FFFFFF;      /* کارت‌های اصلی با کنتراست بالا */
-  --color-bg-surface-secondary: #F1F5F9;    /* پس‌زمینه بخش‌های تفکیک‌شده */
+  --color-bg-surface-secondary: #c6eefb;    /* 75% آبی آسمانی C6EEFB */
   --color-bg-surface-elevated: #FFFFFF;     /* کارت‌های پاپ‌آپ و معلق */
   
-  /* Semantic Clinical Accents (Axon Style) */
-  --color-signal-primary: #0073FF;          /* آبی شاخص اکسون: تعامل، نوبت‌دهی، لینک‌ها */
-  --color-signal-primary-hover: #0056cc;
-  --color-signal-primary-light: #EBF4FF;
-  --color-signal-success: #059669;          /* سبز بالینی: تایید پزشک، نشان سلامت */
-  --color-signal-success-light: #ECFDF5;
-  --color-signal-warning: #F97316;          /* نارنجی هشدار سلامتی و زمان مطالعه */
+  /* Semantic Clinical Accents (Official Palette) */
+  --color-signal-primary: #0b3d59;          /* سرمه‌ای شاخص 0B3D59 */
+  --color-signal-primary-hover: #072130;
+  --color-signal-primary-light: #c6eefb;
+  --color-signal-cyan: #5ee6ed;             /* 16% فیروزه‌ای 5EE6ED */
+  --color-signal-success: #8ef75d;          /* 3% سبز نعنایی 8EF75D */
+  --color-signal-success-light: #F0FDF4;
+  --color-signal-warning: #e27d2a;          /* 3% نارنجی E27D2A */
   --color-signal-warning-light: #FFF7ED;
-  --color-signal-critical: #DC2626;         /* قرمز فوریت‌های پزشکی */
-  --color-signal-critical-light: #FEF2F2;
+  --color-signal-yellow: #fbc448;           /* 3% زرد FBC448 */
+  --color-signal-magenta: #F579D8;          /* 3% سرخابی F579D8 */
+  --color-signal-critical: #F579D8;         /* سرخابی شاخص */
+  --color-signal-critical-light: #FDF2F8;
   
   /* Typography Colors */
-  --color-text-primary: #0F172A;            /* تیترهای سرمه‌ای خوانا و بولد */
-  --color-text-secondary: #334155;          /* متن بدنه با خوانایی بالا */
-  --color-text-muted: #64748B;              /* متادیتا، تاریخ، دسته‌بندی */
-  --color-text-subtle: #94A3B8;             /* خطوط راهنما */
+  --color-text-primary: #0b3d59;            /* تیترهای سرمه‌ای خوانا 0B3D59 */
+  --color-text-secondary: #1E3A4C;          /* متن بدنه با خوانایی بالا */
+  --color-text-muted: #527993;              /* متادیتا، تاریخ، دسته‌بندی */
+  --color-text-subtle: #89AABF;             /* خطوط راهنما */
   
   /* Borders & Shadows */
-  --color-border: #E2E8F0;
-  --color-border-light: #EDF2F7;
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 10px 30px -4px rgba(15, 23, 42, 0.08);
-  --shadow-card-hover: 0 12px 28px rgba(0, 115, 255, 0.1);
+  --color-border: rgba(11, 61, 89, 0.14);
+  --color-border-light: rgba(94, 230, 237, 0.25);
+  --shadow-sm: 0 1px 3px rgba(11, 61, 89, 0.05);
+  --shadow-md: 0 4px 16px -2px rgba(11, 61, 89, 0.08);
+  --shadow-lg: 0 10px 30px -4px rgba(11, 61, 89, 0.12);
+  --shadow-card-hover: 0 12px 28px rgba(94, 230, 237, 0.25);
   
   /* Radii */
   --radius-sm: 8px;
@@ -43,4 +48,40 @@
   --radius-full: 9999px;
   
   --font-main: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+[data-theme="dark"] {
+  /* Canvas & Surfaces (Dark Mode - 75% Yale Blue 0B3D59) */
+  --color-bg-base: #061c29;                 /* پس‌زمینه پایه تاریک */
+  --color-bg-surface-primary: #0b3d59;      /* 75% سرمه‌ای 0B3D59 */
+  --color-bg-surface-secondary: #082d42;    /* سطح ثانویه عمیق */
+  --color-bg-surface-elevated: #0e4c6f;     /* کارت‌های هایلایت شده */
+  
+  /* Semantic Clinical Accents (Official Palette) */
+  --color-signal-primary: #4fcbd1;          /* 16% فیروزه‌ای 4FCBD1 */
+  --color-signal-primary-hover: #3bbcc2;
+  --color-signal-primary-light: rgba(79, 203, 209, 0.16);
+  --color-signal-cyan: #4fcbd1;             /* 16% فیروزه‌ای 4FCBD1 */
+  --color-signal-success: #8ef75d;          /* سبز بالینی */
+  --color-signal-success-light: rgba(142, 247, 93, 0.14);
+  --color-signal-warning: #e27d2a;          /* 3% نارنجی E27D2A */
+  --color-signal-warning-light: rgba(226, 125, 42, 0.16);
+  --color-signal-yellow: #fbc448;           /* 3% زرد FBC448 */
+  --color-signal-magenta: #e463c6;          /* 3% سرخابی E463C6 */
+  --color-signal-critical: #e463c6;
+  --color-signal-critical-light: rgba(228, 99, 198, 0.16);
+  
+  /* Typography Colors */
+  --color-text-primary: #F8FAFC;            /* تیترهای روشن و خوانا */
+  --color-text-secondary: #CBD5E1;          /* متن بدنه */
+  --color-text-muted: #94A3B8;              /* متادیتا */
+  --color-text-subtle: #64748B;
+  
+  /* Borders & Shadows */
+  --color-border: rgba(79, 203, 209, 0.18);
+  --color-border-light: rgba(79, 203, 209, 0.10);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.60);
+  --shadow-card-hover: 0 14px 32px rgba(79, 203, 209, 0.22);
 }

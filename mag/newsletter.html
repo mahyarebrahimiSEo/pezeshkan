@@ -151,25 +151,26 @@
     }
 
     :root {
-      --bg-base: #F8FAFC;
+      --bg-base: #edf9fd;
       --bg-surface: #FFFFFF;
-      --bg-subtle: #F1F5F9;
+      --bg-subtle: #c6eefb;
       --bg-elevated: #FFFFFF;
       
-      --color-primary: #0073FF;
-      --color-primary-hover: #0056cc;
-      --color-primary-light: #EBF4FF;
-      --color-teal: #059669;
-      --color-teal-light: #ECFDF5;
-      --color-orange: #F97316;
-      --color-orange-light: #FFF7ED;
-      --color-red: #DC2626;
-      --color-red-light: #FEF2F2;
+      --color-primary: #0b3d59;
+      --color-primary-hover: #072130;
+      --color-primary-light: #c6eefb;
+      --color-cyan: #5ee6ed;
+      --color-teal: #8ef75d;
+      --color-teal-light: rgba(142, 247, 93, 0.16);
+      --color-orange: #fbc448;
+      --color-orange-light: rgba(251, 196, 72, 0.16);
+      --color-red: #F579D8;
+      --color-red-light: rgba(245, 121, 216, 0.16);
       
-      --text-heading: #0F172A;
-      --text-body: #334155;
-      --text-secondary: #64748B;
-      --text-muted: #94A3B8;
+      --text-heading: #0b3d59;
+      --text-body: #1E3A4C;
+      --text-secondary: #527993;
+      --text-muted: #89AABF;
       
       --border-color: #E2E8F0;
       --border-light: #EDF2F7;
@@ -1278,56 +1279,60 @@
        ========================================================================== */
     :root,
     [data-theme="light"] {
-      --bg-base: #F2FAFA;
+      --bg-base: #edf9fd;
       --bg-surface: #FFFFFF;
-      --bg-subtle: #E6F4F4;
+      --bg-subtle: #c6eefb;
       --bg-elevated: #FFFFFF;
 
-      --signal-cyan: #06B6D4;
-      --signal-green: #10B981;
-      --signal-amber: #F59E0B;
-      --signal-red: #EF4444;
+      /* Official PEZESHK-ON Day Palette: 75% c6eefb | 16% 5ee6ed | 3% 8ef75d | 3% F579D8 | 3% fbc448 */
+      --signal-cyan: #5ee6ed;
+      --signal-green: #8ef75d;
+      --signal-amber: #fbc448;
+      --signal-magenta: #F579D8;
+      --signal-red: #F579D8;
 
       --glass-level-1-bg: rgba(255, 255, 255, 0.88);
       --glass-level-2-bg: rgba(255, 255, 255, 0.94);
       --glass-level-3-bg: rgba(255, 255, 255, 0.97);
       --glass-level-4-bg: rgba(255, 255, 255, 0.99);
-      --vital-grid-line: rgba(13, 148, 136, 0.045);
+      --vital-grid-line: rgba(11, 61, 89, 0.045);
     }
 
     [data-theme="dark"] {
-      --bg-base: #060A12;
-      --bg-surface: #0B111E;
-      --bg-subtle: #0F172A;
-      --bg-elevated: #131C2E;
+      --bg-base: #061c29;
+      --bg-surface: #0b3d59; /* 75% سورمه ای 0B3D59 */
+      --bg-subtle: #082d42;
+      --bg-elevated: #0e4c6f;
 
-      --color-primary: #22D3EE;
-      --color-primary-hover: #06B6D4;
-      --color-primary-light: rgba(6, 182, 212, 0.14);
-      --color-teal: #10B981;
-      --color-teal-light: rgba(16, 185, 129, 0.14);
-      --color-orange: #F59E0B;
-      --color-orange-light: rgba(245, 158, 11, 0.14);
-      --color-red: #EF4444;
-      --color-red-light: rgba(239, 68, 68, 0.14);
+      /* Official PEZESHK-ON Dark Palette: 75% 0B3D59 | 16% 4FCBD1 | 3% E27D2A | 3% E463C6 | 3% FBC448 */
+      --color-primary: #4fcbd1; /* 16% فیروزه ای 4FCBD1 */
+      --color-primary-hover: #3bbcc2;
+      --color-primary-light: rgba(79, 203, 209, 0.16);
+      --color-teal: #4fcbd1;
+      --color-teal-light: rgba(79, 203, 209, 0.14);
+      --color-orange: #e27d2a; /* 3% نارنجی E27D2A */
+      --color-orange-light: rgba(226, 125, 42, 0.16);
+      --color-red: #e463c6; /* 3% سرخابی E463C6 */
+      --color-red-light: rgba(228, 99, 198, 0.16);
+      --color-yellow: #fbc448; /* 3% زرد FBC448 */
 
       --text-heading: #F8FAFC;
       --text-body: #CBD5E1;
       --text-secondary: #94A3B8;
       --text-muted: #64748B;
 
-      --border-color: rgba(148, 163, 184, 0.16);
-      --border-light: rgba(148, 163, 184, 0.10);
+      --border-color: rgba(79, 203, 209, 0.18);
+      --border-light: rgba(79, 203, 209, 0.10);
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
       --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
       --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.60);
-      --shadow-card-hover: 0 14px 32px rgba(6, 182, 212, 0.16);
+      --shadow-card-hover: 0 14px 32px rgba(79, 203, 209, 0.22);
 
-      --glass-level-1-bg: rgba(11, 17, 30, 0.82);
-      --glass-level-2-bg: rgba(15, 23, 42, 0.88);
-      --glass-level-3-bg: rgba(15, 23, 42, 0.94);
-      --glass-level-4-bg: rgba(19, 28, 46, 0.97);
-      --vital-grid-line: rgba(34, 211, 238, 0.035);
+      --glass-level-1-bg: rgba(11, 61, 89, 0.82);
+      --glass-level-2-bg: rgba(8, 45, 66, 0.88);
+      --glass-level-3-bg: rgba(8, 45, 66, 0.94);
+      --glass-level-4-bg: rgba(14, 76, 111, 0.97);
+      --vital-grid-line: rgba(79, 203, 209, 0.035);
     }
 
     body {

@@ -34,33 +34,35 @@
        پشتیبانی دوگانه از حالت شب (Dark) و حالت روز (Light)
        ========================================================================== */
     :root, [data-theme="dark"] {
-      --bg-canvas: #060911;
-      --bg-surface: #0A101D;
-      --bg-surface-elevated: #0F172A;
-      --bg-card: #0B132B;
-      --bg-input: #060911;
-      --top-bar-bg: #060911;
-      --sidebar-bg: #080D1A;
+      /* Official PEZESHK-ON Dark Palette: 75% 0B3D59 | 16% 4FCBD1 | 3% E27D2A | 3% E463C6 | 3% FBC448 */
+      --bg-canvas: #061c29;
+      --bg-surface: #0b3d59; /* 75% سرمه ای */
+      --bg-surface-elevated: #0e4c6f;
+      --bg-card: #082d42;
+      --bg-input: #061c29;
+      --top-bar-bg: #072538;
+      --sidebar-bg: #061c29;
       
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-interactive: rgba(0, 255, 255, 0.25);
-      --border-focus: #0073FF;
+      --border-subtle: rgba(79, 203, 209, 0.15);
+      --border-interactive: rgba(79, 203, 209, 0.35);
+      --border-focus: #4fcbd1;
       
-      --color-primary: #0073FF;
-      --color-primary-hover: #0284C7;
-      --color-cyan: #00FFFF;
-      --color-emerald: #00E599;
-      --color-amber: #F59E0B;
-      --color-rose: #EF4444;
+      --color-primary: #4fcbd1; /* 16% فیروزه ای */
+      --color-primary-hover: #3bbcc2;
+      --color-cyan: #4fcbd1;
+      --color-emerald: #8ef75d;
+      --color-amber: #fbc448; /* 3% زرد */
+      --color-orange: #e27d2a; /* 3% نارنجی */
+      --color-rose: #e463c6; /* 3% سرخابی */
       
       --text-primary: #F8FAFC;
-      --text-secondary: #94A3B8;
-      --text-muted: #64748B;
-      --table-border: rgba(255, 255, 255, 0.06);
-      --table-hover: rgba(255, 255, 255, 0.03);
+      --text-secondary: #CBD5E1;
+      --text-muted: #94A3B8;
+      --table-border: rgba(79, 203, 209, 0.10);
+      --table-hover: rgba(79, 203, 209, 0.05);
       --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-      --scrollbar-track: #060911;
-      --scrollbar-thumb: #1E293B;
+      --scrollbar-track: #061c29;
+      --scrollbar-thumb: #0e4c6f;
       
       --radius-sm: 6px;
       --radius-md: 10px;
@@ -70,24 +72,25 @@
     }
 
     [data-theme="light"] {
-      --bg-canvas: #F8FAFC;
+      /* Official PEZESHK-ON Day Palette: 75% C6EEFB | 16% 5EE6ED | 3% 8EF75D | 3% F579D8 | 3% FBC448 */
+      --bg-canvas: #edf9fd;
       --bg-surface: #FFFFFF;
-      --bg-surface-elevated: #F1F5F9;
+      --bg-surface-elevated: #c6eefb;
       --bg-card: #FFFFFF;
       --bg-input: #FFFFFF;
       --top-bar-bg: #FFFFFF;
       --sidebar-bg: #FFFFFF;
       
-      --border-subtle: #E2E8F0;
-      --border-interactive: rgba(0, 112, 224, 0.25);
-      --border-focus: #0070E0;
+      --border-subtle: rgba(11, 61, 89, 0.12);
+      --border-interactive: rgba(94, 230, 237, 0.35);
+      --border-focus: #0b3d59;
       
-      --color-primary: #0070E0;
-      --color-primary-hover: #0056B3;
-      --color-cyan: #0284C7;
-      --color-emerald: #059669;
-      --color-amber: #D97706;
-      --color-rose: #DC2626;
+      --color-primary: #0b3d59; /* 75% سرمه ای */
+      --color-primary-hover: #072130;
+      --color-cyan: #5ee6ed; /* 16% فیروزه ای */
+      --color-emerald: #8ef75d; /* 3% سبز */
+      --color-amber: #fbc448; /* 3% زرد */
+      --color-rose: #F579D8; /* 3% سرخابی */
       
       --text-primary: #0F172A;
       --text-secondary: #475569;
