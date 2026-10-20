@@ -655,6 +655,10 @@ a:hover {
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
   cursor: pointer !important;
   line-height: 1.2 !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  background-repeat: no-repeat !important;
+  background-clip: padding-box !important;
 }
 .auth-capsule-btn span {
   display: inline-block !important;
@@ -662,8 +666,11 @@ a:hover {
 .auth-capsule-btn.auth-patient {
   color: #0066E6 !important;
   background: rgba(0, 115, 255, 0.08) !important;
-  border: 1.5px solid rgba(0, 115, 255, 0.28) !important;
+  border: 1px solid rgba(0, 115, 255, 0.28) !important;
   box-shadow: 0 2px 6px rgba(0, 115, 255, 0.06) !important;
+  background-clip: padding-box !important;
+  background-repeat: no-repeat !important;
+  outline: none !important;
 }
 [data-theme="dark"] .auth-capsule-btn.auth-patient {
   color: #60A5FA !important;
@@ -679,10 +686,17 @@ a:hover {
 }
 .auth-capsule-btn.auth-doctor {
   background: var(--brand-gradient-primary) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  background-clip: padding-box !important;
   color: #FFFFFF !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
-  box-shadow: 0 3px 10px rgba(0, 115, 255, 0.28) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 2px 8px rgba(0, 115, 255, 0.24) !important;
   font-weight: 800 !important;
+  outline: none !important;
+}
+[data-theme="dark"] .auth-capsule-btn.auth-doctor {
+  border-color: rgba(79, 203, 209, 0.25) !important;
 }
 .auth-capsule-btn.auth-doctor:hover {
   box-shadow: 0 6px 16px rgba(0, 115, 255, 0.45) !important;
@@ -6305,6 +6319,10 @@ body.intro-device-locked {
   font-weight: 800 !important;
   border-radius: 10px !important;
   gap: 5px !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  background-repeat: no-repeat !important;
+  background-clip: padding-box !important;
 }
 
 .mobile-menu-toggle {
