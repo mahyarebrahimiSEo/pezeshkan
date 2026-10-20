@@ -97,7 +97,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261020v3">
+  <link rel="stylesheet" href="/shared.css?v=20261020v4">
 </head>
 <body>
 
@@ -915,38 +915,62 @@
 
       <div class="journey-timeline">
         <div class="journey-step">
-          <div class="journey-step-num">۱</div>
-          <span class="journey-step-signal-tag" data-signal="cyan"><span class="signal-node-dot"></span>پذیرش اولیه · نوبت‌دهی</span>
+          <div class="journey-step-top">
+            <div class="journey-step-num">۱</div>
+            <div class="journey-step-icon" title="نوبت‌دهی هوشمند">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+          </div>
           <h4 class="journey-step-title">نوبت‌دهی هوشمند</h4>
           <p class="journey-step-desc">رزرو از سایت با پیامک تایید حاوی لینک لوکیشن و توصیه‌های پیش از ویزیت.</p>
         </div>
         <div class="journey-step">
-          <div class="journey-step-num">۲</div>
-          <span class="journey-step-signal-tag" data-signal="green"><span class="signal-node-dot"></span>ورود به مطب · پذیرش بیمار</span>
+          <div class="journey-step-top">
+            <div class="journey-step-num">۲</div>
+            <div class="journey-step-icon" title="پذیرش بدون صف">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+            </div>
+          </div>
           <h4 class="journey-step-title">پذیرش بدون صف</h4>
           <p class="journey-step-desc">ورود به مطب، ثبت با کارتخوان و تخصیص آنی شماره در مانیتور سالن انتظار.</p>
         </div>
         <div class="journey-step">
-          <div class="journey-step-num">۳</div>
-          <span class="journey-step-signal-tag" data-signal="amber"><span class="signal-node-dot"></span>علائم حیاتی · تریاژ بالینی</span>
+          <div class="journey-step-top">
+            <div class="journey-step-num">۳</div>
+            <div class="journey-step-icon" title="تریاژ بالینی اولیه">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+          </div>
           <h4 class="journey-step-title">تریاژ بالینی اولیه</h4>
           <p class="journey-step-desc">ثبت علائم حیاتی (فشار، وزن، اکسیژن) توسط دستیار در پرونده الکترونیک.</p>
         </div>
         <div class="journey-step">
-          <div class="journey-step-num">۴</div>
-          <span class="journey-step-signal-tag" data-signal="cyan"><span class="signal-node-dot"></span>تشخیص پزشک · معاینه بالینی</span>
+          <div class="journey-step-top">
+            <div class="journey-step-num">۴</div>
+            <div class="journey-step-icon" title="ویزیت با قلم نوری">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+          </div>
           <h4 class="journey-step-title">ویزیت با قلم نوری</h4>
           <p class="journey-step-desc">معاینه پزشک، رسم آناتومی، انتخاب اردرست‌ها با یک کلیک و ثبت کد ICD-10.</p>
         </div>
         <div class="journey-step">
-          <div class="journey-step-num">۵</div>
-          <span class="journey-step-signal-tag" data-signal="red"><span class="signal-node-dot"></span>ایمنی بیمار · پایش نسخه و دارو</span>
+          <div class="journey-step-top">
+            <div class="journey-step-num">۵</div>
+            <div class="journey-step-icon" title="نسخه هوشمند">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+          </div>
           <h4 class="journey-step-title">نسخه هوشمند</h4>
           <p class="journey-step-desc">ارسال خودکار نسخه به بیمه تامین اجتماعی/سلامت همراه با بررسی تداخل دارو.</p>
         </div>
         <div class="journey-step">
-          <div class="journey-step-num">۶</div>
-          <span class="journey-step-signal-tag" data-signal="green"><span class="signal-node-dot"></span>بهبودی کامل · پیگیری درمان</span>
+          <div class="journey-step-top">
+            <div class="journey-step-num">۶</div>
+            <div class="journey-step-icon" title="پیگیری و وفادارسازی">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+          </div>
           <h4 class="journey-step-title">پیگیری و وفادارسازی</h4>
           <p class="journey-step-desc">ارسال برنامه مصرف دارو، پیامک احوال‌پرسی خودکار و یادآوری چکاپ مجدد.</p>
         </div>

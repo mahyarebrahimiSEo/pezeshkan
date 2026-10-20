@@ -2591,48 +2591,143 @@ body.intro-device-locked {
    ========================================================================== */
 .journey-timeline {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
-  margin: 32px 0;
+  margin: 36px 0;
   position: relative;
+}
+
+@media (min-width: 1180px) {
+  .journey-timeline {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+  }
 }
 
 .journey-step {
+  display: flex;
+  flex-direction: column;
   background: var(--bg-surface-primary);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 20px;
+  border-radius: 16px;
+  padding: 22px 18px 24px;
   position: relative;
   text-align: right;
-  border-top: 3px solid var(--brand-primary);
+  border-top: 3.5px solid var(--signal-cyan);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  z-index: 1;
+}
+
+[data-theme="dark"] .journey-step {
+  background: rgba(11, 61, 89, 0.35);
+  border-color: rgba(79, 203, 209, 0.22);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.journey-step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -6px rgba(6, 182, 212, 0.18);
+  border-color: var(--brand-cyan-neon);
+}
+
+.journey-step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .journey-step-num {
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--brand-gradient-primary);
   color: #FFFFFF;
-  font-size: 12px;
+  font-size: 13.5px;
   font-weight: 800;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  box-shadow: 0 0 0 4px rgba(94, 230, 237, 0.2);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  margin-bottom: 0 !important;
+}
+
+[data-theme="dark"] .journey-step-num {
+  box-shadow: 0 0 0 4px rgba(79, 203, 209, 0.24);
+}
+
+.journey-step:nth-child(even) .journey-step-num {
+  background: var(--brand-gradient-vital);
+  box-shadow: 0 0 0 4px rgba(142, 247, 93, 0.2);
+}
+
+[data-theme="dark"] .journey-step:nth-child(even) .journey-step-num {
+  background: var(--brand-gradient-vital);
+  box-shadow: 0 0 0 4px rgba(79, 203, 209, 0.24);
+}
+
+.journey-step-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface-secondary);
+  border: 1px solid var(--glass-border);
+  color: var(--brand-primary);
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+[data-theme="dark"] .journey-step-icon {
+  background: rgba(79, 203, 209, 0.12);
+  border-color: rgba(79, 203, 209, 0.25);
+  color: var(--brand-cyan-neon);
+}
+
+.journey-step-icon .svg-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.journey-step:hover .journey-step-icon {
+  background: var(--brand-gradient-primary);
+  color: #FFFFFF;
+  border-color: transparent;
+  transform: scale(1.08);
 }
 
 .journey-step-title {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 800;
   color: var(--text-pure);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  line-height: 1.35;
 }
 
 .journey-step-desc {
-  font-size: 12px;
+  font-size: 12.2px;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
+  margin: 0;
+  flex-grow: 1;
 }
+
+[data-theme="dark"] .journey-step-desc {
+  color: #94A3B8;
+}
+
+/* Color Accent Progression per Stage */
+.journey-step:nth-child(1) { border-top-color: var(--signal-cyan); }
+.journey-step:nth-child(2) { border-top-color: var(--signal-green); }
+.journey-step:nth-child(3) { border-top-color: var(--signal-amber); }
+.journey-step:nth-child(4) { border-top-color: var(--signal-cyan); }
+.journey-step:nth-child(5) { border-top-color: var(--signal-magenta); }
+.journey-step:nth-child(6) { border-top-color: var(--signal-green); }
 
 /* ==========================================================================
    Pricing Table
@@ -5794,19 +5889,15 @@ body.intro-device-locked {
   box-shadow: 0 0 8px rgba(239, 68, 68, 0.65);
 }
 
-/* Enhanced Journey Timeline Steppers with Semantic Signal Nodes */
-.journey-timeline {
-  position: relative;
-}
-
+/* Enhanced Journey Timeline Steppers */
 .journey-timeline::before {
   content: '';
   position: absolute;
-  top: 34px;
-  left: 24px;
-  right: 24px;
+  top: 39px;
+  left: 32px;
+  right: 32px;
   height: 2px;
-  background: linear-gradient(90deg, var(--signal-green) 0%, var(--signal-cyan) 55%, var(--signal-amber) 100%);
+  background: linear-gradient(90deg, var(--signal-green) 0%, var(--signal-cyan) 50%, var(--signal-amber) 100%);
   opacity: 0.25;
   z-index: 0;
   pointer-events: none;
@@ -5816,59 +5907,6 @@ body.intro-device-locked {
   .journey-timeline::before {
     display: none;
   }
-}
-
-.journey-step {
-  z-index: 1;
-  transition: transform var(--motion-standard) var(--ease-snap), border-color var(--motion-fast) var(--ease-standard), box-shadow var(--motion-standard) var(--ease-standard);
-  border-top: 3px solid var(--signal-cyan);
-}
-
-.journey-step:nth-child(odd) {
-  border-top-color: var(--signal-cyan);
-}
-.journey-step:nth-child(even) {
-  border-top-color: var(--signal-green);
-}
-.journey-step[data-signal="amber"] {
-  border-top-color: var(--signal-amber);
-}
-.journey-step[data-signal="red"] {
-  border-top-color: var(--signal-red);
-}
-
-.journey-step:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px -6px rgba(6, 182, 212, 0.16);
-  border-color: var(--signal-cyan);
-}
-
-.journey-step-num {
-  position: relative;
-  box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.14);
-  font-variant-numeric: tabular-nums;
-}
-
-.journey-step:nth-child(even) .journey-step-num {
-  background: var(--brand-gradient-vital);
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.14);
-}
-
-.journey-step-signal-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10.5px;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  background: rgba(6, 182, 212, 0.10);
-  color: var(--signal-cyan);
-  margin-bottom: 8px;
-}
-.journey-step:nth-child(even) .journey-step-signal-tag {
-  background: rgba(16, 185, 129, 0.10);
-  color: var(--signal-green);
 }
 
 /* 22.4. 10% Console Metaphor: Modular Vital Dial (Circular KPI Gauge) */
@@ -6655,22 +6693,6 @@ body.intro-device-locked {
 [data-theme="dark"] [data-signal="amber"] > .signal-node-code {
   color: #FBBF24 !important;
   background: rgba(245, 158, 11, 0.16) !important;
-}
-
-/* Journey Step Signal Tag Alignment */
-.journey-step-signal-tag {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  padding: 3px 10px !important;
-  border-radius: 9999px !important;
-  margin-bottom: 10px !important;
-}
-.journey-step-signal-tag .signal-node-dot {
-  width: 7px !important;
-  height: 7px !important;
 }
 
 /* Vital Dial Grid & Progress Ring Alignment (3-Column Horizontal Row) */
