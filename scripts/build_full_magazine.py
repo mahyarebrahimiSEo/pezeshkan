@@ -2138,12 +2138,6 @@ html_template = f'''<!DOCTYPE html>
 
     <!-- نمای ۳: ریدر مطالعه کامل مقاله -->
     <div id="viewArticleReaderArea" style="display: none; padding-bottom: 60px;">
-      <div style="margin-bottom: 24px;">
-        <button class="btn-ui btn-subtle-outline" onclick="showMainHub()">
-          {icons['arrow_left']}
-          <span>بازگشت به فهرست مقالات</span>
-        </button>
-      </div>
       <div class="reader-layout-grid" id="articleReaderContent"></div>
     </div>
 
