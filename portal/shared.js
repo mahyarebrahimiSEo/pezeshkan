@@ -1157,7 +1157,7 @@ function setupScrollRevealTargets() {
   ];
 
   // Auto-tag children inside grids with staggered animation delays
-  document.querySelectorAll('.grid-2, .grid-3, .grid-4, .journey-timeline, .features-grid, .faq-list, .footer-grid, .vital-dial-grid').forEach(parent => {
+  document.querySelectorAll('.grid-2, .grid-3, .grid-4, .journey-timeline, .features-grid, .faq-list, .vital-dial-grid').forEach(parent => {
     Array.from(parent.children).forEach((child, idx) => {
       if (!child.classList.contains('reveal-on-scroll')) {
         child.classList.add('reveal-on-scroll');
@@ -1267,14 +1267,17 @@ function initSmoothScroll() {
   }
   requestAnimationFrame(raf);
 
-  // Debounced auto-resize for Lenis when page layout changes height
+  // Debounced auto-resize for Lenis (strictly suspended during active scroll to eliminate end-of-page jank)
   if (typeof ResizeObserver !== 'undefined' && document.body) {
     let resizeTimer = null;
     const ro = new ResizeObserver(() => {
-      if (resizeTimer) cancelAnimationFrame(resizeTimer);
-      resizeTimer = requestAnimationFrame(() => {
-        lenis.resize();
-      });
+      if (lenis.isScrolling) return; // Never recalculate layout during active user scrolling
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (!lenis.isScrolling) {
+          lenis.resize();
+        }
+      }, 200);
     });
     ro.observe(document.body);
   }

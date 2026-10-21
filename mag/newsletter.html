@@ -1274,11 +1274,14 @@
        Lenis Inertial Smooth Scroll & Container Smoothness (اسکرول نرم سراسری مجله)
        ========================================================================== */
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: auto !important;
     }
+    html,
     html.lenis,
+    body,
     html.lenis body {
       height: auto;
+      overscroll-behavior-y: none;
     }
     .lenis.lenis-smooth {
       scroll-behavior: auto !important;
@@ -2607,8 +2610,15 @@
 
         // هماهنگ‌سازی خودکار ارتفاع صفحه هنگام تغییر بخش‌ها در SPA مجله
         if (typeof ResizeObserver !== 'undefined' && document.body) {
+          let resizeTimer = null;
           const ro = new ResizeObserver(() => {
-            lenis.resize();
+            if (lenis.isScrolling) return;
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+              if (!lenis.isScrolling) {
+                lenis.resize();
+              }
+            }, 200);
           });
           ro.observe(document.body);
         }

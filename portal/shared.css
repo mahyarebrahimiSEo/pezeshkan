@@ -248,13 +248,17 @@ ul, ol, li, table, thead, tbody, tr, th, td {
   font-family: var(--font-family) !important;
 }
 
-/* Smooth Scroll & Lenis Momentum Architecture */
+/* Smooth Scroll & Lenis Momentum Architecture (Zero Lag End-of-Page) */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto !important;
 }
 
-html.lenis, html.lenis body {
+html,
+html.lenis,
+body,
+html.lenis body {
   height: auto;
+  overscroll-behavior-y: none;
 }
 
 .lenis.lenis-smooth {
@@ -2533,7 +2537,8 @@ a:hover {
 
 .reveal-on-scroll.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  will-change: auto;
 }
 
 .reveal-stagger-1 { transition-delay: 0.08s; }
