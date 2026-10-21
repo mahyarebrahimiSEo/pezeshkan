@@ -752,7 +752,7 @@ a:hover {
   background-size: 100% 100% !important;
   background-clip: padding-box !important;
   background-origin: padding-box !important;
-  border: 1px solid transparent !important;
+  border: none !important;
   outline: none !important;
   color: #FFFFFF !important;
   box-shadow: var(--shadow-neon-blue) !important;
@@ -784,7 +784,7 @@ a:hover {
   background-size: 100% 100% !important;
   background-clip: padding-box !important;
   background-origin: padding-box !important;
-  border: 1px solid transparent !important;
+  border: none !important;
   outline: none !important;
   color: #FFFFFF !important;
   box-shadow: var(--shadow-neon-emerald) !important;
@@ -2942,11 +2942,33 @@ body.intro-device-locked {
   box-shadow: 0 16px 40px -6px rgba(0, 115, 255, 0.22);
 }
 
+.pricing-card .btn {
+  box-sizing: border-box !important;
+  background-repeat: no-repeat !important;
+  background-clip: padding-box !important;
+  background-origin: padding-box !important;
+  outline: none !important;
+  overflow: hidden !important;
+}
+
+.pricing-card .btn.btn-primary {
+  border: none !important;
+  background: var(--brand-gradient-primary) !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+}
+
 .popular-badge {
   position: absolute;
   top: -14px;
   right: 24px;
-  background: var(--brand-gradient-primary);
+  background: var(--brand-gradient-primary) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  background-clip: padding-box !important;
+  border: none !important;
+  overflow: hidden !important;
+  outline: none !important;
   color: #FFFFFF;
   font-size: 11.5px;
   font-weight: 800;
