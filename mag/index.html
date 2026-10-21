@@ -1491,7 +1491,7 @@
       font-size: 26px;
       font-weight: 900;
       line-height: 1.5;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
       color: #FFFFFF;
     }
     .hero-desc-text {
@@ -1584,7 +1584,7 @@
       font-weight: 800;
       color: var(--text-heading);
       line-height: 1.6;
-      margin-bottom: 8px;
+      margin: 0 0 8px 0;
     }
     .secondary-meta-text {
       font-size: 11.5px;
@@ -1907,7 +1907,7 @@
       font-weight: 800;
       color: var(--text-heading);
       line-height: 1.6;
-      margin-bottom: 10px;
+      margin: 0 0 10px 0;
     }
     .mag-summary {
       font-size: 13px;
@@ -2012,20 +2012,11 @@
       display: grid;
       grid-template-columns: 280px 1fr;
       gap: 32px;
-    }
-    @media (max-width: 900px) {
-      .reader-layout-grid {
-        grid-template-columns: 1fr;
-      }
-      .reader-article-body {
-        grid-column: 1;
-      }
-      .reader-sidebar {
-        grid-column: 1;
-      }
+      align-items: start;
     }
     .reader-sidebar {
       grid-column: 1;
+      grid-row: 1;
       position: sticky;
       top: 140px;
       background: #FFFFFF;
@@ -2037,11 +2028,27 @@
     }
     .reader-article-body {
       grid-column: 2;
+      grid-row: 1;
       background: #FFFFFF;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-xl);
       padding: 36px;
       box-shadow: var(--shadow-sm);
+    }
+    @media (max-width: 900px) {
+      .reader-layout-grid {
+        grid-template-columns: 1fr;
+      }
+      .reader-article-body {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .reader-sidebar {
+        grid-column: 1;
+        grid-row: 2;
+        position: static;
+        top: auto;
+      }
     }
     .reader-hero-img {
       width: 100%;
@@ -4665,9 +4672,9 @@
       
       <!-- ۰. عنوان شاخص و تیتر اصلی مجله سلامت پزشکآن -->
       <div class="mag-hub-hero-banner" style="margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
-        <div class="mag-hub-main-title" style="font-size: 24px; font-weight: 900; color: var(--text-heading); line-height: 1.45; margin: 0 0 8px 0;" role="heading" aria-level="2">
+        <h1 class="mag-hub-main-title" style="font-size: 24px; font-weight: 900; color: var(--text-heading); line-height: 1.45; margin: 0 0 8px 0;">
           مجله سلامت پزشکآن؛ دانشنامه و راهنمای تخصصی پزشکی و خودمراقبتی
-        </div>
+        </h1>
         <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 0;">
           مرجع جامع آموزش‌های بالینی، پروتکل‌های درمانی، هشدارهای دارویی و نشریات تخصصی سلامت تحت نظارت هیئت علمی
         </p>
@@ -4690,7 +4697,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
                 <span>ستون فقرات و مفاصل</span>
               </span>
-              <h3 class="hero-title-text">راهنمای بالینی درمان غیرجراحی دیسک کمر و سیاتیک: از شاک‌ویو تا لیزر پرتوان</h3>
+              <p class="hero-title-text">راهنمای بالینی درمان غیرجراحی دیسک کمر و سیاتیک: از شاک‌ویو تا لیزر پرتوان</p>
               <p class="hero-desc-text">بررسی علمی پروتکل‌های طب فیزیکی بدون نیاز به بیهوشی و تیغ جراحی، همراه با علائم هشداردهنده سندرم دم اسب و بازتوانی مفاصل.</p>
               <div class="hero-meta-row">
                 <span style="display:flex; align-items:center; gap:6px;">
@@ -4718,7 +4725,7 @@
                 </span>
               </div>
               <div class="secondary-card-body">
-                <h3 class="secondary-title-text">غربالگری سه ماهه اول بارداری؛ مقایسه تست ترکیبی با آزمایش سل‌فری (NIPT)</h3>
+                <p class="secondary-title-text">غربالگری سه ماهه اول بارداری؛ مقایسه تست ترکیبی با آزمایش سل‌فری (NIPT)</p>
                 <div class="secondary-meta-text">
                   <span>تیم متخصص محتوا نویس پزشکآن</span>
                   <span>•</span>
@@ -4736,7 +4743,7 @@
                 </span>
               </div>
               <div class="secondary-card-body">
-                <h3 class="secondary-title-text">تریاژ دردهای حاد قفسه سینه؛ تمایز حمله قلبی از ریفلاکس معده و اسپاسم</h3>
+                <p class="secondary-title-text">تریاژ دردهای حاد قفسه سینه؛ تمایز حمله قلبی از ریفلاکس معده و اسپاسم</p>
                 <div class="secondary-meta-text">
                   <span>تیم متخصص محتوا نویس پزشکآن</span>
                   <span>•</span>
@@ -4754,7 +4761,7 @@
                 </span>
               </div>
               <div class="secondary-card-body">
-                <h3 class="secondary-title-text">تزریق پی‌آر‌پی (PRP) زانو؛ معجزه غضروف‌سازی یا تسکین موقت آرتروز؟</h3>
+                <p class="secondary-title-text">تزریق پی‌آر‌پی (PRP) زانو؛ معجزه غضروف‌سازی یا تسکین موقت آرتروز؟</p>
                 <div class="secondary-meta-text">
                   <span>تیم متخصص محتوا نویس پزشکآن</span>
                   <span>•</span>
@@ -4772,7 +4779,7 @@
                 </span>
               </div>
               <div class="secondary-card-body">
-                <h3 class="secondary-title-text">مدیریت قند خون و دیابت نوع ۲؛ از متفورمین و اوزمپیک تا اصلاح سبک زندگی</h3>
+                <p class="secondary-title-text">مدیریت قند خون و دیابت نوع ۲؛ از متفورمین و اوزمپیک تا اصلاح سبک زندگی</p>
                 <div class="secondary-meta-text">
                   <span>تیم متخصص محتوا نویس پزشکآن</span>
                   <span>•</span>
@@ -4792,7 +4799,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12l2 2l4-4"/></g></svg>
           </div>
           <div class="strip-details">
-            <h3 class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">بررسی و صحه‌گذاری پزشکی</h3>
+            <p class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">بررسی و صحه‌گذاری پزشکی</p>
             <p>مقالات مستقیماً توسط متخصصان دارای کد نظام پزشکی بازبینی و تایید می‌شوند.</p>
           </div>
         </div>
@@ -4801,7 +4808,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4"/><path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"/><path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></g></svg>
           </div>
           <div class="strip-details">
-            <h3 class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">اتصال مستقیم به مطب و بیمارستان</h3>
+            <p class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">اتصال مستقیم به مطب و بیمارستان</p>
             <p>امکان دریافت فوری نوبت آنلاین یا مشاوره بالینی با نویسنده مقاله.</p>
           </div>
         </div>
@@ -4810,7 +4817,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></g></svg>
           </div>
           <div class="strip-details">
-            <h3 class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">دانشنامه و مرجع سلامت</h3>
+            <p class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">دانشنامه و مرجع سلامت</p>
             <p>بیش از ۳۴۰ سرفصل تشخیصی، دارویی و درمانی به‌روز و بدون اصطلاحات پیچیده.</p>
           </div>
         </div>
@@ -5323,7 +5330,7 @@ function escapeHtml(str) {
               ${mainTagIcon}
               <span>${mainTag}</span>
             </span>
-            <h3 class="hero-title-text">${mainArt.title}</h3>
+            <p class="hero-title-text">${mainArt.title}</p>
             <p class="hero-desc-text">${mainArt.summary}</p>
             <div class="hero-meta-row">
               <span style="display:flex; align-items:center; gap:6px;">
@@ -5356,7 +5363,7 @@ function escapeHtml(str) {
               </span>
             </div>
             <div class="secondary-card-body">
-              <h3 class="secondary-title-text">${sec.title}</h3>
+              <p class="secondary-title-text">${sec.title}</p>
               <div class="secondary-meta-text">
                 <span>${(sec.author && sec.author.name) || 'تیم متخصص محتوا نویس پزشکآن'}</span>
                 <span>•</span>
@@ -5592,7 +5599,7 @@ function applyArticlesData(data) {
             <div class="dept-card-header">
               <div class="dept-card-icon">${catIcon}</div>
               <div class="dept-card-meta">
-                <h3>${cat.name}</h3>
+                <h3>${cat.name}</p>
                 <span>${cat.dept}</span>
               </div>
             </div>
@@ -5648,7 +5655,7 @@ function applyArticlesData(data) {
 
           <div class="article-card-body">
             <div>
-              <h3 class="mag-title">${art.title}</h3>
+              <p class="mag-title">${art.title}</p>
               <p class="mag-summary">${art.summary}</p>
             </div>
             <div class="mag-author-footer">
@@ -5699,9 +5706,9 @@ function applyArticlesData(data) {
               </span>
             </div>
 
-            <h3 style="font-size: 15.5px; font-weight: 800; color: #FFFFFF; line-height: 1.55; margin-bottom: 8px;">
+            <p style="font-size: 15.5px; font-weight: 800; color: #FFFFFF; line-height: 1.55; margin-bottom: 8px;">
               ${escapeHtml(issue.title)}
-            </h3>
+            </p>
 
             <p style="font-size: 13px; color: #CBD5E1; line-height: 1.8; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
               ${escapeHtml(issue.summary || '')}
@@ -6041,7 +6048,7 @@ function applyArticlesData(data) {
             </span>
           </div>
           <div class="article-card-body">
-            <h3 class="mag-title">${art.title}</h3>
+            <p class="mag-title">${art.title}</p>
             <p class="mag-summary">${art.summary}</p>
             <div class="mag-author-footer">
               <span>${art.author.name}</span>
@@ -6116,7 +6123,7 @@ function applyArticlesData(data) {
 
         <div class="section-head-bar" style="margin-top:30px;">
           <div>
-            <h3 style="font-size:19px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نسخه‌ها و ویژه‌نامه‌های رسمی منتشر شده</h3>
+            <h3 style="font-size:19px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نسخه‌ها و ویژه‌نامه‌های رسمی منتشر شده</p>
             <span style="font-size:12.5px; color:var(--text-secondary);">برای مطالعه آنلاین هر شماره روی کارت آن کلیک نمایید</span>
           </div>
           <a href="/mag/newsletter" style="font-size:12.5px; color:var(--color-primary); font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
@@ -6166,7 +6173,7 @@ function applyArticlesData(data) {
                 <span>&bull;</span>
                 <span style="color:var(--text-secondary);">${escapeHtml(issue.category || 'خبرنامه سلامت')}</span>
               </div>
-              <h3 class="mag-title">${escapeHtml(issue.title)}</h3>
+              <p class="mag-title">${escapeHtml(issue.title)}</p>
               <p class="mag-summary">${escapeHtml(issue.summary || '')}</p>
             </div>
             <div class="mag-author-footer">
@@ -6331,7 +6338,7 @@ function applyArticlesData(data) {
               <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:16px;">پرسش‌های پرتکرار بیماران (FAQ)</h2>
               ${art.faqs.map(f => `
                 <div style="margin-bottom:14px; border-bottom:1px dashed var(--border-color); padding-bottom:12px;">
-                  <h3 style="display:flex; align-items:center; gap:6px; color:var(--text-heading); font-size:14px; margin-bottom:6px; font-weight:800;"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg> <span>${f.q}</span></h3>
+                  <h3 style="display:flex; align-items:center; gap:6px; color:var(--text-heading); font-size:14px; margin-bottom:6px; font-weight:800;"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg> <span>${f.q}</span></p>
                   <p style="color:var(--text-body); font-size:13.5px; line-height:1.8; margin:0;">${f.a}</p>
                 </div>
               `).join('')}
@@ -6374,7 +6381,7 @@ function applyArticlesData(data) {
 
           <div class="reader-cta-card" style="margin-top:24px;">
             <div>
-              <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</h3>
+              <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</p>
               <p style="font-size:12.5px; color:var(--text-secondary);">می‌توانید مستقیماً آزمایش‌ها و گزارش‌های تصویربرداری خود را جهت ارزیابی به پزشکان متخصص پزشکآن ارسال فرمایید.</p>
             </div>
             <button class="btn-ui btn-primary-gradient" onclick="openBookingDrawer()">
@@ -6385,7 +6392,7 @@ function applyArticlesData(data) {
         </article>
 
         <aside class="reader-sidebar">
-          <div style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:14px;" role="heading" aria-level="2">فهرست مطالب مقاله</div>
+          <div style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:14px;" >فهرست مطالب مقاله</div>
           <ul style="list-style:none; padding:0; margin-bottom:24px;">${tocHtml}</ul>
           
           <!-- باکس نویسنده و تاییدیه علمی در ستون کناری -->
