@@ -162,6 +162,8 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       
       --text-heading: #0b3d59;
       --text-body: #1E3A4C;
+      --text-primary: #1E3A4C;
+      --border-subtle: #E2E8F0;
       --text-secondary: #527993;
       --text-muted: #89AABF;
       
@@ -4047,6 +4049,8 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
 
       --text-heading: #F8FAFC;
       --text-body: #CBD5E1;
+      --text-primary: #F8FAFC;
+      --border-subtle: rgba(255, 255, 255, 0.1);
       --text-secondary: #94A3B8;
       --text-muted: #64748B;
 
@@ -4522,31 +4526,22 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
     }
 
   
-    /* ================= CLINICAL RESPONSIVE TABLES IN ARTICLES ================= */
-    .article-rich-content .clinical-table-responsive {
+    /* ================= CLINICAL RESPONSIVE TABLES IN ARTICLES (DAY & NIGHT THEMES) ================= */
+    .article-rich-content .clinical-table-responsive,
+    .article-rich-content .table-responsive {
       width: 100% !important;
       overflow-x: auto !important;
       -webkit-overflow-scrolling: touch !important;
       margin: 28px 0 !important;
       border-radius: 12px !important;
-      border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1)) !important;
-      background: var(--bg-surface, rgba(15, 23, 42, 0.6)) !important;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15) !important;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
-    .article-rich-content .clinical-table-responsive::-webkit-scrollbar {
+    .article-rich-content .clinical-table-responsive::-webkit-scrollbar,
+    .article-rich-content .table-responsive::-webkit-scrollbar {
       height: 8px;
     }
-    .article-rich-content .clinical-table-responsive::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.5);
-      border-radius: 4px;
-    }
-    .article-rich-content .clinical-table-responsive::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.3);
-      border-radius: 4px;
-    }
-    .article-rich-content .clinical-table-responsive::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.6);
-    }
+
+    .article-rich-content table,
     .article-rich-content .clinical-table {
       width: 100% !important;
       min-width: 520px !important;
@@ -4554,33 +4549,135 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       text-align: right !important;
       direction: rtl !important;
       font-size: 14.5px !important;
-      color: var(--text-primary, #F8FAFC) !important;
+      line-height: 1.75 !important;
     }
+    .article-rich-content table th,
     .article-rich-content .clinical-table th {
-      background: rgba(56, 189, 248, 0.12) !important;
-      color: #38BDF8 !important;
       font-weight: 800 !important;
       padding: 14px 18px !important;
-      border-bottom: 2px solid rgba(56, 189, 248, 0.35) !important;
       white-space: nowrap !important;
       font-size: 14px !important;
       text-align: right !important;
     }
+    .article-rich-content table td,
     .article-rich-content .clinical-table td {
       padding: 13px 18px !important;
-      border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08)) !important;
-      color: var(--text-primary, #F8FAFC) !important;
       line-height: 1.75 !important;
       vertical-align: middle !important;
     }
-    .article-rich-content .clinical-table tbody tr:nth-child(even) {
-      background: rgba(255, 255, 255, 0.02) !important;
-    }
-    .article-rich-content .clinical-table tbody tr:hover {
-      background: rgba(56, 189, 248, 0.05) !important;
-    }
+    .article-rich-content table tbody tr:last-child td,
     .article-rich-content .clinical-table tbody tr:last-child td {
       border-bottom: none !important;
+    }
+
+    /* ---------------- DAY MODE (حالت روز / تم روشن) ---------------- */
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table-responsive,
+    html:not([data-theme="dark"]) .article-rich-content .table-responsive {
+      border: 1px solid #CBD5E1 !important;
+      background: #FFFFFF !important;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+    }
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table-responsive::-webkit-scrollbar-track,
+    html:not([data-theme="dark"]) .article-rich-content .table-responsive::-webkit-scrollbar-track {
+      background: #F1F5F9 !important;
+      border-radius: 4px;
+    }
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table-responsive::-webkit-scrollbar-thumb,
+    html:not([data-theme="dark"]) .article-rich-content .table-responsive::-webkit-scrollbar-thumb {
+      background: #CBD5E1 !important;
+      border-radius: 4px;
+    }
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table-responsive::-webkit-scrollbar-thumb:hover,
+    html:not([data-theme="dark"]) .article-rich-content .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8 !important;
+    }
+
+    html:not([data-theme="dark"]) .article-rich-content table,
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table {
+      color: #0F172A !important;
+    }
+    html:not([data-theme="dark"]) .article-rich-content table th,
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table th {
+      background: #E0F2FE !important;
+      color: #0369A1 !important;
+      border-bottom: 2px solid #BAE6FD !important;
+    }
+    html:not([data-theme="dark"]) .article-rich-content table th *,
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table th * {
+      color: #0369A1 !important;
+    }
+    html:not([data-theme="dark"]) .article-rich-content table td,
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table td {
+      border-bottom: 1px solid #E2E8F0 !important;
+      color: #1E293B !important;
+      background: transparent !important;
+    }
+    html:not([data-theme="dark"]) .article-rich-content table td *,
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table td * {
+      color: #1E293B !important;
+    }
+    html:not([data-theme="dark"]) .article-rich-content table tbody tr:nth-child(even),
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table tbody tr:nth-child(even) {
+      background: #F8FAFC !important;
+    }
+    html:not([data-theme="dark"]) .article-rich-content table tbody tr:hover,
+    html:not([data-theme="dark"]) .article-rich-content .clinical-table tbody tr:hover {
+      background: #F0FDF4 !important;
+    }
+
+    /* ---------------- NIGHT MODE (حالت شب / تم تیره) ---------------- */
+    [data-theme="dark"] .article-rich-content .clinical-table-responsive,
+    [data-theme="dark"] .article-rich-content .table-responsive {
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      background: rgba(15, 23, 42, 0.7) !important;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+    }
+    [data-theme="dark"] .article-rich-content .clinical-table-responsive::-webkit-scrollbar-track,
+    [data-theme="dark"] .article-rich-content .table-responsive::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5) !important;
+      border-radius: 4px;
+    }
+    [data-theme="dark"] .article-rich-content .clinical-table-responsive::-webkit-scrollbar-thumb,
+    [data-theme="dark"] .article-rich-content .table-responsive::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.3) !important;
+      border-radius: 4px;
+    }
+    [data-theme="dark"] .article-rich-content .clinical-table-responsive::-webkit-scrollbar-thumb:hover,
+    [data-theme="dark"] .article-rich-content .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.6) !important;
+    }
+
+    [data-theme="dark"] .article-rich-content table,
+    [data-theme="dark"] .article-rich-content .clinical-table {
+      color: #F8FAFC !important;
+    }
+    [data-theme="dark"] .article-rich-content table th,
+    [data-theme="dark"] .article-rich-content .clinical-table th {
+      background: rgba(56, 189, 248, 0.12) !important;
+      color: #38BDF8 !important;
+      border-bottom: 2px solid rgba(56, 189, 248, 0.35) !important;
+    }
+    [data-theme="dark"] .article-rich-content table th *,
+    [data-theme="dark"] .article-rich-content .clinical-table th * {
+      color: #38BDF8 !important;
+    }
+    [data-theme="dark"] .article-rich-content table td,
+    [data-theme="dark"] .article-rich-content .clinical-table td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      color: #F8FAFC !important;
+      background: transparent !important;
+    }
+    [data-theme="dark"] .article-rich-content table td *,
+    [data-theme="dark"] .article-rich-content .clinical-table td * {
+      color: #F8FAFC !important;
+    }
+    [data-theme="dark"] .article-rich-content table tbody tr:nth-child(even),
+    [data-theme="dark"] .article-rich-content .clinical-table tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02) !important;
+    }
+    [data-theme="dark"] .article-rich-content table tbody tr:hover,
+    [data-theme="dark"] .article-rich-content .clinical-table tbody tr:hover {
+      background: rgba(56, 189, 248, 0.06) !important;
     }
 
 </style>
