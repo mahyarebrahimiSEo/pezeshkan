@@ -2107,7 +2107,7 @@ a:hover {
 .rail-dt-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   direction: rtl;
 }
@@ -2140,65 +2140,30 @@ a:hover {
   color: #94A3B8;
 }
 
-.rail-dt-tz {
-  font-family: 'Orbitron', 'JetBrains Mono', monospace !important;
-  font-size: 9.5px;
-  font-weight: 800;
-  color: #0284C7;
-  background: rgba(2, 132, 199, 0.08);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(2, 132, 199, 0.15);
-  letter-spacing: 0.5px;
-}
-
-[data-theme="dark"] .rail-dt-tz {
-  color: #00F0FF;
-  background: rgba(0, 240, 255, 0.08);
-  border-color: rgba(0, 240, 255, 0.2);
-}
-
 .rail-dt-clock-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  padding: 2px 0;
+  padding: 4px 0;
 }
 
 .rail-dt-clock {
   font-family: 'Orbitron', 'JetBrains Mono', monospace !important;
-  font-size: 20px !important;
-  font-weight: 800 !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
   color: #0C2B36;
   direction: ltr !important;
-  letter-spacing: 1.2px !important;
+  letter-spacing: 1.5px !important;
   font-variant-numeric: tabular-nums;
   line-height: 1;
+  text-align: center;
+  display: inline-block;
 }
 
 [data-theme="dark"] .rail-dt-clock {
   color: #00F0FF !important;
   text-shadow: 0 0 12px rgba(0, 240, 255, 0.55), 0 0 2px rgba(255, 255, 255, 0.8) !important;
-}
-
-.rail-dt-live-tag {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 10.5px;
-  font-weight: 800;
-  color: #047857;
-  background: rgba(4, 120, 87, 0.08);
-  padding: 3px 6px;
-  border-radius: 6px;
-  border: 1px solid rgba(4, 120, 87, 0.18);
-}
-
-[data-theme="dark"] .rail-dt-live-tag {
-  color: #34D399;
-  background: rgba(52, 211, 153, 0.1);
-  border-color: rgba(52, 211, 153, 0.25);
 }
 
 .rail-dt-footer {

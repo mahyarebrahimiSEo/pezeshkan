@@ -35,7 +35,7 @@
   }
   </script>
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261021v13">
+  <link rel="stylesheet" href="/shared.css?v=20261021v14">
 </head>
 <body>
 
@@ -606,7 +606,7 @@
   <script src="/three.min.js"></script>
   <script src="/gsap.min.js"></script>
   <script src="/lenis.min.js"></script>
-  <script src="/shared.js?v=20261011v8"></script>
+  <script src="/shared.js?v=20261021v14"></script>
   <script>
     // Default Fallback Doctors List (Synced with /api/doctors and mag/content/doctors.json)
     const CLINICAL_DOC_SVG = '<svg class="svg-icon" style="width:26px;height:26px;color:var(--brand-primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>';
@@ -619,7 +619,7 @@
         dept: "کلینیک طب فیزیکی و توانبخشی",
         rating: "۴.۹",
         reviewsCount: 412,
-        avatar: "",
+        avatar: "/mag/uploads/doctors/dr-radmanesh.webp",
         available: "امروز - ساعت ۱۷:۳۰",
         workHours: "شنبه تا چهارشنبه - ۱۶:۰۰ الی ۲۰:۳۰",
         address: "تهران، خیابان ولیعصر، نرسیده به میدان ونک، ساختمان پزشکان نگین، طبقه ۴",
@@ -635,7 +635,7 @@
         dept: "کلینیک تغذیه بالینی و گوارش",
         rating: "۴.۸",
         reviewsCount: 328,
-        avatar: "",
+        avatar: "/mag/uploads/doctors/dr-tabatabaei.webp",
         available: "فردا - ساعت ۱۰:۰۰",
         workHours: "یکشنبه، سه‌شنبه و پنجشنبه - ۰۹:۳۰ الی ۱۴:۰۰",
         address: "تهران، بلوار کشاورز، جنب بیمارستان پارس، کلینیک تخصصی سلامت، طبقه ۲",
@@ -651,7 +651,7 @@
         dept: "کلینیک تخصصی درماتولوژی",
         rating: "۴.۹",
         reviewsCount: 519,
-        avatar: "",
+        avatar: "/mag/uploads/doctors/dr-kiyani.webp",
         available: "امروز - ساعت ۱۸:۱۵",
         workHours: "شنبه تا چهارشنبه - ۱۵:۰۰ الی ۲۰:۰۰",
         address: "تهران، زعفرانیه، خیابان مقدس اردبیلی، پلاک ۵۴، واحد ۹",
@@ -667,7 +667,7 @@
         dept: "دپارتمان سلامت روان و خواب",
         rating: "۴.۹",
         reviewsCount: 276,
-        avatar: "",
+        avatar: "/mag/uploads/doctors/dr-farahmand.webp",
         available: "امروز - ساعت ۱۹:۰۰",
         workHours: "شنبه تا پنجشنبه - ۱۶:۰۰ الی ۲۱:۰۰",
         address: "تهران، شهرک غرب، بلوار فرحزادی، تقاطع دریا، مجتمع پزشکی ایرانیان، طبقه ۵",
@@ -683,7 +683,7 @@
         dept: "مرکز قلب و عروق پزشکآن",
         rating: "۵.۰",
         reviewsCount: 640,
-        avatar: "",
+        avatar: "/mag/uploads/doctors/dr-parsa.webp",
         available: "فردا - ساعت ۱۶:۰۰",
         workHours: "شنبه، دوشنبه و چهارشنبه - ۱۵:۳۰ الی ۲۰:۳۰",
         address: "تهران، خیابان شریعتی، بالاتر از میرداماد، روبروی مترو شریعتی، ساختمان پزشکان سینا",
@@ -808,8 +808,8 @@
           ? doc.services
           : ['ویزیت حضوری مطب', 'مشاوره آنلاین'];
 
-        const avatarStr = (doc.avatar && (doc.avatar.startsWith('http') || doc.avatar.startsWith('/')))
-          ? `<img src="${escAptHtml(doc.avatar)}" alt="${escAptHtml(doc.name)}">`
+        const avatarStr = (doc.avatar && (doc.avatar.startsWith('http') || doc.avatar.startsWith('/') || doc.avatar.startsWith('data:image/')))
+          ? `<img src="${escAptHtml(doc.avatar)}" alt="${escAptHtml(doc.name)}" onerror="this.onerror=null; this.parentElement.innerHTML=CLINICAL_DOC_SVG;">`
           : CLINICAL_DOC_SVG;
 
         return `

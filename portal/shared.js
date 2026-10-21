@@ -1371,44 +1371,61 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
 });
 
-// 7.1. Live Persian Date, Day & Digital Time Rail Widget
+// 7.1. Live Persian Date, Day & Digital Time Rail Widget (Asia/Tehran)
 function initLiveDateTimeRail() {
   const clockEl = document.getElementById('railLiveClock');
   const dayEl = document.getElementById('railLiveDay');
   const dateEl = document.getElementById('railLiveDate');
   if (!clockEl && !dayEl && !dateEl) return;
 
-  const dateFormatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
-    timeZone: 'Asia/Tehran',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-
-  const weekdayFormatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
-    timeZone: 'Asia/Tehran',
-    weekday: 'long'
-  });
+  let dateFormatter, weekdayFormatter;
+  try {
+    dateFormatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+      timeZone: 'Asia/Tehran',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    weekdayFormatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+      timeZone: 'Asia/Tehran',
+      weekday: 'long'
+    });
+  } catch (e) {}
 
   function update() {
     const now = new Date();
     
-    // Time: formatted as HH:mm:ss in Tehran timezone
-    const tehranTimeStr = now.toLocaleTimeString('en-GB', {
-      timeZone: 'Asia/Tehran',
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
+    // High-precision Tehran Time (Hour:Minute:Second)
+    let tehranTimeStr = '';
+    try {
+      tehranTimeStr = now.toLocaleTimeString('en-GB', {
+        timeZone: 'Asia/Tehran',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    } catch (e) {}
+
+    // Fallback if browser locale lacks Asia/Tehran
+    if (!tehranTimeStr || tehranTimeStr.length < 7) {
+      const tehranMillis = now.getTime() + (3.5 * 3600000) + (now.getTimezoneOffset() * 60000);
+      const t = new Date(tehranMillis);
+      const hh = String(t.getHours()).padStart(2, '0');
+      const mm = String(t.getMinutes()).padStart(2, '0');
+      const ss = String(t.getSeconds()).padStart(2, '0');
+      tehranTimeStr = `${hh}:${mm}:${ss}`;
+    }
 
     if (clockEl) clockEl.textContent = tehranTimeStr;
-    if (dayEl) dayEl.textContent = weekdayFormatter.format(now);
-    if (dateEl) dateEl.textContent = dateFormatter.format(now);
+    if (dayEl && weekdayFormatter) dayEl.textContent = weekdayFormatter.format(now);
+    if (dateEl && dateFormatter) dateEl.textContent = dateFormatter.format(now);
   }
 
   update();
-  setInterval(update, 1000);
+  if (!window._railClockTimer) {
+    window._railClockTimer = setInterval(update, 1000);
+  }
 }
 
 // 7.2. Persian Number Formatter & Hero Digital Counters

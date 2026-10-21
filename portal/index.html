@@ -98,7 +98,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261021v13">
+  <link rel="stylesheet" href="/shared.css?v=20261021v14">
 </head>
 <body>
 
@@ -784,21 +784,16 @@
           </div>
 
           <!-- Live Date, Day & Digital Time Box (Liquid Glass) -->
-          <div class="pez-rail-datetime-card" aria-label="زمان و تقویم رسمی سامانه">
+          <div class="pez-rail-datetime-card" aria-label="ساعت و تقویم رسمی به وقت تهران">
             <div class="rail-dt-header">
               <div class="rail-dt-status">
                 <span class="rail-dt-pulse" aria-hidden="true"></span>
-                <span class="rail-dt-badge">زمان و نوبت‌دهی رسمی</span>
+                <span class="rail-dt-badge">ساعت رسمی (تهران)</span>
               </div>
-              <span class="rail-dt-tz">IRST</span>
             </div>
 
             <div class="rail-dt-clock-row">
-              <span class="rail-dt-clock" id="railLiveClock">00:00:00</span>
-              <span class="rail-dt-live-tag">
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:11px; height:11px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>زنده</span>
-              </span>
+              <span class="rail-dt-clock" id="railLiveClock">12:20:00</span>
             </div>
 
             <div class="rail-dt-footer">
@@ -806,6 +801,27 @@
               <div class="rail-dt-date" id="railLiveDate">۲۹ مهر ۱۴۰۵</div>
             </div>
           </div>
+          <script>
+            (function(){
+              function tick(){
+                try {
+                  var el = document.getElementById('railLiveClock');
+                  if (!el) return;
+                  var now = new Date();
+                  var str = '';
+                  try {
+                    str = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Tehran', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                  } catch(e){}
+                  if (!str || str.length < 7) {
+                    var t = new Date(now.getTime() + (3.5 * 3600000) + (now.getTimezoneOffset() * 60000));
+                    str = String(t.getHours()).padStart(2,'0') + ':' + String(t.getMinutes()).padStart(2,'0') + ':' + String(t.getSeconds()).padStart(2,'0');
+                  }
+                  el.textContent = str;
+                } catch(e){}
+              }
+              tick();
+            })();
+          </script>
         </div>
       </aside>
 
@@ -1348,7 +1364,7 @@
 
   <script src="/gsap.min.js"></script>
   <script src="/lenis.min.js"></script>
-  <script src="/shared.js?v=20261017v1"></script>
+  <script src="/shared.js?v=20261021v14"></script>
 </body>
 </html>
 
