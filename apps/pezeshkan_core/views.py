@@ -55,7 +55,6 @@ def is_admin(request):
         return True
     return False
 
-
 MIME_MAP = {
     ".css": "text/css; charset=utf-8",
     ".js": "application/javascript; charset=utf-8",
@@ -516,7 +515,7 @@ def api_articles(request, slug=None):
             article.save()
             created = False
         else:
-            # Create new article
+            # Create brand new article
             final_id = art_id or f"art_{int(datetime.now().timestamp())}"
             article = Article.objects.create(
                 custom_id=final_id,
@@ -725,127 +724,217 @@ def api_site_images(request):
         if not is_admin(request):
             return JsonResponse({"error": "Unauthorized"}, status=403)
         data = read_json(request)
-        art_id = str(data.get("id") or "").strip()
-        art_slug = str(data.get("slug") or "").strip()
-        db_id = data.get("dbId")
 
-        # 1. Look up existing article by dbId, custom_id, or slug (WordPress-style)
-        article = None
-        if db_id:
-            try:
-                article = Article.objects.filter(id=int(db_id)).first()
-            except (ValueError, TypeError):
-                pass
+        images = load_site_images()
+        images_by_key = {item["key"]: item for item in images if isinstance(item, dict) and "key" in item}
 
-        if not article and art_id:
-            article = Article.objects.filter(custom_id=art_id).first()
-            if not article and art_id.isdigit():
-                article = Article.objects.filter(id=int(art_id)).first()
-
-        if not article and art_slug:
-            article = Article.objects.filter(slug=art_slug).first()
-
-        # Determine target slug
-        if not art_slug:
-            if article and article.slug:
-                art_slug = article.slug
+        incoming_list = data if isinstance(data, list) else data.get("images")
+        if incoming_list and isinstance(incoming_list, list):
+            for item in incoming_list:
+                k = item.get("key")
+                if k and k in images_by_key:
+                    images_by_key[k]["currentUrl"] = item.get("currentUrl", images_by_key[k]["currentUrl"])
+                    if "title" in item:
+                        images_by_key[k]["title"] = item["title"]
+                    if "description" in item:
+                        images_by_key[k]["description"] = item["description"]
+                elif k:
+                    images_by_key[k] = item
+            final_images = list(images_by_key.values())
+        elif isinstance(data, dict) and "key" in data:
+            k = data["key"]
+            if k in images_by_key:
+                images_by_key[k]["currentUrl"] = data.get("currentUrl", images_by_key[k]["currentUrl"])
             else:
-                art_slug = f"article-{art_id or int(datetime.now().timestamp())}"
-
-        # Ensure slug uniqueness among OTHER articles (WordPress slug deduplication)
-        existing_with_slug = Article.objects.filter(slug=art_slug)
-        if article:
-            existing_with_slug = existing_with_slug.exclude(id=article.id)
-        if existing_with_slug.exists():
-            base_slug = art_slug
-            counter = 2
-            while Article.objects.filter(slug=f"{base_slug}-{counter}").exclude(id=article.id if article else -1).exists():
-                counter += 1
-            art_slug = f"{base_slug}-{counter}"
-
-        # If updating existing article, track old slug for 301 redirects
-        old_slugs = data.get("oldSlugs", [])
-        if not isinstance(old_slugs, list):
-            old_slugs = []
-        if article and article.slug and article.slug != art_slug:
-            if article.slug not in old_slugs:
-                old_slugs.append(article.slug)
-
-        # Prepare field values
-        author_val = data.get("author")
-        if isinstance(author_val, dict):
-            author_str = author_val.get("name") or "تیم تحریریه پزشکان"
+                images_by_key[k] = data
+            final_images = list(images_by_key.values())
         else:
-            author_str = str(author_val or "تیم تحریریه پزشکان")
+            final_images = images
 
-        defaults = {
-            "title": data.get("title", ""),
-            "summary": data.get("summary", ""),
-            "raw_html": data.get("rawHtml", ""),
-            "content_html": data.get("contentHtml", data.get("rawHtml", "")),
-            "image": data.get("image", ""),
-            "image_alt": data.get("imageAlt", ""),
-            "pillar_id": str(data.get("pillarId", "")),
-            "category_name": data.get("categoryName", ""),
-            "category_icon": data.get("categoryIcon", ""),
-            "doctor_id": str(data.get("doctorId", "")),
-            "author": author_str,
-            "read_time": data.get("readTime", "۵ دقیقه"),
-            "last_reviewed": data.get("lastReviewed", ""),
-            "tag": data.get("tag", ""),
-            "tag_class": data.get("tagClass", ""),
-            "status": data.get("status", "published"),
-            "meta_title": data.get("metaTitle", ""),
-            "meta_description": data.get("metaDescription", ""),
-            "focus_keyword": data.get("focusKeyword", ""),
-            "faqs": data.get("faqs", []),
-            "schema_type": data.get("schemaType", "MedicalWebPage"),
-            "old_slugs": old_slugs,
-            "schema_data": data.get("schemaData", {}),
-            "custom_schema_json": data.get("customSchemaJson", ""),
-        }
+        save_site_images(final_images)
+        return JsonResponse({"success": True, "images": final_images})
 
-        if article:
-            # Update existing article in place (WordPress-style)
-            for k, v in defaults.items():
-                setattr(article, k, v)
-            article.slug = art_slug
-            if art_id and not article.custom_id:
-                article.custom_id = art_id
-            article.save()
-            created = False
+    return JsonResponse({"error": "Method not allowed"}, status=405)
+
+
+# ==============================================================================
+# 6. Media Library & File Upload APIs
+# ==============================================================================
+
+@csrf_exempt
+def api_upload(request):
+    """
+    Universal media upload endpoint for Pezeshkan Medical Ecosystem.
+    Accepts multipart/form-data (file, image) and JSON base64 payloads.
+    Optimizes images using Pillow (WebP/JPEG) and registers MediaItem.
+    """
+    if request.method != "POST":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+
+    raw_bytes = None
+    filename = None
+    alt_text = ""
+    caption = ""
+
+    # 1. Check multipart/form-data
+    if request.FILES:
+        uploaded = request.FILES.get("file") or request.FILES.get("image")
+        if uploaded:
+            filename = uploaded.name
+            raw_bytes = uploaded.read()
+            alt_text = request.POST.get("alt", "").strip() or filename
+            caption = request.POST.get("caption", "").strip()
+
+    # 2. Check JSON payload with base64 data
+    if not raw_bytes:
+        data = read_json(request)
+        if data and data.get("data"):
+            filename = data.get("filename") or f"upload_{int(datetime.now().timestamp())}.webp"
+            alt_text = data.get("alt", "").strip() or filename
+            caption = data.get("caption", "").strip()
+            b64_str = data.get("data")
+            if "," in b64_str:
+                b64_str = b64_str.split(",", 1)[1]
+            try:
+                raw_bytes = base64.b64decode(b64_str)
+            except Exception as e:
+                return JsonResponse({"error": f"Invalid base64 data: {e}"}, status=400)
+
+    if not raw_bytes or not filename:
+        return JsonResponse({"error": "هیچ فایلی ارسال نشده است"}, status=400)
+
+    now = datetime.now()
+    year_str = str(now.year)
+    month_str = f"{now.month:02d}"
+
+    # Route doctor photos to mag/uploads/doctors
+    is_doctor_photo = any(k in filename.lower() for k in ['doctor', 'dr-', 'dr_', 'pezeshk', 'avatar'])
+    if is_doctor_photo:
+        target_dir = settings.BASE_DIR / 'mag' / 'uploads' / 'doctors'
+        base_url_prefix = "/mag/uploads/doctors"
+    else:
+        target_dir = settings.BASE_DIR / 'mag' / 'uploads' / year_str / month_str
+        base_url_prefix = f"/mag/uploads/{year_str}/{month_str}"
+
+    os.makedirs(target_dir, exist_ok=True)
+
+    clean_name = re.sub(r'[^a-zA-Z0-9_\-\.]', '_', filename)
+    stem = Path(clean_name).stem
+    ext = Path(clean_name).suffix.lower()
+    if not ext:
+        ext = ".webp"
+
+    save_filename = f"{stem}_{int(now.timestamp())}{ext}"
+    save_path = target_dir / save_filename
+
+    # Optimize with Pillow if it's an image
+    file_size = len(raw_bytes)
+    fmt = ext.lstrip('.')
+    if HAS_PILLOW:
+        try:
+            img = Image.open(io.BytesIO(raw_bytes))
+            if ext == '.webp':
+                out_io = io.BytesIO()
+                img.save(out_io, 'WEBP', quality=88, method=6)
+                raw_bytes = out_io.getvalue()
+                file_size = len(raw_bytes)
+            elif ext in ('.jpg', '.jpeg'):
+                img = img.convert('RGB')
+                out_io = io.BytesIO()
+                img.save(out_io, 'JPEG', quality=88, optimize=True)
+                raw_bytes = out_io.getvalue()
+                file_size = len(raw_bytes)
+        except Exception:
+            pass
+
+    with open(save_path, "wb") as f:
+        f.write(raw_bytes)
+
+    file_url = f"{base_url_prefix}/{save_filename}"
+
+    # Save MediaItem in DB
+    media_item = MediaItem.objects.create(
+        custom_id=f"med_{int(now.timestamp())}",
+        filename=save_filename,
+        url=file_url,
+        alt=alt_text,
+        caption=caption,
+        format=fmt,
+        size=file_size,
+        original_size=file_size,
+        storage="local"
+    )
+
+    # Sync to mag/content/media.json
+    try:
+        media_json_path = settings.BASE_DIR / 'mag' / 'content' / 'media.json'
+        if media_json_path.exists():
+            with open(media_json_path, 'r', encoding='utf-8') as f:
+                media_list = json.load(f)
         else:
-            # Create new article
-            final_id = art_id or f"art_{int(datetime.now().timestamp())}"
-            article = Article.objects.create(
-                custom_id=final_id,
-                slug=art_slug,
-                **defaults
-            )
-            created = True
+            media_list = []
+        media_list.insert(0, media_item.to_dict())
+        with open(media_json_path, 'w', encoding='utf-8') as f:
+            json.dump(media_list, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
 
-        all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
-        return JsonResponse({"success": True, "created": created, "article": article.to_dict(), "articles": all_articles})
+    return JsonResponse({
+        "success": True,
+        "url": file_url,
+        "media": media_item.to_dict()
+    })
+
+
+@csrf_exempt
+def api_media(request):
+    if request.method == "GET":
+        items = [m.to_dict() for m in MediaItem.objects.all().order_by('-id')]
+        return JsonResponse(items, safe=False)
+
+    elif request.method == "POST":
+        return api_upload(request)
+
+    return JsonResponse({"error": "Method not allowed"}, status=405)
+
+
+# ==============================================================================
+# 7. SEO Redirects APIs
+# ==============================================================================
+
+@csrf_exempt
+def api_redirects(request):
+    if request.method == "GET":
+        rules = [r.to_dict() for r in Redirect.objects.all().order_by('-id')]
+        return JsonResponse(rules, safe=False)
+
+    elif request.method in ("POST", "PUT"):
+        if not is_admin(request):
+            return JsonResponse({"error": "Unauthorized"}, status=403)
+        data = read_json(request)
+        rule_id = data.get("id") or f"red_{int(datetime.now().timestamp())}"
+
+        rule, _ = Redirect.objects.update_or_create(
+            source=data.get("source", "").strip(),
+            defaults={
+                "custom_id": str(rule_id),
+                "target": data.get("target", "").strip(),
+                "status_code": int(data.get("statusCode", 301) or 301),
+                "match_type": data.get("matchType", "exact"),
+                "preserve_query": bool(data.get("preserveQuery", True)),
+                "is_active": bool(data.get("isActive", True)),
+                "description": data.get("description", ""),
+            }
+        )
+        all_rules = [r.to_dict() for r in Redirect.objects.all().order_by('-id')]
+        return JsonResponse({"success": True, "rule": rule.to_dict(), "rules": all_rules})
 
     elif request.method == "DELETE":
         if not is_admin(request):
             return JsonResponse({"error": "Unauthorized"}, status=403)
-
-        empty_trash = request.GET.get("empty_trash")
-        if empty_trash in ("true", "1", "yes"):
-            deleted_count, _ = Article.objects.filter(status="trash").delete()
-            all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
-            return JsonResponse({"success": True, "deleted": deleted_count, "articles": all_articles})
-
-        art_id = request.GET.get("id") or slug
-        if art_id:
-            query = models.Q(custom_id=art_id) | models.Q(slug=art_id)
-            if str(art_id).isdigit():
-                query |= models.Q(id=int(art_id))
-            Article.objects.filter(query).delete()
-
-        all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
-        return JsonResponse({"success": True, "articles": all_articles})
+        rule_id = request.GET.get("id")
+        Redirect.objects.filter(models.Q(custom_id=rule_id) | models.Q(id=rule_id if str(rule_id).isdigit() else 0)).delete()
+        return JsonResponse({"success": True})
 
     return JsonResponse({"error": "Method not allowed"}, status=405)
 
