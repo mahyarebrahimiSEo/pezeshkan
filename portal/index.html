@@ -98,7 +98,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261021v9">
+  <link rel="stylesheet" href="/shared.css?v=20261021v10">
 </head>
 <body>
 
@@ -780,6 +780,30 @@
             <div class="pez-rail-trust-item">
               <span class="rail-trust-val">۲۴/۷</span>
               <span class="rail-trust-lbl">پشتیبانی و پایش</span>
+            </div>
+          </div>
+
+          <!-- Live Date, Day & Digital Time Box (Liquid Glass) -->
+          <div class="pez-rail-datetime-card" aria-label="زمان و تقویم رسمی سامانه">
+            <div class="rail-dt-header">
+              <div class="rail-dt-status">
+                <span class="rail-dt-pulse" aria-hidden="true"></span>
+                <span class="rail-dt-badge">زمان و نوبت‌دهی رسمی</span>
+              </div>
+              <span class="rail-dt-tz">IRST</span>
+            </div>
+
+            <div class="rail-dt-clock-row">
+              <span class="rail-dt-clock" id="railLiveClock">00:00:00</span>
+              <span class="rail-dt-live-tag">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:11px; height:11px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>زنده</span>
+              </span>
+            </div>
+
+            <div class="rail-dt-footer">
+              <div class="rail-dt-day" id="railLiveDay">چهارشنبه</div>
+              <div class="rail-dt-date" id="railLiveDate">۲۹ مهر ۱۴۰۵</div>
             </div>
           </div>
         </div>

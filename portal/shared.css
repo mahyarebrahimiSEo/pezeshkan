@@ -1993,26 +1993,26 @@ a:hover {
   filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.5));
 }
 
-/* Trust Card at bottom of Rail - Preserved as a distinct card per user instruction */
+/* Trust Card in Right Rail - Upgraded to Liquid Glass */
 .pez-rail-trust {
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 8px 10px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(136, 165, 173, 0.35);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  margin-top: 14px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.58) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 4px 16px rgba(12, 43, 54, 0.05);
+  margin-top: 10px !important;
   box-sizing: border-box;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 [data-theme="dark"] .pez-rail-trust {
-  background: rgba(11, 25, 38, 0.85);
-  border-color: rgba(80, 113, 126, 0.45);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, rgba(17, 41, 54, 0.68) 0%, rgba(9, 24, 32, 0.82) 100%);
+  border-color: rgba(0, 240, 255, 0.22);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 .pez-rail-trust-item {
@@ -2043,8 +2043,191 @@ a:hover {
 }
 
 [data-theme="dark"] .rail-trust-val {
-  color: #22D3EE !important;
-  text-shadow: 0 0 6px rgba(34, 211, 238, 0.35);
+  color: #38BDF8;
+}
+
+/* Live Date, Day & Digital Clock Card in Right Rail (Liquid Glass) */
+.pez-rail-datetime-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.58) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 2px 0 rgba(0, 115, 255, 0.04), 0 6px 20px rgba(12, 43, 54, 0.06);
+  margin-top: 10px !important;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.pez-rail-datetime-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 115, 255, 0.35);
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 1), 0 10px 24px -2px rgba(0, 115, 255, 0.1);
+}
+
+[data-theme="dark"] .pez-rail-datetime-card {
+  background: linear-gradient(135deg, rgba(17, 41, 54, 0.68) 0%, rgba(9, 24, 32, 0.82) 100%);
+  border-color: rgba(0, 240, 255, 0.25);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 2px 0 rgba(0, 240, 255, 0.12), 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .pez-rail-datetime-card:hover {
+  border-color: rgba(0, 240, 255, 0.45);
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.25), 0 10px 28px rgba(0, 240, 255, 0.15);
+}
+
+.pez-rail-datetime-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .pez-rail-datetime-card::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 240, 255, 0.45) 50%, transparent 100%);
+}
+
+.rail-dt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  direction: rtl;
+}
+
+.rail-dt-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rail-dt-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00E599;
+  box-shadow: 0 0 8px rgba(0, 229, 153, 0.85);
+  animation: ecg-pulse-glow 2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.rail-dt-badge {
+  font-family: var(--font-sans) !important;
+  font-size: 11px;
+  font-weight: 800;
+  color: #335E6D;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .rail-dt-badge {
+  color: #94A3B8;
+}
+
+.rail-dt-tz {
+  font-family: 'Orbitron', 'JetBrains Mono', monospace !important;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #0284C7;
+  background: rgba(2, 132, 199, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(2, 132, 199, 0.15);
+  letter-spacing: 0.5px;
+}
+
+[data-theme="dark"] .rail-dt-tz {
+  color: #00F0FF;
+  background: rgba(0, 240, 255, 0.08);
+  border-color: rgba(0, 240, 255, 0.2);
+}
+
+.rail-dt-clock-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2px 0;
+}
+
+.rail-dt-clock {
+  font-family: 'Orbitron', 'JetBrains Mono', monospace !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #0C2B36;
+  direction: ltr !important;
+  letter-spacing: 1.2px !important;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+[data-theme="dark"] .rail-dt-clock {
+  color: #00F0FF !important;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.55), 0 0 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+.rail-dt-live-tag {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #047857;
+  background: rgba(4, 120, 87, 0.08);
+  padding: 3px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(4, 120, 87, 0.18);
+}
+
+[data-theme="dark"] .rail-dt-live-tag {
+  color: #34D399;
+  background: rgba(52, 211, 153, 0.1);
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+.rail-dt-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  direction: rtl;
+  padding-top: 6px;
+  border-top: 1px solid rgba(136, 165, 173, 0.18);
+}
+
+[data-theme="dark"] .rail-dt-footer {
+  border-top-color: rgba(80, 113, 126, 0.22);
+}
+
+.rail-dt-day {
+  font-family: var(--font-sans) !important;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0284C7;
+}
+
+[data-theme="dark"] .rail-dt-day {
+  color: #38BDF8;
+}
+
+.rail-dt-date {
+  font-family: var(--font-sans) !important;
+  font-size: 11px;
+  font-weight: 700;
+  color: #476877;
+}
+
+[data-theme="dark"] .rail-dt-date {
+  color: #94A3B8;
 }
 
 .rail-trust-lbl {

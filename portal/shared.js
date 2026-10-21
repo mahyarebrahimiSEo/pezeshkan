@@ -1350,6 +1350,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Hero Digital Counter Animations (4 cards)
   initHeroCounters();
 
+  // Live Persian Date, Day & Digital Time Rail Widget
+  initLiveDateTimeRail();
+
   // Initialize Three.js 3D Diagnostic Console (if container exists)
   if (document.getElementById('threeDeviceContainer') && typeof THREE !== 'undefined') {
     window.pezeshkan3D = new Pezeshkan3DConsole('threeDeviceContainer');
@@ -1367,6 +1370,46 @@ document.addEventListener('DOMContentLoaded', () => {
   // Premium Inertial Smooth Scroll
   initSmoothScroll();
 });
+
+// 7.1. Live Persian Date, Day & Digital Time Rail Widget
+function initLiveDateTimeRail() {
+  const clockEl = document.getElementById('railLiveClock');
+  const dayEl = document.getElementById('railLiveDay');
+  const dateEl = document.getElementById('railLiveDate');
+  if (!clockEl && !dayEl && !dateEl) return;
+
+  const dateFormatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+    timeZone: 'Asia/Tehran',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  const weekdayFormatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+    timeZone: 'Asia/Tehran',
+    weekday: 'long'
+  });
+
+  function update() {
+    const now = new Date();
+    
+    // Time: formatted as HH:mm:ss in Tehran timezone
+    const tehranTimeStr = now.toLocaleTimeString('en-GB', {
+      timeZone: 'Asia/Tehran',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+
+    if (clockEl) clockEl.textContent = tehranTimeStr;
+    if (dayEl) dayEl.textContent = weekdayFormatter.format(now);
+    if (dateEl) dateEl.textContent = dateFormatter.format(now);
+  }
+
+  update();
+  setInterval(update, 1000);
+}
 
 // 7.2. Persian Number Formatter & Hero Digital Counters
 function toPersianDigits(n) {

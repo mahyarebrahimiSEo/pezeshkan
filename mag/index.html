@@ -5958,8 +5958,16 @@ function applyArticlesData(data) {
       currentCategoryId = idx;
       if (window.lenis) { window.lenis.scrollTo(0, { duration: 1.1 }); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-      document.getElementById('viewHubMain').style.display = 'none';
-      document.getElementById('viewArticleReaderArea').style.display = 'none';
+      const hubEl = document.getElementById('viewHubMain');
+      if (hubEl) {
+        if (!window._cachedHubContent && hubEl.innerHTML.trim().length > 100) {
+          window._cachedHubContent = hubEl.innerHTML;
+        }
+        hubEl.innerHTML = '';
+        hubEl.style.display = 'none';
+      }
+      const readerEl = document.getElementById('viewArticleReaderArea');
+      if (readerEl) readerEl.style.display = 'none';
       document.getElementById('viewCategoryArea').style.display = 'block';
 
       if (pushState && window.history && window.history.pushState) {
@@ -5997,7 +6005,7 @@ function applyArticlesData(data) {
           <div style="display:flex; align-items:center; gap:16px; margin-bottom:14px;">
             <div class="dept-card-icon" style="width:54px; height:54px; font-size:26px;">${catIcon}</div>
             <div>
-              <h1 style="font-size:22px; font-weight:900; color:var(--text-heading); margin:0;">${cat.name}</h1>
+              <h2 style="font-size:22px; font-weight:900; color:var(--text-heading); margin:0;">${cat.name}</h2>
               <span style="font-size:12px; color:var(--text-secondary);">${cat.dept}</span>
             </div>
           </div>
@@ -6101,7 +6109,7 @@ function applyArticlesData(data) {
                   <span style="width:6px; height:6px; border-radius:50%; background:#00E599;"></span>
                   <span>دپارتمان نشر اختصاصی و نشریات سلامت</span>
                 </div>
-                <h1 style="font-size:23px; font-weight:900; color:var(--text-heading); margin:0;">${cat.name}</h1>
+                <h2 style="font-size:23px; font-weight:900; color:var(--text-heading); margin:0;">${cat.name}</h2>
                 <span style="font-size:12.5px; color:var(--text-secondary);">${cat.dept}</span>
               </div>
             </div>
@@ -6270,8 +6278,16 @@ function applyArticlesData(data) {
       if (!art) return;
       if (window.lenis) { window.lenis.scrollTo(0, { duration: 1.1 }); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-      document.getElementById('viewHubMain').style.display = 'none';
-      document.getElementById('viewCategoryArea').style.display = 'none';
+      const hubEl = document.getElementById('viewHubMain');
+      if (hubEl) {
+        if (!window._cachedHubContent && hubEl.innerHTML.trim().length > 100) {
+          window._cachedHubContent = hubEl.innerHTML;
+        }
+        hubEl.innerHTML = '';
+        hubEl.style.display = 'none';
+      }
+      const catEl = document.getElementById('viewCategoryArea');
+      if (catEl) catEl.style.display = 'none';
       document.getElementById('viewArticleReaderArea').style.display = 'block';
 
       const canonicalSlug = art.slug || art.id;
@@ -6541,9 +6557,21 @@ function applyArticlesData(data) {
     // بازگشت به صفحه اصلی مجله
     function showMainHub(pushState = true) {
       if (window.lenis) { window.lenis.scrollTo(0, { duration: 1.1 }); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-      document.getElementById('viewCategoryArea').style.display = 'none';
-      document.getElementById('viewArticleReaderArea').style.display = 'none';
-      document.getElementById('viewHubMain').style.display = 'block';
+      const catEl = document.getElementById('viewCategoryArea');
+      if (catEl) catEl.style.display = 'none';
+      const readerEl = document.getElementById('viewArticleReaderArea');
+      if (readerEl) readerEl.style.display = 'none';
+
+      const hubEl = document.getElementById('viewHubMain');
+      if (hubEl) {
+        if (window._cachedHubContent && hubEl.innerHTML.trim().length === 0) {
+          hubEl.innerHTML = window._cachedHubContent;
+        } else if (!window._cachedHubContent && hubEl.innerHTML.trim().length === 0) {
+          window.location.href = '/mag';
+          return;
+        }
+        hubEl.style.display = 'block';
+      }
       updateSubcategoryStrip(null);
 
       if (pushState && window.history && window.history.pushState) {
