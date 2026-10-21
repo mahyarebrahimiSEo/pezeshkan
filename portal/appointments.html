@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>نوبت‌دهی مطب و لیست پزشکان متخصص | سامانه نوبت‌دهی آنلاین پزشکآن</title>
   <meta name="description" content="نوبت‌دهی آنلاین مطب و لیست پزشکان متخصص و فوق‌تخصص پزشکآن. مشاهده آدرس مطب، ساعات کاری، شماره نظام پزشکی و رزرو اینترنتی نوبت حضوری یا مشاوره آنلاین.">
   <meta name="keywords" content="نوبت دهی مطب, لیست پزشکان, رزرو نوبت پزشک, نوبت دهی اینترنتی پزشکآن, آدرس مطب پزشکان, نوبت حضوری مطب">
@@ -35,7 +35,7 @@
   }
   </script>
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261021v11">
+  <link rel="stylesheet" href="/shared.css?v=20261021v12">
 </head>
 <body>
 
@@ -503,7 +503,7 @@
           <select id="aptVisitType" class="appointments-search-input" style="padding:10px 14px; font-size:13px;"></select>
         </div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div class="apt-modal-form-grid">
           <div>
             <label for="aptPatientName" style="display:block; font-size:12.2px; font-weight:800; color:var(--text-pure); margin-bottom:5px;">نام و نام خانوادگی بیمار *:</label>
             <input type="text" id="aptPatientName" class="appointments-search-input" style="padding:10px 12px; font-size:13px;" required placeholder="مثال: علی محمدی">
@@ -519,7 +519,7 @@
           <input type="text" id="aptPatientNotes" class="appointments-search-input" style="padding:10px 12px; font-size:13px;" placeholder="کد ملی جهت ثبت نسخه الکترونیک بیمه یا شرح کوتاه علائم">
         </div>
 
-        <div style="display:flex; gap:10px; justify-content:flex-end;">
+        <div class="apt-modal-actions">
           <button type="button" class="btn btn-secondary" onclick="closeClinicBookingModal()">انصراف</button>
           <button type="submit" class="btn btn-primary" id="aptSubmitBtn" style="padding:11px 24px;">
             <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>

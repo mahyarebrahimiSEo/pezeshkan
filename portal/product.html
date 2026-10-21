@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>معرفی محصول و ماژول‌ها | اکوسیستم سلامت دیجیتال پزشکآن</title>
   <meta name="description" content="معرفی سامانه یکپارچه مدیریت مطب و پرونده الکترونیک سلامت (EMR) پزشکآن؛ پذیرش آنلاین، نوبت‌دهی هوشمند، پرونده بالینی و اتوماسیون مالی مطب.">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -53,7 +53,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261021v11">
+  <link rel="stylesheet" href="/shared.css?v=20261021v12">
 </head>
 <body>
 
@@ -405,7 +405,7 @@
       
       <!-- Module 1: EMR -->
       <div class="panel-card" style="margin-bottom:32px;">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;">
+        <div class="product-module-grid">
           <div>
             <span class="section-pill-tag">ماژول شماره ۱</span>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">پرونده الکترونیک سلامت (EMR) با قلم نوری</h2>
@@ -427,8 +427,8 @@
 
       <!-- Module 2: AI Clinical Copilot -->
       <div class="panel-card" style="margin-bottom:32px;" id="ai">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;">
-          <div style="order:2;">
+        <div class="product-module-grid">
+          <div class="product-module-content" style="order:2;">
             <span class="section-pill-tag" style="background:rgba(5,150,105,0.1); color:#059669;">ماژول شماره ۲</span>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">دستیار بالینی هوش مصنوعی (AI Clinical Copilot)</h2>
             <p style="color:var(--text-secondary); line-height:1.9; margin-bottom:18px;">
@@ -440,7 +440,7 @@
               <li style="display:flex; gap:8px; align-items:center;"><svg class="svg-icon" style="width:14px; height:14px; color:#059669; flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> صفر کردن خطاهای ناخواسته دارویی و کاهش دعاوی حقوقی پزشکی</li>
             </ul>
           </div>
-          <div style="order:1; background:var(--bg-canvas); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:24px; text-align:center;">
+          <div class="product-module-preview" style="order:1; background:var(--bg-canvas); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:24px; text-align:center;">
             <div style="font-size:12px; color:#059669; font-weight:800; margin-bottom:10px;">پایش تداخلات و هشدارهای تشخیصی</div>
             <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=600&q=80" alt="AI Copilot" style="width:100%; height:240px; object-fit:cover; border-radius:var(--radius-md);">
           </div>
@@ -449,7 +449,7 @@
 
       <!-- Module 3: Reception Desk -->
       <div class="panel-card" style="margin-bottom:32px;">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;">
+        <div class="product-module-grid">
           <div>
             <span class="section-pill-tag">ماژول شماره ۳</span>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">میزکار منشی و سیستم پذیرش پوز متصل</h2>
@@ -471,8 +471,8 @@
 
       <!-- Module 4: Patient Portal -->
       <div class="panel-card" style="margin-bottom:32px;">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;">
-          <div style="order:2;">
+        <div class="product-module-grid">
+          <div class="product-module-content" style="order:2;">
             <span class="section-pill-tag">ماژول شماره ۴</span>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">پورتال اختصاصی و اپلیکیشن پرونده بیمار</h2>
             <p style="color:var(--text-secondary); line-height:1.9; margin-bottom:18px;">
@@ -484,7 +484,7 @@
               <li style="display:flex; gap:8px; align-items:center;"><svg class="svg-icon" style="width:14px; height:14px; color:#059669; flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ثبت رضایت‌سنجی و نظرسنجی درمان برای تقویت برند مطب</li>
             </ul>
           </div>
-          <div style="order:1; background:var(--bg-canvas); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:24px; text-align:center;">
+          <div class="product-module-preview" style="order:1; background:var(--bg-canvas); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:24px; text-align:center;">
             <div style="font-size:12px; color:var(--brand-primary); font-weight:800; margin-bottom:10px;">پورتال موبایلی بیمار</div>
             <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80" alt="Patient Portal" style="width:100%; height:240px; object-fit:cover; border-radius:var(--radius-md);">
           </div>

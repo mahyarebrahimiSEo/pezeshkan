@@ -287,7 +287,14 @@ button, input, select, textarea {
   font-feature-settings: 'tnum' 1;
 }
 
-/* Enhanced typography feel */
+/* Universal Responsive Safeguards & Enhanced typography feel */
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+p, span, h1, h2, h3, h4, h5, h6, a, button, label, li {
+  overflow-wrap: break-word;
+}
 h1, h2, h3, .section-h2, .hero-title {
   text-wrap: balance;
 }
@@ -3539,17 +3546,6 @@ body.intro-device-locked {
 }
 
 @media (max-width: 1280px) {
-  .main-nav {
-    display: none !important;
-  }
-  .mobile-menu-toggle {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-  }
   .grid-3 {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -4272,6 +4268,8 @@ body.intro-device-locked {
   flex-wrap: wrap;
 }
 .doctor-cta-actions .btn {
+  padding: 13px 26px;
+  font-size: 14.5px;
   background-repeat: no-repeat !important;
   background-size: 100% 100% !important;
   background-clip: padding-box !important;
@@ -4722,7 +4720,9 @@ body.intro-device-locked {
     gap: 10px;
   }
   .doctor-cta-actions .btn {
-    width: 100%;
+    width: 100% !important;
+    padding: 12px 14px !important;
+    font-size: 13.5px !important;
     justify-content: center;
     white-space: normal;
     text-align: center;
@@ -7810,3 +7810,62 @@ body.intro-device-locked {
 }
 
 
+
+/* ==========================================================================
+   28. Responsive System Extensions (Product Grid, Modal Forms & Ultra-mobile)
+   ========================================================================== */
+.product-module-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .product-module-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+@media (max-width: 899px) {
+  .product-module-grid .product-module-content {
+    order: 1 !important;
+  }
+  .product-module-grid .product-module-preview {
+    order: 2 !important;
+  }
+}
+
+.apt-modal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (min-width: 480px) {
+  .apt-modal-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.apt-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+@media (max-width: 440px) {
+  .apt-modal-actions {
+    flex-direction: column-reverse;
+  }
+  .apt-modal-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .doctor-cta-actions .btn {
+    padding: 10px 8px !important;
+    font-size: 12px !important;
+  }
+}
