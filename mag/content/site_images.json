@@ -132,17 +132,6 @@
     "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
   },
   {
-    "key": "mag_hero_lead",
-    "title": "تصویر مقاله شاخص و هدر مجله سلامت",
-    "description": "تصویر بزرگ اصلی در بالای صفحه نخست مجله سلامت پزشکآن",
-    "page": "mag",
-    "pageTitle": "مجله سلامت",
-    "defaultUrl": "/mag/uploads/2026/10/11_1792235748_d87d26a0.webp",
-    "currentUrl": "/mag/uploads/2026/10/11_1792235748_d87d26a0.webp",
-    "selector": "[data-img-slot='mag_hero_lead']",
-    "dimensions": "۸۰۰×۴۵۰ px نسبت تصویر ۱۶:۹"
-  },
-  {
     "key": "about_team_banner",
     "title": "تصویر تیم پزشکی در درباره ما",
     "description": "تصویر معرفی پزشکان و زیرساخت در صفحه درباره پزشکآن",

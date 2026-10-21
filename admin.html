@@ -3123,7 +3123,7 @@
         </li>
         <li class="sidebar-item" id="menu-site-images" onclick="switchTab('site-images')">
           <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/><path d="M14 8h.01"/><path d="M3 16l4-4a2 2 0 0 1 2.8 0L12 14"/></svg>
-          <span>تصاویر صفحات سایت</span>
+          <span>تصاویر سایت اصلی</span>
         </li>
         <li class="sidebar-item" id="menu-newsletters" onclick="switchTab('newsletters')">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -4739,10 +4739,10 @@
         <div class="section-header-box">
           <div class="section-title-wrap">
             <h2>
-              <span>مدیریت تصاویر، بنرها و هویت بصری صفحات سایت</span>
-              <span class="admin-badge-clinical" id="siteImagesTotalBadge" style="background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3);">۱۵ اسلات فعال</span>
+              <span>مدیریت تصاویر و بنرهای صفحات سایت اصلی</span>
+              <span class="admin-badge-clinical" id="siteImagesTotalBadge" style="background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3);">۱۴ اسلات فعال پورتال</span>
             </h2>
-            <p>تغییر، بارگذاری و انتخاب زنده تصاویر صفحات اصلی پورتال (لوگو، هدر، فوتر، صفحه اصلی، محصولات، مجله سلامت و ...) با ذخیره مستقیم در سرور و بازتاب بلادرنگ در صفحات وب‌سایت</p>
+            <p>تنظیم، بارگذاری و انتخاب زنده تصاویر و بنرهای صفحات وب‌سایت اصلی پزشکآن (لوگو، هدر، فوتر، صفحه اصلی، محصولات، درباره ما و ...). تصاویر مقالات مجله سلامت به صورت اختصاصی از بخش نوشته‌ها و مقالات مدیریت می‌شوند.</p>
           </div>
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <button type="button" class="btn btn-secondary" onclick="resetAllSiteImagesToDefault()" style="display: inline-flex; align-items: center; gap: 6px;">
@@ -4759,12 +4759,11 @@
         <!-- Filter & Search Toolbar -->
         <div class="site-images-toolbar">
           <div class="site-images-filters" id="siteImagesFilterPills">
-            <button type="button" class="sic-filter-btn active" data-filter="all" onclick="filterSiteImages('all')">همه بخش‌ها (۱۵)</button>
+            <button type="button" class="sic-filter-btn active" data-filter="all" onclick="filterSiteImages('all')">همه تصاویر سایت اصلی (۱۴)</button>
             <button type="button" class="sic-filter-btn" data-filter="branding" onclick="filterSiteImages('branding')">هویت بصری و لوگو</button>
-            <button type="button" class="sic-filter-btn" data-filter="home" onclick="filterSiteImages('home')">صفحه اصلی</button>
+            <button type="button" class="sic-filter-btn" data-filter="home" onclick="filterSiteImages('home')">صفحه اصلی پورتال</button>
             <button type="button" class="sic-filter-btn" data-filter="product" onclick="filterSiteImages('product')">صفحه معرفی محصول</button>
-            <button type="button" class="sic-filter-btn" data-filter="mag" onclick="filterSiteImages('mag')">مجله سلامت</button>
-            <button type="button" class="sic-filter-btn" data-filter="other" onclick="filterSiteImages('other')">سایر صفحات</button>
+            <button type="button" class="sic-filter-btn" data-filter="other" onclick="filterSiteImages('other')">سایر صفحات پورتال</button>
           </div>
           <div class="site-images-search-box">
             <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -7951,21 +7950,20 @@
     function updateSiteImagesBadge() {
       const badge = document.getElementById('siteImagesTotalBadge');
       if (badge) {
-        badge.textContent = `${SITE_IMAGES.length} اسلات فعال`;
+        badge.textContent = `${SITE_IMAGES.length} اسلات فعال سایت اصلی`;
       }
-      const counts = { all: SITE_IMAGES.length, branding: 0, home: 0, product: 0, mag: 0, other: 0 };
+      const counts = { all: SITE_IMAGES.length, branding: 0, home: 0, product: 0, other: 0 };
       SITE_IMAGES.forEach(s => {
         if (counts[s.page] !== undefined) counts[s.page]++;
         else counts.other++;
       });
       document.querySelectorAll('#siteImagesFilterPills .sic-filter-btn').forEach(btn => {
         const filter = btn.getAttribute('data-filter');
-        if (filter === 'all') btn.textContent = `همه بخش‌ها (${counts.all})`;
+        if (filter === 'all') btn.textContent = `همه تصاویر سایت اصلی (${counts.all})`;
         else if (filter === 'branding') btn.textContent = `هویت بصری و لوگو (${counts.branding})`;
-        else if (filter === 'home') btn.textContent = `صفحه اصلی (${counts.home})`;
+        else if (filter === 'home') btn.textContent = `صفحه اصلی پورتال (${counts.home})`;
         else if (filter === 'product') btn.textContent = `معرفی محصول (${counts.product})`;
-        else if (filter === 'mag') btn.textContent = `مجله سلامت (${counts.mag})`;
-        else if (filter === 'other') btn.textContent = `سایر صفحات (${counts.other})`;
+        else if (filter === 'other') btn.textContent = `سایر صفحات پورتال (${counts.other})`;
       });
     }
 
@@ -7984,7 +7982,6 @@
     function getPageUrlForSlot(slot) {
       if (slot.page === 'home') return '/';
       if (slot.page === 'product') return '/product';
-      if (slot.page === 'mag') return '/mag';
       if (slot.page === 'branding') return '/';
       if (slot.key && slot.key.includes('about')) return '/about';
       if (slot.key && slot.key.includes('download')) return '/download';
@@ -8003,7 +8000,7 @@
       let list = SITE_IMAGES;
       if (activeSiteImageFilter !== 'all') {
         if (activeSiteImageFilter === 'other') {
-          list = list.filter(s => !['branding', 'home', 'product', 'mag'].includes(s.page));
+          list = list.filter(s => !['branding', 'home', 'product'].includes(s.page));
         } else {
           list = list.filter(s => s.page === activeSiteImageFilter);
         }
@@ -8026,7 +8023,7 @@
 
       grid.innerHTML = list.map(slot => {
         const isModified = slot.currentUrl !== slot.defaultUrl;
-        const pageClass = ['branding', 'home', 'product', 'mag'].includes(slot.page) ? slot.page : 'other';
+        const pageClass = ['branding', 'home', 'product'].includes(slot.page) ? slot.page : 'other';
         const pageLink = getPageUrlForSlot(slot);
 
         return `
