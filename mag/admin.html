@@ -2802,7 +2802,254 @@
       background: rgba(255, 255, 255, 0.15);
       margin: 0 2px;
     }
-  </style>
+  
+    /* ================= 15. SITE PAGES IMAGES & BANNERS ================= */
+    .site-images-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 24px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+    .site-images-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sic-filter-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .sic-filter-btn:hover {
+      background: rgba(56, 189, 248, 0.1);
+      color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .sic-filter-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      color: #38BDF8;
+      border-color: #38BDF8;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+    }
+    .site-images-search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 8px;
+      width: 280px;
+    }
+    .site-images-search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 13px;
+      width: 100%;
+      font-family: inherit;
+    }
+    .site-images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+      gap: 22px;
+    }
+    .site-image-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .site-image-card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      box-shadow: 0 10px 30px -8px rgba(0, 115, 255, 0.18);
+      transform: translateY(-2px);
+    }
+    .sic-preview-wrap {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      background: #0B1120;
+      background-image: linear-gradient(45deg, #090e1a 25%, transparent 25%), linear-gradient(-45deg, #090e1a 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #090e1a 75%), linear-gradient(-45deg, transparent 75%, #090e1a 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sic-preview-img {
+      max-width: 92%;
+      max-height: 92%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .site-image-card:hover .sic-preview-img {
+      transform: scale(1.04);
+    }
+    .sic-badge-page {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94A3B8;
+    }
+    .sic-badge-page.branding { color: #A78BFA; border-color: rgba(167, 139, 250, 0.3); background: rgba(167, 139, 250, 0.15); }
+    .sic-badge-page.home { color: #38BDF8; border-color: rgba(56, 189, 248, 0.3); background: rgba(56, 189, 248, 0.15); }
+    .sic-badge-page.product { color: #00E599; border-color: rgba(0, 229, 153, 0.3); background: rgba(0, 229, 153, 0.15); }
+    .sic-badge-page.mag { color: #F59E0B; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.15); }
+    .sic-badge-page.other { color: #EC4899; border-color: rgba(236, 72, 153, 0.3); background: rgba(236, 72, 153, 0.15); }
+    .sic-dimensions-tag {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      font-size: 10.5px;
+      color: #94A3B8;
+      background: rgba(11, 17, 32, 0.85);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(6px);
+      direction: ltr;
+    }
+    .sic-info-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sic-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sic-key-code {
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      user-select: all;
+    }
+    .sic-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      min-height: 40px;
+    }
+    .sic-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sic-input-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .sic-url-input {
+      background: var(--bg-body);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--text-primary);
+      font-size: 12px;
+      font-family: monospace;
+      direction: ltr;
+      text-align: left;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sic-url-input:focus {
+      border-color: #38BDF8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    .sic-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 4px;
+    }
+    .sic-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 7px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-body);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .sic-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-primary);
+    }
+    .sic-btn-media {
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #38BDF8;
+      background: rgba(56, 189, 248, 0.08);
+    }
+    .sic-btn-media:hover {
+      background: rgba(56, 189, 248, 0.18);
+      color: #7DD3FC;
+    }
+    .sic-btn-upload {
+      border-color: rgba(0, 229, 153, 0.35);
+      color: #00E599;
+      background: rgba(0, 229, 153, 0.08);
+    }
+    .sic-btn-upload:hover {
+      background: rgba(0, 229, 153, 0.18);
+      color: #5EEAD4;
+    }
+    .sic-btn-reset {
+      border-color: rgba(239, 68, 68, 0.25);
+      color: #F87171;
+    }
+    .sic-btn-reset:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #EF4444;
+    }
+
+</style>
 </head>
 <body>
 
@@ -2876,6 +3123,10 @@
         <li class="sidebar-item" id="menu-doctors" onclick="switchTab('doctors')">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M19 8v6"/><path d="M16 11h6"/></svg>
           <span>پزشکان و نوبت‌دهی سریع</span>
+        </li>
+        <li class="sidebar-item" id="menu-site-images" onclick="switchTab('site-images')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/><path d="M14 8h.01"/><path d="M3 16l4-4a2 2 0 0 1 2.8 0L12 14"/></svg>
+          <span>تصاویر صفحات سایت</span>
         </li>
         <li class="sidebar-item" id="menu-newsletters" onclick="switchTab('newsletters')">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -4486,6 +4737,52 @@
           </div>
         </div>
       </section>
+      <!-- ================= 15. TAB: SITE PAGES IMAGES & BANNERS ================= -->
+      <section id="tab-site-images" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>
+              <span>مدیریت تصاویر، بنرها و هویت بصری صفحات سایت</span>
+              <span class="admin-badge-clinical" id="siteImagesTotalBadge" style="background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3);">۱۵ اسلات فعال</span>
+            </h2>
+            <p>تغییر، بارگذاری و انتخاب زنده تصاویر صفحات اصلی پورتال (لوگو، هدر، فوتر، صفحه اصلی، محصولات، مجله سلامت و ...) با ذخیره مستقیم در سرور و بازتاب بلادرنگ در صفحات وب‌سایت</p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary" onclick="resetAllSiteImagesToDefault()" style="display: inline-flex; align-items: center; gap: 6px;">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <span>بازنشانی کل تصاویر به پیش‌فرض</span>
+            </button>
+            <button type="button" class="btn btn-primary" onclick="saveAllSiteImages()" id="btnSaveAllSiteImages" style="display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #00E599 0%, #00B377 100%); color: #051410; font-weight: 700; border: none; box-shadow: 0 4px 14px rgba(0, 229, 153, 0.35);">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              <span>ذخیره تمامی تغییرات تصاویر</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="site-images-toolbar">
+          <div class="site-images-filters" id="siteImagesFilterPills">
+            <button type="button" class="sic-filter-btn active" data-filter="all" onclick="filterSiteImages('all')">همه بخش‌ها (۱۵)</button>
+            <button type="button" class="sic-filter-btn" data-filter="branding" onclick="filterSiteImages('branding')">هویت بصری و لوگو</button>
+            <button type="button" class="sic-filter-btn" data-filter="home" onclick="filterSiteImages('home')">صفحه اصلی</button>
+            <button type="button" class="sic-filter-btn" data-filter="product" onclick="filterSiteImages('product')">صفحه معرفی محصول</button>
+            <button type="button" class="sic-filter-btn" data-filter="mag" onclick="filterSiteImages('mag')">مجله سلامت</button>
+            <button type="button" class="sic-filter-btn" data-filter="other" onclick="filterSiteImages('other')">سایر صفحات</button>
+          </div>
+          <div class="site-images-search-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="siteImagesSearchInput" placeholder="جستجوی نام بخش، کلید یا صفحه..." oninput="onSiteImagesSearch(this.value)">
+          </div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="site-images-grid" id="siteImagesGrid">
+          <div style="text-align: center; padding: 40px; color: var(--text-muted); grid-column: 1 / -1;">
+            در حال دریافت و آماده‌سازی فهرست تصاویر صفحات سایت...
+          </div>
+        </div>
+      </section>
+
 
       <!-- ================= 11. TAB: SITE STRUCTURE & INTERNAL LINKING GRAPH ================= -->
       <section id="tab-structure" class="tab-section">
@@ -6368,6 +6665,7 @@
       if (tabId === 'crm') fetchCrmTutorials();
       if (tabId === 'users') fetchUsers();
       if (tabId === 'doctors') renderDoctorsManagement();
+      if (tabId === 'site-images') fetchSiteImages();
       if (tabId === 'newsletters') renderNewslettersManagement();
       if (tabId === 'redirects') renderRedirectsTable();
       if (tabId === 'schemas') renderSchemasTable();
@@ -7619,7 +7917,315 @@
       renderDoctorsManagement(query);
     }
 
-    function renderDoctorsManagement(filterQuery = '') {
+    
+    // =========================================================================
+    // 15. SITE PAGES IMAGE MANAGER (مدیریت تصاویر و بنرهای صفحات سایت)
+    // =========================================================================
+    let SITE_IMAGES = [];
+    let activeSiteImageFilter = 'all';
+    let activeSiteImageSlotKey = null;
+
+    async function fetchSiteImages() {
+      try {
+        const res = await apiFetch('/api/site-images');
+        if (res.ok) {
+          const data = await res.json();
+          SITE_IMAGES = Array.isArray(data) ? data : (data.images || []);
+          renderSiteImagesGrid();
+          updateSiteImagesBadge();
+        } else {
+          const local = localStorage.getItem('__pezeshkan_site_images__');
+          if (local) {
+            SITE_IMAGES = JSON.parse(local);
+          }
+          renderSiteImagesGrid();
+          updateSiteImagesBadge();
+        }
+      } catch (err) {
+        console.warn('Error fetching site images:', err);
+        const local = localStorage.getItem('__pezeshkan_site_images__');
+        if (local) {
+          SITE_IMAGES = JSON.parse(local);
+          renderSiteImagesGrid();
+        }
+      }
+    }
+
+    function updateSiteImagesBadge() {
+      const badge = document.getElementById('siteImagesTotalBadge');
+      if (badge) {
+        badge.textContent = `${SITE_IMAGES.length} اسلات فعال`;
+      }
+      const counts = { all: SITE_IMAGES.length, branding: 0, home: 0, product: 0, mag: 0, other: 0 };
+      SITE_IMAGES.forEach(s => {
+        if (counts[s.page] !== undefined) counts[s.page]++;
+        else counts.other++;
+      });
+      document.querySelectorAll('#siteImagesFilterPills .sic-filter-btn').forEach(btn => {
+        const filter = btn.getAttribute('data-filter');
+        if (filter === 'all') btn.textContent = `همه بخش‌ها (${counts.all})`;
+        else if (filter === 'branding') btn.textContent = `هویت بصری و لوگو (${counts.branding})`;
+        else if (filter === 'home') btn.textContent = `صفحه اصلی (${counts.home})`;
+        else if (filter === 'product') btn.textContent = `معرفی محصول (${counts.product})`;
+        else if (filter === 'mag') btn.textContent = `مجله سلامت (${counts.mag})`;
+        else if (filter === 'other') btn.textContent = `سایر صفحات (${counts.other})`;
+      });
+    }
+
+    function filterSiteImages(page) {
+      activeSiteImageFilter = page;
+      document.querySelectorAll('#siteImagesFilterPills .sic-filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === page);
+      });
+      renderSiteImagesGrid();
+    }
+
+    function onSiteImagesSearch(query) {
+      renderSiteImagesGrid(query);
+    }
+
+    function getPageUrlForSlot(slot) {
+      if (slot.page === 'home') return '/';
+      if (slot.page === 'product') return '/product';
+      if (slot.page === 'mag') return '/mag';
+      if (slot.page === 'branding') return '/';
+      if (slot.key && slot.key.includes('about')) return '/about';
+      if (slot.key && slot.key.includes('download')) return '/download';
+      return '/';
+    }
+
+    function renderSiteImagesGrid(searchQuery = '') {
+      const grid = document.getElementById('siteImagesGrid');
+      if (!grid) return;
+
+      if (!SITE_IMAGES || !SITE_IMAGES.length) {
+        grid.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); grid-column: 1 / -1;">در حال بارگذاری لیست اسلات‌های تصاویر...</div>';
+        return;
+      }
+
+      let list = SITE_IMAGES;
+      if (activeSiteImageFilter !== 'all') {
+        if (activeSiteImageFilter === 'other') {
+          list = list.filter(s => !['branding', 'home', 'product', 'mag'].includes(s.page));
+        } else {
+          list = list.filter(s => s.page === activeSiteImageFilter);
+        }
+      }
+
+      if (searchQuery && searchQuery.trim()) {
+        const q = searchQuery.trim().toLowerCase();
+        list = list.filter(s => 
+          (s.title && s.title.toLowerCase().includes(q)) ||
+          (s.key && s.key.toLowerCase().includes(q)) ||
+          (s.description && s.description.toLowerCase().includes(q)) ||
+          (s.pageTitle && s.pageTitle.toLowerCase().includes(q))
+        );
+      }
+
+      if (!list.length) {
+        grid.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); grid-column: 1 / -1;">تصویری مطابق با فیلتر انتخابی یافت نشد.</div>';
+        return;
+      }
+
+      grid.innerHTML = list.map(slot => {
+        const isModified = slot.currentUrl !== slot.defaultUrl;
+        const pageClass = ['branding', 'home', 'product', 'mag'].includes(slot.page) ? slot.page : 'other';
+        const pageLink = getPageUrlForSlot(slot);
+
+        return `
+          <div class="site-image-card" id="sicCard-${slot.key}">
+            <div class="sic-preview-wrap">
+              <img src="${escapeHtml(slot.currentUrl)}" alt="${escapeHtml(slot.title)}" class="sic-preview-img" id="sicPreview-${slot.key}" onerror="this.onerror=null; this.src='${escapeHtml(slot.defaultUrl)}';">
+              <span class="sic-badge-page ${pageClass}">${escapeHtml(slot.pageTitle || slot.page)}</span>
+              ${slot.dimensions ? `<span class="sic-dimensions-tag">${escapeHtml(slot.dimensions)}</span>` : ''}
+            </div>
+
+            <div class="sic-info-box">
+              <div class="sic-title">
+                <span>${escapeHtml(slot.title)}</span>
+                <span class="sic-key-code" title="کلیک جهت کپی کردن نام شناسه اسلات" onclick="copySlotKey('${slot.key}')">${escapeHtml(slot.key)}</span>
+              </div>
+              <div class="sic-desc">${escapeHtml(slot.description || '')}</div>
+            </div>
+
+            <div class="sic-input-group">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label class="sic-input-label">آدرس تصویر (URL یا مسیر محلی):</label>
+                ${isModified ? '<span style="font-size: 10.5px; color: #00E599; font-weight: 700;">تغییر یافته</span>' : '<span style="font-size: 10.5px; color: var(--text-muted);">پیش‌فرض</span>'}
+              </div>
+              <input type="text" class="sic-url-input" id="sicInput-${slot.key}" value="${escapeHtml(slot.currentUrl)}" oninput="onSlotUrlInput('${slot.key}', this.value)" placeholder="https://... یا /assets/...">
+            </div>
+
+            <div class="sic-actions">
+              <button type="button" class="sic-btn sic-btn-media" onclick="openMediaPickerForSlot('${slot.key}')" title="انتخاب تصویر از رسانه‌های آپلود شده در مجله">
+                <svg class="icon-svg" style="width:14px;height:14px;" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>انتخاب از رسانه</span>
+              </button>
+
+              <label class="sic-btn sic-btn-upload" title="بارگذاری مستقیم فایل تصویر جدید از کامپیوتر">
+                <svg class="icon-svg" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span>آپلود تصویر</span>
+                <input type="file" accept="image/*,.svg" style="display: none;" onchange="handleSlotDirectUpload('${slot.key}', this.files)">
+              </label>
+
+              ${isModified ? `
+                <button type="button" class="sic-btn sic-btn-reset" onclick="resetSlotToDefault('${slot.key}')" title="بازنشانی این تصویر به حالت پیش‌فرض اولیه سایت">
+                  <svg class="icon-svg" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  <span>پیش‌فرض</span>
+                </button>
+              ` : ''}
+
+              <a href="${pageLink}" target="_blank" class="sic-btn" style="margin-right: auto; text-decoration: none;" title="مشاهده صفحه در تب جدید">
+                <svg class="icon-svg" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <span>مشاهده زنده</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function onSlotUrlInput(key, newUrl) {
+      const slot = SITE_IMAGES.find(s => s.key === key);
+      if (slot) {
+        slot.currentUrl = newUrl.trim();
+        const img = document.getElementById('sicPreview-' + key);
+        if (img) img.src = slot.currentUrl;
+      }
+    }
+
+    function openMediaPickerForSlot(key) {
+      activeSiteImageSlotKey = key;
+      openMediaModal('site-image-slot');
+    }
+
+    function applyMediaUrlToSlot(key, url) {
+      const slot = SITE_IMAGES.find(s => s.key === key);
+      if (slot) {
+        slot.currentUrl = url;
+        const input = document.getElementById('sicInput-' + key);
+        if (input) input.value = url;
+        const img = document.getElementById('sicPreview-' + key);
+        if (img) img.src = url;
+        renderSiteImagesGrid();
+        saveAllSiteImages(true);
+      }
+    }
+
+    async function handleSlotDirectUpload(key, files) {
+      if (!files || !files[0]) return;
+      const file = files[0];
+      const slot = SITE_IMAGES.find(s => s.key === key);
+      const slotTitle = slot ? slot.title : 'تصویر سایت';
+
+      showToast(`در حال آپلود و بهینه‌سازی «${file.name}»...`, 'info');
+
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('alt', slotTitle);
+        formData.append('caption', `تصویر اختصاصی برای ${slotTitle}`);
+
+        const res = await apiFetch('/api/media/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const uploadedUrl = data.url || (data.item && data.item.url);
+          if (uploadedUrl) {
+            applyMediaUrlToSlot(key, uploadedUrl);
+            showToast(`تصویر «${slotTitle}» با موفقیت آپلود و اعمال شد!`, 'success');
+            if (data.item && window.MEDIA) {
+              MEDIA.unshift(data.item);
+            }
+          } else {
+            showToast('خطا در دریافت نشانی فایل آپلود شده', 'error');
+          }
+        } else {
+          showToast('بارگذاری فایل با خطا مواجه شد', 'error');
+        }
+      } catch (err) {
+        console.error('Slot upload error:', err);
+        showToast('خطای شبکه در هنگام ارسال فایل به سرور', 'error');
+      }
+    }
+
+    function resetSlotToDefault(key) {
+      const slot = SITE_IMAGES.find(s => s.key === key);
+      if (slot) {
+        slot.currentUrl = slot.defaultUrl;
+        const input = document.getElementById('sicInput-' + key);
+        if (input) input.value = slot.defaultUrl;
+        const img = document.getElementById('sicPreview-' + key);
+        if (img) img.src = slot.defaultUrl;
+        renderSiteImagesGrid();
+        saveAllSiteImages(true);
+        showToast(`تصویر «${slot.title}» به حالت پیش‌فرض بازگشت`);
+      }
+    }
+
+    async function resetAllSiteImagesToDefault() {
+      if (!confirm('آیا از بازنشانی تمامی تصاویر و بنرهای صفحات سایت به حالت پیش‌فرض اولیه مطمئن هستید؟')) {
+        return;
+      }
+      SITE_IMAGES.forEach(s => {
+        s.currentUrl = s.defaultUrl;
+      });
+      renderSiteImagesGrid();
+      await saveAllSiteImages(false);
+      showToast('تمامی تصاویر با موفقیت به پیش‌فرض‌های اولیه بازگردانده شدند', 'success');
+    }
+
+    async function saveAllSiteImages(silent = false) {
+      try {
+        const btn = document.getElementById('btnSaveAllSiteImages');
+        if (btn && !silent) {
+          btn.disabled = true;
+          btn.innerHTML = '<span>در حال ذخیره‌سازی...</span>';
+        }
+
+        localStorage.setItem('__pezeshkan_site_images__', JSON.stringify(SITE_IMAGES));
+
+        const res = await apiFetch('/api/site-images', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(SITE_IMAGES)
+        });
+
+        if (res.ok) {
+          if (!silent) {
+            showToast('تمامی تصاویر و بنرهای صفحات سایت با موفقیت در سرور ذخیره شدند!', 'success');
+          }
+          renderSiteImagesGrid();
+        } else {
+          showToast('خطا در ذخیره‌سازی اطلاعات روی سرور', 'error');
+        }
+      } catch (err) {
+        console.error('Error saving site images:', err);
+        showToast('خطای ارتباط با سرور در هنگام ذخیره تصاویر', 'error');
+      } finally {
+        const btn = document.getElementById('btnSaveAllSiteImages');
+        if (btn && !silent) {
+          btn.disabled = false;
+          btn.innerHTML = `
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>ذخیره تمامی تغییرات تصاویر</span>
+          `;
+        }
+      }
+    }
+
+    function copySlotKey(key) {
+      navigator.clipboard.writeText(key).then(() => {
+        showToast(`شناسه اسلات «${key}» کپی شد`, 'info');
+      }).catch(() => {
+        showToast(`شناسه: ${key}`);
+      });
+    }
+
+function renderDoctorsManagement(filterQuery = '') {
       const container = document.getElementById('doctorsListContainer');
       const badge = document.getElementById('doctorsTotalBadge');
       if (!container) return;
@@ -9279,6 +9885,8 @@
 
       if (mode === 'hero' || mode === 'newsletter-hero') {
         document.getElementById('btnConfirmMediaInsert').textContent = 'تنظیم به عنوان تصویر شاخص';
+      } else if (mode === 'site-image-slot') {
+        document.getElementById('btnConfirmMediaInsert').textContent = 'انتخاب برای این بخش سایت';
       } else if (mode === 'doctor-avatar') {
         document.getElementById('btnConfirmMediaInsert').textContent = 'انتخاب به عنوان تصویر پزشک';
       } else {
@@ -9420,7 +10028,14 @@
         }).catch(err => console.warn('Background media sync error:', err));
       } catch(e) {}
 
-      if (modalMode === 'doctor-avatar') {
+      if (modalMode === 'site-image-slot') {
+        if (activeSiteImageSlotKey) {
+          applyMediaUrlToSlot(activeSiteImageSlotKey, item.url);
+          closeMediaModal();
+          showToast('تصویر با موفقیت برای بخش انتخاب شد');
+          return;
+        }
+      } else if (modalMode === 'doctor-avatar') {
         const docAvatarInput = document.getElementById('docFormAvatar');
         if (docAvatarInput) docAvatarInput.value = item.url;
         updateDoctorAvatarPreview(item.url);

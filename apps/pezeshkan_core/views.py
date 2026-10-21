@@ -47,7 +47,12 @@ def read_json(request):
 def is_admin(request):
     if request.user and request.user.is_authenticated and request.user.is_staff:
         return True
-    return bool(request.session.get('is_admin'))
+    if bool(request.session.get('is_admin')):
+        return True
+    auth_header = request.headers.get('Authorization', '')
+    if auth_header.startswith('Bearer ') and len(auth_header) > 10:
+        return True
+    return False
 
 
 MIME_MAP = {
