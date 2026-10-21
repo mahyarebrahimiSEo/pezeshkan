@@ -3049,6 +3049,218 @@
       color: #EF4444;
     }
 
+
+    /* ================= TABLE & CODE EDITOR (WORDPRESS-STYLE) ================= */
+    .tbtn-pill.btn-callout-table {
+      background: rgba(168, 85, 247, 0.15);
+      border-color: rgba(168, 85, 247, 0.45);
+      color: #C084FC;
+    }
+    .tbtn-pill.btn-callout-table:hover {
+      background: rgba(168, 85, 247, 0.3);
+      border-color: #C084FC;
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+    }
+    .editor-table-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 6px;
+      background: var(--bg-surface-elevated, #1E293B);
+      border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
+      border-radius: 10px;
+      padding: 12px;
+      min-width: 250px;
+      z-index: 1000;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .etd-header {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      padding: 4px 6px;
+    }
+    .etd-divider {
+      height: 1px;
+      background: var(--border-subtle, rgba(255, 255, 255, 0.1));
+      margin: 6px 0;
+    }
+    .etd-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .etd-menu-item:hover {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+    }
+    .etd-menu-item.text-danger {
+      color: #F87171;
+    }
+    .etd-menu-item.text-danger:hover {
+      background: rgba(239, 68, 68, 0.15);
+      color: #EF4444;
+    }
+    .etd-grid-picker {
+      display: grid;
+      grid-template-columns: repeat(6, 22px);
+      gap: 3px;
+      padding: 8px;
+      background: var(--bg-canvas, #0F172A);
+      border-radius: 6px;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    .etd-cell {
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    .etd-cell.highlight {
+      background: rgba(168, 85, 247, 0.45);
+      border-color: #C084FC;
+    }
+    .etd-grid-size {
+      font-size: 11.5px;
+      text-align: center;
+      color: #C084FC;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .editor-mode-switcher-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-surface-elevated, #1E293B);
+      border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+      padding: 8px 18px;
+    }
+    .editor-mode-tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .editor-mode-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .editor-mode-tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .editor-mode-tab-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .editorial-raw-code-area {
+      width: 100%;
+      min-height: 480px;
+      background: #0B1120;
+      border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+      border-radius: 8px;
+      padding: 16px;
+      color: #E2E8F0;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 13.5px;
+      line-height: 1.7;
+      direction: ltr;
+      text-align: left;
+      outline: none;
+      resize: vertical;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .editorial-raw-code-area:focus {
+      border-color: #38BDF8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Clinical Tables & Responsive Wrapper */
+    .clinical-table-responsive {
+      width: 100% !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      margin: 26px 0 !important;
+      border-radius: 12px !important;
+      border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1)) !important;
+      background: var(--bg-surface, rgba(15, 23, 42, 0.6)) !important;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clinical-table-responsive::-webkit-scrollbar {
+      height: 8px;
+    }
+    .clinical-table-responsive::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 4px;
+    }
+    .clinical-table-responsive::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.3);
+      border-radius: 4px;
+    }
+    .clinical-table-responsive::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.6);
+    }
+    .clinical-table {
+      width: 100% !important;
+      min-width: 520px !important;
+      border-collapse: collapse !important;
+      text-align: right !important;
+      direction: rtl !important;
+      font-size: 14.5px !important;
+      color: var(--text-primary, #F8FAFC) !important;
+    }
+    .clinical-table th {
+      background: rgba(56, 189, 248, 0.12) !important;
+      color: #38BDF8 !important;
+      font-weight: 800 !important;
+      padding: 14px 18px !important;
+      border-bottom: 2px solid rgba(56, 189, 248, 0.35) !important;
+      white-space: nowrap !important;
+      font-size: 14px !important;
+      text-align: right !important;
+    }
+    .clinical-table td {
+      padding: 13px 18px !important;
+      border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08)) !important;
+      color: var(--text-primary, #F8FAFC) !important;
+      line-height: 1.75 !important;
+      vertical-align: middle !important;
+    }
+    .clinical-table tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02) !important;
+    }
+    .clinical-table tbody tr:hover {
+      background: rgba(56, 189, 248, 0.05) !important;
+    }
+    .clinical-table tbody tr:last-child td {
+      border-bottom: none !important;
+    }
+
 </style>
 </head>
 <body>
@@ -3064,6 +3276,45 @@
       </a>
       <span class="admin-badge-clinical">نسخه استودیو سئو</span>
     </div>
+              <!-- Table Block Inserter (WordPress-like) -->
+              <div class="toolbar-cluster" style="position: relative;">
+                <button type="button" class="tbtn-pill btn-callout-table" id="btnEditorTableMenu" onclick="toggleTableDropdown(event)" title="درج یا مدیریت جدول بالینی">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+                  <span>جدول</span>
+                  <svg class="icon-svg" style="width: 10px; height: 10px; margin-right: 2px;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+
+                <!-- Table Dropdown Menu -->
+                <div class="editor-table-dropdown" id="editorTableDropdown" style="display: none;" onclick="event.stopPropagation()">
+                  <div class="etd-header">درج جدول جدید</div>
+                  <div class="etd-grid-picker" id="tableGridPicker">
+                    <!-- 6x5 dynamic cells populated by JS -->
+                  </div>
+                  <div class="etd-grid-size" id="tableGridSizeLabel">۳ سطر در ۳ ستون</div>
+                  
+                  <div class="etd-divider"></div>
+                  <div class="etd-menu-item" onclick="insertCustomTable(3, 3, true)">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+                    <span>جدول استاندارد ۳×۳ با سربرگ</span>
+                  </div>
+                  <div class="etd-menu-item" onclick="openCustomTableModal()">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <span>تنظیم دلخواه تعداد سطر و ستون...</span>
+                  </div>
+
+                  <!-- In-Table Context Actions -->
+                  <div class="etd-divider"></div>
+                  <div class="etd-header" style="font-size: 11px;">عملیات روی خانه یا جدول انتخاب‌شده</div>
+                  <div class="etd-menu-item" onclick="tableAction('addRowAbove')">➕ افزودن سطر بالا</div>
+                  <div class="etd-menu-item" onclick="tableAction('addRowBelow')">➕ افزودن سطر پایین</div>
+                  <div class="etd-menu-item" onclick="tableAction('addColBefore')">➕ افزودن ستون راست</div>
+                  <div class="etd-menu-item" onclick="tableAction('addColAfter')">➕ افزودن ستون چپ</div>
+                  <div class="etd-menu-item text-danger" onclick="tableAction('deleteRow')">➖ حذف این سطر</div>
+                  <div class="etd-menu-item text-danger" onclick="tableAction('deleteCol')">➖ حذف این ستون</div>
+                  <div class="etd-menu-item text-danger" onclick="tableAction('deleteTable')">🗑️ حذف کل جدول</div>
+                </div>
+              </div>
+
 
     <div class="admin-bar-left">
       <div class="admin-user-pill">
@@ -3356,7 +3607,26 @@
             </div>
 
             <!-- Sticky Formatting Toolbar (Clean SVG Vector Icons, NO Emojis) -->
-            <div class="editorial-toolbar-sticky">
+                        <!-- WordPress-Style Mode Switcher (دیداری / متن و کد HTML) -->
+            <div class="editor-mode-switcher-bar">
+              <div class="editor-mode-tabs">
+                <button type="button" class="editor-mode-tab-btn active" id="tabModeVisual" onclick="switchEditorMode('visual')">
+                  <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <span>دیداری (Visual)</span>
+                </button>
+                <button type="button" class="editor-mode-tab-btn" id="tabModeCode" onclick="switchEditorMode('code')">
+                  <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  <span>متن / کد HTML</span>
+                </button>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <button type="button" class="btn btn-secondary" onclick="copyFullArticleHtmlCode()" style="padding: 4px 10px; font-size: 11.5px; display: inline-flex; align-items: center; gap: 5px;" title="کپی کردن مستقیم کدهای HTML مقاله جهت انتقال به وردپرس یا مقاصد دیگر">
+                  <svg class="icon-svg" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span>کپی کد کامل مقاله</span>
+                </button>
+              </div>
+            </div>
+<div class="editorial-toolbar-sticky">
               
               <!-- Headings -->
               <div class="toolbar-cluster">
@@ -3475,6 +3745,20 @@
                    data-placeholder="محتوای علمی مقاله را اینجا بنویسید یا متن را از وُرد، تلگرام یا سایت‌های دیگر جای‌گذاری (Paste) کنید...">
               </div>
             </div>
+            <!-- Raw HTML Code Editor (WordPress-Style) -->
+            <div id="editorialCodeWrapper" style="display: none; padding: 18px 24px; background: #0B1120; border-top: 1px solid var(--border-subtle);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 11.5px; color: var(--text-muted); font-family: monospace;">کد منبع HTML مقاله (قابل ویرایش مستقیم - هماهنگ با ویرایشگر دیداری):</span>
+                <span style="font-size: 11px; color: #38BDF8;">مشابه ویرایشگر متنی وردپرس</span>
+              </div>
+              <textarea id="editorialCodeEditor" 
+                        class="editorial-raw-code-area" 
+                        spellcheck="false" 
+                        dir="ltr" 
+                        placeholder="کدهای HTML مقاله در این قسمت نمایش داده می‌شوند..."
+                        oninput="onCodeEditorInput()"></textarea>
+            </div>
+
 
             <!-- Bottom Status Strip -->
             <div class="editor-status-strip">
@@ -7636,11 +7920,16 @@
         if (html) {
           cleanContent = cleanAndNormalizePastedHtml(html);
         } else if (text) {
-          const paragraphs = text.split(/\r?\n\r?\n/);
+          const tsvTable = convertTsvToHtmlTable(text);
+          if (tsvTable) {
+            cleanContent = tsvTable;
+          } else {
+            const paragraphs = text.split(/\r?\n\r?\n/);
           cleanContent = paragraphs.map(p => {
             const trimmed = p.trim().replace(/\r?\n/g, '<br>');
             return trimmed ? `<p>${escapeHtml(trimmed)}</p>` : '';
           }).join('');
+          }
         }
 
         if (cleanContent) {
@@ -7665,7 +7954,306 @@
       canvas.addEventListener('mouseup', saveEditorSelection);
     }
 
-    function cleanAndNormalizePastedHtml(rawHtml) {
+    
+    // =========================================================================
+    // 16. WORDPRESS-LIKE TABLE & RAW HTML CODE EDITOR ENGINE
+    // =========================================================================
+    let currentEditorMode = 'visual';
+
+    function toggleTableDropdown(e) {
+      if (e) e.stopPropagation();
+      const dd = document.getElementById('editorTableDropdown');
+      if (!dd) return;
+      const isOpen = dd.style.display !== 'none';
+      if (isOpen) {
+        closeTableDropdown();
+      } else {
+        dd.style.display = 'flex';
+        initTableGridPicker();
+        document.addEventListener('click', closeTableDropdownOnOutsideClick);
+      }
+    }
+
+    function closeTableDropdown() {
+      const dd = document.getElementById('editorTableDropdown');
+      if (dd) dd.style.display = 'none';
+      document.removeEventListener('click', closeTableDropdownOnOutsideClick);
+    }
+
+    function closeTableDropdownOnOutsideClick(e) {
+      const dd = document.getElementById('editorTableDropdown');
+      const btn = document.getElementById('btnEditorTableMenu');
+      if (dd && !dd.contains(e.target) && (!btn || !btn.contains(e.target))) {
+        closeTableDropdown();
+      }
+    }
+
+    function initTableGridPicker() {
+      const picker = document.getElementById('tableGridPicker');
+      const label = document.getElementById('tableGridSizeLabel');
+      if (!picker) return;
+      picker.innerHTML = '';
+      const totalRows = 5;
+      const totalCols = 6;
+
+      for (let r = 1; r <= totalRows; r++) {
+        for (let c = 1; c <= totalCols; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'etd-cell';
+          cell.dataset.row = r;
+          cell.dataset.col = c;
+          cell.onmouseenter = () => {
+            highlightGridCells(r, c);
+            if (label) label.textContent = `${r} سطر در ${c} ستون`;
+          };
+          cell.onclick = (e) => {
+            e.stopPropagation();
+            insertCustomTable(r, c, true);
+          };
+          picker.appendChild(cell);
+        }
+      }
+      highlightGridCells(3, 3);
+      if (label) label.textContent = '۳ سطر در ۳ ستون';
+    }
+
+    function highlightGridCells(maxR, maxC) {
+      const picker = document.getElementById('tableGridPicker');
+      if (!picker) return;
+      picker.querySelectorAll('.etd-cell').forEach(cell => {
+        const r = parseInt(cell.dataset.row, 10);
+        const c = parseInt(cell.dataset.col, 10);
+        if (r <= maxR && c <= maxC) {
+          cell.classList.add('highlight');
+        } else {
+          cell.classList.remove('highlight');
+        }
+      });
+    }
+
+    function insertCustomTable(rows = 3, cols = 3, hasHeader = true) {
+      let html = '<div class="clinical-table-responsive" dir="rtl"><table class="clinical-table">';
+      if (hasHeader) {
+        html += '<thead><tr>';
+        for (let c = 1; c <= cols; c++) {
+          html += `<th>سربرگ ${c}</th>`;
+        }
+        html += '</tr></thead>';
+      }
+      html += '<tbody>';
+      for (let r = 1; r <= rows; r++) {
+        html += '<tr>';
+        for (let c = 1; c <= cols; c++) {
+          html += `<td>داده سطر ${r} - ستون ${c}</td>`;
+        }
+        html += '</tr>';
+      }
+      html += '</tbody></table></div><p dir="rtl"><br></p>';
+
+      canvas.focus();
+      document.execCommand('insertHTML', false, html);
+      closeTableDropdown();
+      showToast(`جدول ${rows} در ${cols} با موفقیت در نوشته قرار گرفت`, 'success');
+      onEditorContentChanged();
+    }
+
+    function openCustomTableModal() {
+      closeTableDropdown();
+      const rowsStr = prompt('تعداد سطرهای مورد نظر جدول را وارد کنید:', '4');
+      if (!rowsStr) return;
+      const colsStr = prompt('تعداد ستون‌های مورد نظر جدول را وارد کنید:', '3');
+      if (!colsStr) return;
+      const rows = parseInt(rowsStr, 10) || 3;
+      const cols = parseInt(colsStr, 10) || 3;
+      insertCustomTable(Math.max(1, rows), Math.max(1, cols), true);
+    }
+
+    function getSelectedTableCell() {
+      const sel = window.getSelection();
+      if (!sel || !sel.rangeCount) return null;
+      let node = sel.getRangeAt(0).startContainer;
+      while (node && node !== document.body && node !== canvas) {
+        if (node.nodeType === 1 && (node.tagName === 'TD' || node.tagName === 'TH')) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+      return null;
+    }
+
+    function tableAction(action) {
+      const cell = getSelectedTableCell();
+      if (!cell) {
+        showToast('لطفاً ابتدا نشانگر ماوس را درون یکی از خانه‌های جدول قرار دهید.', 'warning');
+        return;
+      }
+      const row = cell.parentElement;
+      const table = row.closest('table');
+      if (!table) return;
+
+      const colIndex = Array.from(row.children).indexOf(cell);
+
+      if (action === 'addRowBelow') {
+        const colsCount = row.children.length;
+        const newRow = document.createElement('tr');
+        for (let i = 0; i < colsCount; i++) {
+          const newTd = document.createElement('td');
+          newTd.textContent = 'داده جدید';
+          newRow.appendChild(newTd);
+        }
+        row.after(newRow);
+        showToast('سطر جدید به زیر افزوده شد');
+      } else if (action === 'addRowAbove') {
+        const colsCount = row.children.length;
+        const newRow = document.createElement('tr');
+        for (let i = 0; i < colsCount; i++) {
+          const newTd = document.createElement('td');
+          newTd.textContent = 'داده جدید';
+          newRow.appendChild(newTd);
+        }
+        row.before(newRow);
+        showToast('سطر جدید در بالا افزوده شد');
+      } else if (action === 'addColAfter') {
+        Array.from(table.rows).forEach(r => {
+          const isHeader = r.children[0] && r.children[0].tagName === 'TH';
+          const newCell = document.createElement(isHeader ? 'th' : 'td');
+          newCell.textContent = isHeader ? 'ستون جدید' : 'داده';
+          const targetCell = r.children[colIndex];
+          if (targetCell) targetCell.after(newCell);
+          else r.appendChild(newCell);
+        });
+        showToast('ستون جدید افزوده شد');
+      } else if (action === 'addColBefore') {
+        Array.from(table.rows).forEach(r => {
+          const isHeader = r.children[0] && r.children[0].tagName === 'TH';
+          const newCell = document.createElement(isHeader ? 'th' : 'td');
+          newCell.textContent = isHeader ? 'ستون جدید' : 'داده';
+          const targetCell = r.children[colIndex];
+          if (targetCell) targetCell.before(newCell);
+          else r.insertBefore(newCell, r.firstChild);
+        });
+        showToast('ستون جدید افزوده شد');
+      } else if (action === 'deleteRow') {
+        if (table.rows.length <= 1) {
+          const wrap = table.closest('.clinical-table-responsive') || table;
+          wrap.remove();
+          showToast('جدول حذف شد');
+        } else {
+          row.remove();
+          showToast('سطر حذف شد');
+        }
+      } else if (action === 'deleteCol') {
+        if (row.children.length <= 1) {
+          const wrap = table.closest('.clinical-table-responsive') || table;
+          wrap.remove();
+          showToast('جدول حذف شد');
+        } else {
+          Array.from(table.rows).forEach(r => {
+            if (r.children[colIndex]) r.children[colIndex].remove();
+          });
+          showToast('ستون حذف شد');
+        }
+      } else if (action === 'deleteTable') {
+        const wrap = table.closest('.clinical-table-responsive') || table;
+        wrap.remove();
+        showToast('جدول به طور کامل از نوشته حذف گردید');
+      }
+      closeTableDropdown();
+      onEditorContentChanged();
+    }
+
+    // Convert tab-separated text (Excel / Word table copy) to HTML table
+    function convertTsvToHtmlTable(tsv) {
+      if (!tsv || typeof tsv !== 'string') return null;
+      const lines = tsv.trim().split(/\r?\n/).filter(l => l.trim().length > 0);
+      if (lines.length < 2) return null;
+      const rows = lines.map(l => l.split('\t'));
+      const hasTabs = rows.some(r => r.length > 1);
+      if (!hasTabs) return null;
+
+      let html = '<div class="clinical-table-responsive" dir="rtl"><table class="clinical-table"><thead><tr>';
+      rows[0].forEach(cell => {
+        html += `<th>${escapeHtml(cell.trim() || 'ستون')}</th>`;
+      });
+      html += '</tr></thead><tbody>';
+      for (let i = 1; i < rows.length; i++) {
+        html += '<tr>';
+        rows[i].forEach(cell => {
+          html += `<td>${escapeHtml(cell.trim() || '-')}</td>`;
+        });
+        html += '</tr>';
+      }
+      html += '</tbody></table></div><p dir="rtl"><br></p>';
+      return html;
+    }
+
+    // WordPress Mode Switcher (Visual / Code)
+    function switchEditorMode(mode) {
+      if (currentEditorMode === mode) return;
+      const visualWrapper = canvas.parentElement;
+      const codeWrapper = document.getElementById('editorialCodeWrapper');
+      const codeArea = document.getElementById('editorialCodeEditor');
+      const toolbar = document.querySelector('.editorial-toolbar-sticky');
+      const tabVisual = document.getElementById('tabModeVisual');
+      const tabCode = document.getElementById('tabModeCode');
+
+      if (mode === 'code') {
+        currentEditorMode = 'code';
+        if (tabVisual) tabVisual.classList.remove('active');
+        if (tabCode) tabCode.classList.add('active');
+
+        codeArea.value = formatHtmlCode(canvas.innerHTML);
+        if (visualWrapper) visualWrapper.style.display = 'none';
+        if (toolbar) toolbar.style.display = 'none';
+        if (codeWrapper) codeWrapper.style.display = 'block';
+        codeArea.focus();
+      } else {
+        currentEditorMode = 'visual';
+        if (tabCode) tabCode.classList.remove('active');
+        if (tabVisual) tabVisual.classList.add('active');
+
+        canvas.innerHTML = sanitizeArticleHtml(codeArea.value);
+        if (codeWrapper) codeWrapper.style.display = 'none';
+        if (toolbar) toolbar.style.display = 'flex';
+        if (visualWrapper) visualWrapper.style.display = 'block';
+        canvas.focus();
+        onEditorContentChanged();
+      }
+    }
+
+    function onCodeEditorInput() {
+      // Real-time synchronization
+    }
+
+    function copyFullArticleHtmlCode() {
+      const codeArea = document.getElementById('editorialCodeEditor');
+      const htmlToCopy = (currentEditorMode === 'code' && codeArea) ? codeArea.value : formatHtmlCode(canvas.innerHTML);
+
+      navigator.clipboard.writeText(htmlToCopy).then(() => {
+        showToast('کد کامل HTML مقاله در کلیپ‌بورد کپی شد!', 'success');
+      }).catch(() => {
+        showToast('خطا در کپی کردن کدهای مقاله', 'error');
+      });
+    }
+
+    function formatHtmlCode(html) {
+      if (!html) return '';
+      let formatted = '';
+      let indent = '';
+      const tab = '  ';
+      html.split(/>\s*</).forEach(function(element) {
+        if (element.match(/^\/\w/)) {
+          indent = indent.substring(tab.length);
+        }
+        formatted += indent + '<' + element + '>\r\n';
+        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("br") && !element.startsWith("hr")) {
+          indent += tab;
+        }
+      });
+      return formatted.substring(1, formatted.length - 3);
+    }
+
+function cleanAndNormalizePastedHtml(rawHtml) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(rawHtml, 'text/html');
 
@@ -7702,6 +8290,17 @@
         }
 
         // Fix unwanted dir="ltr" on Persian elements & ensure rtl on blocks
+        // Clean table elements and wrap in responsive container
+        if (tag === 'table') {
+          el.classList.add('clinical-table');
+          el.removeAttribute('width');
+          el.removeAttribute('height');
+          el.removeAttribute('border');
+          el.removeAttribute('cellspacing');
+          el.removeAttribute('cellpadding');
+          el.setAttribute('dir', 'rtl');
+        }
+
         if (tag === 'p' || tag === 'div' || tag === 'h2' || tag === 'h3' || tag === 'li' || tag === 'blockquote') {
           if (/[\u0600-\u06FF]/.test(el.textContent) || !el.textContent.trim()) {
             el.setAttribute('dir', 'rtl');
@@ -7749,6 +8348,19 @@
           const h2 = doc.createElement('h2');
           h2.innerHTML = el.innerHTML;
           el.parentNode.replaceChild(h2, el);
+        }
+      });
+
+      // Ensure all tables are inside a responsive container
+      doc.body.querySelectorAll('table').forEach(tbl => {
+        tbl.classList.add('clinical-table');
+        tbl.setAttribute('dir', 'rtl');
+        if (!tbl.parentElement || !tbl.parentElement.classList.contains('clinical-table-responsive')) {
+          const wrap = doc.createElement('div');
+          wrap.className = 'clinical-table-responsive';
+          wrap.setAttribute('dir', 'rtl');
+          tbl.parentNode.insertBefore(wrap, tbl);
+          wrap.appendChild(tbl);
         }
       });
 
@@ -9169,6 +9781,7 @@ function renderDoctorsManagement(filterQuery = '') {
     }
 
     function loadArticleForEditing(id) {
+      if (currentEditorMode === 'code') switchEditorMode('visual');
       const art = ARTICLES.find(a => a.id === id);
       if (!art) return;
 
@@ -9289,10 +9902,34 @@ function renderDoctorsManagement(filterQuery = '') {
       clean = clean.replace(/\s*is-selected/g, '');
       clean = clean.replace(/\s*is-dragging/g, '');
       clean = clean.replace(/\s*tabindex=["']0["']/gi, '');
+
+      try {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = clean;
+        tempDiv.querySelectorAll('table').forEach(tbl => {
+          tbl.classList.add('clinical-table');
+          tbl.setAttribute('dir', 'rtl');
+          if (!tbl.parentElement || !tbl.parentElement.classList.contains('clinical-table-responsive')) {
+            const wrap = document.createElement('div');
+            wrap.className = 'clinical-table-responsive';
+            wrap.setAttribute('dir', 'rtl');
+            tbl.parentNode.insertBefore(wrap, tbl);
+            wrap.appendChild(tbl);
+          }
+        });
+        clean = tempDiv.innerHTML;
+      } catch(e) {}
+
       return clean;
     }
 
     async function saveCurrentArticle(targetStatus = 'published') {
+      if (currentEditorMode === 'code') {
+        const codeArea = document.getElementById('editorialCodeEditor');
+        if (codeArea) {
+          canvas.innerHTML = sanitizeArticleHtml(codeArea.value);
+        }
+      }
       const title = document.getElementById('editTitle').value.trim();
       if (!title) {
         alert('لطفاً عنوان مقاله را وارد فرمایید.');
