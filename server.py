@@ -2503,7 +2503,11 @@ def render_article_ssr(art, template_html):
     - Google Medical E-E-A-T Schema (MedicalScholarlyArticle + BreadcrumbList + FAQPage)
     - Author: تیم متخصص محتوا نویس پزشکآن
     - Verification: این مقاله توسط متخصصین نوشته شده و دارای تایید علمی هستش
-    - Full Server-Rendered HTML Body in #articleReaderContent with hidden hub
+    - Strict Semantic Heading Outline:
+      * Article Title is the ONLY <h1> on the page
+      * Sections, FAQs, Author, Citations are <h2>
+      * Sub-questions are <h3>
+      * Completely isolates viewHubMain so no competing headings exist in DOM
     """
     slug = art.get("slug") or art.get("id")
     canonical_url = f"https://pezeshkan.me/mag/{urllib.parse.quote(slug)}"
@@ -2637,11 +2641,11 @@ def render_article_ssr(art, template_html):
     schema_tag = f'<script type="application/ld+json">\n{schema_json}\n  </script>'
     ssr_html = re.sub(r'<script\s+type=["\']application/ld\+json["\']>.*?</script>', schema_tag, ssr_html, count=1, flags=re.DOTALL | re.IGNORECASE)
     
-    # 7. Render Article Body Content into reader-layout-grid
+    # 7. Render Article Body Content into reader-layout-grid with strict H2 hierarchy
     sections = art.get("sections") or []
     sections_html = "".join([
         f'<div id="{s.get("id")}" style="margin-bottom:28px;">'
-        f'<h3 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:12px; border-right:3px solid var(--color-primary); padding-right:12px;">{html.escape(s.get("title", ""))}</h3>'
+        f'<h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:12px; border-right:3px solid var(--color-primary); padding-right:12px;">{html.escape(s.get("title", ""))}</h2>'
         f'<p style="font-size:15px; color:var(--text-body); line-height:1.9;">{html.escape(s.get("content", ""))}</p>'
         f'</div>'
         for s in sections
@@ -2658,20 +2662,20 @@ def render_article_ssr(art, template_html):
           <li style="margin-bottom:10px;"><a href="#treatment" style="color:var(--text-body); font-size:13px; font-weight:600;">• پروتکل‌های تشخیصی و درمانی</a></li>
           <li style="margin-bottom:10px;"><a href="#guidelines" style="color:var(--text-body); font-size:13px; font-weight:600;">• گایدلاین‌ها و مراقبت پس از درمان</a></li>'''
 
-    # Build FAQs HTML if present (NO EMOJIS - pure SVG)
+    # Build FAQs HTML if present with H2 section title and H3 question titles
     faqs_html = ""
     if faqs:
         q_icon = "<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg>"
         items_html = "".join([
             f'<div style="margin-bottom:14px; border-bottom:1px dashed var(--border-color); padding-bottom:12px;">'
-            f'<strong style="display:flex; align-items:center; gap:6px; color:var(--text-heading); font-size:14px; margin-bottom:6px;">{q_icon} <span>{html.escape(f.get("q", ""))}</span></strong>'
+            f'<h3 style="display:flex; align-items:center; gap:6px; color:var(--text-heading); font-size:14px; margin-bottom:6px; font-weight:800;">{q_icon} <span>{html.escape(f.get("q", ""))}</span></h3>'
             f'<p style="color:var(--text-body); font-size:13.5px; line-height:1.8; margin:0;">{html.escape(f.get("a", ""))}</p>'
             f'</div>'
             for f in faqs if f.get("q") and f.get("a")
         ])
         faqs_html = f'''
         <div style="margin-top:32px; background:var(--bg-subtle); border-radius:var(--radius-md); padding:20px;">
-          <h4 style="font-size:16px; font-weight:800; color:var(--text-heading); margin-bottom:16px;">پرسش‌های پرتکرار بیماران (FAQ)</h4>
+          <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:16px;">پرسش‌های پرتکرار بیماران (FAQ)</h2>
           {items_html}
         </div>
         '''
@@ -2682,54 +2686,13 @@ def render_article_ssr(art, template_html):
         c_items = "".join([f'<li><a href="{html.escape(c.get("link", "#"))}" target="_blank" rel="noopener noreferrer" style="color:var(--color-primary); text-decoration:underline;">{html.escape(c.get("title", ""))}</a></li>' for c in citations])
         citations_html = f'''
         <div style="margin-top:20px; font-size:12px; color:var(--text-secondary); background:rgba(2,132,199,0.05); border:1px solid rgba(2,132,199,0.15); border-radius:8px; padding:12px 16px;">
-          <strong>مراجع علمی و استنادهای بالینی:</strong>
+          <h2 style="font-size:14px; font-weight:800; color:var(--text-heading); margin:0 0 8px 0;">مراجع علمی و استنادهای بالینی:</h2>
           <ul style="margin:6px 0 0 16px; padding:0;">{c_items}</ul>
         </div>
         '''
 
+    # Notice: In the HTML DOM, <article> is placed FIRST so the <h1> is the very first heading in the document outline!
     reader_content = f'''
-      <aside class="reader-sidebar">
-        <h4 style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:14px;">فهرست مطالب مقاله</h4>
-        <ul style="list-style:none; padding:0; margin-bottom:24px;">
-          {toc_items}
-        </ul>
-        
-        <!-- باکس نویسنده و تاییدیه علمی در ستون کناری -->
-        <div class="author-verification-sidebar-card" style="border-top:1px solid var(--border-color); padding-top:16px;">
-          <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
-            <span>نویسنده و هیئت تحریریه بالینی</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-            <div style="position:relative; flex-shrink:0;">
-              <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:19px; box-shadow:0 3px 10px rgba(0,115,255,0.25);">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg>
-              </div>
-              <span style="position:absolute; bottom:-2px; left:-2px; background:#00E599; color:#0F172A; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
-            </div>
-            <div>
-              <h5 style="font-size:13.5px; font-weight:900; color:var(--text-heading); margin:0;">تیم متخصص محتوا نویس پزشکآن</h5>
-              <span style="font-size:11px; color:var(--text-secondary); display:block; margin-top:2px;">تحریریه علمی و پایش بالینی مجله</span>
-            </div>
-          </div>
-
-          <div style="background:linear-gradient(135deg, rgba(0, 115, 255, 0.05) 0%, rgba(0, 229, 153, 0.04) 100%); border:1px solid rgba(0, 115, 255, 0.16); border-radius:10px; padding:12px; margin-bottom:14px;">
-            <div style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; color:#059669; margin-bottom:6px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>تأییدیه علمی و منابع معتبر</span>
-            </div>
-            <p style="font-size:12px; color:var(--text-body); line-height:1.8; margin:0; font-weight:600;">
-              این مقاله توسط متخصصین نوشته شده و دارای تایید علمی هستش و از منابع معتبر بین‌المللی استخراج شده است.
-            </p>
-          </div>
-
-          <button class="btn-ui btn-primary-gradient" style="width:100%; justify-content:center; font-size:12px; padding:9px 12px;" onclick="openBookingDrawer()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span>مشاوره با پزشکان متخصص پزشکآن</span>
-          </button>
-        </div>
-      </aside>
-
       <article class="reader-article-body">
         <img src="{html.escape(image)}" class="reader-hero-img" alt="{html.escape(image_alt)}">
         
@@ -2747,7 +2710,7 @@ def render_article_ssr(art, template_html):
           </div>
         </div>
 
-        <h1 style="font-size:24px; font-weight:900; color:var(--text-heading); margin-bottom:16px; line-height:1.5;">{html.escape(title)}</h1>
+        <h1 class="article-reader-h1" style="font-size:26px; font-weight:900; color:var(--text-heading); margin-bottom:16px; line-height:1.5;">{html.escape(title)}</h1>
         <div style="background:var(--bg-subtle); border-right:4px solid var(--color-primary); padding:16px; border-radius:8px; margin-bottom:28px; font-size:14.5px; color:var(--text-body); line-height:1.8;">
           {html.escape(summary)}
         </div>
@@ -2769,7 +2732,7 @@ def render_article_ssr(art, template_html):
               </div>
               <div>
                 <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:2px;">درباره نویسنده مقاله</div>
-                <h4 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">تیم متخصص محتوا نویس پزشکآن</h4>
+                <h2 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">درباره نویسنده: تیم متخصص محتوا نویس پزشکآن</h2>
                 <span style="font-size:12px; color:var(--text-secondary);">شورای علمی، تدوین بالینی و راستی‌آزمایی شواهد پزشکی اکوسیستم سلامت پزشکآن</span>
               </div>
             </div>
@@ -2793,7 +2756,7 @@ def render_article_ssr(art, template_html):
 
         <div class="reader-cta-card" style="margin-top:24px;">
           <div>
-            <h4 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</h4>
+            <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</h3>
             <p style="font-size:12.5px; color:var(--text-secondary);">می‌توانید مستقیماً آزمایش‌ها و گزارش‌های تصویربرداری خود را جهت ارزیابی به پزشکان متخصص پزشکآن ارسال فرمایید.</p>
           </div>
           <button class="btn-ui btn-primary-gradient" onclick="openBookingDrawer()">
@@ -2802,10 +2765,57 @@ def render_article_ssr(art, template_html):
           </button>
         </div>
       </article>
+
+      <aside class="reader-sidebar">
+        <div style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:14px;" role="heading" aria-level="2">فهرست مطالب مقاله</div>
+        <ul style="list-style:none; padding:0; margin-bottom:24px;">
+          {toc_items}
+        </ul>
+        
+        <!-- باکس نویسنده و تاییدیه علمی در ستون کناری -->
+        <div class="author-verification-sidebar-card" style="border-top:1px solid var(--border-color); padding-top:16px;">
+          <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+            <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
+            <span>نویسنده و هیئت تحریریه بالینی</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <div style="position:relative; flex-shrink:0;">
+              <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:19px; box-shadow:0 3px 10px rgba(0,115,255,0.25);">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg>
+              </div>
+              <span style="position:absolute; bottom:-2px; left:-2px; background:#00E599; color:#0F172A; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
+            </div>
+            <div>
+              <div style="font-size:13.5px; font-weight:900; color:var(--text-heading); margin:0;">تیم متخصص محتوا نویس پزشکآن</div>
+              <span style="font-size:11px; color:var(--text-secondary); display:block; margin-top:2px;">تحریریه علمی و پایش بالینی مجله</span>
+            </div>
+          </div>
+
+          <div style="background:linear-gradient(135deg, rgba(0, 115, 255, 0.05) 0%, rgba(0, 229, 153, 0.04) 100%); border:1px solid rgba(0, 115, 255, 0.16); border-radius:10px; padding:12px; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; color:#059669; margin-bottom:6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>تأییدیه علمی و منابع معتبر</span>
+            </div>
+            <p style="font-size:12px; color:var(--text-body); line-height:1.8; margin:0; font-weight:600;">
+              این مقاله توسط متخصصین نوشته شده و دارای تایید علمی هستش و از منابع معتبر بین‌المللی استخراج شده است.
+            </p>
+          </div>
+
+          <button class="btn-ui btn-primary-gradient" style="width:100%; justify-content:center; font-size:12px; padding:9px 12px;" onclick="openBookingDrawer()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>مشاوره با پزشکان متخصص پزشکآن</span>
+          </button>
+        </div>
+      </aside>
     '''
     
-    # Switch display states
-    ssr_html = ssr_html.replace('<div id="viewHubMain">', '<div id="viewHubMain" style="display: none;">')
+    # Switch display states & strip hub headings from SSR output so Googlebot only sees the article
+    ssr_html = re.sub(
+        r'<div id="viewHubMain">.*?</div>\s*<!-- نمای ۲:',
+        '<div id="viewHubMain" style="display: none;"><div id="heroMagazineGrid"></div><div id="categoryCardsGrid"></div><div id="homeNewslettersCardsGrid"></div><div id="editorialCardsGrid"></div></div>\n    <!-- نمای ۲:',
+        ssr_html,
+        flags=re.DOTALL
+    )
     ssr_html = ssr_html.replace('<div id="viewArticleReaderArea" style="display: none; padding-bottom: 60px;">', '<div id="viewArticleReaderArea" style="display: block; padding-bottom: 60px;">')
     
     # Inject content
