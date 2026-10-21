@@ -145,7 +145,8 @@ class Article(models.Model):
 
     def to_dict(self):
         return {
-            "id": self.custom_id or self.id,
+            "id": self.custom_id or str(self.id),
+            "dbId": self.id,
             "title": self.title,
             "slug": self.slug,
             "summary": self.summary,
@@ -396,7 +397,8 @@ class Newsletter(models.Model):
 
     def to_dict(self):
         return {
-            "id": self.custom_id or self.id,
+            "id": self.custom_id or str(self.id),
+            "dbId": self.id,
             "title": self.title,
             "slug": self.slug,
             "date": self.date,

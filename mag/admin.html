@@ -3505,12 +3505,20 @@
         </div>
 
         <div class="card" style="padding: 16px;">
-          <ul class="status-pills-list">
-            <li class="status-pill active" id="pill-filter-all" onclick="setPostStatusFilter('all')">همه (<span id="countFilterAll">۴</span>)</li>
-            <li class="status-pill" id="pill-filter-published" onclick="setPostStatusFilter('published')">منتشر شده (<span id="countFilterPublished">۴</span>)</li>
-            <li class="status-pill" id="pill-filter-draft" onclick="setPostStatusFilter('draft')">پیش‌نویس‌ها (<span id="countFilterDraft">۰</span>)</li>
-            <li class="status-pill" id="pill-filter-trash" onclick="setPostStatusFilter('trash')">زباله‌دان (<span id="countFilterTrash">۰</span>)</li>
-          </ul>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <ul class="status-pills-list" style="margin-bottom: 0;">
+              <li class="status-pill active" id="pill-filter-all" onclick="setPostStatusFilter('all')">همه (<span id="countFilterAll">۰</span>)</li>
+              <li class="status-pill" id="pill-filter-published" onclick="setPostStatusFilter('published')">منتشر شده (<span id="countFilterPublished">۰</span>)</li>
+              <li class="status-pill" id="pill-filter-draft" onclick="setPostStatusFilter('draft')">پیش‌نویس‌ها (<span id="countFilterDraft">۰</span>)</li>
+              <li class="status-pill" id="pill-filter-trash" onclick="setPostStatusFilter('trash')">زباله‌دان (<span id="countFilterTrash">۰</span>)</li>
+            </ul>
+            <div id="trashActionsBar" style="display: none;">
+              <button type="button" class="btn btn-secondary" onclick="emptyTrashAll()" style="color: #F87171; border-color: rgba(248, 113, 113, 0.35); background: rgba(248, 113, 113, 0.08); font-size: 11.5px; padding: 5px 12px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border-radius: 8px;">
+                <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                <span>خالی کردن زباله‌دان</span>
+              </button>
+            </div>
+          </div>
 
           <div class="clinical-table-wrap">
             <table class="clinical-table">
@@ -7043,6 +7051,11 @@
       document.getElementById('countFilterDraft').textContent = draftCount;
       document.getElementById('countFilterTrash').textContent = trashCount;
 
+      const trashBar = document.getElementById('trashActionsBar');
+      if (trashBar) {
+        trashBar.style.display = (postFilterStatus === 'trash' && trashCount > 0) ? 'block' : 'none';
+      }
+
       if (!filtered.length) {
         tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-secondary); padding: 32px;">هیچ مقاله‌ای با این مشخصات یافت نشد.</td></tr>`;
         return;
@@ -7069,12 +7082,14 @@
             <td><span class="tbtn-pill ${statusClass}" style="font-size: 11px; height: 24px; padding: 0 8px;">${statusLabel}</span></td>
             <td>
               <div class="table-actions">
-                <button type="button" class="table-btn-action" onclick="loadArticleForEditing('${art.id}')">ویرایش</button>
-                <button type="button" class="table-btn-action" onclick="window.open('/mag#${art.id}', '_blank')">مشاهده</button>
-                ${isTrash ? 
-                  `<button type="button" class="table-btn-action" style="color: #00E599;" onclick="restorePost('${art.id}')">بازیابی</button>` :
-                  `<button type="button" class="table-btn-action" style="color: #F87171;" onclick="trashPost('${art.id}')">حذف</button>`
-                }
+                ${isTrash ? `
+                  <button type="button" class="table-btn-action" style="color: #00E599;" onclick="restorePost('${art.id}')" title="بازگردانی مقاله به وضعیت انتشار">بازگردانی</button>
+                  <button type="button" class="table-btn-action" style="color: #F87171;" onclick="permanentlyDeletePost('${art.id}')" title="پاک کردن نهایی و دائمی از دیتابیس">پاک کردن نهایی</button>
+                ` : `
+                  <button type="button" class="table-btn-action" onclick="loadArticleForEditing('${art.id}')">ویرایش</button>
+                  <button type="button" class="table-btn-action" onclick="window.open('/mag#${art.id}', '_blank')">مشاهده</button>
+                  <button type="button" class="table-btn-action" style="color: #F87171;" onclick="trashPost('${art.id}')">انتقال به زباله‌دان</button>
+                `}
               </div>
             </td>
           </tr>
@@ -7106,7 +7121,7 @@
     }
 
     async function restorePost(id) {
-      const art = ARTICLES.find(a => a.id === id);
+      const art = ARTICLES.find(a => String(a.id) === String(id));
       if (art) {
         art.status = 'published';
         try { localStorage.setItem('pezeshkan_admin_articles', JSON.stringify(ARTICLES)); } catch(e) {}
@@ -7114,6 +7129,77 @@
         renderPostsTable();
         showToast('مقاله بازیابی شد');
       }
+    }
+
+    async function permanentlyDeletePost(id) {
+      const art = ARTICLES.find(a => String(a.id) === String(id));
+      const title = art ? art.title : 'این مقاله';
+      if (!confirm(`آیا از پاک کردن نهایی و دائمی «${title}» اطمینان دارید؟ این مقاله برای همیشه از دیتابیس حذف خواهد شد و غیرقابل بازگشت است.`)) {
+        return;
+      }
+
+      // 1. Remove from local memory
+      ARTICLES = ARTICLES.filter(a => String(a.id) !== String(id));
+      try { localStorage.setItem('pezeshkan_admin_articles', JSON.stringify(ARTICLES)); } catch(e) {}
+
+      // 2. Transmit DELETE to server
+      try {
+        const res = await apiFetch('/api/articles?id=' + encodeURIComponent(id), { method: 'DELETE' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.articles && Array.isArray(data.articles)) {
+            ARTICLES = data.articles;
+            localStorage.setItem('pezeshkan_admin_articles', JSON.stringify(ARTICLES));
+          }
+          showToast('مقاله به صورت دائمی حذف شد');
+        } else {
+          showToast('مقاله از پیشخوان حذف شد');
+        }
+      } catch(e) {
+        console.error('Delete error:', e);
+        showToast('مقاله از پیشخوان حذف شد');
+      }
+
+      renderPostsTable();
+      renderDashboard();
+      updateArticleDropdownsInUI();
+    }
+
+    async function emptyTrashAll() {
+      const trashItems = ARTICLES.filter(a => a.status === 'trash');
+      if (!trashItems.length) {
+        alert('زباله‌دان خالی است.');
+        return;
+      }
+      if (!confirm(`آیا از پاک کردن نهایی تمامی ${trashItems.length} مقاله موجود در زباله‌دان اطمینان دارید؟ تمامی این مقالات برای همیشه از دیتابیس حذف خواهند شد.`)) {
+        return;
+      }
+
+      // 1. Remove all trash items from local memory
+      ARTICLES = ARTICLES.filter(a => a.status !== 'trash');
+      try { localStorage.setItem('pezeshkan_admin_articles', JSON.stringify(ARTICLES)); } catch(e) {}
+
+      // 2. Call server empty_trash
+      try {
+        const res = await apiFetch('/api/articles?empty_trash=true', { method: 'DELETE' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.articles && Array.isArray(data.articles)) {
+            ARTICLES = data.articles;
+            localStorage.setItem('pezeshkan_admin_articles', JSON.stringify(ARTICLES));
+          }
+          showToast('زباله‌دان با موفقیت خالی شد');
+        } else {
+          showToast('زباله‌دان در پیشخوان خالی شد');
+        }
+      } catch(e) {
+        console.error('Empty trash error:', e);
+        showToast('زباله‌دان خالی شد');
+      }
+
+      renderPostsTable();
+      renderDashboard();
+      updateArticleDropdownsInUI();
     }
 
     // ==========================================================================
@@ -9768,6 +9854,9 @@ function renderDoctorsManagement(filterQuery = '') {
       currentEditingArticleId = null;
       document.getElementById('editorMainHeading').textContent = 'نگارش مقاله جدید در مجله سلامت';
       document.getElementById('editorModeBadge').textContent = 'مقاله تازه';
+      currentEditingArticleId = null;
+      const slgIn = document.getElementById('seoPostSlug'); if (slgIn) slgIn.dataset.touched = 'false';
+      const mtIn = document.getElementById('seoMetaTitle'); if (mtIn) mtIn.dataset.touched = 'false';
 
       document.getElementById('editTitle').value = '';
       document.getElementById('editSummary').value = '';
@@ -9819,7 +9908,9 @@ function renderDoctorsManagement(filterQuery = '') {
 
       currentEditingArticleId = id;
       document.getElementById('editorMainHeading').textContent = 'ویرایش مقاله: ' + art.title;
-      document.getElementById('editorModeBadge').textContent = 'در حال ویرایش';
+      document.getElementById('editorModeBadge').textContent = 'در حال ویرایش مقاله موجود';
+      const slgIn = document.getElementById('seoPostSlug'); if (slgIn) slgIn.dataset.touched = 'true';
+      const mtIn = document.getElementById('seoMetaTitle'); if (mtIn) mtIn.dataset.touched = 'true';
 
       document.getElementById('editTitle').value = art.title || '';
       document.getElementById('editSummary').value = art.summary || '';
@@ -10027,6 +10118,7 @@ function renderDoctorsManagement(filterQuery = '') {
 
       const articleObj = {
         id: articleId,
+        dbId: existing?.dbId || null,
         title: title,
         slug: slug,
         summary: summary,
@@ -10074,7 +10166,7 @@ function renderDoctorsManagement(filterQuery = '') {
       if (isNew) {
         ARTICLES.unshift(articleObj);
       } else {
-        const idx = ARTICLES.findIndex(a => a.id === articleId);
+        const idx = ARTICLES.findIndex(a => String(a.id) === String(articleId));
         if (idx !== -1) ARTICLES[idx] = articleObj;
         else ARTICLES.unshift(articleObj);
       }
@@ -10136,11 +10228,14 @@ function renderDoctorsManagement(filterQuery = '') {
       const metaTitleInput = document.getElementById('seoMetaTitle');
       const slugInput = document.getElementById('seoPostSlug');
 
-      if (!metaTitleInput.value || metaTitleInput.dataset.touched !== 'true') {
-        metaTitleInput.value = title;
-      }
-      if (!slugInput.value || slugInput.dataset.touched !== 'true') {
-        slugInput.value = generateSlugFromTitle(title);
+      // Only auto-generate slug and meta title if writing a BRAND NEW article!
+      if (!currentEditingArticleId) {
+        if (!metaTitleInput.value || metaTitleInput.dataset.touched !== 'true') {
+          metaTitleInput.value = title;
+        }
+        if (!slugInput.value || slugInput.dataset.touched !== 'true') {
+          slugInput.value = generateSlugFromTitle(title);
+        }
       }
       runLiveSeoAudit();
     }
