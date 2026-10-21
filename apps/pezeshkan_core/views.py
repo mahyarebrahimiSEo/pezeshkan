@@ -158,20 +158,67 @@ def portal_page(request, page_name="index"):
 
 
 def magazine_page(request, path=""):
-    """Serves magazine SPA and subpages."""
-    clean = path.strip("/")
+    """Serves magazine SPA and subpages with full SSR for clinical articles."""
+    import urllib.parse
+    from django.shortcuts import redirect
+    from server import render_article_ssr
+
+    clean = urllib.parse.unquote(path.strip("/"))
+    
+    # 1. 301 Canonical Redirect for legacy query parameter ?article=:slug
+    article_param = request.GET.get('article')
+    if article_param:
+        clean_param = urllib.parse.unquote(article_param.strip())
+        return redirect(f"/mag/{urllib.parse.quote(clean_param)}", permanent=True)
+
     if not clean:
         target = settings.BASE_DIR / 'mag' / 'index.html'
+        return serve_static_file(target)
     elif clean == "newsletter":
         target = settings.BASE_DIR / 'mag' / 'newsletter.html'
+        return serve_static_file(target)
     else:
-        # Check if direct file exists
+        # Check if direct file exists (assets, css, js, etc.)
         target = settings.BASE_DIR / 'mag' / clean
-        if not target.exists() and not clean.endswith(".html"):
-            target = settings.BASE_DIR / 'mag' / f"{clean}.html"
-        if not target.exists():
-            target = settings.BASE_DIR / 'mag' / 'index.html'
-    return serve_static_file(target)
+        if target.exists() and target.is_file():
+            return serve_static_file(target)
+        if not clean.endswith(".html"):
+            target_html = settings.BASE_DIR / 'mag' / f"{clean}.html"
+            if target_html.exists() and target_html.is_file():
+                return serve_static_file(target_html)
+        
+        # Check if requested slug is an article
+        try:
+            articles_path = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
+            if articles_path.exists():
+                with open(articles_path, 'r', encoding='utf-8') as af:
+                    articles_data = json.load(af)
+            else:
+                articles_data = []
+
+            found_article = None
+            for a in articles_data:
+                curr_slug = a.get("slug") or a.get("id")
+                old_slugs = a.get("oldSlugs", [])
+                if clean in old_slugs and curr_slug and curr_slug != clean:
+                    return redirect(f"/mag/{urllib.parse.quote(curr_slug)}", permanent=True)
+                if a.get("slug") == clean or str(a.get("id")) == clean:
+                    found_article = a
+                    break
+
+            if found_article:
+                mag_template_path = settings.BASE_DIR / 'mag' / 'index.html'
+                with open(mag_template_path, 'r', encoding='utf-8') as tf:
+                    template_html = tf.read()
+                ssr_html = render_article_ssr(found_article, template_html)
+                return HttpResponse(ssr_html, content_type="text/html; charset=utf-8")
+        except Exception as ssr_err:
+            import logging
+            logging.getLogger(__name__).error(f"[SSR] Django magazine article render error for {clean}: {ssr_err}")
+
+        # If slug not found and not a static file, fallback to index.html
+        target = settings.BASE_DIR / 'mag' / 'index.html'
+        return serve_static_file(target)
 
 
 def admin_page(request):

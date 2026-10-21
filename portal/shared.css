@@ -1509,25 +1509,67 @@ a:hover {
 }
 
 .pez-shell-metric-card {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(136, 165, 173, 0.45);
-  border-radius: 14px;
-  padding: 12px 16px 10px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.58) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 2px 0 rgba(0, 115, 255, 0.04), 0 8px 24px -4px rgba(12, 43, 54, 0.08);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, background 0.28s ease;
+  overflow: hidden;
+}
+
+.pez-shell-metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
+  pointer-events: none;
 }
 
 .pez-shell-metric-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(240, 249, 255, 0.72) 100%);
+  border-color: rgba(0, 115, 255, 0.38);
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 1), 0 14px 32px -4px rgba(0, 115, 255, 0.14), 0 4px 12px -2px rgba(12, 43, 54, 0.06);
 }
 
 [data-theme="dark"] .pez-shell-metric-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, #112936 100%);
-  border-color: rgba(79, 203, 209, 0.35);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, rgba(17, 41, 54, 0.68) 0%, rgba(9, 24, 32, 0.82) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 2px 0 rgba(0, 240, 255, 0.12), 0 8px 32px 0 rgba(0, 0, 0, 0.42);
+}
+
+[data-theme="dark"] .pez-shell-metric-card::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 240, 255, 0.5) 50%, transparent 100%);
+}
+
+[data-theme="dark"] .pez-shell-metric-card:hover {
+  background: linear-gradient(135deg, rgba(22, 53, 70, 0.78) 0%, rgba(12, 32, 42, 0.88) 100%);
+  border-color: rgba(0, 240, 255, 0.48);
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.32), 0 16px 40px 0 rgba(0, 240, 255, 0.18), 0 0 24px -2px rgba(0, 240, 255, 0.28);
+}
+
+/* Metric Card Columns: Info (Right) & Digital Value (Left) */
+.metric-info-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+  flex: 1;
 }
 
 .metric-header {
@@ -1537,8 +1579,8 @@ a:hover {
 }
 
 .metric-icon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1551,33 +1593,57 @@ a:hover {
   height: 15px;
 }
 
-.pez-shell-metric-card h2, .pez-shell-metric-card h3 {
+.pez-shell-metric-card h2,
+.pez-shell-metric-card h3 {
   font-family: var(--font-sans) !important;
-  font-size: 13px;
-  font-weight: 700;
-  color: #335E6D;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #1E3A47;
   margin: 0;
   white-space: nowrap;
 }
 
-[data-theme="dark"] .pez-shell-metric-card h2, .pez-shell-metric-card h3 {
-  color: #CBD5E1;
+[data-theme="dark"] .pez-shell-metric-card h2,
+[data-theme="dark"] .pez-shell-metric-card h3 {
+  color: #E2E8F0;
+}
+
+.metric-growth {
+  font-family: var(--font-sans) !important;
+  font-size: 11px;
+  font-weight: 700;
+  color: #047857 !important;
+  white-space: nowrap;
+  line-height: 1.25;
+}
+
+[data-theme="dark"] .metric-growth {
+  color: #34D399 !important;
+}
+
+.metric-value-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .metric-value-wrap {
   display: flex;
   align-items: baseline;
-  gap: 6px;
-  margin: 8px 0 4px;
+  gap: 4px;
+  direction: ltr !important;
+  margin: 0;
 }
 
 .metric-number {
   font-family: 'Orbitron', 'JetBrains Mono', monospace !important;
-  font-size: 28px !important;
+  font-size: 30px !important;
   font-weight: 800 !important;
   color: #0C2B36;
-  line-height: 1.15;
-  letter-spacing: 0.5px !important;
+  line-height: 1;
+  letter-spacing: 0.8px !important;
   direction: ltr !important;
   font-variant-numeric: tabular-nums;
   display: inline-block;
@@ -1590,11 +1656,10 @@ a:hover {
 
 .metric-unit {
   font-family: var(--font-sans) !important;
-  font-size: 15px !important;
-  font-weight: 800 !important;
-  color: #335E6D;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #476877;
   line-height: 1;
-  letter-spacing: normal !important;
   display: inline-block;
 }
 
@@ -1602,35 +1667,31 @@ a:hover {
   color: #94A3B8;
 }
 
-.metric-growth {
-  font-family: var(--font-sans) !important;
-  font-size: 11px;
-  font-weight: 800;
-  color: #047857 !important;
-}
-
-[data-theme="dark"] .metric-growth {
-  color: #34D399 !important;
-}
-
 /* Natural Medical ECG Animation Panel */
 .pez-shell-ecg-panel {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(136, 165, 173, 0.45);
-  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.74) 0%, rgba(240, 249, 255, 0.55) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-radius: 16px;
   padding: 8px 14px 6px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px -4px rgba(12, 43, 54, 0.06);
   width: 100%;
   box-sizing: border-box;
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 110px;
+  position: relative;
+  overflow: hidden;
 }
 
 [data-theme="dark"] .pez-shell-ecg-panel {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, #0e222e 100%);
-  border-color: rgba(79, 203, 209, 0.35);
+  background: linear-gradient(135deg, rgba(17, 41, 54, 0.65) 0%, rgba(9, 24, 32, 0.78) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.16), 0 8px 32px 0 rgba(0, 0, 0, 0.38);
 }
 
 .pez-shell-ecg-header {
@@ -2254,8 +2315,8 @@ a:hover {
   .pez-shell-metric-card {
     padding: 10px 14px;
   }
-  .metric-number.digital-font {
-    font-size: 22px !important;
+  .metric-number {
+    font-size: 24px !important;
   }
   .pez-shell-ecg-panel {
     min-height: 90px;
