@@ -1,0 +1,167 @@
+[
+  {
+    "key": "site_logo",
+    "title": "لوگوی اصلی هدر سایت",
+    "description": "لوگوی اصلی نمایش‌داده‌شده در نوار ناوبری بالای تمامی صفحات سایت",
+    "page": "branding",
+    "pageTitle": "هویت بصری و لوگو",
+    "defaultUrl": "/pezeshkon-logo.svg",
+    "currentUrl": "/pezeshkon-logo.svg",
+    "selector": ".brand-logo-emblem img, .nav-logo img, [data-img-slot='site_logo']",
+    "dimensions": "SVG یا PNG شفاف ۳۸×۳۸ px"
+  },
+  {
+    "key": "footer_logo",
+    "title": "لوگوی فوتر سایت",
+    "description": "نشان و لوگوی تجاری نمایش‌داده‌شده در پاورقی تمام صفحات سایت",
+    "page": "branding",
+    "pageTitle": "هویت بصری و لوگو",
+    "defaultUrl": "/pezeshkon-logo.svg",
+    "currentUrl": "/pezeshkon-logo.svg",
+    "selector": ".footer-brand-emblem img, [data-img-slot='footer_logo']",
+    "dimensions": "SVG یا PNG شفاف ۳۸×۳۸ px"
+  },
+  {
+    "key": "favicon_icon",
+    "title": "آیکون مرورگر و اپل تاچ (Favicon)",
+    "description": "آیکون برگه مرورگر و آیکون ذخیره‌سازی در صفحه اصلی گوشی‌های هوشمند",
+    "page": "branding",
+    "pageTitle": "هویت بصری و لوگو",
+    "defaultUrl": "/apple-touch-icon.png",
+    "currentUrl": "/apple-touch-icon.png",
+    "selector": "link[rel='apple-touch-icon'], link[rel='icon']",
+    "dimensions": "PNG مربعی ۱۸۰×۱۸۰ یا ۵۱۲×۵۱۲ px"
+  },
+  {
+    "key": "og_image",
+    "title": "تصویر اشتراک‌گذاری در شبکه‌های اجتماعی (OpenGraph)",
+    "description": "تصویری که هنگام ارسال لینک سایت در پیام‌رسان‌ها و شبکه‌های اجتماعی ظاهر می‌شود",
+    "page": "branding",
+    "pageTitle": "هویت بصری و لوگو",
+    "defaultUrl": "/new data for design and hero section/Futuristic Persian Medical UI Overlay.png",
+    "currentUrl": "/new data for design and hero section/Futuristic Persian Medical UI Overlay.png",
+    "selector": "meta[property='og:image']",
+    "dimensions": "ابعاد استاندارد ۱۲۰۰×۶۳۰ px"
+  },
+  {
+    "key": "home_vital_dial",
+    "title": "نشانگر مرکزی هرو صفحه اصلی (Vital Dial)",
+    "description": "طرح گرافیکی و نماد چرخان مرکزی بخش هرو در صفحه اول پورتال",
+    "page": "home",
+    "pageTitle": "صفحه اصلی پورتال",
+    "defaultUrl": "/assets/vital-day.svg?v=20261017v13",
+    "currentUrl": "/assets/vital-day.svg?v=20261017v13",
+    "selector": "#vital, [data-img-slot='home_vital_dial']",
+    "dimensions": "SVG وکتور یا PNG بدون پس‌زمینه"
+  },
+  {
+    "key": "home_card_ortho",
+    "title": "تصویر کارت ارتوپدی و ستون فقرات",
+    "description": "تصویر کارت تخصصی راهنمای بالینی دیسک کمر، مفاصل و فیزیوتراپی در صفحه اول",
+    "page": "home",
+    "pageTitle": "صفحه اصلی پورتال",
+    "defaultUrl": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80",
+    "selector": "[data-img-slot='home_card_ortho']",
+    "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "home_card_cardio",
+    "title": "تصویر کارت پایش قلب و علائم حیاتی",
+    "description": "تصویر کارت تخصصی پایش الکتروکاردیوگرام و مراقبت قلبی در صفحه اول",
+    "page": "home",
+    "pageTitle": "صفحه اصلی پورتال",
+    "defaultUrl": "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80",
+    "selector": "[data-img-slot='home_card_cardio']",
+    "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "home_card_maternal",
+    "title": "تصویر کارت غربالگری سلامت مادر و جنین",
+    "description": "تصویر کارت سونوگرافی و مراقبت‌های دوره بارداری در صفحه اول",
+    "page": "home",
+    "pageTitle": "صفحه اصلی پورتال",
+    "defaultUrl": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80",
+    "selector": "[data-img-slot='home_card_maternal']",
+    "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "prod_emr_banner",
+    "title": "تصویر پرونده الکترونیک سلامت (EMR)",
+    "description": "تصویر ماژول ثبت سوابق بیمار و پرونده الکترونیک در صفحه معرفی محصول",
+    "page": "product",
+    "pageTitle": "صفحه معرفی محصول",
+    "defaultUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80",
+    "selector": "[data-img-slot='prod_emr_banner']",
+    "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "prod_ai_banner",
+    "title": "تصویر دستیار هوش مصنوعی و تریاژ",
+    "description": "تصویر دستیار هوشمند و تریاژ بالینی بیمار در صفحه معرفی محصول",
+    "page": "product",
+    "pageTitle": "صفحه معرفی محصول",
+    "defaultUrl": "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=600&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=600&q=80",
+    "selector": "[data-img-slot='prod_ai_banner']",
+    "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "prod_reception_banner",
+    "title": "تصویر میز پذیرش و مدیریت مطب",
+    "description": "تصویر میز پذیرش، رزرو و صف‌بندی هوشمند بیماران در صفحه محصول",
+    "page": "product",
+    "pageTitle": "صفحه معرفی محصول",
+    "defaultUrl": "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=600&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=600&q=80",
+    "selector": "[data-img-slot='prod_reception_banner']",
+    "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "prod_portal_banner",
+    "title": "تصویر پرتال آنلاین و ارتباط با بیمار",
+    "description": "تصویر پنل دسترسی بیمار به نتایج آزمایش و نسخه در صفحه محصول",
+    "page": "product",
+    "pageTitle": "صفحه معرفی محصول",
+    "defaultUrl": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80",
+    "selector": "[data-img-slot='prod_portal_banner']",
+    "dimensions": "۶۰۰×۳۶۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "mag_hero_lead",
+    "title": "تصویر مقاله شاخص و هدر مجله سلامت",
+    "description": "تصویر بزرگ اصلی در بالای صفحه نخست مجله سلامت پزشکآن",
+    "page": "mag",
+    "pageTitle": "مجله سلامت",
+    "defaultUrl": "/mag/uploads/2026/10/11_1792235748_d87d26a0.webp",
+    "currentUrl": "/mag/uploads/2026/10/11_1792235748_d87d26a0.webp",
+    "selector": "[data-img-slot='mag_hero_lead']",
+    "dimensions": "۸۰۰×۴۵۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "about_team_banner",
+    "title": "تصویر تیم پزشکی در درباره ما",
+    "description": "تصویر معرفی پزشکان و زیرساخت در صفحه درباره پزشکآن",
+    "page": "other",
+    "pageTitle": "سایر صفحات پورتال",
+    "defaultUrl": "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=800&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=800&q=80",
+    "selector": "[data-img-slot='about_team_banner']",
+    "dimensions": "۸۰۰×۴۵۰ px نسبت تصویر ۱۶:۹"
+  },
+  {
+    "key": "download_app_banner",
+    "title": "تصویر معرفی اپلیکیشن در صفحه دانلود",
+    "description": "تصویر موکاپ اپلیکیشن در صفحه دانلود پزشکآن",
+    "page": "other",
+    "pageTitle": "سایر صفحات پورتال",
+    "defaultUrl": "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=800&q=80",
+    "currentUrl": "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=800&q=80",
+    "selector": "[data-img-slot='download_app_banner']",
+    "dimensions": "۸۰۰×۵۰۰ px"
+  }
+]

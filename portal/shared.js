@@ -34,9 +34,12 @@ function updatePezShellTheme(theme) {
 }
 
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const root = document.documentElement;
+  root.classList.add('theme-transitioning');
+
+  const current = root.getAttribute('data-theme') || 'light';
   const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
+  root.setAttribute('data-theme', next);
   try {
     localStorage.setItem('pezeshkan_theme', next);
   } catch (e) {}
@@ -45,6 +48,13 @@ function toggleTheme() {
   if (window.pezeshkan3D && typeof window.pezeshkan3D.updateThemeMaterials === 'function') {
     window.pezeshkan3D.updateThemeMaterials(next);
   }
+
+  // Restore micro-interaction transitions on next frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      root.classList.remove('theme-transitioning');
+    });
+  });
 }
 
 function updateThemeButtonUI(theme) {
@@ -1993,3 +2003,82 @@ document.addEventListener('click', (e) => {
   }
 });
 
+
+
+// ==============================================================================
+// Universal Dynamic Site Images Hydration & Customizer
+// ==============================================================================
+(function() {
+  function applySitePageImages() {
+    let images = window.__SITE_IMAGES__;
+    if (!images) {
+      try {
+        const cached = localStorage.getItem('pezeshkan_site_images');
+        if (cached) images = JSON.parse(cached);
+      } catch (e) {}
+    }
+
+    if (!images) {
+      fetch('/api/site-images')
+        .then(res => res.json())
+        .then(list => {
+          if (Array.isArray(list)) {
+            const map = {};
+            list.forEach(item => { if (item.key) map[item.key] = item.currentUrl || item.defaultUrl; });
+            window.__SITE_IMAGES__ = map;
+            try { localStorage.setItem('pezeshkan_site_images', JSON.stringify(map)); } catch (e) {}
+            applyImageMap(map);
+          }
+        })
+        .catch(() => {});
+      return;
+    }
+
+    applyImageMap(images);
+  }
+
+  function applyImageMap(map) {
+    if (!map || typeof map !== 'object') return;
+
+    // 1. Data slot attributes: [data-img-slot="key"]
+    document.querySelectorAll('[data-img-slot]').forEach(el => {
+      const slot = el.getAttribute('data-img-slot');
+      if (slot && map[slot]) {
+        if (el.tagName === 'IMG') el.src = map[slot];
+        else el.style.backgroundImage = `url("${map[slot]}")`;
+      }
+    });
+
+    // 2. Specific known site slots:
+    if (map.site_logo) {
+      document.querySelectorAll('.brand-logo-emblem img, .nav-logo img, [data-img-slot="site_logo"]').forEach(el => {
+        el.src = map.site_logo;
+      });
+    }
+    if (map.footer_logo) {
+      document.querySelectorAll('.footer-brand-emblem img, [data-img-slot="footer_logo"]').forEach(el => {
+        el.src = map.footer_logo;
+      });
+    }
+    if (map.home_vital_dial) {
+      const vitalEl = document.getElementById('vital');
+      if (vitalEl) vitalEl.src = map.home_vital_dial;
+    }
+    if (map.favicon_icon) {
+      document.querySelectorAll('link[rel="apple-touch-icon"], link[rel="icon"]').forEach(el => {
+        el.href = map.favicon_icon;
+      });
+    }
+    if (map.og_image) {
+      const ogEl = document.querySelector('meta[property="og:image"]');
+      if (ogEl) ogEl.setAttribute('content', map.og_image);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applySitePageImages);
+  } else {
+    applySitePageImages();
+  }
+  window.refreshSitePageImages = applySitePageImages;
+})();

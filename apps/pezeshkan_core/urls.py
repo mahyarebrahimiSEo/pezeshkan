@@ -56,6 +56,8 @@ urlpatterns = [
 
     # 7. Settings, Media, Redirects APIs
     path('api/settings', views.api_settings, name='api_settings'),
+    path('api/site-images', views.api_site_images, name='api_site_images'),
+    path('api/site-images/', views.api_site_images, name='api_site_images_slash'),
     path('api/media', views.api_media, name='api_media'),
     path('api/media/upload', views.api_upload, name='api_media_upload'),
     path('api/upload', views.api_upload, name='api_upload'),

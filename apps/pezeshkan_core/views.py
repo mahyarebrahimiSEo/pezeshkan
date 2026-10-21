@@ -68,6 +68,28 @@ MIME_MAP = {
     ".html": "text/html; charset=utf-8",
 }
 
+# Helper: Load and Save Site Page Images Configuration
+def load_site_images():
+    images_file = settings.BASE_DIR / 'mag' / 'content' / 'site_images.json'
+    if images_file.exists():
+        try:
+            with open(images_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return []
+
+
+def save_site_images(images):
+    images_file = settings.BASE_DIR / 'mag' / 'content' / 'site_images.json'
+    try:
+        with open(images_file, 'w', encoding='utf-8') as f:
+            json.dump(images, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception:
+        return False
+
+
 # Helper: Serve file safely with exact MIME types
 def serve_static_file(file_path):
     path = Path(file_path)
@@ -85,6 +107,28 @@ def serve_static_file(file_path):
     try:
         with open(path, "rb") as f:
             content = f.read()
+
+        # If serving HTML page, perform instant SSR image hydration and script injection
+        if ext == '.html':
+            try:
+                html_text = content.decode('utf-8')
+                images = load_site_images()
+                if images:
+                    for img in images:
+                        d_url = img.get('defaultUrl')
+                        c_url = img.get('currentUrl')
+                        if d_url and c_url and d_url != c_url:
+                            html_text = html_text.replace(d_url, c_url)
+                    
+                    img_dict = {item['key']: item.get('currentUrl') for item in images if isinstance(item, dict) and 'key' in item}
+                    img_dict_json = json.dumps(img_dict, ensure_ascii=False)
+                    script_tag = f'<script>window.__SITE_IMAGES__ = {img_dict_json};</script>'
+                    if '</head>' in html_text:
+                        html_text = html_text.replace('</head>', f'{script_tag}\n</head>', 1)
+                    content = html_text.encode('utf-8')
+            except Exception:
+                pass
+
         response = HttpResponse(content, content_type=content_type)
         if ext in (".css", ".js", ".svg", ".png", ".jpg", ".webp", ".woff2", ".woff", ".ttf"):
             response["Cache-Control"] = "public, max-age=86400"
@@ -574,6 +618,57 @@ def api_settings(request):
 
         setting.save()
         return JsonResponse({"success": True, "settings": setting.to_dict()})
+
+    return JsonResponse({"error": "Method not allowed"}, status=405)
+
+
+# ==============================================================================
+# 5.1. Site Page Images Management API
+# ==============================================================================
+
+@csrf_exempt
+def api_site_images(request):
+    """
+    Manages custom visual assets and images across all website pages.
+    Supports listing, bulk update, and single slot replacement.
+    """
+    if request.method == "GET":
+        images = load_site_images()
+        return JsonResponse(images, safe=False)
+
+    elif request.method in ("POST", "PUT"):
+        if not is_admin(request):
+            return JsonResponse({"error": "Unauthorized"}, status=403)
+        data = read_json(request)
+
+        images = load_site_images()
+        images_by_key = {item["key"]: item for item in images if isinstance(item, dict) and "key" in item}
+
+        incoming_list = data if isinstance(data, list) else data.get("images")
+        if incoming_list and isinstance(incoming_list, list):
+            for item in incoming_list:
+                k = item.get("key")
+                if k and k in images_by_key:
+                    images_by_key[k]["currentUrl"] = item.get("currentUrl", images_by_key[k]["currentUrl"])
+                    if "title" in item:
+                        images_by_key[k]["title"] = item["title"]
+                    if "description" in item:
+                        images_by_key[k]["description"] = item["description"]
+                elif k:
+                    images_by_key[k] = item
+            final_images = list(images_by_key.values())
+        elif isinstance(data, dict) and "key" in data:
+            k = data["key"]
+            if k in images_by_key:
+                images_by_key[k]["currentUrl"] = data.get("currentUrl", images_by_key[k]["currentUrl"])
+            else:
+                images_by_key[k] = data
+            final_images = list(images_by_key.values())
+        else:
+            final_images = images
+
+        save_site_images(final_images)
+        return JsonResponse({"success": True, "images": final_images})
 
     return JsonResponse({"error": "Method not allowed"}, status=405)
 

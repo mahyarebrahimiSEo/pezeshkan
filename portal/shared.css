@@ -1,3 +1,11 @@
+/* Instant Theme Switch (Zero Jank / No Lag on Day-Night Toggle) */
+html.theme-transitioning,
+html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(.theme-switch-track),
+html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(.theme-switch-track)::before,
+html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(.theme-switch-track)::after {
+  transition: none !important;
+}
+
 /* ==========================================================================
    اکوسیستم سلامت دیجیتال پزشکآن (PEZESHK-ON) - استایل‌شیت جامع و اشتراکی پرتال
    سیستم طراحی Vital Architecture V1.1:
@@ -313,7 +321,7 @@ body {
   font-size: 15px;
   line-height: 1.8;
   overflow-x: hidden;
-  transition: background-color var(--motion-standard) var(--ease-standard), color var(--motion-standard) var(--ease-standard);
+  /* instant theme switch */
   background-image: 
     radial-gradient(circle at 12% 10%, var(--radial-glow-1) 0%, transparent 45%),
     radial-gradient(circle at 88% 38%, var(--radial-glow-2) 0%, transparent 50%),

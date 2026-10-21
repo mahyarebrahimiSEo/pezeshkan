@@ -94,6 +94,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
+    /* Instant Theme Switch (Zero Jank / No Lag on Day-Night Toggle) */
+html.theme-transitioning,
+html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch),
+html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::before,
+html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
+  transition: none !important;
+}
+
     @font-face {
       font-family: 'Vazirmatn';
       src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2'),
@@ -4063,7 +4071,7 @@
         linear-gradient(to bottom, var(--vital-grid-line) 1px, transparent 1px) !important;
       background-size: 28px 28px !important;
       color: var(--text-body) !important;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      /* instant theme switch */
     }
 
     /* Tabular Numerals Enforcement */
@@ -7265,9 +7273,10 @@ function applyArticlesData(data) {
 
   
 
-    // مدیریت تم روز (پیش‌فرض) و شب کلینیکال در مجله سلامت پزشکآن
+    // مدیریت تم روز (پیش‌فرض) و شب کلینیکال در مجله سلامت پزشکآن (تغییر آنی بدون لگ)
     function toggleMagTheme() {
       var root = document.documentElement;
+      root.classList.add('theme-transitioning');
       var current = root.getAttribute('data-theme') || 'light';
       var next = current === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
@@ -7278,6 +7287,11 @@ function applyArticlesData(data) {
       if (btn) {
         btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
       }
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          root.classList.remove('theme-transitioning');
+        });
+      });
     }
     (function syncMagThemeButton() {
       var saved = 'light';

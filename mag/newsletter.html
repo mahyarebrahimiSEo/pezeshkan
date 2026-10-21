@@ -110,6 +110,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
+    /* Instant Theme Switch (Zero Jank / No Lag on Day-Night Toggle) */
+html.theme-transitioning,
+html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch),
+html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::before,
+html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
+  transition: none !important;
+}
+
     @font-face {
       font-family: 'Vazirmatn';
       src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2'),
