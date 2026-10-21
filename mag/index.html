@@ -6439,10 +6439,16 @@ function applyArticlesData(data) {
 
           ${(art.faqs && art.faqs.length) ? `
             <div style="margin-top:32px; background:var(--bg-subtle); border-radius:var(--radius-md); padding:20px;">
-              <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:16px;">پرسش‌های پرتکرار بیماران (FAQ)</h2>
+              <h3 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='color:var(--color-primary);'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg>
+                <span>سوالات متداول</span>
+              </h3>
               ${art.faqs.map(f => `
                 <div style="margin-bottom:14px; border-bottom:1px dashed var(--border-color); padding-bottom:12px;">
-                  <h3 style="display:flex; align-items:center; gap:6px; color:var(--text-heading); font-size:14px; margin-bottom:6px; font-weight:800;"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg> <span>${f.q}</span></p>
+                  <h4 style="display:flex; align-items:center; gap:6px; color:var(--text-heading); font-size:14.5px; margin-bottom:6px; font-weight:700;">
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='color:var(--color-secondary); vertical-align:middle;'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg>
+                    <span>${f.q}</span>
+                  </h4>
                   <p style="color:var(--text-body); font-size:13.5px; line-height:1.8; margin:0;">${f.a}</p>
                 </div>
               `).join('')}

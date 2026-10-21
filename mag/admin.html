@@ -3763,6 +3763,35 @@
             </div>
 
 
+
+            <!-- Article FAQs Section (Directly Under Content & Images Field) -->
+            <div class="editor-faq-section" id="editorFaqSection" style="padding: 24px; border-top: 1px solid var(--border-subtle); background: rgba(15, 23, 42, 0.45);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h3 style="font-size: 16px; font-weight: 800; color: #F8FAFC; margin: 0 0 4px 0; display: flex; align-items: center; gap: 8px;">
+                    <svg class="icon-svg" style="width: 20px; height: 20px; color: #00FFFF;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                      <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    <span>سوالات متداول</span>
+                  </h3>
+                  <div style="font-size: 11.5px; color: var(--text-muted);">پرسش و پاسخ‌های متداول بیماران در خصوص این مقاله (ثبت خودکار در اسکیمای رسمی FAQPage گوگل)</div>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="addFaqRow()" style="font-size: 12px; padding: 6px 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; border: 1px solid rgba(0, 255, 255, 0.35); color: #00FFFF; background: rgba(0, 255, 255, 0.08); font-weight: 700; cursor: pointer;">
+                  <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  <span>افزودن سوال جدید</span>
+                </button>
+              </div>
+
+              <!-- Dynamic FAQ Items List -->
+              <div id="faqItemsContainer" style="display: flex; flex-direction: column; gap: 14px;"></div>
+            </div>
+
+
             <!-- Bottom Status Strip -->
             <div class="editor-status-strip">
               <div class="status-group">
@@ -4018,13 +4047,13 @@
                       <div id="articleHowToStepsContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
                     </div>
 
-                    <!-- FAQ Repeater (Always available for Rich Results) -->
+                                        <!-- FAQ Schema Notice & Quick Link -->
                     <div style="border-top: 1px solid var(--border-subtle); padding-top: 12px; margin-top: 8px;">
-                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <span style="font-size: 12px; font-weight: 700; color: #F8FAFC;">پرسش‌های متداول (FAQ Schema):</span>
-                        <button type="button" class="btn btn-secondary" style="font-size: 11px; padding: 3px 8px;" onclick="addFaqRow()">+ افزودن پرسش</button>
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 12px; font-weight: 700; color: #F8FAFC;">اسکیمای سوالات متداول (FAQPage):</span>
+                        <a href="#editorFaqSection" style="font-size: 11px; color: #00FFFF; text-decoration: none; cursor: pointer;" onclick="document.getElementById('editorFaqSection')?.scrollIntoView({behavior:'smooth'}); return false;">مشاهده فیلدها ↓</a>
                       </div>
-                      <div id="faqItemsContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                      <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">فیلدهای سوال و جواب متداول مستقیماً در زیر بوم نگارش مقاله قرار دارند و به‌صورت خودکار در اسکیمای رسمی گوگل ثبت می‌شوند.</div>
                     </div>
 
                     <!-- Advanced JSON-LD Override Details -->
@@ -9754,7 +9783,7 @@ function renderDoctorsManagement(filterQuery = '') {
       document.getElementById('seoMetaTitle').value = '';
       document.getElementById('seoMetaDescription').value = '';
       document.getElementById('seoPostSlug').value = '';
-      document.getElementById('faqItemsContainer').innerHTML = '';
+      const faqCont = document.getElementById('faqItemsContainer'); if (faqCont) { faqCont.innerHTML = ''; addFaqRow(); }
 
       // Reset Rank Math Schema Builder
       const schemaTypeEl = document.getElementById('articleSchemaType');
@@ -9839,9 +9868,13 @@ function renderDoctorsManagement(filterQuery = '') {
 
       // FAQs
       const faqCont = document.getElementById('faqItemsContainer');
-      faqCont.innerHTML = '';
-      if (art.faqs && art.faqs.length) {
-        art.faqs.forEach(f => addFaqRow(f.q, f.a));
+      if (faqCont) {
+        faqCont.innerHTML = '';
+        if (art.faqs && art.faqs.length) {
+          art.faqs.forEach(f => addFaqRow(f.q, f.a));
+        } else {
+          addFaqRow();
+        }
       }
 
       // Load Rank Math Schema Builder Data
@@ -10279,24 +10312,57 @@ function renderDoctorsManagement(filterQuery = '') {
       }
     }
 
-    function addFaqRow(q = '', a = '') {
+        function addFaqRow(q = '', a = '') {
       const cont = document.getElementById('faqItemsContainer');
+      if (!cont) return;
+      const count = cont.querySelectorAll('.faq-input-row').length + 1;
       const div = document.createElement('div');
       div.className = 'faq-input-row';
-      div.style.background = 'rgba(255, 255, 255, 0.02)';
-      div.style.border = '1px solid var(--border-subtle)';
-      div.style.borderRadius = '6px';
-      div.style.padding = '8px';
+      div.style.background = 'rgba(15, 23, 42, 0.7)';
+      div.style.border = '1px solid rgba(255, 255, 255, 0.09)';
+      div.style.borderRadius = '10px';
+      div.style.padding = '14px 16px';
+      div.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
       div.innerHTML = `
-        <div style="display: flex; gap: 6px; margin-bottom: 6px;">
-          <input type="text" class="form-control faq-q" placeholder="پرسش متداول بیمار..." value="${escapeHtml(q)}" style="font-size: 12px; padding: 6px;">
-          <button type="button" class="btn btn-secondary" style="padding: 4px 8px; color: #F87171;" onclick="this.closest('.faq-input-row').remove()">
-            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span class="faq-row-num" style="font-size: 11.5px; font-weight: 800; color: #00FFFF; background: rgba(0, 255, 255, 0.1); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(0, 255, 255, 0.25);">پرسش متداول شماره ${count}</span>
+          <button type="button" class="btn btn-secondary" style="padding: 3px 8px; color: #F87171; border-color: rgba(248, 113, 113, 0.25); background: rgba(248, 113, 113, 0.05); font-size: 11px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer;" onclick="removeFaqRow(this)" title="حذف این پرسش">
+            <svg class="icon-svg" style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>حذف پرسش</span>
           </button>
         </div>
-        <textarea class="form-control faq-a" placeholder="پاسخ کوتاه و علمی..." style="font-size: 12px; min-height: 45px; resize: vertical;">${escapeHtml(a)}</textarea>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #E2E8F0; margin-bottom: 5px; display: block;">سوال:</label>
+            <input type="text" class="form-control faq-q" placeholder="عنوان یا صورت سوال متداول بیمار (مثال: آیا این عمل جراحی نیاز به بستری دارد؟)" value="${escapeHtml(q)}" style="font-size: 13px; padding: 9px 12px; width: 100%; border-radius: 6px; background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(255, 255, 255, 0.12); color: #F8FAFC;" oninput="if(typeof runLiveSeoAudit==='function')runLiveSeoAudit()">
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #E2E8F0; margin-bottom: 5px; display: block;">جواب:</label>
+            <textarea class="form-control faq-a" placeholder="پاسخ کامل، دقیق و قابل فهم برای بیمار..." rows="3" style="font-size: 13px; padding: 9px 12px; width: 100%; border-radius: 6px; background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(255, 255, 255, 0.12); color: #F8FAFC; resize: vertical; line-height: 1.7;" oninput="if(typeof runLiveSeoAudit==='function')runLiveSeoAudit()">${escapeHtml(a)}</textarea>
+          </div>
+        </div>
       `;
       cont.appendChild(div);
+      renumberFaqRows();
+    }
+
+    function removeFaqRow(btn) {
+      const row = btn.closest('.faq-input-row');
+      if (row) {
+        row.remove();
+        renumberFaqRows();
+        if (typeof runLiveSeoAudit === 'function') runLiveSeoAudit();
+      }
+    }
+
+    function renumberFaqRows() {
+      const cont = document.getElementById('faqItemsContainer');
+      if (!cont) return;
+      const rows = cont.querySelectorAll('.faq-input-row');
+      rows.forEach((r, idx) => {
+        const numEl = r.querySelector('.faq-row-num');
+        if (numEl) numEl.textContent = `پرسش متداول شماره ${idx + 1}`;
+      });
     }
 
     function formatBytes(bytes) {
