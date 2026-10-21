@@ -1,0 +1,9 @@
+{
+  "name": "IntelliHelper-UI",
+  "description": "Liquid Glass React component library for Next.js & Tailwind — copy-paste UI you own, CLI, MCP, and agent plugin. Open source (MIT).",
+  "suggestedPrompts": [
+    "Show Liquid Glass components",
+    "How to use Liquid Glass in Next.js",
+    "Implement glass-chrome card with Tailwind"
+  ]
+}

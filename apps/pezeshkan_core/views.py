@@ -5,7 +5,10 @@ Production-grade controllers with 100% backward compatibility for all frontends.
 """
 
 import os
+import io
+import re
 import json
+import base64
 import secrets
 import mimetypes
 from pathlib import Path
@@ -338,7 +341,20 @@ def api_doctors(request):
                 "services": data.get("services", []),
             }
         )
-        return JsonResponse({"success": True, "doctor": doctor.to_dict()})
+        # Synchronize doctors to mag/content/doctors.json
+        try:
+            docs_json_path = settings.BASE_DIR / 'mag' / 'content' / 'doctors.json'
+            all_docs = [d.to_dict() for d in Doctor.objects.all().order_by('id')]
+            with open(docs_json_path, 'w', encoding='utf-8') as f:
+                json.dump(all_docs, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+        return JsonResponse({
+            "success": True,
+            "doctor": doctor.to_dict(),
+            "doctors": [d.to_dict() for d in Doctor.objects.all().order_by('id')]
+        })
 
     return JsonResponse({"error": "Method not allowed"}, status=405)
 
@@ -563,8 +579,133 @@ def api_settings(request):
 
 
 # ==============================================================================
-# 6. Media Library APIs
+# 6. Media Library & File Upload APIs
 # ==============================================================================
+
+@csrf_exempt
+def api_upload(request):
+    """
+    Universal media upload endpoint for Pezeshkan Medical Ecosystem.
+    Accepts multipart/form-data (file, image) and JSON base64 payloads.
+    Optimizes images using Pillow (WebP/JPEG) and registers MediaItem.
+    """
+    if request.method != "POST":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+
+    raw_bytes = None
+    filename = None
+    alt_text = ""
+    caption = ""
+
+    # 1. Check multipart/form-data
+    if request.FILES:
+        uploaded = request.FILES.get("file") or request.FILES.get("image")
+        if uploaded:
+            filename = uploaded.name
+            raw_bytes = uploaded.read()
+            alt_text = request.POST.get("alt", "").strip() or filename
+            caption = request.POST.get("caption", "").strip()
+
+    # 2. Check JSON payload with base64 data
+    if not raw_bytes:
+        data = read_json(request)
+        if data and data.get("data"):
+            filename = data.get("filename") or f"upload_{int(datetime.now().timestamp())}.webp"
+            alt_text = data.get("alt", "").strip() or filename
+            caption = data.get("caption", "").strip()
+            b64_str = data.get("data")
+            if "," in b64_str:
+                b64_str = b64_str.split(",", 1)[1]
+            try:
+                raw_bytes = base64.b64decode(b64_str)
+            except Exception as e:
+                return JsonResponse({"error": f"Invalid base64 data: {e}"}, status=400)
+
+    if not raw_bytes or not filename:
+        return JsonResponse({"error": "هیچ فایلی ارسال نشده است"}, status=400)
+
+    now = datetime.now()
+    year_str = str(now.year)
+    month_str = f"{now.month:02d}"
+
+    # Route doctor photos to mag/uploads/doctors
+    is_doctor_photo = any(k in filename.lower() for k in ['doctor', 'dr-', 'dr_', 'pezeshk', 'avatar'])
+    if is_doctor_photo:
+        target_dir = settings.BASE_DIR / 'mag' / 'uploads' / 'doctors'
+        base_url_prefix = "/mag/uploads/doctors"
+    else:
+        target_dir = settings.BASE_DIR / 'mag' / 'uploads' / year_str / month_str
+        base_url_prefix = f"/mag/uploads/{year_str}/{month_str}"
+
+    os.makedirs(target_dir, exist_ok=True)
+
+    clean_name = re.sub(r'[^a-zA-Z0-9_\-\.]', '_', filename)
+    stem = Path(clean_name).stem
+    ext = Path(clean_name).suffix.lower()
+    if not ext:
+        ext = ".webp"
+
+    save_filename = f"{stem}_{int(now.timestamp())}{ext}"
+    save_path = target_dir / save_filename
+
+    # Optimize with Pillow if it's an image
+    file_size = len(raw_bytes)
+    fmt = ext.lstrip('.')
+    if HAS_PILLOW:
+        try:
+            img = Image.open(io.BytesIO(raw_bytes))
+            if ext == '.webp':
+                out_io = io.BytesIO()
+                img.save(out_io, 'WEBP', quality=88, method=6)
+                raw_bytes = out_io.getvalue()
+                file_size = len(raw_bytes)
+            elif ext in ('.jpg', '.jpeg'):
+                img = img.convert('RGB')
+                out_io = io.BytesIO()
+                img.save(out_io, 'JPEG', quality=88, optimize=True)
+                raw_bytes = out_io.getvalue()
+                file_size = len(raw_bytes)
+        except Exception:
+            pass
+
+    with open(save_path, "wb") as f:
+        f.write(raw_bytes)
+
+    file_url = f"{base_url_prefix}/{save_filename}"
+
+    # Save MediaItem in DB
+    media_item = MediaItem.objects.create(
+        custom_id=f"med_{int(now.timestamp())}",
+        filename=save_filename,
+        url=file_url,
+        alt=alt_text,
+        caption=caption,
+        format=fmt,
+        size=file_size,
+        original_size=file_size,
+        storage="local"
+    )
+
+    # Sync to mag/content/media.json
+    try:
+        media_json_path = settings.BASE_DIR / 'mag' / 'content' / 'media.json'
+        if media_json_path.exists():
+            with open(media_json_path, 'r', encoding='utf-8') as f:
+                media_list = json.load(f)
+        else:
+            media_list = []
+        media_list.insert(0, media_item.to_dict())
+        with open(media_json_path, 'w', encoding='utf-8') as f:
+            json.dump(media_list, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+    return JsonResponse({
+        "success": True,
+        "url": file_url,
+        "media": media_item.to_dict()
+    })
+
 
 @csrf_exempt
 def api_media(request):
@@ -573,29 +714,7 @@ def api_media(request):
         return JsonResponse(items, safe=False)
 
     elif request.method == "POST":
-        if not is_admin(request):
-            return JsonResponse({"error": "Unauthorized"}, status=403)
-        # Upload handling
-        uploaded_file = request.FILES.get("file") or request.FILES.get("image")
-        if not uploaded_file:
-            return JsonResponse({"error": "هیچ فایلی ارسال نشده است"}, status=400)
-
-        filename = uploaded_file.name
-        save_path = settings.MEDIA_ROOT / filename
-        with open(save_path, "wb") as f:
-            for chunk in uploaded_file.chunks():
-                f.write(chunk)
-
-        media = MediaItem.objects.create(
-            custom_id=f"med_{int(datetime.now().timestamp())}",
-            filename=filename,
-            url=f"{settings.MEDIA_URL}{filename}",
-            format="webp" if filename.endswith(".webp") else "jpg",
-            size=uploaded_file.size,
-            original_size=uploaded_file.size,
-            storage="local"
-        )
-        return JsonResponse({"success": True, "media": media.to_dict()})
+        return api_upload(request)
 
     return JsonResponse({"error": "Method not allowed"}, status=405)
 

@@ -1,0 +1,70 @@
+{
+  "name": "@intellihelper/cli",
+  "version": "0.3.0",
+  "description": "CLI and MCP server for IntelliHelper UI — add, update, and explore Liquid Glass React components",
+  "type": "module",
+  "license": "MIT",
+  "author": "IntelliHelper",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IntelliHelper/IntelliHelper-UI.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/IntelliHelper/IntelliHelper-UI/issues"
+  },
+  "homepage": "https://ui.intellihelper.in/getting-started",
+  "keywords": [
+    "intellihelper",
+    "intellihelper-ui",
+    "intelli-ui",
+    "cli",
+    "components",
+    "react",
+    "nextjs",
+    "tailwind",
+    "tailwindcss",
+    "liquid-glass",
+    "shadcn",
+    "ui",
+    "mcp",
+    "model-context-protocol",
+    "cursor",
+    "claude"
+  ],
+  "bin": {
+    "intellihelper-ui": "dist/index.js",
+    "intelli-ui": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prebuild": "node scripts/bundle-registry.mjs && node scripts/bundle-mcp-data.mjs",
+    "build": "tsc && mkdir -p dist/registry && cp src/registry/bundled.json src/registry/bundled-native.json src/registry/catalog.json src/registry/examples.json src/registry/themes.json dist/registry/",
+    "check-types": "pnpm prebuild && tsc --noEmit",
+    "dev": "pnpm prebuild && tsc --watch",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.5.3",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "commander": "^14.0.0",
+    "diff": "^8.0.2",
+    "picocolors": "^1.1.1",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.25.2"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

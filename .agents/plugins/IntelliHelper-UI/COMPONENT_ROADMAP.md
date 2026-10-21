@@ -1,0 +1,307 @@
+# IntelliHelper UI — Component Roadmap
+
+> **Purpose:** Single source of truth for what is shipped vs what to build next.  
+> **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
+> **Last updated:** 2026-08-19 (Drawer overlay)
+
+---
+
+## How to use this file
+
+1. Before starting work, scan **Next up** and **To Build**.
+2. After shipping a component:
+   - Add a row under **Built**
+   - Remove it from **To Build** / **Next up**
+   - Note registry name (`slug`), category, and source path
+3. Prefer Tier order for demand; skip layout atoms and premium builders until core + AI kit are solid.
+
+---
+
+## Built (shipped in monorepo)
+
+| Component | Registry slug | Category | Source | Notes |
+| --- | --- | --- | --- | --- |
+| Button | `button` | actions | `packages/ui/src/button.tsx` | Chrome + content variants |
+| Glass Icon Button | `glass-icon-button` | glass-system | `packages/ui/src/glass-icon-button.tsx` | |
+| Glass Bar | `glass-bar` | glass-system | `packages/ui/src/glass-bar.tsx` | |
+| Glass Content Card | `glass-content-card` | glass-system | `packages/ui/src/glass-content-card.tsx` | |
+| Background Picture | `background-picture-picker` | glass-system | `packages/ui/src/background-picture-picker.tsx` | |
+| Component Preview | `component-preview` | glass-system | `packages/ui/src/component-preview.tsx` | |
+| Toggle / Toggle Group | `toggle`, `toggle-group` | actions | `packages/ui/src/toggle.tsx` | |
+| Card | `card` | surfaces | `packages/ui/src/card.tsx` | |
+| Tabs | `tabs` | surfaces | `packages/ui/src/tabs.tsx` | |
+| Separator | `separator` | surfaces | `packages/ui/src/separator.tsx` | |
+| Resizable | `resizable` | surfaces | `packages/ui/src/resizable.tsx` | Split pane |
+| Scroll Area | `scroll-area` | surfaces | `packages/ui/src/scroll-area.tsx` | |
+| Input / Textarea | `input`, `textarea` | forms | `packages/ui/src/input.tsx` | |
+| Label | `label` | forms | `packages/ui/src/label.tsx` | Radix Label + required marker |
+| Password Input | `password-input` | forms | `packages/ui/src/password-input.tsx` | Show/hide toggle |
+| OTP Input | `otp-input` | forms | `packages/ui/src/otp-input.tsx` | Paste + onComplete |
+| Select / Native Select | `select`, `native-select` | forms | `packages/ui/src/select.tsx` | |
+| Checkbox / Switch / Radio | `checkbox`, `switch`, `radio-group` | forms | | |
+| Slider | `slider` | interactive | `packages/ui/src/slider.tsx` | |
+| Calendar | `calendar` | forms | `packages/ui/src/calendar.tsx` | Date / range |
+| Event Calendar | `event-calendar` | data | `packages/ui/src/event-calendar.tsx` | |
+| Dialog | `dialog` | overlays | `packages/ui/src/dialog.tsx` | Modal |
+| Sheet | `sheet` | overlays | `packages/ui/src/sheet.tsx` | Edge panel |
+| Drawer | `drawer` | overlays | `packages/ui/src/drawer.tsx` | Vaul drag-to-dismiss |
+| Popover / Tooltip / Hover Card | `popover`, `tooltip`, `hover-card` | overlays | | |
+| Toast | `toast` | feedback | `packages/ui/src/toast.tsx` | Imperative API |
+| Floating Widget | `floating-widget` | overlays | `packages/ui/src/floating-widget.tsx` | |
+| Sidebar | `sidebar` | navigation | `packages/ui/src/sidebar.tsx` | |
+| Pagination | `pagination` | navigation | `packages/ui/src/pagination.tsx` | |
+| Scroll To Top | `scroll-to-top` | navigation | `packages/ui/src/scroll-to-top.tsx` | |
+| Table | `table` | data | `packages/ui/src/table.tsx` | |
+| Empty | `empty` | data | `packages/ui/src/empty.tsx` | Empty state |
+| Skeleton | `skeleton` | data | `packages/ui/src/skeleton.tsx` | |
+| Alert | `alert` | feedback | `packages/ui/src/alert.tsx` | |
+| Badge | `badge` | feedback | `packages/ui/src/badge.tsx` | |
+| Kbd | `kbd` | feedback | `packages/ui/src/kbd.tsx` | |
+| Spinner / Progress | `spinner`, `progress` | feedback | | |
+| Accordion / Collapsible | `accordion`, `collapsible` | interactive | | File-tree demos |
+| Carousel | `carousel` | interactive | `packages/ui/src/carousel.tsx` | |
+| Typography | `typography` | content | `packages/ui/src/typography.tsx` | |
+| Markdown Viewer / Editor | `markdown-viewer`, `markdown-editor` | content | | Rich text included |
+
+### Built this sprint (Tier 1 demand)
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Avatar + Avatar Group | `avatar` | feedback | `packages/ui/src/avatar.tsx` | ✅ Done |
+| Dropdown Menu | `dropdown-menu` | overlays | `packages/ui/src/dropdown-menu.tsx` | ✅ Done |
+| Alert Dialog | `alert-dialog` | overlays | `packages/ui/src/alert-dialog.tsx` | ✅ Done |
+| Breadcrumb | `breadcrumb` | navigation | `packages/ui/src/breadcrumb.tsx` | ✅ Done |
+| Context Menu | `context-menu` | overlays | `packages/ui/src/context-menu.tsx` | ✅ Done |
+| Combobox | `combobox` | forms | `packages/ui/src/combobox.tsx` | ✅ Done |
+| Command | `command` | overlays | `packages/ui/src/command.tsx` | ✅ Done |
+| File Upload | `file-upload` | forms | `packages/ui/src/file-upload.tsx` | ✅ Done |
+| Navigation Menu | `navigation-menu` | navigation | `packages/ui/src/navigation-menu.tsx` | ✅ Done |
+| Stepper | `stepper` | interactive | `packages/ui/src/stepper.tsx` | ✅ Done |
+| Theme Toggle | `theme-toggle` | actions | `packages/ui/src/theme-toggle.tsx` | ✅ Done |
+| Font Picker | `font-picker` | actions | `packages/ui/src/font-picker.tsx` | ✅ Done |
+| Copy Button | `copy-button` | actions | `packages/ui/src/copy-button.tsx` | ✅ Done |
+
+### Built — remaining Tier 1 + Tier 2
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Multi Select | `multi-select` | forms | `packages/ui/src/multi-select.tsx` | ✅ Done |
+| Notification Center | `notification-center` | feedback | `packages/ui/src/notification-center.tsx` | ✅ Done |
+| Code Viewer | `code-viewer` | content | `packages/ui/src/code-viewer.tsx` | ✅ Done |
+| Terminal Block | `terminal-block` | content | `packages/ui/src/terminal-block.tsx` | ✅ Done |
+| JSON Viewer | `json-viewer` | content | `packages/ui/src/json-viewer.tsx` | ✅ Done |
+| Aspect Ratio | `aspect-ratio` | surfaces | `packages/ui/src/aspect-ratio.tsx` | ✅ Done |
+| AI Chat (+ bubbles / messages) | `ai-chat` | content | `packages/ui/src/ai-chat.tsx` | ✅ Done |
+| Prompt Input | `prompt-input` | forms | `packages/ui/src/prompt-input.tsx` | ✅ Done |
+| Streaming Text | `streaming-text` | content | `packages/ui/src/streaming-text.tsx` | ✅ Done |
+| Typing Indicator | `typing-indicator` | feedback | `packages/ui/src/typing-indicator.tsx` | ✅ Done |
+| Thinking Animation | `thinking-animation` | feedback | `packages/ui/src/thinking-animation.tsx` | ✅ Done |
+| Reasoning Block | `reasoning-block` | content | `packages/ui/src/reasoning-block.tsx` | ✅ Done |
+| Citation Card | `citation-card` | content | `packages/ui/src/citation-card.tsx` | ✅ Done |
+| Token Counter | `token-counter` | feedback | `packages/ui/src/token-counter.tsx` | ✅ Done |
+| Prompt Suggestions | `prompt-suggestions` | forms | `packages/ui/src/prompt-suggestions.tsx` | ✅ Done |
+| Agent Card | `agent-card` | data | `packages/ui/src/agent-card.tsx` | ✅ Done |
+| Tool Call Viewer | `tool-call-viewer` | data | `packages/ui/src/tool-call-viewer.tsx` | ✅ Done |
+| MCP Server Card | `mcp-server-card` | data | `packages/ui/src/mcp-server-card.tsx` | ✅ Done |
+| AI Model Selector | `ai-model-selector` | forms | `packages/ui/src/ai-model-selector.tsx` | ✅ Done |
+| Conversation Sidebar | `conversation-sidebar` | navigation | `packages/ui/src/conversation-sidebar.tsx` | ✅ Done |
+
+### Built — Media kit
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Image Preview | `image-preview` | media | `packages/ui/src/image-preview.tsx` | ✅ Done |
+| Media Player | `media-player` | media | `packages/ui/src/media-player.tsx` | ✅ Done |
+| Image Editor | `image-editor` | media | `packages/ui/src/image-editor.tsx` | ✅ Done |
+
+### Built — Analytics / charts
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Metric Card | `metric-card` | data | `packages/ui/src/metric-card.tsx` | ✅ Done |
+| Line Chart | `line-chart` | data | `packages/ui/src/line-chart.tsx` | ✅ Done |
+| Area Chart | `area-chart` | data | `packages/ui/src/area-chart.tsx` | ✅ Done |
+| Sparkline | `sparkline` | data | `packages/ui/src/sparkline.tsx` | ✅ Done |
+| Donut Chart | `donut-chart` | data | `packages/ui/src/donut-chart.tsx` | ✅ Done |
+| Chart Period | `chart-period` | data | `packages/ui/src/chart-period.tsx` | ✅ Done |
+| Chart Frame | `chart-frame` | data | `packages/ui/src/chart-frame.tsx` | ✅ Done |
+| Bar Chart | `bar-chart` | data | `packages/ui/src/bar-chart.tsx` | ✅ Done |
+| Pie Chart | `pie-chart` | data | `packages/ui/src/pie-chart.tsx` | ✅ Done |
+| Stacked Bar Chart | `stacked-bar-chart` | data | `packages/ui/src/stacked-bar-chart.tsx` | ✅ Done |
+| Radar Chart | `radar-chart` | data | `packages/ui/src/radar-chart.tsx` | ✅ Done |
+| Funnel Chart | `funnel-chart` | data | `packages/ui/src/funnel-chart.tsx` | ✅ Done |
+| Heatmap | `heatmap` | data | `packages/ui/src/heatmap.tsx` | ✅ Done |
+| Tree Map | `tree-map` | data | `packages/ui/src/tree-map.tsx` | ✅ Done |
+| Sankey | `sankey` | data | `packages/ui/src/sankey.tsx` | ✅ Done |
+| Gauge | `gauge` | data | `packages/ui/src/gauge.tsx` | ✅ Done |
+| Chart utils | (lib) | — | `packages/ui/src/chart-utils.ts` | ✅ Done |
+
+### Built — Tier 3 product surfaces (2026-08-12)
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Search Input | `search-input` | forms | `packages/ui/src/search-input.tsx` | ✅ Done |
+| PIN Input | `pin-input` | forms | `packages/ui/src/pin-input.tsx` | ✅ Done |
+| Number Input | `number-input` | forms | `packages/ui/src/number-input.tsx` | ✅ Done |
+| Currency Input | `currency-input` | forms | `packages/ui/src/currency-input.tsx` | ✅ Done |
+| Phone Input | `phone-input` | forms | `packages/ui/src/phone-input.tsx` | ✅ Done |
+| Color Picker | `color-picker` | forms | `packages/ui/src/color-picker.tsx` | ✅ Done |
+| Rating | `rating` | forms | `packages/ui/src/rating.tsx` | ✅ Done |
+| Time Picker | `time-picker` | forms | `packages/ui/src/time-picker.tsx` | ✅ Done |
+| Month Picker | `month-picker` | forms | `packages/ui/src/month-picker.tsx` | ✅ Done |
+| Date Time Picker | `date-time-picker` | forms | `packages/ui/src/date-time-picker.tsx` | ✅ Done |
+| Banner | `banner` | feedback | `packages/ui/src/banner.tsx` | ✅ Done |
+| Callout | `callout` | feedback | `packages/ui/src/callout.tsx` | ✅ Done |
+| Offline Banner | `offline-banner` | feedback | `packages/ui/src/offline-banner.tsx` | ✅ Done |
+| Loading Screen | `loading-screen` | feedback | `packages/ui/src/loading-screen.tsx` | ✅ Done |
+| Retry View | `retry-view` | feedback | `packages/ui/src/retry-view.tsx` | ✅ Done |
+| Dock | `dock` | navigation | `packages/ui/src/dock.tsx` | ✅ Done |
+| Bottom Navigation | `bottom-navigation` | navigation | `packages/ui/src/bottom-navigation.tsx` | ✅ Done |
+| Timeline | `timeline` | data | `packages/ui/src/timeline.tsx` | ✅ Done |
+| Activity Feed | `activity-feed` | data | `packages/ui/src/activity-feed.tsx` | ✅ Done |
+| Kanban | `kanban` | data | `packages/ui/src/kanban.tsx` | ✅ Done |
+| Data Grid | `data-grid` | data | `packages/ui/src/data-grid.tsx` | ✅ Done |
+| Virtual Table | `virtual-table` | data | `packages/ui/src/virtual-table.tsx` | ✅ Done |
+| Tier 3 utils | (lib) | — | `packages/ui/src/tier3-utils.ts` | ✅ Done |
+| Address Fields (Country / State / City) | `address-fields` | forms | `packages/ui/src/address-fields.tsx` | ✅ Done |
+| Address Country Select | `address-country-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address Region Select | `address-region-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address City Select | `address-city-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address data (regions + cities) | (lib) | — | `packages/ui/src/address-data.ts` | ✅ Done |
+
+---
+
+## Next up (priority order)
+
+Ship in this order for maximum demand. Check items off as you go.
+
+| # | Component | Registry slug | Why | Effort |
+| --- | ---: | --- | --- | --- |
+| 1 | ~~Avatar + Avatar Group~~ | `avatar` | | ✅ |
+| 2 | ~~Dropdown Menu~~ | `dropdown-menu` | | ✅ |
+| 3 | ~~Alert Dialog~~ | `alert-dialog` | | ✅ |
+| 4 | ~~Breadcrumb~~ | `breadcrumb` | | ✅ |
+| 5 | ~~Context Menu~~ | `context-menu` | | ✅ |
+| 6 | ~~Combobox~~ | `combobox` | | ✅ |
+| 7 | ~~Command Palette~~ | `command` | | ✅ |
+| 8 | ~~File Upload / Dropzone~~ | `file-upload` | | ✅ |
+| 9 | ~~Navigation Menu~~ | `navigation-menu` | | ✅ |
+| 10 | ~~Stepper~~ | `stepper` | | ✅ |
+| 11 | ~~Theme Toggle~~ | `theme-toggle` | | ✅ |
+| 12 | ~~Copy Button~~ | `copy-button` | | ✅ |
+| 13 | ~~AI Chat kit (full Tier 2 AI surfaces)~~ | `ai-chat`… | Brand differentiation | ✅ |
+| 14 | ~~Data Grid + Kanban~~ | `data-grid` / `kanban` | Marketing visual + admin apps | ✅ |
+| 15 | ~~Tier 4 chart leftovers~~ | `tree-map` / `sankey` / `gauge` | Analytics completeness | ✅ |
+
+---
+
+## To Build (by demand tier)
+
+### Tier 1 — App-shell completeness (high demand)
+
+- [x] Avatar + Avatar Group
+- [x] Dropdown Menu
+- [x] Alert Dialog / Confirmation Dialog
+- [x] Breadcrumb
+- [x] Context Menu
+- [x] Combobox
+- [x] Command Palette / Command Menu
+- [x] File Upload / Image Upload / Drag & Drop Upload
+- [x] Navigation Menu / Navbar
+- [x] Stepper
+- [x] Multi Select
+- [x] Notification Center (inbox-style; toast is done)
+
+### Tier 2 — Differentiation & virality
+
+- [x] Theme Toggle
+- [x] Copy Button
+- [x] Code Viewer / Terminal Block / JSON Viewer
+- [x] Aspect Ratio
+- [x] AI Chat, Chat Bubble, User/AI Message
+- [x] Prompt Input, Streaming Text, Typing Indicator
+- [x] Reasoning Block, Citation Card, Thinking Animation
+- [x] Token Counter, Prompt Suggestions
+- [x] Agent Card, Tool Call Viewer, MCP Server Card
+- [x] AI Model Selector, Conversation Sidebar
+
+### Tier 2.5 — Media kit
+
+- [x] Image Preview (lightbox gallery, zoom/pan, download)
+- [x] Media Player (audio + video glass chrome)
+- [x] Image Editor (crop, rotate, flip, filters, export)
+
+### Tier 3 — Product surfaces
+
+- [x] Data Grid (sort / filter / select)
+- [x] Virtual Table / Infinite Table
+- [x] Kanban / Task Board
+- [x] Timeline + Activity Feed
+- [x] Metric / KPI / Statistic Cards
+- [x] Charts wrapper (Line, Area, Sparkline, Donut first)
+- [x] Date Time / Time / Month pickers (composites on calendar)
+- [x] Password Input
+- [x] OTP Input
+- [x] Search Input / Pin Input
+- [x] Number / Currency / Phone inputs
+- [x] Color Picker, Rating
+- [x] Dock, Bottom Navigation
+- [x] Banner, Callout, Offline Banner
+- [x] Loading Screen, Retry View
+
+### Tier 4 — Later / lower ROI
+
+- Layout atoms: Box, Flex, Stack, Spacer, Center, Container, Grid (Tailwind covers these)
+- [x] Full chart zoo (remaining): Tree Map, Sankey, Gauge
+- E-commerce suite, Social suite (prefer recipes over core registry)
+- Premium builders: Form/Workflow/SQL/Email/Dashboard builders
+- Mobile-only web duplicates of `ui-native` patterns
+- Separate `glass-*` components that only re-export existing variants
+
+---
+
+## Covered by variants (do not ship as separate packages)
+
+These appear in `component.md` but map to existing primitives:
+
+| Wishlist name | Use instead |
+| --- | --- |
+| Glass Button | `button` variants |
+| Glass Card | `card` / `glass-content-card` |
+| Glass Modal | `dialog` |
+| Glass Input | `input` |
+| Glass Badge | `badge` |
+| Glass Tabs | `tabs` |
+| Glass Sidebar | `sidebar` |
+| Glass Dropdown | `dropdown-menu` / `select` |
+| Icon Button | `glass-icon-button` / `button size="icon"` |
+| Divider | `separator` |
+| Empty State / Empty Screen | `empty` |
+| Modal | `dialog` |
+| Drawer | `drawer` |
+| Markdown Renderer | `markdown-viewer` |
+| Rich Text Editor | `markdown-editor` |
+
+---
+
+## Implementation checklist (per component)
+
+When building any item from **To Build**:
+
+1. `packages/ui/src/{name}.tsx` — Liquid Glass API, cva variants, a11y
+2. Export from `packages/ui/src/index.ts` + `package.json` exports
+3. `apps/registry/registry.json` entry (deps + meta)
+4. `apps/playground/lib/catalog.ts` entry
+5. Demo + `apps/playground/lib/examples/index.tsx`
+6. `node scripts/bundle-registry.mjs`
+7. `node packages/cli/scripts/bundle-mcp-data.mjs`
+8. `pnpm --filter @intelli/ui check-types` (+ lint)
+9. **Update this file** (Built table + checkboxes)
+
+---
+
+## Notes
+
+- Full wishlist lives in `component.md` (~250+ items). This roadmap is the **demand-prioritized** subset.
+- Prefer Radix primitives + owned glass styling (same as dialog/select/toast).
+- One `Toaster` / one theme provider pattern; avoid duplicate systems.

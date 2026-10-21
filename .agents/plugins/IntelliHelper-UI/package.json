@@ -1,0 +1,50 @@
+{
+  "name": "intelli-ui",
+  "private": true,
+  "description": "Intelli UI — Liquid Glass React component library for Next.js & Tailwind (CLI, registry, MCP, playground)",
+  "license": "MIT",
+  "author": "IntelliHelper",
+  "homepage": "https://ui.intellihelper.in",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IntelliHelper/IntelliHelper-UI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IntelliHelper/IntelliHelper-UI/issues"
+  },
+  "keywords": [
+    "intellihelper",
+    "intelli-ui",
+    "liquid-glass",
+    "react",
+    "nextjs",
+    "tailwindcss",
+    "component-library",
+    "design-system",
+    "shadcn-alternative",
+    "mcp"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "native": "pnpm --filter native-playground dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4",
+    "turbo": "^2.10.0",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": ">=18"
+  },
+  "browserslist": [
+    "chrome >= 111",
+    "edge >= 111",
+    "firefox >= 111",
+    "safari >= 16.4"
+  ]
+}

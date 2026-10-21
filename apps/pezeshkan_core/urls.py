@@ -57,7 +57,9 @@ urlpatterns = [
     # 7. Settings, Media, Redirects APIs
     path('api/settings', views.api_settings, name='api_settings'),
     path('api/media', views.api_media, name='api_media'),
-    path('api/media/upload', views.api_media, name='api_media_upload'),
+    path('api/media/upload', views.api_upload, name='api_media_upload'),
+    path('api/upload', views.api_upload, name='api_upload'),
+    path('api/upload/', views.api_upload, name='api_upload_slash'),
     path('api/redirects', views.api_redirects, name='api_redirects'),
 
     # 8. Newsletters, Subscribers, Schemas, CRM APIs

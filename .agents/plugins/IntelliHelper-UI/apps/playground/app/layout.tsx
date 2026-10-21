@@ -1,0 +1,147 @@
+import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "@intelli/themes";
+import { PlaygroundBackgroundProvider } from "../components/playground-background-provider";
+import {
+  absoluteUrl,
+  BRAND_NAME,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_KEYWORDS,
+  DEFAULT_TITLE,
+  GITHUB_URL,
+  OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+} from "../lib/seo";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  keywords: DEFAULT_KEYWORDS,
+  applicationName: SITE_NAME,
+  authors: [{ name: BRAND_NAME, url: SITE_URL }],
+  creator: BRAND_NAME,
+  publisher: BRAND_NAME,
+  category: "technology",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: `${SITE_NAME} by ${BRAND_NAME}`,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [
+      {
+        url: absoluteUrl(OG_IMAGE_PATH),
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — Liquid Glass component library for React and Next.js`,
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [absoluteUrl(OG_IMAGE_PATH)],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: SITE_URL,
+    types: {
+      "application/rss+xml": absoluteUrl("/rss.xml"),
+      "text/plain": absoluteUrl("/llms.txt"),
+    },
+  },
+  verification: {
+    google: "ydblhwmBVeU7fxt8ZY8uM7vcWttTeQbsyOty41RS10M",
+  },
+  other: {
+    "msapplication-TileColor": "#0f172a",
+    "github:repository": GITHUB_URL,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "light dark",
+  viewportFit: "cover",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      data-theme="mono"
+      data-material="glass"
+      className="light"
+      suppressHydrationWarning
+    >
+      <head>
+        {/*
+          Paint-critical baseline before the main CSS chunk arrives.
+          Keeps FCP/LCP from flashing unstyled; full design tokens still load via globals.css.
+        */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: [
+              "html{background:oklch(1 0 0);color-scheme:light dark}",
+              "html.dark{background:oklch(0.13 0.01 270)}",
+              "body{margin:0;min-height:100%;background:inherit;color:oklch(0.13 0 0)}",
+              "html.dark body{color:oklch(0.96 0 0)}",
+            ].join(""),
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var r=JSON.parse(localStorage.getItem('intelli-ui-theme')||'{}');var e=document.documentElement;if(r.theme)e.setAttribute('data-theme',r.theme);if(r.material==='solid'||r.material==='glass')e.setAttribute('data-material',r.material);if(r.mode==='dark'){e.classList.add('dark');e.classList.remove('light')}else if(r.mode==='light'){e.classList.add('light');e.classList.remove('dark')}}catch(t){}})();",
+          }}
+        />
+      </head>
+      <body className="min-h-screen antialiased px-3 pt-2 sm:px-4 sm:pt-3">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg"
+        >
+          Skip to content
+        </a>
+        <ThemeProvider defaultTheme="mono" defaultMode="light">
+          <PlaygroundBackgroundProvider>{children}</PlaygroundBackgroundProvider>
+        </ThemeProvider>
+        <Analytics />
+      </body>
+    </html>
+  );
+}

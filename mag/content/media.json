@@ -1,5 +1,37 @@
 [
   {
+    "id": "med_1792571676",
+    "filename": "dr_sample_1792571676.webp",
+    "url": "/mag/uploads/doctors/dr_sample_1792571676.webp",
+    "variants": {},
+    "dimensions": {},
+    "format": "webp",
+    "size": 74,
+    "originalSize": 74,
+    "savedPercentage": 0.0,
+    "storage": "local",
+    "alt": "dr_sample.webp",
+    "title": "",
+    "caption": "",
+    "uploadedAt": "2026-10-21T08:34:36.738020+00:00"
+  },
+  {
+    "id": "med_1792571663",
+    "filename": "test_upload_1792571663.webp",
+    "url": "/mag/uploads/2026/10/test_upload_1792571663.webp",
+    "variants": {},
+    "dimensions": {},
+    "format": "webp",
+    "size": 74,
+    "originalSize": 74,
+    "savedPercentage": 0.0,
+    "storage": "local",
+    "alt": "test_upload.webp",
+    "title": "",
+    "caption": "",
+    "uploadedAt": "2026-10-21T08:34:23.166409+00:00"
+  },
+  {
     "id": "med-1792235749478",
     "filename": "11_1792235748_d87d26a0.webp",
     "url": "/mag/uploads/2026/10/11_1792235748_d87d26a0.webp",
