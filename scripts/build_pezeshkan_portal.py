@@ -125,7 +125,6 @@ def get_footer():
           </p>
           <div style="margin-top:16px; display:flex; gap:12px;">
             <span style="background:rgba(0,115,255,0.08); color:var(--brand-primary); padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:700;">تاییدیه نظام پزشکی</span>
-            <span style="background:rgba(5,150,105,0.08); color:var(--brand-emerald-vital); padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:700;">امنیت ۱۰۰٪ داده‌ها</span>
           </div>
         </div>
 
