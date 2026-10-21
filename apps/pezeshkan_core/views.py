@@ -1016,3 +1016,408 @@ def api_admin_leads(request):
     leads = [lead.to_dict() for lead in ClinicLead.objects.all().order_by('-created_at')]
     return JsonResponse(leads, safe=False)
 
+
+
+# ==============================================================================
+# 11. SEO Audit, Anti-Spam Watchdog, Site Structure, Robots, LLMs & Users
+# ==============================================================================
+
+def analyze_robots_txt(content):
+    lines = content.splitlines()
+    user_agents = []
+    disallows = []
+    allows = []
+    sitemaps = []
+    for line in lines:
+        l = line.strip()
+        if not l or l.startswith('#'):
+            continue
+        if ':' in l:
+            key, val = l.split(':', 1)
+            key = key.strip().lower()
+            val = val.strip()
+            if key == 'user-agent':
+                user_agents.append(val)
+            elif key == 'disallow':
+                disallows.append(val)
+            elif key == 'allow':
+                allows.append(val)
+            elif key == 'sitemap':
+                sitemaps.append(val)
+    return {
+        "userAgents": user_agents or ["*"],
+        "disallowRules": disallows,
+        "allowRules": allows,
+        "sitemaps": sitemaps,
+        "totalRules": len(lines),
+        "isHealthy": len(sitemaps) > 0 and len(user_agents) > 0
+    }
+
+
+def compute_seo_audit():
+    articles = list(Article.objects.all().order_by('-id'))
+    pillars = list(Pillar.objects.all().order_by('id'))
+    doctors = list(Doctor.objects.all().order_by('id'))
+
+    inlinks_map = {a.slug: [] for a in articles}
+    outlinks_map = {a.slug: [] for a in articles}
+    broken_links = []
+
+    for a in articles:
+        html = a.content_html or a.raw_html or ''
+        hrefs = re.findall(r'href=[\'"](/mag/[^\'"]+|/[^\'"]*)[\'"]', html)
+        for h in hrefs:
+            if h.startswith('/mag/'):
+                target_slug = h.replace('/mag/', '').strip('/')
+                outlinks_map[a.slug].append(h)
+                if target_slug in inlinks_map:
+                    inlinks_map[target_slug].append(a.slug)
+                elif target_slug and target_slug not in ('', 'admin', 'login', 'newsletter'):
+                    broken_links.append({
+                        "articleId": a.custom_id or a.id,
+                        "title": a.title,
+                        "brokenUrl": h,
+                        "anchorText": "لینک داخلی شکسته"
+                    })
+            elif h.startswith('/') and not h.startswith('//'):
+                outlinks_map[a.slug].append(h)
+
+    keyword_stuffing = []
+    thin_content = []
+    eeat_deficiencies = []
+    actionable_fixes = []
+
+    titles_seen = {}
+    descs_seen = {}
+
+    for a in articles:
+        html = a.content_html or a.raw_html or ''
+        clean_text = re.sub(r'<[^>]+>', ' ', html)
+        words = clean_text.split()
+        word_count = len(words)
+
+        fkw = a.focus_keyword or ''
+        if not fkw and a.title:
+            t_words = [w for w in a.title.split() if len(w) > 3][:2]
+            fkw = ' '.join(t_words)
+
+        occurrences = 0
+        density = 0.0
+        kw_status = 'safe'
+
+        if fkw and word_count > 0:
+            occurrences = clean_text.lower().count(fkw.lower())
+            density = round((occurrences * len(fkw.split()) / max(word_count, 1)) * 100, 2)
+            if density > 3.0:
+                kw_status = 'danger'
+                actionable_fixes.append({
+                    "articleId": a.custom_id or a.id,
+                    "severity": "danger",
+                    "category": "اسپم کلمات کلیدی",
+                    "title": f"چگالی بیش از حد کلیدواژه ({density}٪) در مقاله «{a.title}»",
+                    "desc": f"کلمه کلیدی «{fkw}» به تعداد {occurrences} بار تکرار شده است. جهت پیشگیری از جریمه گوگل، چگالی را به زیر ۲.۵٪ کاهش دهید."
+                })
+            elif density > 2.5:
+                kw_status = 'warning'
+                actionable_fixes.append({
+                    "articleId": a.custom_id or a.id,
+                    "severity": "warning",
+                    "category": "هشدار سئو",
+                    "title": f"چگالی کلیدواژه در مرز ریسک ({density}٪) در «{a.title}»",
+                    "desc": f"توصیه می‌شود چگالی کلمه «{fkw}» بین ۱٪ تا ۲٪ تنظیم گردد."
+                })
+            elif density < 0.8 and occurrences > 0:
+                kw_status = 'low'
+            elif occurrences == 0:
+                kw_status = 'missing'
+        else:
+            kw_status = 'missing'
+
+        keyword_stuffing.append({
+            "articleId": a.custom_id or a.id,
+            "title": a.title,
+            "slug": a.slug,
+            "focusKeyword": fkw,
+            "occurrences": occurrences,
+            "wordCount": word_count,
+            "densityPercent": density,
+            "status": kw_status
+        })
+
+        if word_count < 300:
+            thin_status = 'danger'
+            actionable_fixes.append({
+                "articleId": a.custom_id or a.id,
+                "severity": "danger",
+                "category": "محتوای کوتاه (Thin Content)",
+                "title": f"محتوای بسیار کم‌حجم ({word_count} کلمه) در «{a.title}»",
+                "desc": "گوگل مقالات زیر ۳۰۰ کلمه را به عنوان محتوای بی‌کیفیت ارزیابی می‌کند. حداقل ۶۰۰ کلمه محتوای بالینی اضافه نمایید."
+            })
+        elif word_count < 500:
+            thin_status = 'warning'
+        else:
+            thin_status = 'safe'
+
+        thin_content.append({
+            "articleId": a.custom_id or a.id,
+            "title": a.title,
+            "slug": a.slug,
+            "wordCount": word_count,
+            "minExpected": 600,
+            "status": thin_status
+        })
+
+        t_clean = a.title.strip()
+        titles_seen.setdefault(t_clean, []).append(a.slug)
+        d_clean = (a.meta_description or a.summary or '').strip()
+        if d_clean:
+            descs_seen.setdefault(d_clean, []).append(a.slug)
+
+        reasons = []
+        author_name = a.author or 'تیم تحریریه پزشکان'
+        doc_mc = 'ثبت نشده'
+        reviewer_name = a.last_reviewed or 'شورای بازبینی بالینی'
+
+        if a.doctor_id:
+            doc = next((d for d in doctors if str(d.custom_id or d.id) == str(a.doctor_id)), None)
+            if doc:
+                author_name = doc.name
+                doc_mc = doc.mc_number or 'معتبر'
+
+        if doc_mc == 'ثبت نشده':
+            reasons.append("عدم ثبت شماره نظام پزشکی معتبر")
+        if not a.last_reviewed:
+            reasons.append("عدم ثبت تاریخ و داور بازبینی علمی بالینی")
+
+        if reasons:
+            eeat_deficiencies.append({
+                "articleId": a.custom_id or a.id,
+                "title": a.title,
+                "authorName": author_name,
+                "mcNumber": doc_mc,
+                "reviewerName": reviewer_name,
+                "reasons": reasons
+            })
+
+    duplicate_titles = [{"title": t, "count": len(slugs), "slugs": slugs} for t, slugs in titles_seen.items() if len(slugs) > 1]
+    duplicate_descs = [{"description": d, "count": len(slugs), "slugs": slugs} for d, slugs in descs_seen.items() if len(slugs) > 1]
+
+    orphan_articles = []
+    articles_analysis = []
+    total_int_links = sum(len(v) for v in outlinks_map.values())
+
+    for a in articles:
+        in_c = len(inlinks_map.get(a.slug, []))
+        out_c = len(outlinks_map.get(a.slug, []))
+        status = 'good'
+        if in_c == 0:
+            status = 'orphan'
+            orphan_articles.append({
+                "id": a.custom_id or a.id,
+                "title": a.title,
+                "slug": a.slug
+            })
+            actionable_fixes.append({
+                "articleId": a.custom_id or a.id,
+                "severity": "warning",
+                "category": "صفحه یتیم (Orphan Page)",
+                "title": f"مقاله «{a.title}» فاقد هرگونه لینک داخلی ورودی است",
+                "desc": "حداقل از ۲ مقاله مرتبط دیگر به این صفحه لینک داخلی با انکرتکست توصیفی ایجاد کنید تا بودجه خزش گوگل بهبود یابد."
+            })
+        elif in_c < 2:
+            status = 'warning'
+
+        articles_analysis.append({
+            "id": a.custom_id or a.id,
+            "title": a.title,
+            "slug": a.slug,
+            "inlinksCount": in_c,
+            "outlinksCount": out_c,
+            "status": status
+        })
+
+    active_pillars = []
+    empty_pillars = []
+    for p in pillars:
+        p_name = getattr(p, 'name', '') or str(p)
+        p_slug = getattr(p, 'slug', '')
+        p_articles = [a for a in articles if a.pillar_id == str(p.id) or a.category_name == p_name]
+        count = len(p_articles)
+        if count > 0:
+            linked_back = sum(1 for a in p_articles if any(p_slug in l for l in outlinks_map.get(a.slug, [])))
+            health = min(100, int((count / 3.0) * 60 + (linked_back / max(count, 1)) * 40))
+            active_pillars.append({
+                "name": p_name,
+                "clusterArticlesCount": count,
+                "linkedBackCount": linked_back,
+                "clusterHealthScore": health,
+                "status": "good" if health >= 70 else "warning"
+            })
+        else:
+            empty_pillars.append({
+                "name": p_name,
+                "slug": p_slug
+            })
+
+    total_articles = max(len(articles), 1)
+    danger_count = sum(1 for f in actionable_fixes if f["severity"] == "danger")
+    warning_count = sum(1 for f in actionable_fixes if f["severity"] == "warning")
+    score = max(20, min(100, 100 - (danger_count * 15 + warning_count * 5)))
+
+    health_status = 'عالی و بهینه' if score >= 85 else ('نیازمند بهبود' if score >= 60 else 'بحرانی')
+
+    return {
+        "summary": {
+            "healthScore": score,
+            "healthStatus": health_status,
+            "spamRisksCount": danger_count + len(broken_links) + len(duplicate_titles),
+            "activePillarsCount": len(active_pillars),
+            "totalPillars": len(pillars),
+            "totalInternalLinks": total_int_links,
+            "orphanCount": len(orphan_articles),
+            "eeatDeficiencyCount": len(eeat_deficiencies)
+        },
+        "actionableFixes": actionable_fixes,
+        "spamAudit": {
+            "keywordStuffing": keyword_stuffing,
+            "thinContent": thin_content,
+            "duplicateTitles": duplicate_titles,
+            "duplicateDescriptions": duplicate_descs,
+            "brokenInternalLinks": broken_links
+        },
+        "pillarClusterAudit": {
+            "coverageRatePercent": int((len(active_pillars) / max(len(pillars), 1)) * 100),
+            "activePillars": active_pillars,
+            "emptyPillars": empty_pillars
+        },
+        "linkingAudit": {
+            "avgInternalLinksPerArticle": round(total_int_links / max(len(articles), 1), 1),
+            "orphanArticles": orphan_articles,
+            "articlesAnalysis": articles_analysis
+        },
+        "eeatAudit": {
+            "deficiencies": eeat_deficiencies
+        }
+    }
+
+
+def compute_site_structure():
+    audit = compute_seo_audit()
+    articles_data = audit['linkingAudit']['articlesAnalysis']
+    orphans = audit['linkingAudit']['orphanArticles']
+    silos = audit['pillarClusterAudit']['activePillars']
+    summary = {
+        "healthScore": audit['summary']['healthScore'],
+        "totalInternalLinks": audit['summary']['totalInternalLinks'],
+        "totalCategories": audit['summary']['totalPillars'],
+        "orphanCount": audit['summary']['orphanCount'],
+        "avgInternalLinksPerArticle": audit['linkingAudit']['avgInternalLinksPerArticle']
+    }
+    return {
+        "success": True,
+        "summary": summary,
+        "articles": articles_data,
+        "orphans": orphans,
+        "silos": silos
+    }
+
+
+@csrf_exempt
+def api_seo_audit(request):
+    """
+    Real-time SEO Audit & Anti-Spam Watchdog Engine.
+    Works directly in local dev and live server environments without external dependencies.
+    """
+    data = compute_seo_audit()
+    return JsonResponse(data)
+
+
+@csrf_exempt
+def api_site_structure(request):
+    """
+    Site Structure & Internal Linking Graph Engine.
+    """
+    data = compute_site_structure()
+    return JsonResponse(data)
+
+
+@csrf_exempt
+def api_robots(request):
+    """
+    Robots.txt management and analysis endpoint.
+    """
+    robots_path = settings.BASE_DIR / 'robots.txt'
+    if request.method == "POST":
+        data = read_json(request)
+        content = data.get('content', '')
+        with open(robots_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        analysis = analyze_robots_txt(content)
+        return JsonResponse({"success": True, "message": "فایل robots.txt با موفقیت ذخیره شد", "analysis": analysis})
+    else:
+        content = ""
+        if robots_path.exists():
+            with open(robots_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        analysis = analyze_robots_txt(content)
+        return JsonResponse({"success": True, "content": content, "analysis": analysis})
+
+
+@csrf_exempt
+def api_llms(request):
+    """
+    LLMs.txt and AI Crawler configuration endpoint.
+    """
+    if request.method == "POST":
+        data = read_json(request)
+        return JsonResponse({"success": True, "message": "تنظیمات هوش مصنوعی llms.txt با موفقیت ذخیره شد", "settings": data})
+    else:
+        return JsonResponse({
+            "success": True,
+            "settings": {
+                "enabled": True,
+                "includePosts": True,
+                "includePages": True,
+                "floatingButton": False
+            },
+            "preview": "# Pezeshkan Medical AI Knowledge Base\n> Ecosystem of Digital Healthcare and Clinical Standards\n\n- [Portal](https://pezeshk-on.ir/)\n- [Clinical Articles](https://pezeshk-on.ir/mag/)"
+        })
+
+
+@csrf_exempt
+def api_llms_preview(request):
+    return JsonResponse({
+        "success": True,
+        "preview": "# Pezeshkan Medical AI Knowledge Base\n> Ecosystem of Digital Healthcare and Clinical Standards\n\n- [Portal](https://pezeshk-on.ir/)\n- [Clinical Articles](https://pezeshk-on.ir/mag/)"
+    })
+
+
+@csrf_exempt
+def api_users(request):
+    """
+    Users and Authors management endpoint.
+    """
+    users = [
+        {
+            "id": 1,
+            "username": "mahyarebrahimi",
+            "name": "مهیار ابراهیمی",
+            "email": "admin@pezeshkan.com",
+            "role": "مدیر ارشد سیستم (Administrator)",
+            "roleKey": "admin",
+            "status": "active",
+            "articlesCount": Article.objects.count()
+        }
+    ]
+    for doc in Doctor.objects.all():
+        users.append({
+            "id": f"doc_{doc.id}",
+            "username": f"dr_{doc.id}",
+            "name": doc.name,
+            "email": f"dr_{doc.id}@pezeshkan.com",
+            "role": f"پزشک متخصص ({doc.title or 'بالینی'})",
+            "roleKey": "doctor",
+            "status": "active",
+            "articlesCount": Article.objects.filter(doctor_id=str(doc.id)).count()
+        })
+    return JsonResponse({"success": True, "users": users})

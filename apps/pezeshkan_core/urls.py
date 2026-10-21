@@ -87,5 +87,15 @@ urlpatterns = [
     path('api/v1/leads/start', views.api_leads_start, name='api_v1_leads_start_noslash'),
     path('api/start-lead', views.api_leads_start, name='api_start_lead'),
     path('api/admin/leads', views.api_admin_leads, name='api_admin_leads'),
+
+    # 10. SEO Watchdog, Site Structure, Robots, LLMs, Users
+    path('api/admin/seo-audit', views.api_seo_audit, name='api_seo_audit'),
+    path('api/admin/site-structure', views.api_site_structure, name='api_site_structure'),
+    path('api/admin/site-structure/analyze', views.api_site_structure, name='api_site_structure_analyze'),
+    path('api/admin/robots', views.api_robots, name='api_robots'),
+    path('api/admin/robots/analyze', views.api_robots, name='api_robots_analyze'),
+    path('api/admin/llms', views.api_llms, name='api_llms'),
+    path('api/admin/llms/preview', views.api_llms_preview, name='api_llms_preview'),
+    path('api/admin/users', views.api_users, name='api_users'),
 ]
 
