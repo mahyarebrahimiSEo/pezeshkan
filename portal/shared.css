@@ -739,23 +739,39 @@ a:hover {
   text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap;
+  box-sizing: border-box !important;
+  background-repeat: no-repeat !important;
+  background-clip: padding-box !important;
+  background-origin: padding-box !important;
+  overflow: hidden !important;
 }
 
 .btn-primary {
-  background: var(--brand-gradient-primary);
-  color: #FFFFFF;
-  box-shadow: var(--shadow-neon-blue);
+  background: var(--brand-gradient-primary) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  background-clip: padding-box !important;
+  background-origin: padding-box !important;
+  border: 1px solid transparent !important;
+  outline: none !important;
+  color: #FFFFFF !important;
+  box-shadow: var(--shadow-neon-blue) !important;
+  overflow: hidden !important;
 }
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 115, 255, 0.35);
-  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(0, 115, 255, 0.35) !important;
+  color: #FFFFFF !important;
 }
 
 .btn-secondary {
   background: var(--bg-surface-primary);
   border-color: var(--glass-border);
   color: var(--text-primary);
+  background-repeat: no-repeat !important;
+  background-clip: padding-box !important;
+  outline: none !important;
+  overflow: hidden !important;
 }
 .btn-secondary:hover {
   background: var(--bg-surface-secondary);
@@ -763,13 +779,20 @@ a:hover {
 }
 
 .btn-vital {
-  background: var(--brand-gradient-vital);
-  color: #FFFFFF;
-  box-shadow: var(--shadow-neon-emerald);
+  background: var(--brand-gradient-vital) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  background-clip: padding-box !important;
+  background-origin: padding-box !important;
+  border: 1px solid transparent !important;
+  outline: none !important;
+  color: #FFFFFF !important;
+  box-shadow: var(--shadow-neon-emerald) !important;
+  overflow: hidden !important;
 }
 .btn-vital:hover {
   transform: translateY(-1px);
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .btn-outline {
@@ -3981,6 +4004,14 @@ body.intro-device-locked {
   gap: 12px;
   flex-shrink: 0;
   flex-wrap: wrap;
+}
+.doctor-cta-actions .btn {
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  background-clip: padding-box !important;
+  background-origin: padding-box !important;
+  outline: none !important;
+  overflow: hidden !important;
 }
 @media (max-width: 992px) {
   .doctor-cta-card {
