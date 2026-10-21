@@ -15,7 +15,9 @@
   
   /* Official PEZESHK-ON Day Palette: 75% c6eefb | 16% 5ee6ed | 3% 8ef75d | 3% F579D8 | 3% fbc448 */
   --signal-cyan: #5ee6ed; /* 16% فیروزه ای */
-  --signal-green: #059669; /* سبز بالینی خوانا با کنتراست بالا برای حالت روز */
+  --signal-green: #047857; /* سبز بالینی خوانا با کنتراست بالا برای حالت روز */
+  --signal-green-bg: rgba(5, 150, 105, 0.12);
+  --signal-green-border: rgba(5, 150, 105, 0.28);
   --signal-green-neon: #8ef75d; /* 3% سبز پالت جهت هاله و افکت نوری */
   --signal-amber: #fbc448; /* 3% زرد */
   --signal-magenta: #F579D8; /* 3% سرخابی */
@@ -92,7 +94,9 @@
   --signal-orange: #e27d2a; /* 3% نارنجی E27D2A */
   --signal-magenta: #e463c6; /* 3% سرخابی E463C6 */
   --signal-amber: #fbc448; /* 3% زرد FBC448 */
-  --signal-green: #10B981;
+  --signal-green: #34D399; /* سبز روشن و باکنتراست جهت خوانایی عالی در تم شب */
+  --signal-green-bg: rgba(52, 211, 153, 0.16);
+  --signal-green-border: rgba(52, 211, 153, 0.35);
   --signal-red: #e463c6;
 
   --brand-primary: #4fcbd1; /* 16% فیروزه ای شاخص */
@@ -1352,9 +1356,14 @@ a:hover {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #00E599;
-  box-shadow: 0 0 8px #00E599;
+  background: #059669;
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.5);
   animation: pulse-beacon 2s infinite;
+}
+
+[data-theme="dark"] .pez-shell-badge-pulse {
+  background: #34D399;
+  box-shadow: 0 0 8px #34D399;
 }
 
 .pez-shell-title {
@@ -1573,12 +1582,12 @@ a:hover {
 .metric-growth {
   font-family: var(--font-sans) !important;
   font-size: 11px;
-  font-weight: 700;
-  color: #059669;
+  font-weight: 800;
+  color: #047857 !important;
 }
 
 [data-theme="dark"] .metric-growth {
-  color: #34D399;
+  color: #34D399 !important;
 }
 
 /* Natural Medical ECG Animation Panel */
@@ -1621,9 +1630,14 @@ a:hover {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #00E599;
-  box-shadow: 0 0 8px #00E599;
+  background: #059669;
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.5);
   animation: pulse-beacon 1.8s infinite;
+}
+
+[data-theme="dark"] .ecg-pulse-beacon {
+  background: #34D399;
+  box-shadow: 0 0 8px #34D399;
 }
 
 .ecg-status-title {
@@ -1658,16 +1672,18 @@ a:hover {
   gap: 4px;
   padding: 2px 8px;
   border-radius: 12px;
-  background: rgba(0, 229, 153, 0.12);
-  color: #059669;
+  background: rgba(5, 150, 105, 0.12) !important;
+  border: 1px solid rgba(5, 150, 105, 0.28) !important;
+  color: #047857 !important;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 800;
 }
 
 [data-theme="dark"] .ecg-bpm-pill {
-  background: rgba(0, 229, 153, 0.2);
-  color: #00E599;
+  background: rgba(52, 211, 153, 0.18) !important;
+  border-color: rgba(52, 211, 153, 0.35) !important;
+  color: #34D399 !important;
 }
 
 .ecg-signal-stable {
@@ -3084,8 +3100,15 @@ body.intro-device-locked {
   color: var(--text-primary);
 }
 .feature-item svg {
-  color: var(--brand-emerald-vital);
+  color: #047857 !important;
+  stroke: #047857 !important;
   margin-top: 3px;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .feature-item svg {
+  color: #34D399 !important;
+  stroke: #34D399 !important;
 }
 
 /* ==========================================================================
@@ -4993,15 +5016,26 @@ body.intro-device-locked {
   box-shadow: 0 0 0 2px rgba(0, 115, 255, 0.2);
 }
 .nav-dropdown-doctors .nav-role-dot {
-  background: var(--brand-emerald-vital);
+  background: #059669;
   box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.22);
 }
 .nav-dropdown-doctors:hover .nav-dropdown-trigger,
 .nav-dropdown-doctors.is-open .nav-dropdown-trigger,
 .nav-dropdown-doctors .nav-dropdown-trigger.active {
-  color: var(--brand-emerald-vital);
-  background: rgba(5, 150, 105, 0.09);
-  border-color: rgba(5, 150, 105, 0.22);
+  color: #047857 !important;
+  background: rgba(5, 150, 105, 0.1) !important;
+  border-color: rgba(5, 150, 105, 0.32) !important;
+}
+[data-theme="dark"] .nav-dropdown-doctors .nav-role-dot {
+  background: #34D399 !important;
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.3) !important;
+}
+[data-theme="dark"] .nav-dropdown-doctors:hover .nav-dropdown-trigger,
+[data-theme="dark"] .nav-dropdown-doctors.is-open .nav-dropdown-trigger,
+[data-theme="dark"] .nav-dropdown-doctors .nav-dropdown-trigger.active {
+  color: #34D399 !important;
+  background: rgba(52, 211, 153, 0.14) !important;
+  border-color: rgba(52, 211, 153, 0.38) !important;
 }
 .nav-chevron {
   width: 14px;
@@ -5099,8 +5133,19 @@ body.intro-device-locked {
   transition: transform 0.2s ease;
 }
 .nav-dropdown-doctors .nav-dropdown-icon {
-  background: rgba(5, 150, 105, 0.12);
-  color: var(--brand-emerald-vital);
+  background: rgba(5, 150, 105, 0.12) !important;
+  color: #047857 !important;
+}
+.nav-dropdown-doctors .nav-dropdown-header span:last-child {
+  color: #047857 !important;
+  font-weight: 800;
+}
+[data-theme="dark"] .nav-dropdown-doctors .nav-dropdown-icon {
+  background: rgba(52, 211, 153, 0.18) !important;
+  color: #34D399 !important;
+}
+[data-theme="dark"] .nav-dropdown-doctors .nav-dropdown-header span:last-child {
+  color: #34D399 !important;
 }
 .nav-dropdown-link:hover .nav-dropdown-icon {
   transform: scale(1.06);
@@ -5183,7 +5228,7 @@ body.intro-device-locked {
 }
 .drawer-accordion-doctors .drawer-accordion-badge {
   background: rgba(5, 150, 105, 0.14);
-  color: var(--brand-emerald-vital);
+  color: #047857 !important;
 }
 .drawer-accordion-chevron {
   width: 16px;
@@ -5197,7 +5242,7 @@ body.intro-device-locked {
   color: var(--brand-primary);
 }
 .drawer-accordion-doctors.is-open .drawer-accordion-chevron {
-  color: var(--brand-emerald-vital);
+  color: #047857 !important;
 }
 .drawer-accordion-body {
   display: none;
@@ -5229,7 +5274,23 @@ body.intro-device-locked {
 .drawer-accordion-doctors .drawer-sub-link:hover,
 .drawer-accordion-doctors .drawer-sub-link.active {
   background: rgba(5, 150, 105, 0.09);
-  color: var(--brand-emerald-vital);
+  color: #047857 !important;
+}
+
+[data-theme="dark"] .drawer-accordion.drawer-accordion-doctors.is-open {
+  border-color: rgba(52, 211, 153, 0.4);
+}
+[data-theme="dark"] .drawer-accordion-doctors .drawer-accordion-badge {
+  background: rgba(52, 211, 153, 0.18);
+  color: #34D399 !important;
+}
+[data-theme="dark"] .drawer-accordion-doctors.is-open .drawer-accordion-chevron {
+  color: #34D399 !important;
+}
+[data-theme="dark"] .drawer-accordion-doctors .drawer-sub-link:hover,
+[data-theme="dark"] .drawer-accordion-doctors .drawer-sub-link.active {
+  background: rgba(52, 211, 153, 0.12);
+  color: #34D399 !important;
 }
 .drawer-sub-dot {
   width: 6px;

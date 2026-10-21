@@ -1543,8 +1543,8 @@ function initNaturalEcg() {
     ctx.stroke();
 
     // Draw ECG phosphor wave
-    const mainColor = isDark ? '#00F0FF' : '#00A878';
-    const glowColor = isDark ? 'rgba(0, 240, 255, 0.6)' : 'rgba(0, 229, 153, 0.5)';
+    const mainColor = isDark ? '#00F0FF' : '#059669';
+    const glowColor = isDark ? 'rgba(0, 240, 255, 0.6)' : 'rgba(5, 150, 105, 0.4)';
 
     ctx.save();
     ctx.shadowColor = glowColor;
