@@ -15,7 +15,8 @@
   
   /* Official PEZESHK-ON Day Palette: 75% c6eefb | 16% 5ee6ed | 3% 8ef75d | 3% F579D8 | 3% fbc448 */
   --signal-cyan: #5ee6ed; /* 16% فیروزه ای */
-  --signal-green: #8ef75d; /* 3% سبز */
+  --signal-green: #059669; /* سبز بالینی خوانا با کنتراست بالا برای حالت روز */
+  --signal-green-neon: #8ef75d; /* 3% سبز پالت جهت هاله و افکت نوری */
   --signal-amber: #fbc448; /* 3% زرد */
   --signal-magenta: #F579D8; /* 3% سرخابی */
   --signal-red: #EF4444;
@@ -26,9 +27,9 @@
   --brand-gradient-primary: linear-gradient(135deg, #0b3d59 0%, #5ee6ed 100%);
   --brand-gradient-glow: rgba(94, 230, 237, 0.22);
   
-  --brand-emerald: #10B981;
-  --brand-emerald-vital: #8ef75d; /* 3% سبز */
-  --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #8ef75d 100%);
+  --brand-emerald: #059669;
+  --brand-emerald-vital: #047857; /* سبز با کنتراست فوق‌العاده بالا و کاملاً خوانا برای متون، بج‌ها و عناوین در حالت روز */
+  --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #10B981 100%);
   --brand-amber: #fbc448; /* 3% زرد */
   --brand-magenta: #F579D8; /* 3% سرخابی */
   --brand-rose-critical: #F579D8;
@@ -101,8 +102,8 @@
   --brand-gradient-glow: rgba(79, 203, 209, 0.28);
   
   --brand-emerald: #10B981;
-  --brand-emerald-vital: #4fcbd1;
-  --brand-gradient-vital: linear-gradient(135deg, #0b3d59 0%, #4fcbd1 100%);
+  --brand-emerald-vital: #34D399; /* سبز روشن و باکنتراست جهت خوانایی عالی در تم شب */
+  --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #34D399 100%);
   --brand-amber: #fbc448; /* 3% زرد */
   --brand-orange: #e27d2a; /* 3% نارنجی */
   --brand-magenta: #e463c6; /* 3% سرخابی */
@@ -480,28 +481,44 @@ a:hover {
 
 /* Mag & Download links at end of nav */
 .nav-link.nav-mag {
-  color: var(--brand-emerald-vital);
-  background: rgba(5, 150, 105, 0.08);
-  border: 1px solid rgba(5, 150, 105, 0.22);
+  color: #047857 !important;
+  background: rgba(16, 185, 129, 0.1) !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.35) !important;
   border-radius: var(--radius-full);
   font-weight: 800;
   padding: 5px 12px;
   font-size: 12px;
   margin-right: 2px;
+  transition: all 0.2s ease;
 }
 .nav-link.nav-mag:hover {
-  background: rgba(5, 150, 105, 0.16);
-  color: var(--brand-emerald-vital);
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #065f46 !important;
+  border-color: #059669 !important;
   transform: translateY(-1px);
 }
 
 .nav-badge-mag {
-  background: rgba(5, 150, 105, 0.18);
-  color: var(--brand-emerald-vital);
+  background: rgba(16, 185, 129, 0.22) !important;
+  color: #047857 !important;
   font-size: 9.5px;
-  padding: 1px 5px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-weight: 800;
+}
+
+[data-theme="dark"] .nav-link.nav-mag {
+  color: #34D399 !important;
+  background: rgba(16, 185, 129, 0.14) !important;
+  border-color: rgba(52, 211, 153, 0.4) !important;
+}
+[data-theme="dark"] .nav-link.nav-mag:hover {
+  background: rgba(16, 185, 129, 0.24) !important;
+  color: #6EE7B7 !important;
+}
+[data-theme="dark"] .nav-badge-mag {
+  background: rgba(16, 185, 129, 0.25) !important;
+  color: #6EE7B7 !important;
 }
 
 .nav-link.nav-download {
@@ -1158,38 +1175,40 @@ a:hover {
   gap: 6px;
   padding: 4px 7px 4px 12px;
   border-radius: 20px;
-  border: 1.5px solid rgba(16, 185, 129, 0.35);
-  color: #059669 !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.38);
+  color: #047857 !important;
   font-size: 12px;
   font-weight: 800;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   white-space: nowrap;
   transition: all 0.2s ease;
 }
 
 .pez-shell-pill-mag:hover {
-  background: rgba(16, 185, 129, 0.12);
-  border-color: #10B981;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #059669;
+  color: #065f46 !important;
 }
 
 [data-theme="dark"] .pez-shell-pill-mag {
-  border-color: rgba(16, 185, 129, 0.45);
+  border-color: rgba(52, 211, 153, 0.45);
   color: #34D399 !important;
-  background: rgba(17, 41, 54, 0.6);
+  background: rgba(17, 41, 54, 0.85);
 }
 
 .pez-shell-mag-badge {
-  background: rgba(16, 185, 129, 0.16);
-  color: #059669;
-  padding: 2px 6px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #047857 !important;
+  padding: 2px 7px;
   border-radius: 10px;
   font-size: 10px;
   font-weight: 800;
 }
 
 [data-theme="dark"] .pez-shell-mag-badge {
-  color: #34D399;
+  background: rgba(52, 211, 153, 0.2);
+  color: #6EE7B7 !important;
 }
 
 .pez-shell-mobile-toggle {
@@ -3853,15 +3872,31 @@ body.intro-device-locked {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(5, 150, 105, 0.12);
-  border: 1px solid rgba(5, 150, 105, 0.35);
-  color: var(--brand-emerald-vital);
+  background: rgba(16, 185, 129, 0.12) !important;
+  border: 1.5px solid rgba(5, 150, 105, 0.35) !important;
+  color: #047857 !important;
   font-size: 12.5px;
   font-weight: 800;
-  padding: 4px 12px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   margin-bottom: 12px;
   width: fit-content;
+}
+
+.trial-free-badge svg {
+  color: #047857 !important;
+  stroke: #047857 !important;
+}
+
+[data-theme="dark"] .trial-free-badge {
+  background: rgba(16, 185, 129, 0.16) !important;
+  border-color: rgba(52, 211, 153, 0.4) !important;
+  color: #34D399 !important;
+}
+
+[data-theme="dark"] .trial-free-badge svg {
+  color: #34D399 !important;
+  stroke: #34D399 !important;
 }
 
 /* ==========================================================================

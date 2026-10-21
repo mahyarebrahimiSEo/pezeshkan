@@ -17,7 +17,7 @@
   --color-signal-primary-hover: #072130;
   --color-signal-primary-light: #c6eefb;
   --color-signal-cyan: #5ee6ed;             /* 16% فیروزه‌ای 5EE6ED */
-  --color-signal-success: #8ef75d;          /* 3% سبز نعنایی 8EF75D */
+  --color-signal-success: #059669;          /* سبز بالینی با کنتراست و خوانایی بالا */
   --color-signal-success-light: #F0FDF4;
   --color-signal-warning: #e27d2a;          /* 3% نارنجی E27D2A */
   --color-signal-warning-light: #FFF7ED;
@@ -62,7 +62,7 @@
   --color-signal-primary-hover: #3bbcc2;
   --color-signal-primary-light: rgba(79, 203, 209, 0.16);
   --color-signal-cyan: #4fcbd1;             /* 16% فیروزه‌ای 4FCBD1 */
-  --color-signal-success: #8ef75d;          /* سبز بالینی */
+  --color-signal-success: #34D399;          /* سبز روشن و خوانا برای تم شب */
   --color-signal-success-light: rgba(142, 247, 93, 0.14);
   --color-signal-warning: #e27d2a;          /* 3% نارنجی E27D2A */
   --color-signal-warning-light: rgba(226, 125, 42, 0.16);
