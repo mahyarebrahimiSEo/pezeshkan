@@ -18,10 +18,11 @@
   <meta name="description" content="عضویت در خبرنامه هفتگی مجله سلامت پزشکآن لایف؛ دریافت گزیده مقالات داوری‌شده توسط پزشکان متخصص، هشدارهای دارویی FDA و راهنماهای درمانی مستقیماً در ایمیل شما.">
   <link rel="canonical" href="https://pezeshkan.me/mag/newsletter">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  
+
   <!-- Favicon & PWA Manifest -->
-  <link rel="icon" type="image/svg+xml" href="/pezeshkon-logo.svg">
-  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0070E0">
 
@@ -488,6 +489,7 @@
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
     }
 
+    .newsletter-subscribe-card h2,
     .newsletter-subscribe-card h3 {
       font-size: 19px;
       font-weight: 900;
@@ -723,6 +725,7 @@
       flex-wrap: wrap;
     }
 
+    .mag-return-banner h2,
     .mag-return-banner h3 {
       font-size: 20px;
       font-weight: 900;
@@ -1621,6 +1624,7 @@
       background: linear-gradient(135deg, rgba(6, 182, 212, 0.14) 0%, rgba(15, 23, 42, 0.92) 100%) !important;
       border-color: rgba(34, 211, 238, 0.28) !important;
     }
+    [data-theme="dark"] .mag-return-banner h2,
     [data-theme="dark"] .mag-return-banner h3 {
       color: #22D3EE !important;
     }
@@ -1804,10 +1808,10 @@
 
         <!-- کارت فرم ثبت‌نام زنده -->
         <div class="newsletter-subscribe-card">
-          <h3>
+          <h2>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0073FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>عضویت رایگان در خبرنامه</span>
-          </h3>
+          </h2>
           <p>ایمیل خود را وارد نمایید تا اولین شماره سه‌شنبه آینده برای شما ارسال شود.</p>
 
           <form id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
@@ -1843,7 +1847,7 @@
 
           <div id="subscribeSuccessBox" class="subscribe-success-box">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <h4 style="font-weight:900; margin-bottom:6px; font-size:16px;">عضویت شما با موفقیت ثبت گردید!</h4>
+            <div class="alert-success-title" style="font-weight:900; margin-bottom:6px; font-size:16px; color:#15803D;">عضویت شما با موفقیت ثبت گردید!</div>
             <p style="font-size:13px; line-height:1.7;">
               سپاس از همراهی شما. یک ایمیل تایید به همراه نسخه شماره ۵۲ خبرنامه برای شما ارسال شد.
             </p>
@@ -2044,7 +2048,7 @@
     <!-- بنر اتصال به صفحه اصلی مجله سلامت -->
     <section class="mag-return-banner">
       <div>
-        <h3>می‌خواهید تمام مقالات و دپارتمان‌های مجله سلامت را مرور کنید؟</h3>
+        <h2>می‌خواهید تمام مقالات و دپارتمان‌های مجله سلامت را مرور کنید؟</h2>
         <p>
           در دانشنامه جامع پزشکآن لایف به صدها مقاله تاییدشده در زمینه‌های دیسک کمر، بارداری، قلب، لاپاراسکوپی چاقی و اطلاعات دارویی دسترسی مستقیم دارید.
         </p>
@@ -2089,14 +2093,14 @@
         <div>
           <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
             <img src="/pezeshkon-logo.svg" alt="لوگوی پزشکآن - PEZESHK-ON" width="34" height="34" style="object-fit:contain;">
-            <h4 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">مجله و خبرنامه سلامت پزشکآن (PEZESHK-ON)</h4>
+            <h3 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">مجله و خبرنامه سلامت پزشکآن (PEZESHK-ON)</h3>
           </div>
           <p style="line-height:1.8; color:var(--text-body); font-size:13px;">
             اکوسیستم جامع سلامت دیجیتال و پرونده الکترونیک پزشکی. تمامی شماره‌ها و مقالات توسط تیم متخصص محتوا نویس پزشکآن با بالاترین استانداردهای راستی‌آزمایی علمی تدوین می‌گردد.
           </p>
         </div>
         <div>
-          <h4 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">دسترسی سریع</h4>
+          <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">دسترسی سریع</h3>
           <ul style="list-style:none; display:flex; flex-direction:column; gap:10px; padding:0;">
             <li><a href="/mag" style="color:var(--text-body); font-size:13px; text-decoration:none;">› صفحه اصلی مجله سلامت</a></li>
             <li><a href="/mag/newsletter" style="color:var(--color-primary); font-weight:700; font-size:13px; text-decoration:none;">› آرشیو کامل شماره‌های خبرنامه</a></li>
@@ -2105,7 +2109,7 @@
           </ul>
         </div>
         <div>
-          <h4 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">سلب مسئولیت پزشکی</h4>
+          <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">سلب مسئولیت پزشکی</h3>
           <p style="line-height:1.8; color:var(--text-secondary); font-size:12.5px;">
             مطالب و تحلیل‌های ارائه شده در این نشریه صرفاً جنبه آموزشی و آگاهی‌بخشی دارد و هرگز نباید به عنوان توصیه، تشخیص یا درمان مستقل بالینی تلقی گردد.
           </p>
@@ -2274,7 +2278,7 @@
                 </div>
                 <div>
                   <div style="font-size: 11px; font-weight: 800; color: var(--color-primary); margin-bottom: 2px;">نویسنده و هیئت تحریریه بالینی</div>
-                  <h4 style="font-size: 15px; font-weight: 900; color: var(--text-heading); margin: 0;">تیم متخصص محتوا نویس پزشکآن</h4>
+                  <div style="font-size: 15px; font-weight: 900; color: var(--text-heading); margin: 0;">تیم متخصص محتوا نویس پزشکآن</div>
                   <span style="font-size: 11.5px; color: var(--text-secondary);">${docSpec}</span>
                 </div>
               </div>

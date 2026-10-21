@@ -18,10 +18,11 @@
   <meta name="description" content="دانشنامه بالینی و مجله پزشکی پزشکآن لایف؛ مقالات علمی دارای داوری تخصصی، راهنمای درمان بیماری‌ها، تریاژ سلامت و توصیه‌های مستند بالینی.">
   <link rel="canonical" href="https://pezeshkan.me/mag">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  
+
   <!-- Favicon & PWA Manifest -->
-  <link rel="icon" type="image/svg+xml" href="/pezeshkon-logo.svg">
-  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0070E0">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -1317,7 +1318,7 @@
       padding-bottom: 14px;
       margin-bottom: 16px;
     }
-    .dropdown-top-meta h4 {
+    .dropdown-top-meta h4, .dropdown-top-meta .dropdown-cat-title {
       font-size: 16px;
       font-weight: 800;
       color: var(--text-heading);
@@ -2016,8 +2017,15 @@
       .reader-layout-grid {
         grid-template-columns: 1fr;
       }
+      .reader-article-body {
+        grid-column: 1;
+      }
+      .reader-sidebar {
+        grid-column: 1;
+      }
     }
     .reader-sidebar {
+      grid-column: 1;
       position: sticky;
       top: 140px;
       background: #FFFFFF;
@@ -2028,6 +2036,7 @@
       box-shadow: var(--shadow-sm);
     }
     .reader-article-body {
+      grid-column: 2;
       background: #FFFFFF;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-xl);
@@ -4615,10 +4624,10 @@
     <div class="navbar-floating-dropdown" id="floatingCategoryDropdown" onmouseenter="keepDropdownOpen()" onmouseleave="scheduleCloseDropdown()">
       <div class="dropdown-top-meta">
         <div>
-          <h4 id="dropCatTitle">
+          <div class="dropdown-cat-title" id="dropCatTitle">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4"/><path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"/><path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></g></svg>
             <span>عنوان دپارتمان</span>
-          </h4>
+          </div>
           <p id="dropCatDept" style="font-size:12px; color:var(--text-muted); margin-top:3px;"></p>
         </div>
         <span id="dropCatCountBadge" style="font-size:12px; background:var(--color-primary-light); color:var(--color-primary); padding:4px 12px; border-radius:var(--radius-full); font-weight:800;">
@@ -4658,8 +4667,24 @@
     <!-- نمای ۱: هاب اصلی مجله -->
     <div id="viewHubMain">
       
+      <!-- ۰. عنوان شاخص و تیتر اصلی مجله سلامت پزشکآن -->
+      <div class="mag-hub-hero-banner" style="margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+        <h1 class="mag-hub-main-title" style="font-size: 24px; font-weight: 900; color: var(--text-heading); line-height: 1.45; margin: 0 0 8px 0;">
+          مجله سلامت پزشکآن؛ دانشنامه و راهنمای تخصصی پزشکی و خودمراقبتی
+        </h1>
+        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 0;">
+          مرجع جامع آموزش‌های بالینی، پروتکل‌های درمانی، هشدارهای دارویی و نشریات تخصصی سلامت تحت نظارت هیئت علمی
+        </p>
+      </div>
+
       <!-- ۳. هیروی نامتقارن ۵ تایی مدرن و بالینی -->
       <section style="margin-bottom: 36px;">
+        <div class="section-title-wrap" style="margin-bottom: 16px;">
+          <h2 style="font-size: 20px; font-weight: 900; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
+            <span>مقالات منتخب و راهنماهای بالینی برگزیده</span>
+          </h2>
+        </div>
         <div class="hero-magazine-grid" id="heroMagazineGrid">
           
           <!-- کارت خبر اول و لید اصلی با تصویر شاخص باکیفیت -->
@@ -4669,7 +4694,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
                 <span>ستون فقرات و مفاصل</span>
               </span>
-              <h1 class="hero-title-text">راهنمای بالینی درمان غیرجراحی دیسک کمر و سیاتیک: از شاک‌ویو تا لیزر پرتوان</h1>
+              <h3 class="hero-title-text">راهنمای بالینی درمان غیرجراحی دیسک کمر و سیاتیک: از شاک‌ویو تا لیزر پرتوان</h3>
               <p class="hero-desc-text">بررسی علمی پروتکل‌های طب فیزیکی بدون نیاز به بیهوشی و تیغ جراحی، همراه با علائم هشداردهنده سندرم دم اسب و بازتوانی مفاصل.</p>
               <div class="hero-meta-row">
                 <span style="display:flex; align-items:center; gap:6px;">
@@ -4771,7 +4796,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12l2 2l4-4"/></g></svg>
           </div>
           <div class="strip-details">
-            <h4>بررسی و صحه‌گذاری پزشکی</h4>
+            <h3 class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">بررسی و صحه‌گذاری پزشکی</h3>
             <p>مقالات مستقیماً توسط متخصصان دارای کد نظام پزشکی بازبینی و تایید می‌شوند.</p>
           </div>
         </div>
@@ -4780,7 +4805,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4"/><path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"/><path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></g></svg>
           </div>
           <div class="strip-details">
-            <h4>اتصال مستقیم به مطب و بیمارستان</h4>
+            <h3 class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">اتصال مستقیم به مطب و بیمارستان</h3>
             <p>امکان دریافت فوری نوبت آنلاین یا مشاوره بالینی با نویسنده مقاله.</p>
           </div>
         </div>
@@ -4789,7 +4814,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></g></svg>
           </div>
           <div class="strip-details">
-            <h4>دانشنامه و مرجع سلامت</h4>
+            <h3 class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">دانشنامه و مرجع سلامت</h3>
             <p>بیش از ۳۴۰ سرفصل تشخیصی، دارویی و درمانی به‌روز و بدون اصطلاحات پیچیده.</p>
           </div>
         </div>
@@ -4821,7 +4846,7 @@
       <!-- ۶. بنر تبدیل اکسون (InsideBanner) -->
       <section class="axon-inside-banner">
         <div class="inside-text">
-          <h3>از آگاهی تا درمان: کنار شماییم</h3>
+          <h2 style="font-size: 22px; font-weight: 900; margin-bottom: 10px; color: #FFFFFF;">از آگاهی تا درمان: کنار شماییم</h2>
           <p>
             تمامی محتواهای این پایگاه توسط پزشکان فوق‌تخصص و با کد نظام پزشکی معتبر تهیه شده است. برای بررسی پرونده یا دریافت ویزیت تخصصی حضوری یا تله‌مدیسین، می‌توانید همین حالا اقدام فرمایید.
           </p>
@@ -5139,7 +5164,7 @@
 
         <!-- ستون ۲: دپارتمان‌های تخصصی مجله -->
         <div>
-          <h4 class="footer-col-title">دپارتمان‌های تخصصی</h4>
+          <h3 class="footer-col-title">دپارتمان‌های تخصصی</h4>
           <ul class="footer-nav-list">
             <li><button type="button" onclick="showCategoryDetail(0)"><span class="nav-bullet">›</span> درد، ستون فقرات و توانبخشی</button></li>
             <li><button type="button" onclick="showCategoryDetail(1)"><span class="nav-bullet">›</span> سلامت زنان، بارداری و زایمان</button></li>
@@ -5153,7 +5178,7 @@
 
         <!-- ستون ۳: خدمات و دسترسی‌های سریع -->
         <div>
-          <h4 class="footer-col-title">دسترسی و خدمات</h4>
+          <h3 class="footer-col-title">دسترسی و خدمات</h4>
           <ul class="footer-nav-list">
             <li><button type="button" onclick="showMainHub()"><span class="nav-bullet">›</span> صفحه اصلی مجله سلامت</button></li>
             <li><a href="/mag/newsletter"><span class="nav-bullet">›</span> آرشیو جامع شماره‌های خبرنامه ↗</a></li>
@@ -5166,7 +5191,7 @@
 
         <!-- ستون ۴: سلب مسئولیت حقوقی و پشتیبانی -->
         <div>
-          <h4 class="footer-col-title">سلب مسئولیت پزشکی</h4>
+          <h3 class="footer-col-title">سلب مسئولیت پزشکی</h4>
           <div class="footer-disclaimer-card">
             <div class="disclaimer-card-header">
               <span><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg></span>
@@ -5321,7 +5346,7 @@ function escapeHtml(str) {
               ${mainTagIcon}
               <span>${mainTag}</span>
             </span>
-            <h1 class="hero-title-text">${mainArt.title}</h1>
+            <h3 class="hero-title-text">${mainArt.title}</h3>
             <p class="hero-desc-text">${mainArt.summary}</p>
             <div class="hero-meta-row">
               <span style="display:flex; align-items:center; gap:6px;">
@@ -5972,19 +5997,19 @@ function applyArticlesData(data) {
           <div style="display:flex; align-items:center; gap:16px; margin-bottom:14px;">
             <div class="dept-card-icon" style="width:54px; height:54px; font-size:26px;">${catIcon}</div>
             <div>
-              <h2 style="font-size:22px; font-weight:900; color:var(--text-heading);">${cat.name}</h2>
+              <h1 style="font-size:22px; font-weight:900; color:var(--text-heading); margin:0;">${cat.name}</h1>
               <span style="font-size:12px; color:var(--text-secondary);">${cat.dept}</span>
             </div>
           </div>
           <p style="font-size:14.5px; color:var(--text-body); line-height:1.8; margin-bottom:20px;">${cat.desc}</p>
           
-          <h4 style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">زیردسته‌ها و خدمات کلینیکی این دپارتمان:</h4>
+          <h2 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">زیردسته‌ها و خدمات کلینیکی این دپارتمان:</h2>
           <div class="dropdown-subcats-grid" style="margin-bottom:24px;">
             ${subcatsCardsHtml}
           </div>
 
           <div style="margin-bottom:20px;">
-            <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">موضوعات پرتکرار و کلیدواژه‌های جستجو:</h4>
+            <h2 style="font-size:14px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">موضوعات پرتکرار و کلیدواژه‌های جستجو:</h2>
             <div class="dept-chips-list">${chipsHtml}</div>
           </div>
           <button class="btn-ui btn-primary-gradient" onclick="openBookingDrawer()">
@@ -5994,7 +6019,7 @@ function applyArticlesData(data) {
         </div>
 
         <div class="section-head-bar">
-          <h3 style="font-size:18px; font-weight:800; color:var(--text-heading);">مقالات منتشر شده در این دپارتمان</h3>
+          <h2 style="font-size:18px; font-weight:800; color:var(--text-heading);">مقالات منتشر شده در این دپارتمان</h2>
         </div>
         <div class="editorial-cards-grid" id="catArticlesList"></div>
       `;
@@ -6076,7 +6101,7 @@ function applyArticlesData(data) {
                   <span style="width:6px; height:6px; border-radius:50%; background:#00E599;"></span>
                   <span>دپارتمان نشر اختصاصی و نشریات سلامت</span>
                 </div>
-                <h2 style="font-size:23px; font-weight:900; color:var(--text-heading); margin:0;">${cat.name}</h2>
+                <h1 style="font-size:23px; font-weight:900; color:var(--text-heading); margin:0;">${cat.name}</h1>
                 <span style="font-size:12.5px; color:var(--text-secondary);">${cat.dept}</span>
               </div>
             </div>
@@ -6093,13 +6118,13 @@ function applyArticlesData(data) {
 
           <p style="font-size:14.5px; color:var(--text-body); line-height:1.85; margin-bottom:20px;">${cat.desc}</p>
           
-          <h4 style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">محورها و خدمات ارتباطات بالینی خبرنامه:</h4>
+          <h2 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:12px;">محورها و خدمات ارتباطات بالینی خبرنامه:</h2>
           <div class="dropdown-subcats-grid" style="margin-bottom:24px;">
             ${subcatsCardsHtml}
           </div>
 
           <div style="margin-bottom:16px;">
-            <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">شماره‌های شاخص و هشدارهای مهم:</h4>
+            <h2 style="font-size:14px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">شماره‌های شاخص و هشدارهای مهم:</h2>
             <div class="dept-chips-list">${chipsHtml}</div>
           </div>
         </div>
@@ -6278,52 +6303,12 @@ function applyArticlesData(data) {
 
       const sectionsHtml = (art.sections || []).map(s => `
         <div id="${s.id}" style="margin-bottom:28px;">
-          <h3 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:12px; border-right:3px solid var(--color-primary); padding-right:12px;">${s.title}</h3>
+          <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:12px; border-right:3px solid var(--color-primary); padding-right:12px;">${s.title}</h2>
           <p style="font-size:15px; color:var(--text-body); line-height:1.9;">${s.content}</p>
         </div>
       `).join('');
 
       document.getElementById('articleReaderContent').innerHTML = `
-        <aside class="reader-sidebar">
-          <h4 style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:14px;">فهرست مطالب مقاله</h4>
-          <ul style="list-style:none; padding:0; margin-bottom:24px;">${tocHtml}</ul>
-          
-          <!-- باکس نویسنده و تاییدیه علمی در ستون کناری -->
-          <div class="author-verification-sidebar-card" style="border-top:1px solid var(--border-color); padding-top:16px;">
-            <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-              <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
-              <span>نویسنده و هیئت تحریریه بالینی</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-              <div style="position:relative; flex-shrink:0;">
-                <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:19px; box-shadow:0 3px 10px rgba(0,115,255,0.25);">
-                  <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg>
-                </div>
-                <span style="position:absolute; bottom:-2px; left:-2px; background:#00E599; color:#0F172A; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
-              </div>
-              <div>
-                <h5 style="font-size:13.5px; font-weight:900; color:var(--text-heading); margin:0;">تیم متخصص محتوا نویس پزشکآن</h5>
-                <span style="font-size:11px; color:var(--text-secondary); display:block; margin-top:2px;">تحریریه علمی و پایش بالینی مجله</span>
-              </div>
-            </div>
-
-            <div style="background:linear-gradient(135deg, rgba(0, 115, 255, 0.05) 0%, rgba(0, 229, 153, 0.04) 100%); border:1px solid rgba(0, 115, 255, 0.16); border-radius:10px; padding:12px; margin-bottom:14px;">
-              <div style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; color:#059669; margin-bottom:6px;">
-                ${medicalIcons['shield_check']}
-                <span>تأییدیه علمی و منابع معتبر</span>
-              </div>
-              <p style="font-size:12px; color:var(--text-body); line-height:1.8; margin:0; font-weight:600;">
-                این مقاله توسط متخصصین نوشته شده و دارای تایید علمی هستش و از منابع معتبر بین‌المللی استخراج شده است.
-              </p>
-            </div>
-
-            <button class="btn-ui btn-primary-gradient" style="width:100%; justify-content:center; font-size:12px; padding:9px 12px;" onclick="openBookingDrawer()">
-              ${medicalIcons['stethoscope']}
-              <span>مشاوره با پزشکان متخصص پزشکآن</span>
-            </button>
-          </div>
-        </aside>
-
         <article class="reader-article-body">
           <img src="${art.image}" class="reader-hero-img" alt="${art.title}">
           
@@ -6341,7 +6326,7 @@ function applyArticlesData(data) {
             </div>
           </div>
 
-          <h1 style="font-size:24px; font-weight:900; color:var(--text-heading); margin-bottom:16px; line-height:1.5;">${art.title}</h1>
+          <h1 class="article-reader-h1" style="font-size:26px; font-weight:900; color:var(--text-heading); margin-bottom:16px; line-height:1.5;">${art.title}</h1>
           <div style="background:var(--bg-subtle); border-right:4px solid var(--color-primary); padding:16px; border-radius:8px; margin-bottom:28px; font-size:14.5px; color:var(--text-body); line-height:1.8;">
             ${art.summary}
           </div>
@@ -6350,22 +6335,13 @@ function applyArticlesData(data) {
 
           ${(art.faqs && art.faqs.length) ? `
             <div style="margin-top:32px; background:var(--bg-subtle); border-radius:var(--radius-md); padding:20px;">
-              <h4 style="font-size:16px; font-weight:800; color:var(--text-heading); margin-bottom:16px;">پرسش‌های پرتکرار بیماران (FAQ)</h4>
+              <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:16px;">پرسش‌های پرتکرار بیماران (FAQ)</h2>
               ${art.faqs.map(f => `
                 <div style="margin-bottom:14px; border-bottom:1px dashed var(--border-color); padding-bottom:12px;">
-                  <strong style="display:block; color:var(--text-heading); font-size:14px; margin-bottom:6px;"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg> ${f.q}</strong>
+                  <h3 style="display:flex; align-items:center; gap:6px; color:var(--text-heading); font-size:14px; margin-bottom:6px; font-weight:800;"><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg> <span>${f.q}</span></h3>
                   <p style="color:var(--text-body); font-size:13.5px; line-height:1.8; margin:0;">${f.a}</p>
                 </div>
               `).join('')}
-            </div>
-          ` : ''}
-
-          ${(art.citations && art.citations.length) ? `
-            <div style="margin-top:20px; font-size:12px; color:var(--text-secondary); background:rgba(2,132,199,0.05); border:1px solid rgba(2,132,199,0.15); border-radius:8px; padding:12px 16px;">
-              <strong>مراجع علمی و استنادهای بالینی:</strong>
-              <ul style="margin:6px 0 0 16px; padding:0;">
-                ${art.citations.map(c => `<li><a href="${c.link}" target="_blank" rel="noopener noreferrer" style="color:var(--color-primary); text-decoration:underline;">${c.title}</a></li>`).join('')}
-              </ul>
             </div>
           ` : ''}
 
@@ -6381,7 +6357,7 @@ function applyArticlesData(data) {
                 </div>
                 <div>
                   <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:2px;">درباره نویسنده مقاله</div>
-                  <h4 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">تیم متخصص محتوا نویس پزشکآن</h4>
+                  <h2 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">درباره نویسنده: تیم متخصص محتوا نویس پزشکآن</h2>
                   <span style="font-size:12px; color:var(--text-secondary);">شورای علمی، تدوین بالینی و راستی‌آزمایی شواهد پزشکی اکوسیستم سلامت پزشکآن</span>
                 </div>
               </div>
@@ -6405,7 +6381,7 @@ function applyArticlesData(data) {
 
           <div class="reader-cta-card" style="margin-top:24px;">
             <div>
-              <h4 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</h4>
+              <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</h3>
               <p style="font-size:12.5px; color:var(--text-secondary);">می‌توانید مستقیماً آزمایش‌ها و گزارش‌های تصویربرداری خود را جهت ارزیابی به پزشکان متخصص پزشکآن ارسال فرمایید.</p>
             </div>
             <button class="btn-ui btn-primary-gradient" onclick="openBookingDrawer()">
@@ -6414,6 +6390,46 @@ function applyArticlesData(data) {
             </button>
           </div>
         </article>
+
+        <aside class="reader-sidebar">
+          <div style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:14px;" role="heading" aria-level="2">فهرست مطالب مقاله</div>
+          <ul style="list-style:none; padding:0; margin-bottom:24px;">${tocHtml}</ul>
+          
+          <!-- باکس نویسنده و تاییدیه علمی در ستون کناری -->
+          <div class="author-verification-sidebar-card" style="border-top:1px solid var(--border-color); padding-top:16px;">
+            <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+              <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
+              <span>نویسنده و هیئت تحریریه بالینی</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+              <div style="position:relative; flex-shrink:0;">
+                <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:19px; box-shadow:0 3px 10px rgba(0,115,255,0.25);">
+                  <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg>
+                </div>
+                <span style="position:absolute; bottom:-2px; left:-2px; background:#00E599; color:#0F172A; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
+              </div>
+              <div>
+                <div style="font-size:13.5px; font-weight:900; color:var(--text-heading); margin:0;">تیم متخصص محتوا نویس پزشکآن</div>
+                <span style="font-size:11px; color:var(--text-secondary); display:block; margin-top:2px;">تحریریه علمی و پایش بالینی مجله</span>
+              </div>
+            </div>
+
+            <div style="background:linear-gradient(135deg, rgba(0, 115, 255, 0.05) 0%, rgba(0, 229, 153, 0.04) 100%); border:1px solid rgba(0, 115, 255, 0.16); border-radius:10px; padding:12px; margin-bottom:14px;">
+              <div style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; color:#059669; margin-bottom:6px;">
+                ${medicalIcons['shield_check']}
+                <span>تأییدیه علمی و منابع معتبر</span>
+              </div>
+              <p style="font-size:12px; color:var(--text-body); line-height:1.8; margin:0; font-weight:600;">
+                این مقاله توسط متخصصین نوشته شده و دارای تایید علمی هستش و از منابع معتبر بین‌المللی استخراج شده است.
+              </p>
+            </div>
+
+            <button class="btn-ui btn-primary-gradient" style="width:100%; justify-content:center; font-size:12px; padding:9px 12px;" onclick="openBookingDrawer()">
+              ${medicalIcons['stethoscope']}
+              <span>مشاوره با پزشکان متخصص پزشکآن</span>
+            </button>
+          </div>
+        </aside>
       `;
     }
 

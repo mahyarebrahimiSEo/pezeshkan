@@ -690,6 +690,7 @@ def is_safe_static_request(filepath):
         os.path.realpath(os.path.join(BASE_DIR, "three.min.js")),
         os.path.realpath(os.path.join(BASE_DIR, "favicon.ico")),
         os.path.realpath(os.path.join(BASE_DIR, "favicon.svg")),
+        os.path.realpath(os.path.join(BASE_DIR, "apple-touch-icon.png")),
         os.path.realpath(os.path.join(BASE_DIR, "site.webmanifest")),
         os.path.realpath(os.path.join(BASE_DIR, "robots.txt")),
         os.path.realpath(os.path.join(BASE_DIR, "sitemap.xml")),
@@ -780,7 +781,7 @@ def match_custom_redirect(path, raw_query=""):
     system_prefixes = (
         "/api/", "/admin", "/login", "/logout", "/mag/admin", "/mag/login", "/fonts/",
         "/shared.css", "/shared.js", "/three.min.js", "/gsap.min.js", "/lenis.min.js",
-        "/robots.txt", "/sitemap.xml", "/site.webmanifest", "/favicon.ico", "/favicon.svg"
+        "/robots.txt", "/sitemap.xml", "/site.webmanifest", "/favicon.ico", "/favicon.svg", "/apple-touch-icon.png"
     )
     for sp in system_prefixes:
         if path == sp or path.startswith(sp + "/") or path.startswith(sp):
@@ -3378,6 +3379,8 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             return self.serve_file(os.path.join(BASE_DIR, "favicon.svg"), "image/svg+xml")
         if path == "/favicon.ico":
             return self.serve_file(os.path.join(BASE_DIR, "favicon.ico"), "image/x-icon")
+        if path == "/apple-touch-icon.png":
+            return self.serve_file(os.path.join(BASE_DIR, "apple-touch-icon.png"), "image/png")
         if path == "/site.webmanifest":
             return self.serve_file(os.path.join(BASE_DIR, "site.webmanifest"), "application/manifest+json")
 
