@@ -131,8 +131,24 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': DATA_DIR / 'pezeshkan.sqlite3',
+            'OPTIONS': {
+                'timeout': 30,
+            },
         }
     }
+
+# 4.1. High-Performance In-Memory Cache for Concurrency
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'pezeshkan-high-concurrency-cache',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'MAX_ENTRIES': 10000,
+            'CULL_FREQUENCY': 3,
+        }
+    }
+}
 
 # 5. Password Hashing (Argon2id + PBKDF2)
 PASSWORD_HASHERS = [

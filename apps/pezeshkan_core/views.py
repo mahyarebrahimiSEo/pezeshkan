@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.db import models
 from django.core.files.storage import default_storage
+from django.core.cache import cache
 
 from apps.pezeshkan_core.models import (
     Pillar, Doctor, Article, Appointment, MediaItem,
@@ -73,31 +74,57 @@ MIME_MAP = {
     ".html": "text/html; charset=utf-8",
 }
 
-# Helper: Load and Save Site Page Images Configuration
+# In-Memory High-Concurrency Caches
+_SITE_IMAGES_CACHE = None
+_SITE_IMAGES_MTIME = 0
+_STATIC_FILE_CACHE = {}
+_MAX_STATIC_CACHE_ENTRIES = 500
+
+# Helper: Load and Save Site Page Images Configuration with in-memory caching
 def load_site_images():
+    global _SITE_IMAGES_CACHE, _SITE_IMAGES_MTIME
     images_file = settings.BASE_DIR / 'mag' / 'content' / 'site_images.json'
-    if images_file.exists():
-        try:
-            with open(images_file, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except Exception:
-            pass
-    return []
+    if not images_file.exists():
+        return []
+    try:
+        mtime = images_file.stat().st_mtime
+        if _SITE_IMAGES_CACHE is not None and mtime == _SITE_IMAGES_MTIME:
+            return _SITE_IMAGES_CACHE
+        with open(images_file, 'r', encoding='utf-8') as f:
+            _SITE_IMAGES_CACHE = json.load(f)
+            _SITE_IMAGES_MTIME = mtime
+            return _SITE_IMAGES_CACHE
+    except Exception:
+        return _SITE_IMAGES_CACHE or []
 
 
 def save_site_images(images):
+    global _SITE_IMAGES_CACHE, _SITE_IMAGES_MTIME, _STATIC_FILE_CACHE
     images_file = settings.BASE_DIR / 'mag' / 'content' / 'site_images.json'
     try:
         with open(images_file, 'w', encoding='utf-8') as f:
             json.dump(images, f, ensure_ascii=False, indent=2)
+        _SITE_IMAGES_CACHE = images
+        _SITE_IMAGES_MTIME = images_file.stat().st_mtime
+        _STATIC_FILE_CACHE = {k: v for k, v in _STATIC_FILE_CACHE.items() if not k.endswith('.html')}
         return True
     except Exception:
         return False
 
 
-# Helper: Serve file safely with exact MIME types
+# Helper: Serve file safely with exact MIME types and in-memory cache
 def serve_static_file(file_path):
     path = Path(file_path)
+    str_path = str(path)
+
+    # In-memory cache hit
+    if str_path in _STATIC_FILE_CACHE:
+        content, content_type, ext = _STATIC_FILE_CACHE[str_path]
+        response = HttpResponse(content, content_type=content_type)
+        if ext in (".css", ".js", ".svg", ".png", ".jpg", ".webp", ".woff2", ".woff", ".ttf"):
+            response["Cache-Control"] = "public, max-age=86400"
+        return response
+
     if not path.exists() or not path.is_file():
         return HttpResponseNotFound("Page Not Found")
     
@@ -133,6 +160,9 @@ def serve_static_file(file_path):
                     content = html_text.encode('utf-8')
             except Exception:
                 pass
+
+        if len(_STATIC_FILE_CACHE) < _MAX_STATIC_CACHE_ENTRIES:
+            _STATIC_FILE_CACHE[str_path] = (content, content_type, ext)
 
         response = HttpResponse(content, content_type=content_type)
         if ext in (".css", ".js", ".svg", ".png", ".jpg", ".webp", ".woff2", ".woff", ".ttf"):
@@ -355,15 +385,23 @@ def api_me(request):
 # ==============================================================================
 
 def api_pillars(request):
-    pillars = Pillar.objects.all().order_by('id')
-    return JsonResponse([p.to_dict() for p in pillars], safe=False)
+    data = cache.get("api_pillars")
+    if data is None:
+        pillars = Pillar.objects.all().order_by('id')
+        data = [p.to_dict() for p in pillars]
+        cache.set("api_pillars", data, 60)
+    return JsonResponse(data, safe=False)
 
 
 @csrf_exempt
 def api_doctors(request):
     if request.method == "GET":
-        doctors = Doctor.objects.all().order_by('id')
-        return JsonResponse([d.to_dict() for d in doctors], safe=False)
+        data = cache.get("api_doctors")
+        if data is None:
+            doctors = Doctor.objects.all().order_by('id')
+            data = [d.to_dict() for d in doctors]
+            cache.set("api_doctors", data, 30)
+        return JsonResponse(data, safe=False)
 
     elif request.method == "POST":
         if not is_admin(request):
@@ -399,6 +437,8 @@ def api_doctors(request):
         except Exception:
             pass
 
+        cache.delete("api_doctors")
+        cache.delete("api_clinic_directory")
         return JsonResponse({
             "success": True,
             "doctor": doctor.to_dict(),
@@ -413,13 +453,22 @@ def api_articles(request, slug=None):
     if request.method == "GET":
         query_slug = slug or request.GET.get("slug")
         if query_slug:
-            article = Article.objects.filter(slug=query_slug).first()
-            if not article:
-                return JsonResponse({"error": "Article not found"}, status=404)
-            return JsonResponse(article.to_dict())
+            cache_key = f"api_article_{query_slug}"
+            data = cache.get(cache_key)
+            if data is None:
+                article = Article.objects.filter(slug=query_slug).first()
+                if not article:
+                    return JsonResponse({"error": "Article not found"}, status=404)
+                data = article.to_dict()
+                cache.set(cache_key, data, 60)
+            return JsonResponse(data)
 
-        articles = Article.objects.all().order_by('-id')
-        return JsonResponse([a.to_dict() for a in articles], safe=False)
+        data = cache.get("api_articles_all")
+        if data is None:
+            articles = Article.objects.all().order_by('-id')
+            data = [a.to_dict() for a in articles]
+            cache.set("api_articles_all", data, 30)
+        return JsonResponse(data, safe=False)
 
     elif request.method in ("POST", "PUT"):
         if not is_admin(request):
@@ -525,6 +574,7 @@ def api_articles(request, slug=None):
             created = True
 
         all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
+        cache.delete("api_articles_all")
         return JsonResponse({"success": True, "created": created, "article": article.to_dict(), "articles": all_articles})
 
     elif request.method == "DELETE":
@@ -999,37 +1049,45 @@ def api_clinic_directory(request):
     FLOW_01_PATIENT_QUICK_BOOKING: Public directory endpoint returning doctors
     with clinic slugs and external Quick Booking bridge URLs.
     """
-    doctors = Doctor.objects.all().order_by('id')
-    results = []
-    for doc in doctors:
-        slug = doc.clinic_slug or doc.custom_id or f"doc-{doc.id}"
-        results.append({
-            "slug": slug,
-            "name": f"کلینیک {doc.name}",
-            "doctor_name": doc.name,
-            "specialty": doc.pillar_slug or "general",
-            "title": doc.title,
-            "mc_number": doc.mc_number,
-            "dept": doc.dept,
-            "phone": doc.phone,
-            "address": doc.address,
-            "center_type": doc.center_type or "solo",
-            "rating": float(doc.rating) if doc.rating else 5.0,
-            "reviews_count": doc.reviews_count,
-            "quick_booking_url": doc.quick_booking_url,
-        })
-    return JsonResponse({
-        "count": len(results),
-        "results": results
-    })
+    data = cache.get("api_clinic_directory")
+    if data is None:
+        doctors = Doctor.objects.all().order_by('id')
+        results = []
+        for doc in doctors:
+            slug = doc.clinic_slug or doc.custom_id or f"doc-{doc.id}"
+            results.append({
+                "slug": slug,
+                "name": f"کلینیک {doc.name}",
+                "doctor_name": doc.name,
+                "specialty": doc.pillar_slug or "general",
+                "title": doc.title,
+                "mc_number": doc.mc_number,
+                "dept": doc.dept,
+                "phone": doc.phone,
+                "address": doc.address,
+                "center_type": doc.center_type or "solo",
+                "rating": float(doc.rating) if doc.rating else 5.0,
+                "reviews_count": doc.reviews_count,
+                "quick_booking_url": doc.quick_booking_url,
+            })
+        data = {
+            "count": len(results),
+            "results": results
+        }
+        cache.set("api_clinic_directory", data, 60)
+    return JsonResponse(data)
 
 
 def api_platform_plans(request):
     """
     FLOW_02_PACKAGES_AND_PLANS: Public plans endpoint returning active subscription packages.
     """
-    plans = SubscriptionPlan.objects.filter(is_active=True).order_by('order', 'id')
-    return JsonResponse([p.to_dict() for p in plans], safe=False)
+    data = cache.get("api_platform_plans")
+    if data is None:
+        plans = SubscriptionPlan.objects.filter(is_active=True).order_by('order', 'id')
+        data = [p.to_dict() for p in plans]
+        cache.set("api_platform_plans", data, 60)
+    return JsonResponse(data, safe=False)
 
 
 @csrf_exempt
