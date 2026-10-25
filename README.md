@@ -124,18 +124,37 @@ pezeshkan/
 ### روش اول: اجرای مستقیم در ویندوز
 کافیست روی فایل `START_PROJECT.bat` دوبار کلیک کنید. سرور به صورت خودکار راه‌اندازی شده و صفحات پرتال، مجله و پنل ادمین را در مرورگر شما باز خواهد کرد.
 
-### روش دوم: اجرای دستی با پایتون
+### روش دوم: استقرار روی سرور لینوکس (Linux Production Server)
 ```bash
-# نصب پیش‌نیازها
+# ۱. کلون پروژه و ورود به مسیر
+git clone https://github.com/mahyarebrahimiSEo/pezeshkan.git
+cd pezeshkan
+
+# ۲. ساخت و فعال‌سازی محیط مجازی پایتون
+python3 -m venv venv
+source venv/bin/activate
+
+# ۳. نصب پکیج‌ها و پیش‌نیازها
 pip install -r requirements.txt
 
-# اجرای سرور پروداکشن
-python server.py
+# ۴. اعمال مایگریشن‌های پایگاه داده
+python manage.py migrate
+
+# ۵. جمع‌آوری استاتیک فایل‌ها (در صورت نیاز Nginx)
+python manage.py collectstatic --noinput
+
+# ۶. اجرای سرور پروداکشن با Gunicorn (پیشنهادی سرور)
+gunicorn config.wsgi:application --bind 0.0.0.0:3000 --workers 4 --threads 2
+
+# یا اجرای مستقیم با دستور جنگو:
+python manage.py runserver 0.0.0.0:3000
 ```
-سپس به آدرس‌های زیر در مرورگر مراجعه کنید:
+
+سپس سرویس به آدرس‌های زیر پاسخ می‌دهد:
 - **پرتال اصلی:** `http://localhost:3000/`
 - **مجله سلامت:** `http://localhost:3000/mag`
-- **استودیو مدیریت محتوا:** `http://localhost:3000/admin`
+- **استودیو مدیریت محتوا و پیشخوان:** `http://localhost:3000/admin`
+- **پیکربندی Nginx و Systemd:** فایل‌های آماده در مسیر `deploy/nginx.conf` و `deploy/pezeshkan.service` قرار دارند.
 
 ### روش سوم: استقرار با Docker
 ```bash

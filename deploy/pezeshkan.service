@@ -13,7 +13,9 @@ Type=simple
 User=www-data
 Group=www-data
 WorkingDirectory=/var/www/pezeshkan_design
-ExecStart=/usr/bin/python3 server.py
+# مسیر فایل اجرایی: در صورت استفاده از gunicorn یا python
+ExecStart=/var/www/pezeshkan_design/venv/bin/gunicorn config.wsgi:application --bind 127.0.0.1:3000 --workers 4 --threads 2 --timeout 60
+# در صورت اجرای مستقیم: ExecStart=/usr/bin/python3 manage.py runserver 127.0.0.1:3000
 Restart=always
 RestartSec=5
 
@@ -22,6 +24,8 @@ Environment=ENVIRONMENT=production
 Environment=PORT=3000
 Environment=HOST=127.0.0.1
 Environment=SECURE_COOKIES=true
+Environment=DJANGO_SETTINGS_MODULE=config.settings
+Environment=PYTHONUNBUFFERED=1
 
 # قرنطینه و ایزولاسیون امنیتی کرنل لینوکس (Linux Sandbox Hardening)
 NoNewPrivileges=true

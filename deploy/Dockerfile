@@ -30,5 +30,5 @@ ENV HOST=0.0.0.0
 ENV PORT=3000
 ENV PYTHONUNBUFFERED=1
 
-# Run Django production server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
+# Run Django production server with high-concurrency Gunicorn + Uvicorn worker
+CMD ["gunicorn", "config.asgi:application", "-k", "uvicorn.workers.UvicornWorker", "-w", "4", "-b", "0.0.0.0:3000", "--timeout", "60"]
