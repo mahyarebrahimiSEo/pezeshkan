@@ -21,15 +21,15 @@ html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(
   --bg-surface-secondary: #c6eefb; /* 75% ابی آسمانی c6eefb */
   --bg-surface-elevated: #FFFFFF;
   
-  /* Official PEZESHK-ON Day Palette: 75% c6eefb | 16% 5ee6ed | 3% 8ef75d | 3% F579D8 | 3% fbc448 */
+  /* Official PEZESHK-ON Day Palette: 75% c6eefb | 16% 5ee6ed | 3% 8ef75d | 3% D30E00 | 3% fbc448 */
   --signal-cyan: #5ee6ed; /* 16% فیروزه ای */
   --signal-green: #047857; /* سبز بالینی خوانا با کنتراست بالا برای حالت روز */
   --signal-green-bg: rgba(5, 150, 105, 0.12);
   --signal-green-border: rgba(5, 150, 105, 0.28);
   --signal-green-neon: #8ef75d; /* 3% سبز پالت جهت هاله و افکت نوری */
   --signal-amber: #fbc448; /* 3% زرد */
-  --signal-magenta: #F579D8; /* 3% سرخابی */
-  --signal-red: #EF4444;
+  --signal-magenta: #D30E00; /* 3% قرمز D30E00 */
+  --signal-red: #D30E00;
 
   --brand-primary: #0b3d59; /* سرمه ای هویت ساز 0B3D59 */
   --brand-primary-light: #0284C7;
@@ -41,8 +41,8 @@ html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(
   --brand-emerald-vital: #047857; /* سبز با کنتراست فوق‌العاده بالا و کاملاً خوانا برای متون، بج‌ها و عناوین در حالت روز */
   --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #10B981 100%);
   --brand-amber: #fbc448; /* 3% زرد */
-  --brand-magenta: #F579D8; /* 3% سرخابی */
-  --brand-rose-critical: #F579D8;
+  --brand-magenta: #D30E00; /* 3% قرمز D30E00 */
+  --brand-rose-critical: #D30E00;
   
   --text-pure: #0F172A;
   --text-primary: #1E293B;
@@ -90,7 +90,7 @@ html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(
   --ecg-line: #06B6D4;
 }
 
-/* 2. تم شب کلینیکال (Clinical Dark Mode - Official Palette: 75% 0B3D59 | 16% 4FCBD1 | 3% E27D2A | 3% E463C6 | 3% FBC448) */
+/* 2. تم شب کلینیکال (Clinical Dark Mode - Official Palette: 75% 0B3D59 | 16% 4FCBD1 | 3% E27D2A | 3% D30E00 | 3% FBC448) */
 [data-theme="dark"] {
   --bg-canvas: #061c29;
   --bg-surface-primary: #0b3d59; /* 75% سورمه ای 0B3D59 */
@@ -100,12 +100,12 @@ html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(
   /* Official PEZESHK-ON Dark Palette */
   --signal-cyan: #4fcbd1; /* 16% فیروزه ای 4FCBD1 */
   --signal-orange: #e27d2a; /* 3% نارنجی E27D2A */
-  --signal-magenta: #e463c6; /* 3% سرخابی E463C6 */
+  --signal-magenta: #D30E00; /* 3% قرمز D30E00 */
   --signal-amber: #fbc448; /* 3% زرد FBC448 */
   --signal-green: #34D399; /* سبز روشن و باکنتراست جهت خوانایی عالی در تم شب */
   --signal-green-bg: rgba(52, 211, 153, 0.16);
   --signal-green-border: rgba(52, 211, 153, 0.35);
-  --signal-red: #e463c6;
+  --signal-red: #D30E00;
 
   --brand-primary: #4fcbd1; /* 16% فیروزه ای شاخص */
   --brand-primary-light: #72e5ea;
@@ -118,8 +118,8 @@ html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(
   --brand-gradient-vital: linear-gradient(135deg, #059669 0%, #34D399 100%);
   --brand-amber: #fbc448; /* 3% زرد */
   --brand-orange: #e27d2a; /* 3% نارنجی */
-  --brand-magenta: #e463c6; /* 3% سرخابی */
-  --brand-rose-critical: #e463c6;
+  --brand-magenta: #D30E00; /* 3% قرمز D30E00 */
+  --brand-rose-critical: #D30E00;
   
   --text-pure: #FFFFFF;
   --text-primary: #F1F5F9;

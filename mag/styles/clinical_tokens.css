@@ -1,8 +1,8 @@
 /* ==========================================================================
    سیستم توکن‌های طراحی بالینی پزشکآن لایف (PEZESHK-ON Life Magazine DNA)
    بر اساس پالت رنگی رسمی پزشکآن:
-   - تم روز (Day Mode): ۷۵٪ آبی آسمانی (#C6EEFB) | ۱۶٪ فیروزه‌ای (#5EE6ED) | ۳٪ سبز (#8EF75D) | ۳٪ سرخابی (#F579D8) | ۳٪ زرد (#FBC448)
-   - تم شب (Dark Mode): ۷۵٪ سرمه‌ای (#0B3D59) | ۱۶٪ فیروزه‌ای (#4FCBD1) | ۳٪ نارنجی (#E27D2A) | ۳٪ سرخابی (#E463C6) | ۳٪ زرد (#FBC448)
+   - تم روز (Day Mode): ۷۵٪ آبی آسمانی (#C6EEFB) | ۱۶٪ فیروزه‌ای (#5EE6ED) | ۳٪ سبز (#8EF75D) | ۳٪ قرمز (#D30E00) | ۳٪ زرد (#FBC448)
+   - تم شب (Dark Mode): ۷۵٪ سرمه‌ای (#0B3D59) | ۱۶٪ فیروزه‌ای (#4FCBD1) | ۳٪ نارنجی (#E27D2A) | ۳٪ قرمز (#D30E00) | ۳٪ زرد (#FBC448)
    ========================================================================== */
 
 :root, [data-theme="light"] {
@@ -22,9 +22,9 @@
   --color-signal-warning: #e27d2a;          /* 3% نارنجی E27D2A */
   --color-signal-warning-light: #FFF7ED;
   --color-signal-yellow: #fbc448;           /* 3% زرد FBC448 */
-  --color-signal-magenta: #F579D8;          /* 3% سرخابی F579D8 */
-  --color-signal-critical: #F579D8;         /* سرخابی شاخص */
-  --color-signal-critical-light: #FDF2F8;
+  --color-signal-magenta: #D30E00;          /* 3% قرمز D30E00 */
+  --color-signal-critical: #D30E00;         /* قرمز شاخص D30E00 */
+  --color-signal-critical-light: rgba(211, 14, 0, 0.12);
   
   /* Typography Colors */
   --color-text-primary: #0b3d59;            /* تیترهای سرمه‌ای خوانا 0B3D59 */
@@ -67,9 +67,9 @@
   --color-signal-warning: #e27d2a;          /* 3% نارنجی E27D2A */
   --color-signal-warning-light: rgba(226, 125, 42, 0.16);
   --color-signal-yellow: #fbc448;           /* 3% زرد FBC448 */
-  --color-signal-magenta: #e463c6;          /* 3% سرخابی E463C6 */
-  --color-signal-critical: #e463c6;
-  --color-signal-critical-light: rgba(228, 99, 198, 0.16);
+  --color-signal-magenta: #D30E00;          /* 3% قرمز D30E00 */
+  --color-signal-critical: #D30E00;
+  --color-signal-critical-light: rgba(211, 14, 0, 0.16);
   
   /* Typography Colors */
   --color-text-primary: #F8FAFC;            /* تیترهای روشن و خوانا */

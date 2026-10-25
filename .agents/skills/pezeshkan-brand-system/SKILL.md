@@ -32,7 +32,7 @@ Always use CSS custom properties (`var(--color-signal-primary)`) or Tailwind sem
 | **Vital Turquoise / Cyan** | `--color-signal-primary` | `#00FFFF` | **Information, Interaction, Connection, Processing.** Primary CTA button, active tabs, focused states, primary vital signal waves. |
 | **Highlight Green** | `--color-signal-success` | `#00E599` | **Health, Normal Status, Alive, Success, Confirmation.** Pezeshkan Status Beacon, normal vital signs, completed appointments, positive clinical indicators. |
 | **Warm Yellow / Amber** | `--color-signal-warning` | `#F59E0B` | **Attention, Pending Review, Triage Caution.** Pending appointments, lab results requiring validation, warnings. |
-| **Clinical Red** | `--color-signal-critical` | `#EF4444` | **Critical Emergency, Urgent Triage, System Error.** Heart rate alarms, critical triage, destructive actions. **STRICT RULE:** Never use Red as a decorative or brand background color! |
+| **Clinical Red** | `--color-signal-critical` | `#D30E00` | **Critical Emergency, Urgent Triage, System Error.** Heart rate alarms, critical triage, destructive actions. **STRICT RULE:** Never use Red as a decorative or brand background color! |
 
 ### Environment & Surface Colors (Clinical Dark Base)
 Dark Mode is the **Core Primary Experience** of Pezeshkan, reflecting modern diagnostic workstations and clinical monitoring displays.
