@@ -4881,115 +4881,14 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       </div>
 
       <!-- ۳. هیروی نامتقارن ۵ تایی مدرن و بالینی -->
-      <section style="margin-bottom: 36px;">
+      <section id="heroMagazineSection" style="margin-bottom: 36px; display: none;">
         <div class="section-title-wrap" style="margin-bottom: 16px;">
           <h2 style="font-size: 20px; font-weight: 900; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
             <span>مقالات منتخب و راهنماهای بالینی برگزیده</span>
           </h2>
         </div>
-        <div class="hero-magazine-grid" id="heroMagazineGrid">
-          
-          <!-- کارت خبر اول و لید اصلی با تصویر شاخص باکیفیت -->
-          <a href="/mag/nonsurgical-treatments-lumbar-disc-sciatica" class="hero-primary-card" style="background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'); text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('lumbar-disc-herniation-nonsurgical');">
-            <div class="hero-primary-content">
-              <span class="hero-tag-badge">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
-                <span>ستون فقرات و مفاصل</span>
-              </span>
-              <p class="hero-title-text">راهنمای بالینی درمان غیرجراحی دیسک کمر و سیاتیک: از شاک‌ویو تا لیزر پرتوان</p>
-              <p class="hero-desc-text">بررسی علمی پروتکل‌های طب فیزیکی بدون نیاز به بیهوشی و تیغ جراحی، همراه با علائم هشداردهنده سندرم دم اسب و بازتوانی مفاصل.</p>
-              <div class="hero-meta-row">
-                <span style="display:flex; align-items:center; gap:6px;">
-                  <span style="width:20px; height:20px; border-radius:50%; background:rgba(0,115,255,0.2); color:#60A5FA; display:flex; align-items:center; justify-content:center; font-size:11px;"><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
-                  تیم متخصص محتوا نویس پزشکآن
-                </span>
-                <span>•</span>
-                <span style="display:flex; align-items:center; gap:6px;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></svg>
-                  ۸ دقیقه مطالعه
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- ۴ کارت ثانویه هیرو با تصاویر شاخص و تگ‌های تخصصی -->
-          <div class="hero-secondary-grid">
-            
-            <a href="/mag/first-trimester-screening-ultrasound-nipt" class="hero-secondary-card" style="text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('first-trimester-screening-cellfree-dna');">
-              <div class="secondary-img-wrap">
-                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" alt="سونوگرافی غربالگری جنین در کلینیک زنان و زایمان">
-                <span class="secondary-tag">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5m1-4h.01"/><path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6a9 9 0 0 1-17.6 0a2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1m-3 5h.01"/></g></svg>
-                  <span>مادر و بارداری</span>
-                </span>
-              </div>
-              <div class="secondary-card-body">
-                <p class="secondary-title-text">غربالگری سه ماهه اول بارداری؛ مقایسه تست ترکیبی با آزمایش سل‌فری (NIPT)</p>
-                <div class="secondary-meta-text">
-                  <span>تیم متخصص محتوا نویس پزشکآن</span>
-                  <span>•</span>
-                  <span>۶ دقیقه مطالعه</span>
-                </div>
-              </div>
-            </a>
-
-            <a href="/mag/chest-pain-triage-heart-attack-vs-gastric" class="hero-secondary-card" style="text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('chest-pain-triage-emergency-guide');">
-              <div class="secondary-img-wrap">
-                <img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&w=800&q=80" alt="گوشی پزشکی و نوار قلب مانیتورینگ بیمار قلبی">
-                <span class="secondary-tag">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676a.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27"/></g></svg>
-                  <span>اورژانس قلب</span>
-                </span>
-              </div>
-              <div class="secondary-card-body">
-                <p class="secondary-title-text">تریاژ دردهای حاد قفسه سینه؛ تمایز حمله قلبی از ریفلاکس معده و اسپاسم</p>
-                <div class="secondary-meta-text">
-                  <span>تیم متخصص محتوا نویس پزشکآن</span>
-                  <span>•</span>
-                  <span>۵ دقیقه مطالعه</span>
-                </div>
-              </div>
-            </a>
-
-            <a href="/mag/prp-knee-osteoarthritis-injection" class="hero-secondary-card" style="text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('prp-knee-osteoarthritis-injection');">
-              <div class="secondary-img-wrap">
-                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="معاینه مفصل زانو توسط پزشک ارتوپد در کلینیک">
-                <span class="secondary-tag">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
-                  <span>تزریقات مفصلی</span>
-                </span>
-              </div>
-              <div class="secondary-card-body">
-                <p class="secondary-title-text">تزریق پی‌آر‌پی (PRP) زانو؛ معجزه غضروف‌سازی یا تسکین موقت آرتروز؟</p>
-                <div class="secondary-meta-text">
-                  <span>تیم متخصص محتوا نویس پزشکآن</span>
-                  <span>•</span>
-                  <span>۶ دقیقه مطالعه</span>
-                </div>
-              </div>
-            </a>
-
-            <a href="/mag/nonsurgical-treatments-lumbar-disc-sciatica" class="hero-secondary-card" style="text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('lumbar-disc-herniation-nonsurgical');">
-              <div class="secondary-img-wrap">
-                <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80" alt="دستگاه تست قند خون و مراقبت دیابت">
-                <span class="secondary-tag">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676a.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27"/></g></svg>
-                  <span>دیابت و غدد</span>
-                </span>
-              </div>
-              <div class="secondary-card-body">
-                <p class="secondary-title-text">مدیریت قند خون و دیابت نوع ۲؛ از متفورمین و اوزمپیک تا اصلاح سبک زندگی</p>
-                <div class="secondary-meta-text">
-                  <span>تیم متخصص محتوا نویس پزشکآن</span>
-                  <span>•</span>
-                  <span>۷ دقیقه مطالعه</span>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
+        <div class="hero-magazine-grid" id="heroMagazineGrid"></div>
       </section>
 
       <!-- ۴. نوار سه‌گانه اعتماد و قابلیت‌های کلینیکی -->
@@ -5110,7 +5009,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       </section>
 
       <!-- ۷. تازه‌های مقالات همراه با تصاویر شاخص بالینی -->
-      <section style="margin-bottom: 60px;">
+      <section id="editorialArticlesSection" style="margin-bottom: 60px; display: none;">
         <div class="section-head-bar">
           <div class="section-title-wrap">
             <h2>
@@ -5474,6 +5373,7 @@ function escapeHtml(str) {
     function initPage() {
       renderNavPills();
       renderCategoryCards();
+      renderHeroSection();
       renderEditorialCards();
       renderHomeNewslettersShelf();
       renderMegaMenuContent();
@@ -5498,25 +5398,25 @@ function escapeHtml(str) {
     }
 
     function renderHeroSection() {
+      const section = document.getElementById('heroMagazineSection');
       const container = document.getElementById('heroMagazineGrid');
       if (!container) return;
 
       const generalArticles = articlesData.filter(art =>
-        !art.id.startsWith('newsletter-') &&
-        !art.id.startsWith('issue-') &&
+        art &&
+        art.status !== 'trash' && art.status !== 'draft' &&
+        !String(art.id).startsWith('newsletter-') &&
+        !String(art.id).startsWith('issue-') &&
         art.categoryName !== 'خبرنامه و ویژه‌نامه‌های سلامت'
       );
 
       if (!generalArticles.length) {
-        container.innerHTML = `
-          <div style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; border-radius: 20px; background: rgba(255,255,255,0.02); border: 1px dashed var(--color-border); color: var(--color-text-dim);">
-            <div style="font-size: 36px; margin-bottom: 12px; opacity: 0.7;">📰</div>
-            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text);">هنوز مقاله‌ای در مجله ثبت نشده است</h3>
-            <p style="font-size: 0.9rem;">به‌زودی مقالات علمی، تخصصی و پژوهشی جدید در این بخش منتشر خواهد شد.</p>
-          </div>
-        `;
+        if (section) section.style.display = 'none';
+        container.innerHTML = '';
         return;
       }
+
+      if (section) section.style.display = 'block';
 
       const mainArt = generalArticles[0];
       const secondaryArts = generalArticles.slice(1, 5);
@@ -5524,6 +5424,12 @@ function escapeHtml(str) {
       const mainTag = mainArt.tag || 'مقاله بالینی';
       const mainTagIcon = medicalIcons[mainArt.categoryIcon] || medicalIcons['stethoscope'];
       const mainSlug = mainArt.slug || mainArt.id;
+
+      if (secondaryArts.length === 0) {
+        container.style.gridTemplateColumns = '1fr';
+      } else {
+        container.style.gridTemplateColumns = '';
+      }
 
       let html = `
         <!-- کارت خبر اول و لید اصلی با تصویر شاخص باکیفیت -->
@@ -5548,41 +5454,46 @@ function escapeHtml(str) {
             </div>
           </div>
         </a>
-
-        <!-- ۴ کارت ثانویه هیرو با تصاویر شاخص و تگ‌های تخصصی -->
-        <div class="hero-secondary-grid">
       `;
 
-      secondaryArts.forEach(sec => {
-        const secSlug = sec.slug || sec.id;
-        const secIcon = medicalIcons[sec.categoryIcon] || medicalIcons['stethoscope'];
+      if (secondaryArts.length > 0) {
         html += `
-          <a href="/mag/${encodeURIComponent(secSlug)}" class="hero-secondary-card" style="text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('${sec.id}');">
-            <div class="secondary-img-wrap">
-              <img src="${sec.image}" alt="${sec.imageAlt || sec.title}" loading="lazy">
-              <span class="secondary-tag">
-                ${secIcon}
-                <span>${sec.tag || 'مقاله علمی'}</span>
-              </span>
-            </div>
-            <div class="secondary-card-body">
-              <p class="secondary-title-text">${sec.title}</p>
-              <div class="secondary-meta-text">
-                <span>${(sec.author && sec.author.name) || 'تیم متخصص محتوا نویس پزشکآن'}</span>
-                <span>•</span>
-                <span>${sec.readTime || '۵ دقیقه مطالعه'}</span>
-              </div>
-            </div>
-          </a>
+          <!-- ۴ کارت ثانویه هیرو با تصاویر شاخص و تگ‌های تخصصی -->
+          <div class="hero-secondary-grid">
         `;
-      });
 
-      html += `</div>`;
+        secondaryArts.forEach(sec => {
+          const secSlug = sec.slug || sec.id;
+          const secIcon = medicalIcons[sec.categoryIcon] || medicalIcons['stethoscope'];
+          html += `
+            <a href="/mag/${encodeURIComponent(secSlug)}" class="hero-secondary-card" style="text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('${sec.id}');">
+              <div class="secondary-img-wrap">
+                <img src="${sec.image}" alt="${sec.imageAlt || sec.title}" loading="lazy">
+                <span class="secondary-tag">
+                  ${secIcon}
+                  <span>${sec.tag || 'مقاله علمی'}</span>
+                </span>
+              </div>
+              <div class="secondary-card-body">
+                <p class="secondary-title-text">${sec.title}</p>
+                <div class="secondary-meta-text">
+                  <span>${(sec.author && sec.author.name) || 'تیم متخصص محتوا نویس پزشکآن'}</span>
+                  <span>•</span>
+                  <span>${sec.readTime || '۵ دقیقه مطالعه'}</span>
+                </div>
+              </div>
+            </a>
+          `;
+        });
+
+        html += `</div>`;
+      }
+
       container.innerHTML = html;
     }
 
-function applyArticlesData(data) {
-      if (!Array.isArray(data) || !data.length) return;
+    function applyArticlesData(data) {
+      if (!Array.isArray(data)) return;
       articlesData = data.map(item => ({
         id: item.id,
         slug: item.slug || item.id,
@@ -5824,26 +5735,31 @@ function applyArticlesData(data) {
 
     // رندر کارت‌های مقالات عمومی تحریریه (مستقل از نشریات و خبرنامه)
     function renderEditorialCards() {
+      const section = document.getElementById('editorialArticlesSection');
       const grid = document.getElementById('editorialCardsGrid');
       if (!grid) return;
       grid.innerHTML = '';
 
       const generalArticles = articlesData.filter(art =>
-        !art.id.startsWith('newsletter-') &&
-        !art.id.startsWith('issue-') &&
+        art &&
+        art.status !== 'trash' && art.status !== 'draft' &&
+        !String(art.id).startsWith('newsletter-') &&
+        !String(art.id).startsWith('issue-') &&
         art.categoryName !== 'خبرنامه و ویژه‌نامه‌های سلامت'
       );
 
-      if (!generalArticles.length) {
-        grid.innerHTML = `
-          <div style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; border-radius: 20px; background: rgba(255,255,255,0.02); border: 1px dashed var(--color-border); color: var(--color-text-dim);">
-            <p style="font-size: 0.95rem;">هیچ مقاله‌ای برای نمایش یافت نشد.</p>
-          </div>
-        `;
+      // ۵ مقاله اول در هیروسکشن بالا نمایش داده می‌شوند؛ مقالات بعدی در این بخش قرار می‌گیرند
+      const remainingArticles = generalArticles.length > 5 ? generalArticles.slice(5) : [];
+
+      if (!remainingArticles.length) {
+        if (section) section.style.display = 'none';
+        grid.innerHTML = '';
         return;
       }
 
-      generalArticles.forEach(art => {
+      if (section) section.style.display = 'block';
+
+      remainingArticles.forEach(art => {
         const card = document.createElement('a');
         card.href = `/mag/${encodeURIComponent(art.slug || art.id)}`;
         card.className = 'magazine-article-card';

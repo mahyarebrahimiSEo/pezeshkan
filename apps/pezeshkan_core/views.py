@@ -271,22 +271,29 @@ def magazine_page(request, path=""):
         
         # Check if requested slug is an article
         try:
-            articles_path = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
-            if articles_path.exists():
-                with open(articles_path, 'r', encoding='utf-8') as af:
-                    articles_data = json.load(af)
-            else:
-                articles_data = []
-
             found_article = None
-            for a in articles_data:
-                curr_slug = a.get("slug") or a.get("id")
-                old_slugs = a.get("oldSlugs", [])
-                if clean in old_slugs and curr_slug and curr_slug != clean:
-                    return redirect(f"/mag/{urllib.parse.quote(curr_slug)}", permanent=True)
-                if a.get("slug") == clean or str(a.get("id")) == clean:
-                    found_article = a
-                    break
+            art_db = Article.objects.filter(slug=clean).first()
+            if not art_db and clean.isdigit():
+                art_db = Article.objects.filter(id=int(clean)).first()
+            if not art_db:
+                art_db = Article.objects.filter(custom_id=clean).first()
+            if art_db:
+                found_article = art_db.to_dict()
+            else:
+                articles_path = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
+                if articles_path.exists():
+                    with open(articles_path, 'r', encoding='utf-8') as af:
+                        articles_data = json.load(af)
+                else:
+                    articles_data = []
+                for a in articles_data:
+                    curr_slug = a.get("slug") or a.get("id")
+                    old_slugs = a.get("oldSlugs", [])
+                    if clean in old_slugs and curr_slug and curr_slug != clean:
+                        return redirect(f"/mag/{urllib.parse.quote(curr_slug)}", permanent=True)
+                    if a.get("slug") == clean or str(a.get("id")) == clean:
+                        found_article = a
+                        break
 
             if found_article:
                 mag_template_path = settings.BASE_DIR / 'mag' / 'index.html'
@@ -575,6 +582,12 @@ def api_articles(request, slug=None):
 
         all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
         cache.delete("api_articles_all")
+        try:
+            articles_file = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
+            with open(articles_file, 'w', encoding='utf-8') as af:
+                json.dump(all_articles, af, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
         return JsonResponse({"success": True, "created": created, "article": article.to_dict(), "articles": all_articles})
 
     elif request.method == "DELETE":
@@ -595,6 +608,12 @@ def api_articles(request, slug=None):
             Article.objects.filter(query).delete()
 
         all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
+        try:
+            articles_file = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
+            with open(articles_file, 'w', encoding='utf-8') as af:
+                json.dump(all_articles, af, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
         return JsonResponse({"success": True, "articles": all_articles})
 
     return JsonResponse({"error": "Method not allowed"}, status=405)
