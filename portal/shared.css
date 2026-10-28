@@ -7098,10 +7098,19 @@ body.intro-device-locked {
     font-size: 12.2px !important;
     gap: 4px !important;
   }
-  .main-nav .nav-link.nav-download,
-  .main-nav .nav-link.nav-mag {
-    padding: 4px 9px !important;
-    font-size: 11.8px !important;
+  .header-actions {
+    gap: 6px !important;
+  }
+  .header-actions .pez-shell-pill-download,
+  .header-actions .pez-shell-pill-demo {
+    padding: 4px 10px !important;
+    font-size: 11.5px !important;
+    gap: 5px !important;
+  }
+  .header-actions .pez-shell-pill-mag {
+    padding: 4px 6px 4px 10px !important;
+    font-size: 11.5px !important;
+    gap: 4px !important;
   }
   .nav-badge-mag {
     display: none !important;
@@ -7119,6 +7128,11 @@ body.intro-device-locked {
   }
   .mobile-menu-toggle {
     display: inline-flex !important;
+  }
+  .header-actions .pez-shell-pill-download,
+  .header-actions .pez-shell-pill-demo,
+  .header-actions .pez-shell-pill-mag {
+    display: none !important;
   }
 }
 

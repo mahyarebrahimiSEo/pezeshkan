@@ -92,7 +92,7 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet"/>
 <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-<link href="/shared.css?v=20261028v16" rel="stylesheet"/>
+<link href="/shared.css?v=20261028v17" rel="stylesheet"/>
 </head>
 <body>
 <!-- Header Bar (Pinned when scrolling past Hero) -->
@@ -238,21 +238,23 @@
 <!-- 5. درباره ما و تماس با ما -->
 <li><a class="nav-link" href="/about">درباره ما</a></li>
 <li><a class="nav-link" href="/contact">ارتباط با ما</a></li>
-<!-- 6. دریافت دمو -->
-<li><a class="nav-link nav-demo nav-download" href="/download" title="دریافت دموی زنده سامانه ابری پزشکآن">
-<svg class="svg-icon" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;" viewbox="0 0 24 24">
-<rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect>
-<line x1="8" x2="16" y1="21" y2="21"></line>
-<line x1="12" x2="12" y1="17" y2="21"></line>
-<polygon fill="currentColor" points="10 8 16 11 10 14 10 8"></polygon>
-</svg>
-<span>دریافت دمو</span>
-</a></li>
-<!-- 7. مجله سلامت -->
-<li><a class="nav-link nav-mag" href="/mag">مجله سلامت <span class="nav-badge-mag">پزشکآن لایف</span></a></li>
+
 </ul>
 <!-- Header Actions -->
 <div class="header-actions">
+<a class="pez-shell-pill-download pez-shell-pill-demo" href="/download" title="دریافت دموی زنده سامانه ابری پزشکآن">
+<svg class="svg-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" style="width:14px;height:14px;flex-shrink:0;vertical-align:middle;" viewbox="0 0 24 24">
+<rect height="14" rx="2" width="20" x="2" y="3"></rect>
+<line x1="8" x2="16" y1="21" y2="21"></line>
+<line x1="12" x2="12" y1="17" y2="21"></line>
+<polygon fill="currentColor" points="10 7.5 15 10 10 12.5"></polygon>
+</svg>
+<span>دریافت دمو</span>
+</a>
+<a class="pez-shell-pill-mag" href="/mag">
+<span>مجله سلامت</span>
+<span class="pez-shell-mag-badge">پزشکآن لایف</span>
+</a>
 <button aria-checked="false" aria-label="تغییر حالت روز و شب" class="theme-toggle-btn theme-switch" id="themeToggleBtn" role="switch" title="تغییر حالت روز و شب" type="button">
 <span class="theme-switch-track">
 <span aria-hidden="true" class="theme-switch-icon sun-icon">
@@ -1728,6 +1730,6 @@
 </footer>
 <script src="/gsap.min.js"></script>
 <script src="/lenis.min.js"></script>
-<script src="/shared.js?v=20261028v16"></script>
+<script src="/shared.js?v=20261028v17"></script>
 </body>
 </html>
