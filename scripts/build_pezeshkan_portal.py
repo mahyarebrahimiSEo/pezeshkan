@@ -524,23 +524,6 @@ home_content = '''
       </div>
     </div>
   </section>
-
-  <!-- 08. Congress Special Offer Banner -->
-  <section class="container">
-    <div class="congress-banner">
-      <div class="congress-content">
-        <h3>آفر اختصاصی کنگره پزشکی آبان ۱۴۰۵</h3>
-        <p>
-          پزشکان و مدیران مراکزی که از طریق وب‌سایت ثبت‌نام کنند، از <strong>۳ ماه اشتراک کاملاً رایگان</strong> به همراه نصب و استقرار حضوری در مطب بهره‌مند خواهند شد.
-        </p>
-      </div>
-      <div>
-        <a href="/start?offer=congress" class="btn" style="background:#FFFFFF; color:#0073FF; font-weight:900; font-size:15px; padding:12px 28px;">
-          دریافت بسته هدیه کنگره
-        </a>
-      </div>
-    </div>
-  </section>
 '''
 
 # Write portal/index.html
