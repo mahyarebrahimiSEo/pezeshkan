@@ -1564,6 +1564,7 @@ a:hover {
   width: 100%;
 }
 
+/* Modern VisionOS Glass Metric Cards (Silky Smooth Hover, Zero Flash, Zero Jitter) */
 .pez-shell-metric-card {
   position: relative;
   display: flex;
@@ -1573,13 +1574,15 @@ a:hover {
   gap: 12px;
   padding: 13px 18px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.58) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(240, 249, 255, 0.62) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(0, 115, 255, 0.12);
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 2px 0 rgba(0, 115, 255, 0.04), 0 8px 24px -4px rgba(12, 43, 54, 0.08);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, background 0.28s ease;
+  box-shadow: inset 0 1.5px 1px 0 #FFFFFF, 0 6px 20px -3px rgba(12, 43, 54, 0.08);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
   overflow: hidden;
+  will-change: transform, box-shadow;
 }
 
 .pez-shell-metric-card::before {
@@ -1588,35 +1591,56 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.9) 50%, transparent 100%);
   pointer-events: none;
+  transition: opacity 0.3s ease, background 0.3s ease;
 }
 
 .pez-shell-metric-card:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(240, 249, 255, 0.72) 100%);
-  border-color: rgba(0, 115, 255, 0.38);
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 1), 0 14px 32px -4px rgba(0, 115, 255, 0.14), 0 4px 12px -2px rgba(12, 43, 54, 0.06);
+  transform: translateY(-2.5px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(235, 246, 255, 0.82) 100%);
+  border-color: rgba(0, 115, 255, 0.35);
+  border-top-color: #FFFFFF;
+  box-shadow: inset 0 1.5px 1px 0 #FFFFFF, 0 14px 32px -4px rgba(0, 115, 255, 0.15), 0 4px 12px -2px rgba(12, 43, 54, 0.06);
+}
+
+.pez-shell-metric-card:hover .metric-number {
+  color: #0066D6 !important;
 }
 
 [data-theme="dark"] .pez-shell-metric-card {
-  background: linear-gradient(135deg, rgba(17, 41, 54, 0.68) 0%, rgba(9, 24, 32, 0.82) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  backdrop-filter: blur(20px) saturate(190%);
-  -webkit-backdrop-filter: blur(20px) saturate(190%);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 2px 0 rgba(0, 240, 255, 0.12), 0 8px 32px 0 rgba(0, 0, 0, 0.42);
+  background: linear-gradient(135deg, rgba(14, 38, 54, 0.72) 0%, rgba(8, 22, 32, 0.84) 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.22) !important;
+  border-top-color: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12), 0 6px 20px -2px rgba(0, 0, 0, 0.45) !important;
 }
 
 [data-theme="dark"] .pez-shell-metric-card::before {
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.14) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.18) 50%, transparent 100%) !important;
 }
 
 [data-theme="dark"] .pez-shell-metric-card:hover {
-  transform: translateY(-2px) !important;
-  background: rgba(14, 38, 54, 0.85) !important; /* پس‌زمینه ملایم و بدون اشباع شدید نئونی */
-  border-color: rgba(56, 189, 248, 0.28) !important; /* کادر ظریف و طبیعی */
-  box-shadow: 0 8px 20px -2px rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1) !important; /* حذف کامل هاله ۲۴ پیکسلی نئون */
+  transform: translateY(-2.5px) !important;
+  background: linear-gradient(135deg, rgba(20, 52, 74, 0.85) 0%, rgba(11, 30, 44, 0.94) 100%) !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25), 0 12px 30px -4px rgba(0, 0, 0, 0.55), 0 0 24px -4px rgba(56, 189, 248, 0.22) !important;
+}
+
+[data-theme="dark"] .pez-shell-metric-card:hover::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(56, 189, 248, 0.6) 50%, transparent 100%) !important;
+}
+
+[data-theme="dark"] .pez-shell-metric-card:hover h2,
+[data-theme="dark"] .pez-shell-metric-card:hover h3 {
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .pez-shell-metric-card:hover .metric-number {
+  color: #67E8F9 !important;
 }
 
 /* Metric Card Columns: Info (Right) & Digital Value (Left) */
@@ -8532,11 +8556,22 @@ body.intro-device-locked {
 }
 
 .pez-shell-metric-card:hover .metric-icon {
-  transform: translateY(-2px) scale(1.06) !important;
+  transform: translateY(-1.5px) scale(1.05) !important;
   box-shadow: 
     inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95),
     inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.18),
     0 8px 16px -2px rgba(0, 0, 0, 0.16) !important;
+}
+
+[data-theme="dark"] .pez-shell-metric-card:hover .metric-icon {
+  transform: translateY(-1.5px) scale(1.05) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.6),
+    0 8px 18px -2px rgba(0, 0, 0, 0.55),
+    0 0 12px rgba(56, 189, 248, 0.22) !important;
 }
 
 [data-theme="dark"] .metric-icon {
