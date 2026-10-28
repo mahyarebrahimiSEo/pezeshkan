@@ -1769,7 +1769,7 @@ function renderClinicalAuthModalContent() {
           رزرو نوبت پزشکان متخصص، دریافت نسخه الکترونیک، مشاهده جواب آزمایش‌ها و یادآور دارو.
         </p>
         <div style="display:flex; flex-direction:column; gap:8px; margin-top:auto;">
-          <a href="/appointments" class="btn btn-primary auth-card-btn" style="background:var(--brand-primary) !important; padding:9px 12px; font-size:12.5px; gap:7px; min-height:46px; justify-content:center; align-items:center; text-decoration:none;">
+          <a href="/appointments" class="btn btn-primary auth-card-btn auth-card-btn-patient" style="padding:9px 12px; font-size:12.5px; gap:7px; min-height:46px; justify-content:center; align-items:center; text-decoration:none;">
             <svg class="svg-icon" style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
             <span style="font-weight:800;">ورود و نوبت‌دهی آنلاین</span>
           </a>
@@ -1791,7 +1791,7 @@ function renderClinicalAuthModalContent() {
           پرونده الکترونیک پزشکی، نوبت‌دهی منشی، باشگاه مراجعین، CRM و سامانه مالی ابری.
         </p>
         <div style="display:flex; flex-direction:column; gap:8px; margin-top:auto;">
-          <a href="https://app.pezeshk-on.ir/" target="_blank" rel="noopener noreferrer" class="btn btn-primary auth-card-btn" style="background:var(--brand-gradient-primary) !important; padding:7px 10px; gap:2px; flex-direction:column; justify-content:center; align-items:center; line-height:1.25; min-height:46px; text-decoration:none;">
+          <a href="https://app.pezeshk-on.ir/" target="_blank" rel="noopener noreferrer" class="btn btn-primary auth-card-btn auth-card-btn-doctor" style="padding:7px 10px; gap:2px; flex-direction:column; justify-content:center; align-items:center; line-height:1.25; min-height:46px; text-decoration:none;">
             <span style="display:inline-flex; align-items:center; gap:5px; font-weight:800; font-size:12.5px; color:#FFFFFF;">
               <svg class="svg-icon" style="width:15px;height:15px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
               <span>ورود به پنل مطب</span>
