@@ -35,7 +35,7 @@ Always use CSS custom properties (`var(--color-signal-primary)`) or Tailwind sem
 | **Clinical Red** | `--color-signal-critical` | `#D30E00` | **Critical Emergency, Urgent Triage, System Error.** Heart rate alarms, critical triage, destructive actions. **STRICT RULE:** Never use Red as a decorative or brand background color! |
 
 ### Environment & Surface Colors (Clinical Dark Base)
-Dark Mode is the **Core Primary Experience** of Pezeshkan, reflecting modern diagnostic workstations and clinical monitoring displays.
+Dark Mode is designed for diagnostic workstations and clinical monitoring displays.
 
 | Token | CSS Variable | Hex / RGBA | Role |
 | :--- | :--- | :--- | :--- |
@@ -46,10 +46,25 @@ Dark Mode is the **Core Primary Experience** of Pezeshkan, reflecting modern dia
 | **Subtle Border** | `--color-border-subtle` | `rgba(255, 255, 255, 0.08)` | Dividers, card borders, table row borders. |
 | **Interactive Border** | `--color-border-interactive` | `rgba(0, 255, 255, 0.25)` | Hover states on interactive cards or inputs. |
 
-### Text & Contrast Hierarchy
-- `--color-text-primary`: `#F8FAFC` (Pure clinical white/slate-50 for high readability)
-- `--color-text-secondary`: `#94A3B8` (Slate-400 for descriptions, table column headers)
-- `--color-text-muted`: `#64748B` (Slate-500 for helper notes, timestamps)
+### Environment & Surface Colors (Clinical Radiant Light Mode)
+Light Mode is designed for bright clinic environments, patient portals, and high-clarity administrative dashboards:
+
+- **Canvas Background** (`--color-bg-base-light`): `#EBF1F6` (Ultra-soft clinical slate-blue tint with subtle ambient aurora blur)
+- **Card Surface** (`--color-surface-base-light`): `#FFFFFF` (Pure crisp white with 20px-28px rounded corners)
+- **Glass Surface** (`--color-surface-glass-light`): `rgba(255, 255, 255, 0.78)` (Frosted light glass with `backdrop-blur-md` and `saturate(180%)`)
+- **Elevated Overlay / Dock** (`--color-surface-elevated-light`): `rgba(255, 255, 255, 0.92)` (Floating capsule docks, modal dialogues)
+- **Subtle Border** (`--color-border-subtle-light`): `rgba(255, 255, 255, 0.90)` (Specular top light rim) & `rgba(0, 102, 255, 0.08)` (Side/bottom rim)
+- **Action / Primary (Light)** (`--color-signal-action-light`): `#0066FF` (Electric Royal Blue with gradient to `#00D2FF`)
+
+### Text & Contrast Hierarchy (Dark & Light)
+- **Dark Mode:**
+  - `--color-text-primary`: `#F8FAFC` (Pure clinical white/slate-50 for high readability)
+  - `--color-text-secondary`: `#94A3B8` (Slate-400 for descriptions, table column headers)
+  - `--color-text-muted`: `#64748B` (Slate-500 for helper notes, timestamps)
+- **Light Mode:**
+  - `--color-text-primary-light`: `#0B192C` (Deepest navy slate for 100% sharp contrast)
+  - `--color-text-secondary-light`: `#5A6E85` (Muted slate-blue for descriptions and subtitles)
+  - `--color-text-muted-light`: `#94A3B8` (Light slate for timestamps, inactive labels)
 
 ---
 

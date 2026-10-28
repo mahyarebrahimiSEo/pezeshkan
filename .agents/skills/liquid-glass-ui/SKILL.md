@@ -33,9 +33,32 @@ The library provides modular, copy-paste React components located in `.agents/pl
 
 ## Essential CSS Tokens (Tailwind CSS & OKLCH)
 
-Liquid Glass requires high-precision color definitions and backdrop filters:
+Liquid Glass requires high-precision color definitions and backdrop filters for both Clinical Dark and Clinical Radiant Light modes:
 
 ```css
+/* Clinical Radiant Light Mode (Frosted Glass 2.0 / Apple VisionOS Light) */
+:root, :root.light {
+  /* Frosted white light glass fill — crisp clinical frost, high readability */
+  --glass-surface-fill: rgba(255, 255, 255, 0.82);
+  --glass-panel-bg: rgba(255, 255, 255, 0.78);
+  --glass-header-bg: rgba(255, 255, 255, 0.75);
+  --glass-dialog-bg: rgba(255, 255, 255, 0.88);
+  --glass-dialog-elevated-bg: rgba(255, 255, 255, 0.94);
+  --glass-surface-bg: rgba(255, 255, 255, 0.70);
+  --glass-surface-thin-bg: rgba(255, 255, 255, 0.50);
+  
+  /* Floating capsule highlights & dock borders */
+  --glass-chrome-bg: rgba(255, 255, 255, 0.92);
+  --glass-chrome-border: rgba(255, 255, 255, 0.90);
+  --glass-chrome-shadow: 0 10px 30px -5px rgba(0, 102, 255, 0.06), 0 4px 12px rgba(11, 25, 44, 0.04);
+  --glass-chrome-inset: inset 0 1px 1px rgba(255, 255, 255, 1);
+  --glass-chrome-rim: 0 0 0 1px rgba(0, 102, 255, 0.08);
+
+  /* Shared frost filter stack */
+  --glass-frost: blur(20px) saturate(180%);
+  --glass-frost-heavy: blur(28px) saturate(190%);
+}
+
 :root.dark {
   /* Smoked dark glass fill — readable frost, never clear plastic */
   --glass-surface-fill: oklch(0.24 0.015 270);

@@ -34,8 +34,8 @@ html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(
   --brand-primary: #0b3d59; /* سرمه ای هویت ساز 0B3D59 */
   --brand-primary-light: #0284C7;
   --brand-cyan-neon: #5ee6ed; /* 16% فیروزه ای */
-  --brand-gradient-primary: linear-gradient(135deg, #0b3d59 0%, #5ee6ed 100%);
-  --brand-gradient-glow: rgba(94, 230, 237, 0.22);
+  --brand-gradient-primary: linear-gradient(135deg, #073857 0%, #0056C6 52%, #0077FF 100%);
+  --brand-gradient-glow: rgba(0, 115, 255, 0.28);
   
   --brand-emerald: #059669;
   --brand-emerald-vital: #047857; /* سبز با کنتراست فوق‌العاده بالا و کاملاً خوانا برای متون، بج‌ها و عناوین در حالت روز */
@@ -110,8 +110,8 @@ html.theme-transitioning *:not(.theme-switch-thumb):not(.theme-switch-icon):not(
   --brand-primary: #4fcbd1; /* 16% فیروزه ای شاخص */
   --brand-primary-light: #72e5ea;
   --brand-cyan-neon: #4fcbd1;
-  --brand-gradient-primary: linear-gradient(135deg, #0b3d59 0%, #4fcbd1 100%);
-  --brand-gradient-glow: rgba(79, 203, 209, 0.28);
+  --brand-gradient-primary: linear-gradient(135deg, #062E48 0%, #0056C6 52%, #007DFE 100%);
+  --brand-gradient-glow: rgba(0, 115, 255, 0.35);
   
   --brand-emerald: #10B981;
   --brand-emerald-vital: #34D399; /* سبز روشن و باکنتراست جهت خوانایی عالی در تم شب */
@@ -771,16 +771,25 @@ a:hover {
   background-size: 100% 100% !important;
   background-clip: padding-box !important;
   background-origin: padding-box !important;
-  border: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
   outline: none !important;
   color: #FFFFFF !important;
-  box-shadow: var(--shadow-neon-blue) !important;
+  box-shadow: 0 4px 14px rgba(0, 86, 198, 0.28) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) !important;
   overflow: hidden !important;
+  font-weight: 800 !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  letter-spacing: -0.2px !important;
 }
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 115, 255, 0.35) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 24px rgba(0, 102, 230, 0.42) !important;
+  border-color: rgba(255, 255, 255, 0.38) !important;
   color: #FFFFFF !important;
+}
+.btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 8px rgba(0, 86, 198, 0.3) !important;
 }
 
 .btn-secondary {
@@ -3191,21 +3200,31 @@ body.intro-device-locked {
   position: absolute;
   top: -14px;
   right: 24px;
-  background: var(--brand-gradient-primary) !important;
+  background: linear-gradient(135deg, #073857 0%, #0056C6 52%, #0077FF 100%) !important;
   background-repeat: no-repeat !important;
   background-size: 100% 100% !important;
   background-clip: padding-box !important;
-  border: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
   overflow: hidden !important;
   outline: none !important;
-  color: #FFFFFF;
-  font-size: 11.5px;
-  font-weight: 800;
-  padding: 4px 14px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 12px rgba(0, 115, 255, 0.35);
-  z-index: 2;
-  letter-spacing: -0.2px;
+  color: #FFFFFF !important;
+  font-size: 11.8px !important;
+  font-weight: 800 !important;
+  padding: 5px 16px !important;
+  border-radius: var(--radius-full) !important;
+  box-shadow: 0 4px 14px rgba(0, 86, 198, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.2) inset !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28) !important;
+  z-index: 2 !important;
+  letter-spacing: -0.2px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+  line-height: 1.3 !important;
+}
+[data-theme="dark"] .popular-badge {
+  background: linear-gradient(135deg, #062E48 0%, #0056C6 52%, #007DFE 100%) !important;
+  box-shadow: 0 4px 16px rgba(0, 102, 230, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.28) inset !important;
 }
 
 .price-title {
@@ -3389,29 +3408,81 @@ body.intro-device-locked {
    Congress Special Offer Banner
    ========================================================================== */
 .congress-banner {
-  background: linear-gradient(135deg, #0073FF 0%, #0D9488 100%);
-  border-radius: var(--radius-xl);
-  padding: 40px;
-  color: #FFFFFF;
-  margin: 48px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-  box-shadow: 0 15px 35px rgba(0, 115, 255, 0.3);
+  background: linear-gradient(135deg, #05243C 0%, #083D64 45%, #0060D0 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 40px 44px !important;
+  color: #FFFFFF !important;
+  margin: 48px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 28px !important;
+  flex-wrap: wrap !important;
+  box-shadow: 0 20px 50px -10px rgba(5, 36, 60, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
-
+[data-theme="dark"] .congress-banner {
+  background: linear-gradient(135deg, #031726 0%, #062F4D 45%, #0052B8 100%) !important;
+  border-color: rgba(79, 203, 209, 0.28) !important;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08) inset !important;
+}
+.congress-banner::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 55%;
+  height: 180%;
+  background: radial-gradient(circle, rgba(0, 115, 255, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
 .congress-content h3 {
-  font-size: 24px;
-  font-weight: 900;
-  margin-bottom: 8px;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  color: #FFFFFF !important;
+  margin-bottom: 10px !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  line-height: 1.3 !important;
 }
 .congress-content p {
-  font-size: 15px;
-  opacity: 0.95;
-  max-width: 650px;
-  line-height: 1.8;
+  font-size: 15px !important;
+  color: #F8FAFC !important;
+  opacity: 1 !important;
+  max-width: 660px !important;
+  line-height: 1.85 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+.congress-content p strong {
+  color: #FFFFFF !important;
+  font-weight: 900 !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+}
+.btn-congress-cta {
+  background: #FFFFFF !important;
+  color: #0056C6 !important;
+  font-weight: 900 !important;
+  font-size: 15px !important;
+  padding: 13px 30px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.btn-congress-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3) !important;
+  background: #F8FAFC !important;
+  color: #00449E !important;
 }
 
 /* ==========================================================================
