@@ -8975,7 +8975,7 @@ main .product-module-grid li:hover > svg {
 
 
 /* ==========================================================================
-   3D Illustration & High-Fidelity Icons Architecture (Universal Proportions)
+   3D Illustration & High-Fidelity Icons Architecture (Balanced Medium Sizing)
    ========================================================================== */
 .icon-3d {
   display: block !important;
@@ -8984,173 +8984,123 @@ main .product-module-grid li:hover > svg {
   will-change: transform;
 }
 
-/* 1. Problem & Pillar Cards (card-icon-wrap across all pages) */
+/* 1. Problem, Pillar & Feature Cards (.card-icon-wrap across all portal pages) */
 .card-icon-wrap {
-  width: 80px !important;
-  height: 80px !important;
-  border-radius: 22px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: visible !important;
-  margin-bottom: 22px !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-}
-
-.card-icon-wrap svg.icon-3d,
-.card-icon-wrap .svg-icon.icon-3d {
-  width: 66px !important;
-  height: 66px !important;
-  max-width: none !important;
-  max-height: none !important;
-  position: relative !important;
-  z-index: 2 !important;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.32)) !important;
-}
-
-.card-icon-wrap svg:not(.icon-3d),
-.card-icon-wrap .svg-icon:not(.icon-3d) {
-  width: 36px !important;
-  height: 36px !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-.panel-card:hover .card-icon-wrap svg.icon-3d,
-.panel-card:hover .card-icon-wrap .svg-icon.icon-3d {
-  transform: translateY(-4px) scale(1.08) rotate(-2deg) !important;
-  filter: drop-shadow(0 14px 26px rgba(0, 115, 255, 0.45)) !important;
-}
-
-/* 2. Hero Metric Cards (metric-icon) */
-.metric-icon {
-  width: 48px !important;
-  height: 48px !important;
+  width: 52px !important;
+  height: 52px !important;
   border-radius: 14px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: visible !important;
+  margin-bottom: 14px !important;
   padding: 0 !important;
   box-sizing: border-box !important;
+  flex-shrink: 0 !important;
 }
 
-.metric-icon svg.icon-3d,
-.metric-icon .svg-icon.icon-3d {
+.card-icon-wrap svg.icon-3d,
+.card-icon-wrap .svg-icon.icon-3d {
   width: 40px !important;
   height: 40px !important;
   max-width: none !important;
   max-height: none !important;
   position: relative !important;
   z-index: 2 !important;
-  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.28)) !important;
+  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.26)) !important;
+}
+
+.card-icon-wrap svg:not(.icon-3d),
+.card-icon-wrap .svg-icon:not(.icon-3d) {
+  width: 26px !important;
+  height: 26px !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.panel-card:hover .card-icon-wrap svg.icon-3d,
+.panel-card:hover .card-icon-wrap .svg-icon.icon-3d {
+  transform: translateY(-3px) scale(1.08) rotate(-2deg) !important;
+  filter: drop-shadow(0 8px 18px rgba(0, 115, 255, 0.38)) !important;
+}
+
+/* 2. Hero Metric Cards (metric-icon in index.html hero) */
+.metric-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+}
+
+.metric-icon svg.icon-3d,
+.metric-icon .svg-icon.icon-3d {
+  width: 28px !important;
+  height: 28px !important;
+  max-width: none !important;
+  max-height: none !important;
+  position: relative !important;
+  z-index: 2 !important;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.22)) !important;
 }
 
 .metric-icon svg:not(.icon-3d) {
-  width: 24px !important;
-  height: 24px !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 .pez-shell-metric-card:hover .metric-icon svg.icon-3d,
 .pez-shell-metric-card:hover .metric-icon .svg-icon.icon-3d {
-  transform: translateY(-2px) scale(1.1) rotate(-2deg) !important;
-  filter: drop-shadow(0 8px 18px rgba(0, 115, 255, 0.42)) !important;
+  transform: translateY(-2px) scale(1.08) rotate(-2deg) !important;
+  filter: drop-shadow(0 6px 14px rgba(0, 115, 255, 0.35)) !important;
 }
 
-/* 3. Treatment Journey Steps (journey-step-icon) */
+/* 3. Treatment Journey Steps (journey-step-icon in index.html) */
 .journey-step-icon {
-  width: 52px !important;
-  height: 52px !important;
-  border-radius: 15px !important;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 12px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: visible !important;
   padding: 0 !important;
   box-sizing: border-box !important;
+  flex-shrink: 0 !important;
 }
 
 .journey-step-icon svg.icon-3d,
 .journey-step-icon .svg-icon.icon-3d {
-  width: 42px !important;
-  height: 42px !important;
+  width: 32px !important;
+  height: 32px !important;
   max-width: none !important;
   max-height: none !important;
   position: relative !important;
   z-index: 2 !important;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25)) !important;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.22)) !important;
 }
 
 .journey-step-icon svg:not(.icon-3d),
 .journey-step-icon .svg-icon:not(.icon-3d) {
-  width: 26px !important;
-  height: 26px !important;
-}
-
-.journey-step:hover .journey-step-icon svg.icon-3d,
-.journey-step:hover .journey-step-icon .svg-icon.icon-3d {
-  transform: translateY(-2px) scale(1.12) !important;
-}
-
-/* 4. Mobile Drawer & Auth Modal Badges */
-.drawer-auth-icon {
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 12px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-.drawer-auth-icon svg {
   width: 22px !important;
   height: 22px !important;
 }
 
-.auth-role-card-icon svg {
-  width: 24px !important;
-  height: 24px !important;
+.journey-step:hover .journey-step-icon svg.icon-3d,
+.journey-step:hover .journey-step-icon .svg-icon.icon-3d {
+  transform: translateY(-2px) scale(1.08) !important;
 }
 
-/* 5. Pricing & Feature Badges */
-.pricing-gift-icon {
-  width: 52px !important;
-  height: 52px !important;
-  border-radius: 14px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-.pricing-gift-icon svg {
-  width: 28px !important;
-  height: 28px !important;
-}
-
-.brand-icon-box,
+/* 4. Demo Feature Cards (.demo-glass-feature-icon in download.html) */
 .demo-glass-feature-icon {
-  width: 52px !important;
-  height: 52px !important;
-  border-radius: 14px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-.brand-icon-box svg,
-.demo-glass-feature-icon svg {
-  width: 28px !important;
-  height: 28px !important;
-}
-
-
-/* ==========================================================================
-   Multi-Page 3D Illustration Icons Scaling & Polish Architecture
-   ========================================================================== */
-
-/* 4. Demo Feature Cards (.demo-glass-feature-icon) */
-.demo-glass-feature-icon {
-  width: 56px !important;
-  height: 56px !important;
-  border-radius: 16px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -9161,25 +9111,25 @@ main .product-module-grid li:hover > svg {
 
 .demo-glass-feature-icon svg.icon-3d,
 .demo-glass-feature-icon .svg-icon.icon-3d {
-  width: 44px !important;
-  height: 44px !important;
+  width: 32px !important;
+  height: 32px !important;
   max-width: none !important;
   max-height: none !important;
   position: relative !important;
   z-index: 2 !important;
-  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.28)) !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.24)) !important;
 }
 
 .demo-glass-feature-card:hover .demo-glass-feature-icon svg.icon-3d {
-  transform: translateY(-3px) scale(1.08) !important;
-  filter: drop-shadow(0 8px 18px rgba(0, 115, 255, 0.45)) !important;
+  transform: translateY(-2px) scale(1.08) !important;
+  filter: drop-shadow(0 6px 14px rgba(0, 115, 255, 0.38)) !important;
 }
 
-/* 5. Pricing Gift Banner & Plan 3D Badges */
+/* 5. Pricing Gift Banner & Plan 3D Badges (packages.html) */
 .pricing-gift-icon {
-  width: 56px !important;
-  height: 56px !important;
-  border-radius: 16px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -9190,47 +9140,47 @@ main .product-module-grid li:hover > svg {
 
 .pricing-gift-icon svg.icon-3d,
 .pricing-gift-icon .svg-icon.icon-3d {
-  width: 46px !important;
-  height: 46px !important;
+  width: 34px !important;
+  height: 34px !important;
   max-width: none !important;
   max-height: none !important;
   position: relative !important;
   z-index: 2 !important;
-  filter: drop-shadow(0 6px 14px rgba(5, 150, 105, 0.45)) !important;
+  filter: drop-shadow(0 5px 12px rgba(5, 150, 105, 0.38)) !important;
 }
 
 .pricing-gift-banner:hover .pricing-gift-icon svg.icon-3d {
-  transform: translateY(-3px) scale(1.08) rotate(-2deg) !important;
+  transform: translateY(-2px) scale(1.08) rotate(-2deg) !important;
 }
 
 .plan-3d-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 12px;
-  overflow: visible;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 46px !important;
+  height: 46px !important;
+  margin: 0 auto 8px !important;
+  overflow: visible !important;
 }
 
 .plan-3d-badge svg.icon-3d,
 .plan-3d-badge .svg-icon.icon-3d {
-  width: 52px !important;
-  height: 52px !important;
+  width: 36px !important;
+  height: 36px !important;
   max-width: none !important;
   max-height: none !important;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.3)) !important;
+  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.25)) !important;
 }
 
 .pricing-card:hover .plan-3d-badge svg.icon-3d {
-  transform: translateY(-4px) scale(1.1) rotate(-2deg) !important;
+  transform: translateY(-3px) scale(1.08) rotate(-2deg) !important;
 }
 
-/* 6. Tutorial Hero Role Chips */
+/* 6. Tutorial Hero Role Chips (tutorials.html) */
 .hero-role-chip > div:first-child {
-  width: 52px !important;
-  height: 52px !important;
-  border-radius: 14px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -9240,103 +9190,103 @@ main .product-module-grid li:hover > svg {
 
 .hero-role-chip > div:first-child svg.icon-3d,
 .hero-role-chip > div:first-child .svg-icon.icon-3d {
-  width: 42px !important;
-  height: 42px !important;
+  width: 32px !important;
+  height: 32px !important;
   max-width: none !important;
   max-height: none !important;
-  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.25)) !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22)) !important;
 }
 
 .hero-role-chip:hover > div:first-child svg.icon-3d {
-  transform: translateY(-3px) scale(1.1) !important;
+  transform: translateY(-2px) scale(1.08) !important;
 }
 
-/* 7. Contact Cards 3D Icon Wraps */
+/* 7. Contact Cards 3D Icon Wraps (contact.html) */
 .contact-icon-wrap {
-  width: 62px;
-  height: 62px;
-  border-radius: 18px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 14px;
-  background: rgba(0, 115, 255, 0.08);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  overflow: visible;
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 13px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 10px !important;
+  background: rgba(0, 115, 255, 0.08) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+  overflow: visible !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease !important;
 }
 
 .contact-icon-wrap svg.icon-3d,
 .contact-icon-wrap .svg-icon.icon-3d {
-  width: 50px !important;
-  height: 50px !important;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28)) !important;
+  width: 34px !important;
+  height: 34px !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.24)) !important;
 }
 
 .panel-card:hover .contact-icon-wrap svg.icon-3d {
-  transform: translateY(-3px) scale(1.08) !important;
+  transform: translateY(-2px) scale(1.08) !important;
 }
 
-/* 8. Start Page Success 3D Badge */
+/* 8. Start Page Success 3D Badge (start.html) */
 .start-success-icon {
-  width: 76px;
-  height: 76px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  overflow: visible;
+  width: 58px !important;
+  height: 58px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 14px !important;
+  overflow: visible !important;
 }
 
 .start-success-icon svg.icon-3d,
 .start-success-icon .svg-icon.icon-3d {
-  width: 68px !important;
-  height: 68px !important;
-  filter: drop-shadow(0 8px 20px rgba(5, 150, 105, 0.45)) !important;
+  width: 46px !important;
+  height: 46px !important;
+  filter: drop-shadow(0 6px 16px rgba(5, 150, 105, 0.38)) !important;
 }
 
-/* 9. 404 Error 3D Radar Badge */
+/* 9. 404 Error 3D Radar Badge (404.html) */
 .error-3d-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 84px;
-  height: 84px;
-  margin-bottom: 18px;
-  overflow: visible;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 60px !important;
+  height: 60px !important;
+  margin-bottom: 12px !important;
+  overflow: visible !important;
 }
 
 .error-3d-badge svg.icon-3d,
 .error-3d-badge .svg-icon.icon-3d {
-  width: 76px !important;
-  height: 76px !important;
-  filter: drop-shadow(0 10px 24px rgba(239, 68, 68, 0.4)) !important;
+  width: 48px !important;
+  height: 48px !important;
+  filter: drop-shadow(0 8px 18px rgba(239, 68, 68, 0.35)) !important;
 }
 
-/* 10. Product Module 3D Icon Wraps */
+/* 10. Product Module 3D Icon Wraps (product.html) */
 .product-module-icon-wrap {
-  width: 70px;
-  height: 70px;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  background: rgba(0, 115, 255, 0.08);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  overflow: visible;
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 10px !important;
+  background: rgba(0, 115, 255, 0.08) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  overflow: visible !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease !important;
 }
 
 .product-module-icon-wrap svg.icon-3d,
 .product-module-icon-wrap .svg-icon.icon-3d {
-  width: 58px !important;
-  height: 58px !important;
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.3)) !important;
+  width: 38px !important;
+  height: 38px !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25)) !important;
 }
 
 .panel-card:hover .product-module-icon-wrap svg.icon-3d {
-  transform: translateY(-4px) scale(1.08) rotate(-2deg) !important;
+  transform: translateY(-3px) scale(1.08) rotate(-2deg) !important;
 }
