@@ -35,7 +35,7 @@
   }
   </script>
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261028v2">
+  <link rel="stylesheet" href="/shared.css?v=20261028v3">
 </head>
 <body>
 
@@ -94,8 +94,7 @@
                 <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2.5"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
               </div>
               <div class="nav-dropdown-text">
-                <strong>نصب اپلیکیشن برای مراجعان</strong>
-                <span>دانلود نسخه اندروید، آیفون (PWA)، بازار و مایکت</span>
+                <strong>دموی آنلاین و نسخه وب مراجعان</strong><span>دسترسی آنی در تمامی مرورگرها بدون نیاز به نصب</span>
               </div>
             </a>
             <a href="/tutorials?role=user" class="nav-dropdown-link">
@@ -189,14 +188,15 @@
         <li><a href="/about" class="nav-link ">درباره ما</a></li>
         <li><a href="/contact" class="nav-link ">ارتباط با ما</a></li>
 
-        <!-- 6. نصب اپلیکیشن -->
-        <li><a href="/download" class="nav-link nav-download " title="دانلود و نصب اپلیکیشن">
+        <!-- 6. دریافت دمو -->
+        <li><a href="/download" class="nav-link nav-demo nav-download" title="دریافت دموی زنده سامانه ابری پزشکآن">
           <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+            <polygon points="10 8 16 11 10 14 10 8" fill="currentColor"/>
           </svg>
-          <span>نصب اپلیکیشن</span>
+          <span>دریافت دمو</span>
         </a></li>
 
         <!-- 7. مجله سلامت -->
@@ -325,7 +325,7 @@
         <!-- لینک صفحه کلی آموزش و سایر صفحات مستقل -->
         <li><a href="/appointments" class="nav-link active" style="font-weight:800;">نوبت‌دهی مطب (لیست پزشکان)</a></li>
         <li><a href="/tutorials" class="nav-link ">مرکز جامع آموزش (صفحه کلی)</a></li>
-        <li><a href="/download" class="nav-link " style="color:var(--brand-primary); font-weight:800;">نصب اپلیکیشن پزشکآن</a></li>
+        <li><a href="/download" class="nav-link " style="color:var(--brand-primary); font-weight:800;">دریافت دموی سامانه ابری</a></li>
         <li><a href="/mag" class="nav-link nav-mag">مجله سلامت (پزشکآن لایف)</a></li>
         <li><a href="/about" class="nav-link ">درباره ما</a></li>
         <li><a href="/contact" class="nav-link ">ارتباط با ما</a></li>
@@ -602,7 +602,7 @@
   <script src="/three.min.js"></script>
   <script src="/gsap.min.js"></script>
   <script src="/lenis.min.js"></script>
-  <script src="/shared.js?v=20261028v2"></script>
+  <script src="/shared.js?v=20261028v3"></script>
   <script>
     // Default Fallback Doctors List (Synced with /api/doctors and mag/content/doctors.json)
     const CLINICAL_DOC_SVG = '<svg class="svg-icon" style="width:26px;height:26px;color:var(--brand-primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>';

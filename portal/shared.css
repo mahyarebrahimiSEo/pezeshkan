@@ -8106,3 +8106,198 @@ body.intro-device-locked {
 .auth-card-link:hover {
   color: var(--brand-primary);
 }
+
+
+/* ==========================================================================
+   Header Nav Demo Button & Demo Glass Showcase Box
+   ========================================================================== */
+.nav-link.nav-demo,
+.nav-link.nav-download {
+  color: var(--brand-primary) !important;
+  background: rgba(0, 115, 255, 0.08) !important;
+  border: 1px solid rgba(0, 115, 255, 0.24) !important;
+  border-radius: var(--radius-full) !important;
+  font-weight: 800 !important;
+  padding: 5px 13px !important;
+  font-size: 12.2px !important;
+  margin-right: 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+.nav-link.nav-demo:hover,
+.nav-link.nav-download:hover {
+  background: rgba(0, 115, 255, 0.16) !important;
+  color: var(--brand-primary) !important;
+  border-color: var(--brand-primary) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 115, 255, 0.15) !important;
+}
+.nav-link.nav-demo.active,
+.nav-link.nav-download.active {
+  background: var(--brand-gradient-primary) !important;
+  color: #FFFFFF !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 12px rgba(0, 115, 255, 0.3) !important;
+}
+.nav-link.nav-demo.active svg,
+.nav-link.nav-download.active svg {
+  stroke: #FFFFFF !important;
+}
+[data-theme="dark"] .nav-link.nav-demo,
+[data-theme="dark"] .nav-link.nav-download {
+  color: #60A5FA !important;
+  background: rgba(0, 115, 255, 0.14) !important;
+  border-color: rgba(96, 165, 250, 0.28) !important;
+}
+[data-theme="dark"] .nav-link.nav-demo:hover,
+[data-theme="dark"] .nav-link.nav-download:hover {
+  background: rgba(0, 115, 255, 0.22) !important;
+  border-color: rgba(96, 165, 250, 0.45) !important;
+  box-shadow: 0 4px 14px rgba(0, 115, 255, 0.25) !important;
+}
+
+/* Demo Page Wrapper & Glass Showcase Box */
+.demo-page-wrapper {
+  padding: 60px 0 80px;
+  min-height: calc(100vh - 240px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.demo-glass-box {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  background: var(--glass-lvl-2-bg);
+  backdrop-filter: var(--glass-lvl-2-blur);
+  -webkit-backdrop-filter: var(--glass-lvl-2-blur);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 28px;
+  padding: 48px 44px;
+  box-shadow: 0 24px 60px -12px rgba(11, 61, 89, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="dark"] .demo-glass-box {
+  background: rgba(11, 61, 89, 0.4);
+  border-color: rgba(79, 203, 209, 0.28);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+.demo-glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--brand-primary);
+  background: rgba(0, 115, 255, 0.08);
+  border: 1px solid rgba(0, 115, 255, 0.22);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  margin-bottom: 20px;
+}
+[data-theme="dark"] .demo-glass-badge {
+  color: #60A5FA;
+  background: rgba(0, 115, 255, 0.16);
+  border-color: rgba(96, 165, 250, 0.3);
+}
+.demo-glass-title {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--text-pure);
+  margin: 0 0 14px;
+  line-height: 1.4;
+}
+.demo-glass-subtitle {
+  font-size: 15.5px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 680px;
+  margin: 0 auto 32px;
+}
+.demo-glass-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0 0 36px;
+  text-align: right;
+}
+@media (max-width: 768px) {
+  .demo-glass-box {
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+  .demo-glass-title {
+    font-size: 23px;
+  }
+  .demo-glass-subtitle {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .demo-glass-features {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+}
+.demo-glass-feature-card {
+  padding: 16px 14px;
+  background: var(--bg-surface-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.demo-glass-feature-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(0, 115, 255, 0.12);
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.demo-glass-feature-text strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text-pure);
+  margin-bottom: 4px;
+}
+.demo-glass-feature-text span {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.demo-glass-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.btn-demo-main {
+  padding: 14px 34px !important;
+  font-size: 15.5px !important;
+  font-weight: 900 !important;
+  border-radius: 14px !important;
+  gap: 10px !important;
+  box-shadow: 0 8px 24px rgba(0, 102, 230, 0.35) !important;
+}
+.btn-demo-secondary {
+  padding: 14px 28px !important;
+  font-size: 14.5px !important;
+  font-weight: 800 !important;
+  border-radius: 14px !important;
+}
