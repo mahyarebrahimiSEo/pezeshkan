@@ -2171,3 +2171,74 @@ document.addEventListener('click', (e) => {
   }
   window.refreshSitePageImages = applySitePageImages;
 })();
+
+
+// Dynamic Magazine Articles on Homepage (Shows ONLY when published articles exist)
+(function() {
+  function initHomeMagazine() {
+    const section = document.getElementById('home-magazine-section');
+    const grid = document.getElementById('home-magazine-grid');
+    if (!section || !grid) return;
+
+    fetch('/api/articles')
+      .then(res => {
+        if (!res.ok) throw new Error('Network error');
+        return res.json();
+      })
+      .then(articles => {
+        if (!Array.isArray(articles)) return;
+        const published = articles.filter(a => !a.status || a.status === 'published').slice(0, 3);
+        if (published.length === 0) {
+          section.style.display = 'none';
+          grid.innerHTML = '';
+          return;
+        }
+
+        let html = '';
+        published.forEach(art => {
+          const slug = encodeURIComponent(art.slug || art.id || '');
+          const title = escapeHtml(art.title || '');
+          const summary = escapeHtml(art.summary || '');
+          const img = art.image || 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80';
+          const alt = escapeHtml(art.imageAlt || art.title || '');
+          const cat = escapeHtml(art.categoryName || art.tag || 'مجله سلامت');
+
+          html += `
+            <div class="panel-card" style="padding:0; overflow:hidden;">
+              <img src="${img}" alt="${alt}" width="600" height="180" loading="lazy" decoding="async" style="width:100%; height:180px; object-fit:cover;">
+              <div style="padding:20px;">
+                <span style="font-size:11px; background:var(--signal-cyan-bg); color:var(--signal-cyan); border:1px solid var(--signal-cyan-border); padding:2px 8px; border-radius:4px; font-weight:700;">${cat}</span>
+                <h3 style="font-size:15.5px; font-weight:800; margin:10px 0 6px;"><a href="/mag/${slug}">${title}</a></h3>
+                <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">${summary}</p>
+              </div>
+            </div>
+          `;
+        });
+
+        grid.innerHTML = html;
+        section.style.display = 'block';
+      })
+      .catch(() => {
+        if (!grid.children.length) {
+          section.style.display = 'none';
+        }
+      });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHomeMagazine);
+  } else {
+    initHomeMagazine();
+  }
+  window.refreshHomeMagazine = initHomeMagazine;
+})();

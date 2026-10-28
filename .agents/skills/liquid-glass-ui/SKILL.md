@@ -1,98 +1,124 @@
 ---
 name: liquid-glass-ui
-description: Design and implement production-ready Liquid Glass components and Apple-like fluid glassmorphism for Next.js, React, and Tailwind CSS. Covers frosted fills, smoked dark glass, chrome capsules, GlassBar, GlassContentCard, and Chromium backdrop-filter performance rules.
+description: Design and implement production-ready Liquid Glass components and Apple-like fluid glassmorphism for Next.js, React, HTML, and Tailwind CSS. Enforces the 2026 Liquid Glass optical rules (strict 35-50% translucency budget, ambient background mesh light, specular dual-rim highlights, saturated blur, and chromatic refraction) to eliminate opaque, fake, or flat-looking glass.
 metadata:
-  origin: IntelliHelper/IntelliHelper-UI
+  version: "2.0.0"
+  origin: IntelliHelper-UI + Apple VisionOS Optics + Pezeshkan Clinical Dark DNA
 ---
 
-# Liquid Glass UI Skill
+# Modern Liquid Glass UI Specification (2026 Standard)
 
-Guide for designing and building production-grade **Liquid Glass** surfaces and fluid glassmorphism components in Next.js and Tailwind CSS, adapted from the `IntelliHelper-UI` component library.
+This skill governs the creation of genuine, high-end **Modern Liquid Glass** (شیشه مایع مدرن) across web interfaces. It addresses and fixes the common failure mode where AI generates opaque, plastic, or flat-looking boxes instead of authentic refractive glass.
 
-## When to Activate
+---
 
-- Designing modern glassmorphic cards, hero overlays, navigation bars, or dialog modals with a fluid/milky glass texture.
-- Implementing Apple VisionOS / iOS style Liquid Glass materials with realistic refraction, highlights, and backdrop blur.
-- Building components like `GlassBar`, `GlassContentCard`, `GlassContentPanel`, and `GlassIconButton`.
-- Styling clinical dark glass surfaces that integrate with the Pezeshkan Healthcare design tokens (`#00FFFF`, `#00E599`).
+## 1. The 4 Golden Optical Rules of Liquid Glass
 
-## Core Architecture & Components
+Authentic glass requires physical optical metaphors. If any of these 4 rules are violated, the interface will look like a solid dark container rather than real glass:
 
-The library provides modular, copy-paste React components located in `.agents/plugins/IntelliHelper-UI/packages/ui/src/`:
+### Rule 1: The Strict Translucency Budget (Never Opaque)
+- **FAIL (The #1 AI mistake):** `rgba(11, 17, 30, 0.88)` or `rgba(0, 0, 0, 0.95)`. At 85%+ opacity, light cannot pass through. It is an opaque block, NOT glass.
+- **PASS (Real Glass Translucency):**
+  - **Clinical Dark Mode:** `rgba(11, 17, 30, 0.42)` to `rgba(18, 26, 44, 0.52)` (Never exceed 0.55).
+  - **Radiant Light Mode:** `rgba(255, 255, 255, 0.55)` to `rgba(255, 255, 255, 0.70)`.
 
-1. **`GlassBar`** (`glass-bar.tsx`):
-   - Floating navigation bar or toolbar encapsulated in a pill/capsule shape (`glass-chrome glass-chrome-capsule`).
-   - Supports sizes (`sm`, `default`, `lg`) and optional entry animation (`animate-float-in`).
+### Rule 2: Background Must Have Ambient Light to Refract
+- **Core Principle:** Glass placed over pure flat black `#000000` with no background light has *nothing to blur or refract*, so it inevitably looks flat black.
+- **The Solution:** Always place subtle **Ambient Vital Mesh Gradients** or light orbs underneath or behind liquid glass sections:
+  ```css
+  /* Ambient light layer behind glass containers */
+  background: radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(0, 229, 153, 0.10) 0%, transparent 65%);
+  ```
 
-2. **`GlassContentCard` & `GlassContentPanel`** (`glass-content-card.tsx`):
-   - Multi-panel card with gradient backdrop layers and frosted glass overlays.
-   - Ideal for featured articles, doctor profile showcases, and clinical analytics cards.
+### Rule 3: The Dual-Rim Specular Highlight (The Liquid Edge)
+Real glass catches directional light on its bevels and edges:
+- Top bevel catches light (`inset 0 1px 1px 0 rgba(255, 255, 255, 0.35)`).
+- Interior volume has faint ambient glow (`inset 0 0 24px 0 rgba(0, 255, 255, 0.04)`).
+- Deep drop shadow floats the glass in space:
+  ```css
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.30),
+    inset 0 0 20px 0 rgba(255, 255, 255, 0.03),
+    0 20px 50px -10px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.10);
+  ```
 
-3. **`GlassIconButton`** (`glass-icon-button.tsx`):
-   - Circular glass action buttons with specular highlights and active/hover feedback.
+### Rule 4: Multi-Stage Filter Stack (`blur` + `saturate` + `contrast`)
+Simple `blur(10px)` produces a dull grey milky smear. Modern liquid glass requires color saturation amplification:
+```css
+backdrop-filter: blur(24px) saturate(190%) contrast(105%);
+-webkit-backdrop-filter: blur(24px) saturate(190%) contrast(105%);
+```
 
-## Essential CSS Tokens (Tailwind CSS & OKLCH)
+---
 
-Liquid Glass requires high-precision color definitions and backdrop filters for both Clinical Dark and Clinical Radiant Light modes:
+## 2. Standard CSS Production Recipe for Pezeshkan
+
+Whenever building frontend components (in HTML, CSS, Next.js, or Tailwind), use these exact production classes:
 
 ```css
-/* Clinical Radiant Light Mode (Frosted Glass 2.0 / Apple VisionOS Light) */
-:root, :root.light {
-  /* Frosted white light glass fill — crisp clinical frost, high readability */
-  --glass-surface-fill: rgba(255, 255, 255, 0.82);
-  --glass-panel-bg: rgba(255, 255, 255, 0.78);
-  --glass-header-bg: rgba(255, 255, 255, 0.75);
-  --glass-dialog-bg: rgba(255, 255, 255, 0.88);
-  --glass-dialog-elevated-bg: rgba(255, 255, 255, 0.94);
-  --glass-surface-bg: rgba(255, 255, 255, 0.70);
-  --glass-surface-thin-bg: rgba(255, 255, 255, 0.50);
-  
-  /* Floating capsule highlights & dock borders */
-  --glass-chrome-bg: rgba(255, 255, 255, 0.92);
-  --glass-chrome-border: rgba(255, 255, 255, 0.90);
-  --glass-chrome-shadow: 0 10px 30px -5px rgba(0, 102, 255, 0.06), 0 4px 12px rgba(11, 25, 44, 0.04);
-  --glass-chrome-inset: inset 0 1px 1px rgba(255, 255, 255, 1);
-  --glass-chrome-rim: 0 0 0 1px rgba(0, 102, 255, 0.08);
-
-  /* Shared frost filter stack */
-  --glass-frost: blur(20px) saturate(180%);
-  --glass-frost-heavy: blur(28px) saturate(190%);
+/* Core Liquid Glass Surface */
+.pez-liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(15, 23, 42, 0.45) 45%,
+    rgba(8, 12, 22, 0.55) 100%
+  ) !important;
+  backdrop-filter: blur(24px) saturate(190%) contrast(105%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(105%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.30),
+    inset 0 0 20px 0 rgba(0, 255, 255, 0.04),
+    0 20px 50px -12px rgba(0, 0, 0, 0.70) !important;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-:root.dark {
-  /* Smoked dark glass fill — readable frost, never clear plastic */
-  --glass-surface-fill: oklch(0.24 0.015 270);
-  --glass-panel-bg: oklch(0.24 0.015 270 / 0.78);
-  --glass-header-bg: oklch(0.24 0.015 270 / 0.72);
-  --glass-dialog-bg: oklch(0.24 0.015 270 / 0.74);
-  --glass-dialog-elevated-bg: oklch(0.26 0.015 270 / 0.84);
-  --glass-surface-bg: oklch(0.24 0.015 270 / 0.68);
-  --glass-surface-thin-bg: oklch(0.26 0.015 270 / 0.55);
-  
-  /* Chrome capsule highlights */
-  --glass-chrome-bg: oklch(0.3 0.018 270 / 0.72);
-  --glass-chrome-border: oklch(1 0 0 / 0.16);
-  --glass-chrome-shadow: 0 4px 16px oklch(0 0 0 / 0.32), 0 12px 40px oklch(0 0 0 / 0.4);
-  --glass-chrome-inset: inset 0 1px 0 oklch(1 0 0 / 0.14);
-  --glass-chrome-rim: 0 0 0 0.5px oklch(1 0 0 / 0.2);
+/* Fluid Hover Sheen Effect */
+.pez-liquid-glass:hover {
+  border-color: rgba(0, 255, 255, 0.35) !important;
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.50),
+    inset 0 0 25px 0 rgba(0, 255, 255, 0.08),
+    0 24px 60px -10px rgba(0, 0, 0, 0.80),
+    0 0 30px -5px rgba(0, 255, 255, 0.20) !important;
+  transform: translateY(-2px);
+}
 
-  /* Shared frost filter stack */
-  --glass-frost: blur(16px) saturate(180%);
-  --glass-frost-heavy: blur(24px) saturate(190%);
+/* Subtle Organic Noise Texture overlay to kill digital flatness */
+.pez-liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
 }
 ```
 
-## Critical Implementation Rules & Gotchas
+---
 
-1. **NEVER use percentage custom properties in `color-mix`**:
-   - `color-mix(in oklch, var(--x) var(--pct), transparent)` fails after LightningCSS bundling and frequently renders 100% transparent in Safari and Chrome.
-   - **Fix:** Always bake alpha directly into the color value: `oklch(0.24 0.015 270 / 0.78)`.
+## 3. Tailwind CSS Utility Classes
 
-2. **NEVER add `transform: translateZ(0)` on sticky glass elements**:
-   - Applying 3D transforms to sticky headers or sidebars breaks Chromium's internal texture caching for `backdrop-filter`, causing the blurred background to freeze or vanish while scrolling.
+When writing JSX / TSX or Tailwind components, use this composition:
 
-3. **Always pair `blur()` with `saturate()`**:
-   - Simple `blur(...)` can look dull and milky grey. Adding `saturate(180%)` keeps colors underneath the glass vibrant and authentic to physical glass optics.
+```tsx
+<div className="relative overflow-hidden rounded-3xl border border-white/15 border-t-white/35 bg-gradient-to-br from-white/10 via-slate-900/45 to-slate-950/55 p-8 backdrop-blur-xl saturate-[1.9] contrast-[1.05] shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),inset_0_0_20px_rgba(0,255,255,0.05),0_20px_50px_rgba(0,0,0,0.65)] hover:border-cyan-400/40 hover:shadow-[0_0_30px_rgba(0,255,255,0.2)] transition-all duration-300">
+  {/* Content goes here */}
+</div>
+```
 
-4. **Clinical Alignment**:
-   - Combine with `pezeshkan-brand-system` by tinting border rims with `rgba(0, 255, 255, 0.15)` (Medical Cyan highlight) instead of pure white where active focus is needed.
+---
+
+## 4. Prohibited Gotchas in Chromium & Safari
+
+1. **NEVER add `transform: translateZ(0)` on sticky glass containers:** Breaks Chromium's internal texture cache, causing `backdrop-filter` to freeze or vanish while scrolling.
+2. **NEVER use `color-mix` with percentage custom properties:** After LightningCSS bundling, `color-mix(in oklch, var(--x) var(--pct), transparent)` often resolves as 100% transparent.
+3. **NEVER put heavy glass on pure opaque cards:** Glass requires transparency. If you put opaque `#0F172A` underneath, the glass effect is completely lost.

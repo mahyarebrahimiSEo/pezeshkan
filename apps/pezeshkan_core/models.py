@@ -143,6 +143,24 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        try:
+            from django.core.cache import cache
+            cache.delete("api_articles_all")
+            cache.delete("api_articles_published")
+        except Exception:
+            pass
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        try:
+            from django.core.cache import cache
+            cache.delete("api_articles_all")
+            cache.delete("api_articles_published")
+        except Exception:
+            pass
+
     def to_dict(self):
         return {
             "id": self.custom_id or str(self.id),

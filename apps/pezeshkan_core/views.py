@@ -218,18 +218,63 @@ PORTAL_PAGE_NAMES = {
 }
 
 def index_page(request):
-    """Serves the portal landing page or root index.html."""
+    """Serves the portal landing page with SSR for published magazine articles."""
+    import html as html_escape
+    from django.http import HttpResponse
+
     candidate = settings.BASE_DIR / 'portal' / 'index.html'
-    if candidate.exists():
+    if not candidate.exists():
+        candidate = settings.BASE_DIR / 'index.html'
+
+    try:
+        content = candidate.read_text(encoding='utf-8')
+    except Exception:
         return serve_static_file(candidate)
-    return serve_static_file(settings.BASE_DIR / 'index.html')
+
+    # SSR: Query published articles for homepage magazine section (maximum 3 latest)
+    try:
+        published = list(Article.objects.filter(status='published').order_by('-id')[:3])
+    except Exception:
+        published = []
+
+    if published:
+        cards_html = []
+        for art in published:
+            slug = art.slug or str(art.id)
+            title = html_escape.escape(art.title or '')
+            summary = html_escape.escape(art.summary or '')
+            img = html_escape.escape(art.image or 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80')
+            alt = html_escape.escape(art.image_alt or art.title or '')
+            cat = html_escape.escape(art.category_name or art.tag or 'مجله سلامت')
+
+            card = f'''        <div class="panel-card" style="padding:0; overflow:hidden;">
+          <img src="{img}" alt="{alt}" width="600" height="180" loading="lazy" decoding="async" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:20px;">
+            <span style="font-size:11px; background:var(--signal-cyan-bg); color:var(--signal-cyan); border:1px solid var(--signal-cyan-border); padding:2px 8px; border-radius:4px; font-weight:700;">{cat}</span>
+            <h3 style="font-size:15.5px; font-weight:800; margin:10px 0 6px;"><a href="/mag/{slug}">{title}</a></h3>
+            <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">{summary}</p>
+          </div>
+        </div>'''
+            cards_html.append(card)
+
+        grid_content = "\n".join(cards_html)
+        content = content.replace(
+            'id="home-magazine-section" style="padding:48px 0; background:var(--bg-surface-secondary); display:none;"',
+            'id="home-magazine-section" style="padding:48px 0; background:var(--bg-surface-secondary); display:block;"'
+        )
+        content = content.replace(
+            '<div class="grid-3" id="home-magazine-grid"></div>',
+            f'<div class="grid-3" id="home-magazine-grid">\n{grid_content}\n      </div>'
+        )
+
+    return HttpResponse(content, content_type='text/html; charset=utf-8')
 
 
 def portal_page(request, page_name="index"):
     """Serves portal HTML pages (/product, /features, /packages, etc.)."""
     clean = page_name.strip("/").replace(".html", "")
     if not clean or clean == "index":
-        target = settings.BASE_DIR / 'portal' / 'index.html'
+        return index_page(request)
     elif clean in PORTAL_PAGE_NAMES:
         target = settings.BASE_DIR / 'portal' / PORTAL_PAGE_NAMES[clean]
     else:
@@ -470,11 +515,16 @@ def api_articles(request, slug=None):
                 cache.set(cache_key, data, 60)
             return JsonResponse(data)
 
-        data = cache.get("api_articles_all")
+        admin_mode = is_admin(request) or request.GET.get("all") == "1"
+        cache_key = "api_articles_all" if admin_mode else "api_articles_published"
+        data = cache.get(cache_key)
         if data is None:
-            articles = Article.objects.all().order_by('-id')
+            if admin_mode:
+                articles = Article.objects.all().order_by('-id')
+            else:
+                articles = Article.objects.filter(status='published').order_by('-id')
             data = [a.to_dict() for a in articles]
-            cache.set("api_articles_all", data, 30)
+            cache.set(cache_key, data, 30)
         return JsonResponse(data, safe=False)
 
     elif request.method in ("POST", "PUT"):
@@ -582,6 +632,7 @@ def api_articles(request, slug=None):
 
         all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
         cache.delete("api_articles_all")
+        cache.delete("api_articles_published")
         try:
             articles_file = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
             with open(articles_file, 'w', encoding='utf-8') as af:
@@ -598,6 +649,8 @@ def api_articles(request, slug=None):
         if empty_trash in ("true", "1", "yes"):
             deleted_count, _ = Article.objects.filter(status="trash").delete()
             all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
+            cache.delete("api_articles_all")
+            cache.delete("api_articles_published")
             return JsonResponse({"success": True, "deleted": deleted_count, "articles": all_articles})
 
         art_id = request.GET.get("id") or slug
@@ -608,6 +661,8 @@ def api_articles(request, slug=None):
             Article.objects.filter(query).delete()
 
         all_articles = [a.to_dict() for a in Article.objects.all().order_by('-id')]
+        cache.delete("api_articles_all")
+        cache.delete("api_articles_published")
         try:
             articles_file = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
             with open(articles_file, 'w', encoding='utf-8') as af:

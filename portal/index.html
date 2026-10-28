@@ -98,7 +98,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261028v4">
+  <link rel="stylesheet" href="/shared.css?v=20261028v5">
 </head>
 <body>
 
@@ -1222,8 +1222,8 @@
     </div>
   </section>
 
-  <!-- 07. Latest from Health Magazine -->
-  <section style="padding:48px 0; background:var(--bg-surface-secondary);">
+  <!-- 07. Latest from Health Magazine (Dynamic: Appears only when articles are published) -->
+  <section id="home-magazine-section" style="padding:48px 0; background:var(--bg-surface-secondary); display:none;">
     <div class="container">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
         <div>
@@ -1236,34 +1236,7 @@
         </a>
       </div>
 
-      <div class="grid-3">
-        <div class="panel-card" style="padding:0; overflow:hidden;">
-          <img data-img-slot="home_card_ortho" src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80" alt="درمان غیرجراحی دیسک کمر و سیاتیک با شاک‌ویو و لیزر" width="600" height="180" loading="lazy" decoding="async" style="width:100%; height:180px; object-fit:cover;">
-          <div style="padding:20px;">
-            <span style="font-size:11px; background:var(--signal-cyan-bg); color:var(--signal-cyan); border:1px solid var(--signal-cyan-border); padding:2px 8px; border-radius:4px; font-weight:700;">ستون فقرات و درد</span>
-            <h3 style="font-size:15.5px; font-weight:800; margin:10px 0 6px;"><a href="/mag">درمان غیرجراحی دیسک کمر و سیاتیک: از شاک‌ویو تا لیزر</a></h3>
-            <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">راهکارهای مدرن طب فیزیکی بدون نیاز به بیهوشی و جراحی باز.</p>
-          </div>
-        </div>
-
-        <div class="panel-card" style="padding:0; overflow:hidden;">
-          <img data-img-slot="home_card_cardio" src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80" alt="علائم هشداردهنده سکته قلبی و تریاژ انفارکتوس میوکارد" width="600" height="180" loading="lazy" decoding="async" style="width:100%; height:180px; object-fit:cover;">
-          <div style="padding:20px;">
-            <span style="font-size:11px; background:var(--signal-green-bg); color:var(--signal-green); border:1px solid var(--signal-green-border); padding:2px 8px; border-radius:4px; font-weight:700;">قلب و عروق</span>
-            <h3 style="font-size:15.5px; font-weight:800; margin:10px 0 6px;"><a href="/mag">علائم هشداردهنده سکته قلبی در بانوان و زمان طلایی</a></h3>
-            <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">تفاوت‌های تریاژ انفارکتوس میوکارد در زنان و معیارهای ارجاع فوری.</p>
-          </div>
-        </div>
-
-        <div class="panel-card" style="padding:0; overflow:hidden;">
-          <img data-img-slot="home_card_maternal" src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80" alt="پروتکل تریاژ بالینی سردردهای میگرنی و تزریق بوتاکس درمانی" width="600" height="180" loading="lazy" decoding="async" style="width:100%; height:180px; object-fit:cover;">
-          <div style="padding:20px;">
-            <span style="font-size:11px; background:var(--signal-amber-bg); color:var(--signal-amber); border:1px solid var(--signal-amber-border); padding:2px 8px; border-radius:4px; font-weight:700;">مغز و اعصاب</span>
-            <h3 style="font-size:15.5px; font-weight:800; margin:10px 0 6px;"><a href="/mag">پروتکل تریاژ بالینی سردردهای میگرنی و اورژانس ردفلگ</a></h3>
-            <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">تزریق بوتاکس درمانی، آنتی‌بادی‌های CGRP و تمایز با سکته مغزی.</p>
-          </div>
-        </div>
-      </div>
+      <div class="grid-3" id="home-magazine-grid"></div>
     </div>
   </section>
 
@@ -1355,7 +1328,7 @@
 
   <script src="/gsap.min.js"></script>
   <script src="/lenis.min.js"></script>
-  <script src="/shared.js?v=20261028v4"></script>
+  <script src="/shared.js?v=20261028v5"></script>
 </body>
 </html>
 
