@@ -8084,7 +8084,8 @@ body.intro-device-locked {
 
 /* Modal Enhancements & Role Cards Grid */
 .clinical-auth-modal {
-  max-width: 580px !important;
+  max-width: 600px !important;
+  box-sizing: border-box;
 }
 .auth-modal-tabs {
   grid-template-columns: repeat(3, 1fr) !important;
@@ -8208,6 +8209,10 @@ body.intro-device-locked {
   padding: 8px 12px;
   border-radius: 10px;
   font-weight: 800;
+  box-sizing: border-box !important;
+  max-width: 100%;
+  overflow: hidden;
+  text-align: center;
 }
 .auth-card-link {
   background: transparent;
