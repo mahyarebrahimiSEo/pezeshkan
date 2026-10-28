@@ -53,7 +53,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261028v17">
+  <link rel="stylesheet" href="/shared.css?v=20261028v18">
 </head>
 <body>
 
@@ -403,7 +403,24 @@
       <div class="panel-card" style="margin-bottom:32px;">
         <div class="product-module-grid">
           <div>
-            <span class="section-pill-tag">ماژول شماره ۱</span>
+            <div class="product-module-icon-wrap"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="prd-emr-s" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="prd-emr-g" x="8" y="6" width="32" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284C7" flood-opacity="0.45" /></filter>
+    <linearGradient id="prd-emr-b" x1="10" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8" /><stop offset="60%" stop-color="#0284C7" /><stop offset="100%" stop-color="#0369A1" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#001830" opacity="0.32" filter="url(#prd-emr-s)" />
+  <g filter="url(#prd-emr-g)">
+    <rect x="10" y="8" width="26" height="28" rx="4" fill="url(#prd-emr-b)" stroke="#BAE6FD" stroke-width="1.2" />
+    <rect x="13" y="12" width="10" height="3" rx="1" fill="#FFFFFF" opacity="0.8" />
+    <line x1="13" y1="19" x2="27" y2="19" stroke="#E0F2FE" stroke-width="1.5" stroke-linecap="round" />
+    <line x1="13" y1="23" x2="23" y2="23" stroke="#E0F2FE" stroke-width="1.5" stroke-linecap="round" />
+    <!-- Stylus tip drawing -->
+    <path d="M28 20L34 26L32 30L26 24Z" fill="#F59E0B" />
+    <polygon points="26 24 24 29 28 27" fill="#FEF08A" />
+  </g>
+</svg></div>
+            <div><span class="section-pill-tag">ماژول شماره ۱</span></div>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">پرونده الکترونیک سلامت (EMR) با قلم نوری</h2>
             <p style="color:var(--text-secondary); line-height:1.9; margin-bottom:18px;">
               حس نگارش طبیعی روی کاغذ بدون معطلی تایپ! با قلم‌های نوری حساس به فشار و کدهای بین‌المللی ICD-10، شرح‌حال بیمار را در کمتر از ۱ دقیقه ثبت کنید.
@@ -425,7 +442,20 @@
       <div class="panel-card" style="margin-bottom:32px;" id="ai">
         <div class="product-module-grid">
           <div class="product-module-content" style="order:2;">
-            <span class="section-pill-tag" style="background:rgba(5,150,105,0.1); color:#059669;">ماژول شماره ۲</span>
+            <div class="product-module-icon-wrap" style="background:rgba(5,150,105,0.08);"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="prd-ai-s" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="prd-ai-g" x="6" y="6" width="36" height="36" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#059669" flood-opacity="0.45" /></filter>
+    <linearGradient id="prd-ai-b" x1="10" y1="8" x2="38" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399" /><stop offset="60%" stop-color="#059669" /><stop offset="100%" stop-color="#064E3B" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#022818" opacity="0.32" filter="url(#prd-ai-s)" />
+  <g filter="url(#prd-ai-g)">
+    <rect x="15" y="14" width="18" height="18" rx="4" transform="rotate(45 24 23)" fill="url(#prd-ai-b)" stroke="#A7F3D0" stroke-width="1.2" />
+    <circle cx="24" cy="23" r="5" fill="#FFFFFF" />
+    <path d="M24 20V26M21 23H27" stroke="#047857" stroke-width="1.6" stroke-linecap="round" />
+  </g>
+</svg></div>
+            <div><span class="section-pill-tag" style="background:rgba(5,150,105,0.1); color:#059669;">ماژول شماره ۲</span></div>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">دستیار بالینی هوش مصنوعی (AI Clinical Copilot)</h2>
             <p style="color:var(--text-secondary); line-height:1.9; margin-bottom:18px;">
               چشم دوم پزشک در مطب! هنگام ثبت دارو، هوش مصنوعی تداخلات خطرناک با داروهای پیشین بیمار را به صورت هشدار قرمز نمایش می‌دهد.
@@ -447,7 +477,24 @@
       <div class="panel-card" style="margin-bottom:32px;">
         <div class="product-module-grid">
           <div>
-            <span class="section-pill-tag">ماژول شماره ۳</span>
+            <div class="product-module-icon-wrap"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="prd-pos-s" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <linearGradient id="prd-pos-b" x1="12" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8" /><stop offset="60%" stop-color="#0284C7" /><stop offset="100%" stop-color="#0369A1" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#001830" opacity="0.32" filter="url(#prd-pos-s)" />
+  <rect x="14" y="8" width="20" height="28" rx="3.5" fill="url(#prd-pos-b)" stroke="#BAE6FD" stroke-width="1.2" />
+  <rect x="17" y="11" width="14" height="10" rx="1.5" fill="#072338" />
+  <circle cx="18" cy="25" r="1.2" fill="#BAE6FD" />
+  <circle cx="24" cy="25" r="1.2" fill="#BAE6FD" />
+  <circle cx="30" cy="25" r="1.2" fill="#BAE6FD" />
+  <circle cx="18" cy="29" r="1.2" fill="#BAE6FD" />
+  <circle cx="24" cy="29" r="1.2" fill="#BAE6FD" />
+  <circle cx="30" cy="29" r="1.2" fill="#BAE6FD" />
+  <!-- Credit Card Slot -->
+  <rect x="8" y="16" width="14" height="8" rx="1.5" fill="#F59E0B" stroke="#FEF08A" stroke-width="0.8" />
+</svg></div>
+            <div><span class="section-pill-tag">ماژول شماره ۳</span></div>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">میزکار منشی و سیستم پذیرش پوز متصل</h2>
             <p style="color:var(--text-secondary); line-height:1.9; margin-bottom:18px;">
               پایان ازدحام سالن انتظار مطب! منشی با کشیدن کارتخوان مبلغ ویزیت را از نرم‌افزار بدون امکان اشتباه به پوز ارسال کرده و نوبت بیمار را در مانیتور فعال می‌کند.
@@ -469,7 +516,18 @@
       <div class="panel-card" style="margin-bottom:32px;">
         <div class="product-module-grid">
           <div class="product-module-content" style="order:2;">
-            <span class="section-pill-tag">ماژول شماره ۴</span>
+            <div class="product-module-icon-wrap" style="background:rgba(217,119,6,0.08);"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="prd-pt-s" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <linearGradient id="prd-pt-b" x1="12" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#B45309" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#3D1D04" opacity="0.32" filter="url(#prd-pt-s)" />
+  <rect x="14" y="8" width="20" height="29" rx="3.5" fill="#1E293B" stroke="url(#prd-pt-b)" stroke-width="1.5" />
+  <rect x="16" y="11" width="16" height="21" rx="2" fill="#0F172A" />
+  <circle cx="24" cy="18" r="3.5" fill="#F59E0B" />
+  <path d="M19 28C19 25 21 23 24 23C27 23 29 25 29 28" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" />
+</svg></div>
+            <div><span class="section-pill-tag">ماژول شماره ۴</span></div>
             <h2 style="font-size:24px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">پورتال اختصاصی و اپلیکیشن پرونده بیمار</h2>
             <p style="color:var(--text-secondary); line-height:1.9; margin-bottom:18px;">
               بیمار سوابق نسخه‌ها، دستورات دارویی و تاریخچه مراجعات خود را همیشه در گوشی همراه دارد. دیگر نیازی به تماس تلفنی برای پرسیدن ساعت مصرف دارو نیست.
@@ -573,6 +631,6 @@
   <script src="three.min.js"></script>
   <script src="gsap.min.js"></script>
   <script src="lenis.min.js"></script>
-  <script src="/shared.js?v=20261028v17"></script>
+  <script src="/shared.js?v=20261028v18"></script>
 </body>
 </html>

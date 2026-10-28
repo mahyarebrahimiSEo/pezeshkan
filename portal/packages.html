@@ -47,7 +47,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261028v17">
+  <link rel="stylesheet" href="/shared.css?v=20261028v18">
 </head>
 <body>
 
@@ -384,15 +384,28 @@
 
       <!-- 3-Month Free Gift Banner -->
       <div class="pricing-gift-banner">
-        <div class="pricing-gift-icon">
-          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <polyline points="20 12 20 22 4 22 4 12"/>
-            <rect x="2" y="7" width="20" height="5"/>
-            <line x1="12" y1="22" x2="12" y2="7"/>
-            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
-            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
-          </svg>
-        </div>
+        <div class="pricing-gift-icon"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="pkg-gft-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="pkg-gft-glow" x="6" y="8" width="36" height="32" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#10B981" flood-opacity="0.45" /></filter>
+    <linearGradient id="pkg-gft-box" x1="10" y1="16" x2="38" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399" /><stop offset="60%" stop-color="#059669" /><stop offset="100%" stop-color="#064E3B" /></linearGradient>
+    <linearGradient id="pkg-gft-lid" x1="8" y1="13" x2="40" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6EE7B7" /><stop offset="100%" stop-color="#059669" /></linearGradient>
+    <linearGradient id="pkg-gft-gold" x1="20" y1="8" x2="28" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#B45309" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="15" ry="3.5" fill="#022818" opacity="0.32" filter="url(#pkg-gft-shadow)" />
+  <g filter="url(#pkg-gft-glow)">
+    <!-- Box Base -->
+    <rect x="11" y="19" width="26" height="17" rx="2.5" fill="url(#pkg-gft-box)" stroke="#A7F3D0" stroke-width="0.8" />
+    <!-- Box Lid -->
+    <rect x="9" y="15" width="30" height="6" rx="2" fill="url(#pkg-gft-lid)" stroke="#D1FAE5" stroke-width="0.8" />
+    <!-- Golden Ribbon Horizontal & Vertical -->
+    <rect x="22" y="15" width="4" height="21" fill="url(#pkg-gft-gold)" />
+    <!-- 3D Ribbon Bow -->
+    <path d="M24 15C20 10 14 11 17 14C19 16 23 15 24 15Z" fill="url(#pkg-gft-gold)" stroke="#FEF08A" stroke-width="0.6" />
+    <path d="M24 15C28 10 34 11 31 14C29 16 25 15 24 15Z" fill="url(#pkg-gft-gold)" stroke="#FEF08A" stroke-width="0.6" />
+    <circle cx="24" cy="15" r="2" fill="#FEF08A" />
+  </g>
+</svg></div>
         <div class="pricing-gift-text">
           <strong>هدیه ویژه توسعه سلامت دیجیتال به پزشکان محترم سراسر کشور:</strong>
           <p>تمامی پلن‌های اتوماسیون مطب و EMR پزشکآن در ۳ ماه نخست بدون دریافت هیچ‌گونه پیش‌پرداخت، ۱۰۰٪ رایگان همراه با اعزام کارشناس و استقرار حضوری در مطب در اختیار شما قرار می‌گیرد. شروع تعرفه پس از اتمام دوره ۳ ماهه آزمایشی، از ۵ میلیون تومان ماهانه خواهد بود.</p>
@@ -424,7 +437,17 @@
             <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             <span>دوره آزمایشی رایگان</span>
           </div>
-          <div class="price-title">طرح پایه مطب (Starter)</div>
+          <div class="plan-3d-badge"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="pkg-b-glow" x="8" y="6" width="32" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0284C7" flood-opacity="0.4" /></filter>
+    <linearGradient id="pkg-b-grad" x1="12" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8" /><stop offset="60%" stop-color="#0284C7" /><stop offset="100%" stop-color="#0369A1" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#001830" opacity="0.3" />
+  <g filter="url(#pkg-b-glow)">
+    <polygon points="24 7 36 12 36 24 24 35 12 24 12 12" fill="url(#pkg-b-grad)" stroke="#BAE6FD" stroke-width="1.2" />
+    <path d="M20 20L23 23L29 17" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg></div><div class="price-title">طرح پایه مطب (Starter)</div>
           <div class="price-desc">ویژه مطب‌های تک‌پزشک با مراجعه متوسط روزانه و نیاز به ثبت نسخه سریع</div>
           
           <div class="price-amount-box">
@@ -468,7 +491,19 @@
             <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             <span>پکیج طلایی استقرار حضوری</span>
           </div>
-          <div class="price-title">طرح حرفه‌ای (Pro)</div>
+          <div class="plan-3d-badge"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="pkg-p-glow" x="6" y="6" width="36" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#F59E0B" flood-opacity="0.45" /></filter>
+    <linearGradient id="pkg-p-gold" x1="10" y1="8" x2="38" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#B45309" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#3D1D04" opacity="0.3" />
+  <g filter="url(#pkg-p-glow)">
+    <!-- 3D Crown Shape -->
+    <path d="M10 28L13 14L19 20L24 10L29 20L35 14L38 28C38 31 35 33 24 33C13 33 10 31 10 28Z" fill="url(#pkg-p-gold)" stroke="#FEF08A" stroke-width="1" />
+    <!-- Center Emerald Jewel -->
+    <circle cx="24" cy="24" r="3" fill="#10B981" stroke="#A7F3D0" stroke-width="0.8" />
+  </g>
+</svg></div><div class="price-title">طرح حرفه‌ای (Pro)</div>
           <div class="price-desc">ویژه مطب‌های پرمراجعه، کلینیک‌ها و مراکز با ۲ یونیت یا پزشک فعال</div>
           
           <div class="price-amount-box">
@@ -511,7 +546,19 @@
             <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             <span>پایلوت آزمایشی ۳ ماهه</span>
           </div>
-          <div class="price-title">سازمانی (Enterprise)</div>
+          <div class="plan-3d-badge"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="pkg-e-glow" x="6" y="6" width="36" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#8B5CF6" flood-opacity="0.45" /></filter>
+    <linearGradient id="pkg-e-purp" x1="10" y1="8" x2="38" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#A78BFA" /><stop offset="60%" stop-color="#7C3AED" /><stop offset="100%" stop-color="#4C1D95" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#1E0A3C" opacity="0.3" />
+  <g filter="url(#pkg-e-glow)">
+    <!-- 3D Diamond / Hospital Tower Shield -->
+    <polygon points="24 6 37 15 37 28 24 37 11 28 11 15" fill="url(#pkg-e-purp)" stroke="#DDD6FE" stroke-width="1.2" />
+    <!-- Medical Plus Symbol inside Diamond -->
+    <path d="M24 16V26M19 21H29" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+</svg></div><div class="price-title">سازمانی (Enterprise)</div>
           <div class="price-desc">ویژه کلینیک‌های چندتخصصی، مراکز درمانی و بیمارستان‌ها</div>
           
           <div class="price-amount-box">
@@ -676,6 +723,6 @@
   <script src="three.min.js"></script>
   <script src="gsap.min.js"></script>
   <script src="lenis.min.js"></script>
-  <script src="/shared.js?v=20261028v17"></script>
+  <script src="/shared.js?v=20261028v18"></script>
 </body>
 </html>

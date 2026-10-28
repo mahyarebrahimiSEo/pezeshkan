@@ -47,7 +47,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261028v17">
+  <link rel="stylesheet" href="/shared.css?v=20261028v18">
 </head>
 <body>
 
@@ -539,9 +539,19 @@
 
         <!-- Success Result Step -->
         <div id="wizardStepSuccess" class="wizard-step" style="display:none; text-align:center; padding:28px 12px;">
-          <div style="width:68px; height:68px; border-radius:50%; background:rgba(5,150,105,0.12); color:#059669; display:inline-flex; align-items:center; justify-content:center; margin-bottom:18px; border:1px solid rgba(5,150,105,0.25);">
-            <svg class="svg-icon" style="width:34px; height:34px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
+          <div class="start-success-icon"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="start-s-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="start-s-glow" x="6" y="6" width="36" height="36" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#059669" flood-opacity="0.45" /></filter>
+    <linearGradient id="start-s-grad" x1="8" y1="8" x2="38" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399" /><stop offset="50%" stop-color="#059669" /><stop offset="100%" stop-color="#064E3B" /></linearGradient>
+    <linearGradient id="start-s-gold" x1="12" y1="12" x2="34" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="100%" stop-color="#D97706" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#022818" opacity="0.32" filter="url(#start-s-shadow)" />
+  <g filter="url(#start-s-glow)">
+    <circle cx="24" cy="22" r="15" fill="url(#start-s-grad)" stroke="#A7F3D0" stroke-width="1.5" />
+    <path d="M16 22L21 27L32 16" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg></div>
           <h3 style="font-size:22px; font-weight:900; color:var(--text-pure); margin-bottom:10px;">درخواست شما با موفقیت ثبت گردید</h3>
           <p style="color:var(--text-secondary); line-height:1.85; max-width:540px; margin:0 auto 24px; font-size:14.5px;">
             اطلاعات شما با موفقیت در پایگاه داده ثبت شد. همکاران بخش پشتیبانی بالینی پزشکآن ظرف حداکثر ۲ ساعت کاری جهت هماهنگی جلسه دمو حضوری و استقرار با شما تماس خواهند گرفت. همچنین می‌توانید هم‌اکنون دموی تعاملی پزشک را بررسی نمایید.
@@ -710,6 +720,6 @@
   <script src="three.min.js"></script>
   <script src="gsap.min.js"></script>
   <script src="lenis.min.js"></script>
-  <script src="/shared.js?v=20261028v17"></script>
+  <script src="/shared.js?v=20261028v18"></script>
 </body>
 </html>

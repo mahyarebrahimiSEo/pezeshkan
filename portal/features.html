@@ -47,7 +47,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
   <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261028v17">
+  <link rel="stylesheet" href="/shared.css?v=20261028v18">
 </head>
 <body>
 
@@ -387,7 +387,34 @@
         <!-- Role A: Doctor -->
         <div class="panel-card">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-            <div class="card-icon-wrap" style="margin:0;"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="card-icon-wrap" style="margin:0;"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="feat-doc-shadow" x="2" y="36" width="44" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="feat-doc-glow" x="10" y="8" width="30" height="30" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284C7" flood-opacity="0.4" /></filter>
+    <linearGradient id="feat-doc-tablet" x1="12" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1E293B" /><stop offset="100%" stop-color="#0F172A" /></linearGradient>
+    <linearGradient id="feat-doc-screen" x1="14" y1="10" x2="34" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0C4A6E" /><stop offset="60%" stop-color="#0369A1" /><stop offset="100%" stop-color="#0284C7" /></linearGradient>
+    <linearGradient id="feat-doc-steth" x1="10" y1="14" x2="38" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#67E8F9" /><stop offset="50%" stop-color="#06B6D4" /><stop offset="100%" stop-color="#0891B2" /></linearGradient>
+    <linearGradient id="feat-doc-gold" x1="26" y1="28" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="100%" stop-color="#D97706" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="40" rx="15" ry="3.5" fill="#001830" opacity="0.32" filter="url(#feat-doc-shadow)" />
+  <!-- 3D Medical Tablet Base -->
+  <rect x="10" y="8" width="28" height="26" rx="4" fill="url(#feat-doc-tablet)" stroke="#38BDF8" stroke-width="1.2" />
+  <rect x="12" y="10" width="24" height="22" rx="2.5" fill="url(#feat-doc-screen)" />
+  <!-- Screen Chart Elements -->
+  <rect x="15" y="13" width="8" height="3" rx="1" fill="#7DD3FC" opacity="0.8" />
+  <rect x="15" y="18" width="12" height="2" rx="0.8" fill="#BAE6FD" opacity="0.6" />
+  <!-- Glowing ECG Pulse line on tablet -->
+  <path d="M15 25L18 25L20 22L22 28L24 23L26 26L31 26" stroke="#22D3EE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Floating 3D Stethoscope Wrap -->
+  <g filter="url(#feat-doc-glow)">
+    <path d="M14 10C14 6 22 6 22 10V18C22 22 16 26 16 28" stroke="url(#feat-doc-steth)" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="14" cy="10" r="2" fill="#E0F2FE" />
+    <circle cx="22" cy="10" r="2" fill="#E0F2FE" />
+    <!-- Stethoscope Chest Piece / Bell -->
+    <circle cx="18" cy="32" r="5" fill="url(#feat-doc-gold)" stroke="#FEF08A" stroke-width="1.2" />
+    <circle cx="18" cy="32" r="2.5" fill="#78350F" />
+  </g>
+</svg></div>
             <div>
               <h3 style="font-size:18px; font-weight:800; color:var(--text-pure);">تجربه پزشک (Doctor Experience)</h3>
               <span style="font-size:12px; color:var(--brand-primary); font-weight:700;">تسریع ویزیت و تمرکز بر درمان</span>
@@ -405,7 +432,36 @@
         <!-- Role B: Clinic Management -->
         <div class="panel-card">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-            <div class="card-icon-wrap" style="margin:0; background:rgba(5,150,105,0.1); color:#059669;"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <div class="card-icon-wrap" style="margin:0; background:rgba(5,150,105,0.1); color:#059669;"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="feat-ops-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <linearGradient id="feat-ops-desk" x1="8" y1="20" x2="40" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#059669" /><stop offset="60%" stop-color="#047857" /><stop offset="100%" stop-color="#064E3B" /></linearGradient>
+    <linearGradient id="feat-ops-top" x1="10" y1="18" x2="38" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399" /><stop offset="100%" stop-color="#059669" /></linearGradient>
+    <linearGradient id="feat-ops-pos" x1="20" y1="8" x2="36" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8" /><stop offset="50%" stop-color="#0284C7" /><stop offset="100%" stop-color="#0369A1" /></linearGradient>
+    <linearGradient id="feat-ops-gold" x1="12" y1="10" x2="20" y2="18" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="100%" stop-color="#D97706" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="15" ry="3.5" fill="#022818" opacity="0.32" filter="url(#feat-ops-shadow)" />
+  <!-- 3D Clinic Desk Base -->
+  <path d="M8 24L14 20H34L40 24V34C40 36 38 37 36 37H12C10 37 8 36 8 34V24Z" fill="url(#feat-ops-desk)" />
+  <!-- Desk Countertop Highlight -->
+  <polygon points="8 24 14 20 34 20 40 24 34 25 14 25" fill="url(#feat-ops-top)" opacity="0.9" />
+  <!-- 3D Smart POS Terminal on Desk -->
+  <rect x="22" y="9" width="13" height="16" rx="2.5" fill="url(#feat-ops-pos)" stroke="#BAE6FD" stroke-width="1" />
+  <!-- Terminal Screen -->
+  <rect x="24" y="11" width="9" height="7" rx="1" fill="#072338" />
+  <path d="M26 14L28 16L32 13" stroke="#22D3EE" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Keypad Buttons -->
+  <circle cx="25.5" cy="21" r="0.8" fill="#BAE6FD" />
+  <circle cx="28.5" cy="21" r="0.8" fill="#BAE6FD" />
+  <circle cx="31.5" cy="21" r="0.8" fill="#BAE6FD" />
+  <!-- Floating Golden Medical Calendar Card -->
+  <rect x="10" y="9" width="10" height="12" rx="2" fill="url(#feat-ops-gold)" stroke="#FEF08A" stroke-width="1" />
+  <rect x="10" y="9" width="10" height="3.5" fill="#B45309" />
+  <circle cx="13" cy="15" r="0.8" fill="#78350F" />
+  <circle cx="17" cy="15" r="0.8" fill="#78350F" />
+  <circle cx="13" cy="18" r="0.8" fill="#78350F" />
+  <circle cx="17" cy="18" r="0.8" fill="#78350F" />
+</svg></div>
             <div>
               <h3 style="font-size:18px; font-weight:800; color:var(--text-pure);">مدیریت کلینیک و منشی (Clinic Operations)</h3>
               <span style="font-size:12px; color:#059669; font-weight:700;">صفر شدن صف و انضباط کامل مالی</span>
@@ -423,7 +479,32 @@
         <!-- Role C: Patient Journey -->
         <div class="panel-card">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-            <div class="card-icon-wrap" style="margin:0; background:rgba(217,119,6,0.1); color:#D97706;"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+            <div class="card-icon-wrap" style="margin:0; background:rgba(217,119,6,0.1); color:#D97706;"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="feat-pt-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="feat-pt-glow" x="8" y="8" width="32" height="32" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#EF4444" flood-opacity="0.4" /></filter>
+    <linearGradient id="feat-pt-back" x1="12" y1="10" x2="36" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#DC2626" /><stop offset="100%" stop-color="#7F1D1D" /></linearGradient>
+    <linearGradient id="feat-pt-heart" x1="12" y1="8" x2="36" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F87171" /><stop offset="40%" stop-color="#EF4444" /><stop offset="100%" stop-color="#B91C1C" /></linearGradient>
+    <linearGradient id="feat-pt-gloss" x1="14" y1="9" x2="26" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="100%" stop-color="#FCA5A5" stop-opacity="0" /></linearGradient>
+    <linearGradient id="feat-pt-ring" x1="6" y1="20" x2="38" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8" /><stop offset="100%" stop-color="#0284C7" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="40" rx="14" ry="3.5" fill="#3B0707" opacity="0.35" filter="url(#feat-pt-shadow)" />
+  <!-- Surrounding Care Orbit Rings -->
+  <ellipse cx="24" cy="24" rx="16" ry="7" transform="rotate(-20 24 24)" stroke="url(#feat-pt-ring)" stroke-width="2" stroke-dasharray="16 8" opacity="0.8" />
+  <circle cx="9" cy="27" r="2" fill="#38BDF8" />
+  <circle cx="39" cy="21" r="2" fill="#22D3EE" />
+  <!-- 3D Beveled Heart -->
+  <g filter="url(#feat-pt-glow)">
+    <!-- Back Extruded Body -->
+    <path d="M24 35L11 21C8 18 8 13 11.5 10C15 7 19.5 8.5 24 13C28.5 8.5 33 7 36.5 10C40 13 40 18 37 21L24 35Z" fill="url(#feat-pt-back)" />
+    <!-- Front Polished Heart Face -->
+    <path d="M24 33L12 20C9.5 17 9.5 12.5 12.5 9.8C15.5 7.2 19.5 8.5 24 12.5C28.5 8.5 32.5 7.2 35.5 9.8C38.5 12.5 38.5 17 36 20L24 33Z" fill="url(#feat-pt-heart)" stroke="#FECACA" stroke-width="0.8" />
+    <!-- Top-Left Gloss Highlight Sheen -->
+    <path d="M13 11C15 9 18 10 21 13C20 14 17 14 14 13L13 11Z" fill="url(#feat-pt-gloss)" opacity="0.8" />
+    <!-- Animated Medical Pulse inside Heart -->
+    <path d="M17 21L20 21L22 17L25 25L27 19L29 22L31 22" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg></div>
             <div>
               <h3 style="font-size:18px; font-weight:800; color:var(--text-pure);">سفر بیمار (Patient Journey)</h3>
               <span style="font-size:12px; color:#D97706; font-weight:700;">آرامش خاطر و دسترسی آسان به درمان</span>
@@ -441,7 +522,32 @@
         <!-- Role D: Automation -->
         <div class="panel-card">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-            <div class="card-icon-wrap" style="margin:0; background:rgba(124,58,237,0.1); color:#7C3AED;"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="card-icon-wrap" style="margin:0; background:rgba(124,58,237,0.1); color:#7C3AED;"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="feat-ai-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="feat-ai-glow" x="6" y="6" width="36" height="36" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#8B5CF6" flood-opacity="0.5" /></filter>
+    <linearGradient id="feat-ai-base" x1="12" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4C1D95" /><stop offset="100%" stop-color="#2E1065" /></linearGradient>
+    <linearGradient id="feat-ai-core" x1="12" y1="8" x2="36" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#A78BFA" /><stop offset="50%" stop-color="#8B5CF6" /><stop offset="100%" stop-color="#6D28D9" /></linearGradient>
+    <linearGradient id="feat-ai-chip" x1="18" y1="18" x2="30" y2="30" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#67E8F9" /><stop offset="100%" stop-color="#0284C7" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#1E0A3C" opacity="0.35" filter="url(#feat-ai-shadow)" />
+  <!-- Neural Synapse Connections -->
+  <path d="M12 16L18 20M36 16L30 20M12 32L18 28M36 32L30 28M24 10V16M24 38V32" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="3 2" />
+  <circle cx="12" cy="16" r="2" fill="#38BDF8" />
+  <circle cx="36" cy="16" r="2" fill="#38BDF8" />
+  <circle cx="12" cy="32" r="2" fill="#38BDF8" />
+  <circle cx="36" cy="32" r="2" fill="#38BDF8" />
+  <!-- 3D Neural AI Brain / Processor -->
+  <g filter="url(#feat-ai-glow)">
+    <!-- Back Extrusion -->
+    <rect x="15" y="14" width="18" height="18" rx="4" transform="rotate(45 24 23)" fill="url(#feat-ai-base)" />
+    <!-- Front Diamond Core -->
+    <rect x="16" y="15" width="16" height="16" rx="3.5" transform="rotate(45 24 23)" fill="url(#feat-ai-core)" stroke="#C4B5FD" stroke-width="1" />
+    <!-- Center Glowing Medical Intelligence Crystal -->
+    <circle cx="24" cy="23" r="5" fill="url(#feat-ai-chip)" stroke="#E0F2FE" stroke-width="1.2" />
+    <path d="M24 20V26M21 23H27" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" />
+  </g>
+</svg></div>
             <div>
               <h3 style="font-size:18px; font-weight:800; color:var(--text-pure);">اتوماسیون هوشمند (Smart Automation)</h3>
               <span style="font-size:12px; color:#7C3AED; font-weight:700;">حذف کارهای تکراری و اداری</span>
@@ -532,6 +638,6 @@
   <script src="three.min.js"></script>
   <script src="gsap.min.js"></script>
   <script src="lenis.min.js"></script>
-  <script src="/shared.js?v=20261028v17"></script>
+  <script src="/shared.js?v=20261028v18"></script>
 </body>
 </html>

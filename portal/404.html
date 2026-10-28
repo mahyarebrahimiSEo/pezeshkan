@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/shared.css?v=20261028v17">
+  <link rel="stylesheet" href="/shared.css?v=20261028v18">
   
   <style>
     .error-container {
@@ -503,6 +503,22 @@
       خطای مسیر نشانی اینترنتی
     </div>
     
+    <div class="error-3d-badge"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="err-r-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
+    <filter id="err-r-glow" x="6" y="6" width="36" height="36" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#EF4444" flood-opacity="0.45" /></filter>
+    <linearGradient id="err-r-grad" x1="8" y1="8" x2="38" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F87171" /><stop offset="50%" stop-color="#EF4444" /><stop offset="100%" stop-color="#991B1B" /></linearGradient>
+  </defs>
+  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#3B0707" opacity="0.32" filter="url(#err-r-shadow)" />
+  <g filter="url(#err-r-glow)">
+    <circle cx="24" cy="22" r="14" fill="#0F172A" stroke="url(#err-r-grad)" stroke-width="1.8" />
+    <circle cx="24" cy="22" r="9" stroke="#EF4444" stroke-width="1" stroke-dasharray="4 3" opacity="0.7" />
+    <circle cx="24" cy="22" r="4" stroke="#EF4444" stroke-width="1" opacity="0.8" />
+    <!-- Sweeper Needle & Blip -->
+    <line x1="24" y1="22" x2="33" y2="13" stroke="#F87171" stroke-width="1.8" stroke-linecap="round" />
+    <circle cx="31" cy="15" r="1.8" fill="#FDE047" />
+  </g>
+</svg></div>
     <div class="error-code">404</div>
     <h1 class="error-title">صفحه مورد نظر شما پیدا نشد!</h1>
     <p class="error-desc">
@@ -541,7 +557,7 @@
     </div>
   </footer>
 
-  <script src="/shared.js?v=20261028v17"></script>
+  <script src="/shared.js?v=20261028v18"></script>
 </body>
 </html>
 
