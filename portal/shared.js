@@ -1711,7 +1711,6 @@ function showClinicalToast(title, desc, type) {
 }
 
 function openLoginNotice(type = 'select') {
-  const activeRole = (type === 'doctor' || type === 'patient') ? type : 'select';
   let backdrop = document.getElementById('clinicalAuthModalBackdrop');
   if (!backdrop) {
     backdrop = document.createElement('div');
@@ -1726,7 +1725,7 @@ function openLoginNotice(type = 'select') {
     document.body.appendChild(backdrop);
   }
 
-  renderClinicalAuthModalContent(activeRole);
+  renderClinicalAuthModalContent();
   requestAnimationFrame(() => {
     backdrop.classList.add('active');
   });
@@ -1739,13 +1738,9 @@ function closeClinicalAuthModal() {
   }
 }
 
-function renderClinicalAuthModalContent(role = 'select') {
+function renderClinicalAuthModalContent() {
   const backdrop = document.getElementById('clinicalAuthModalBackdrop');
   if (!backdrop) return;
-
-  const isDoctor = role === 'doctor';
-  const isPatient = role === 'patient';
-  const isSelect = !isDoctor && !isPatient;
 
   const selectBody = `
     <div style="margin-bottom:14px; text-align:center;">
@@ -1774,16 +1769,10 @@ function renderClinicalAuthModalContent(role = 'select') {
           رزرو نوبت پزشکان متخصص، دریافت نسخه الکترونیک، مشاهده جواب آزمایش‌ها و یادآور دارو.
         </p>
         <div style="display:flex; flex-direction:column; gap:8px; margin-top:auto;">
-          <a href="/appointments" class="btn btn-primary auth-card-btn" style="background:var(--brand-primary) !important;">
+          <a href="/appointments" class="btn btn-primary auth-card-btn" style="background:var(--brand-primary) !important; padding:11px 14px; font-size:13px; gap:8px;">
             <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
             <span>ورود و نوبت‌دهی آنلاین</span>
           </a>
-          <a href="/download?role=patients" class="btn btn-secondary auth-card-btn">
-            <span>دریافت اپلیکیشن بیمار</span>
-          </a>
-          <button type="button" class="auth-card-link" onclick="renderClinicalAuthModalContent('patient')">
-            امکانات و راهنمای پنل بیمار ←
-          </button>
         </div>
       </div>
 
@@ -1802,154 +1791,24 @@ function renderClinicalAuthModalContent(role = 'select') {
           پرونده الکترونیک پزشکی، نوبت‌دهی منشی، باشگاه مراجعین، CRM و سامانه مالی ابری.
         </p>
         <div style="display:flex; flex-direction:column; gap:8px; margin-top:auto;">
-          <a href="https://app.pezeshk-on.ir/" target="_blank" rel="noopener noreferrer" class="btn btn-primary auth-card-btn" style="background:var(--brand-gradient-primary) !important;">
+          <a href="https://app.pezeshk-on.ir/" target="_blank" rel="noopener noreferrer" class="btn btn-primary auth-card-btn" style="background:var(--brand-gradient-primary) !important; padding:11px 14px; font-size:13px; gap:8px;">
             <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
             <span>ورود به پنل مطب (app.pezeshk-on.ir) ↗</span>
           </a>
-          <a href="/start" class="btn btn-secondary auth-card-btn" style="color:var(--brand-primary); font-weight:800;">
-            <span>ثبت‌نام پزشک (۳ ماه رایگان)</span>
-          </a>
-          <button type="button" class="auth-card-link" onclick="renderClinicalAuthModalContent('doctor')">
-            امکانات و راهنمای پنل پزشک ←
-          </button>
         </div>
       </div>
     </div>
   `;
 
-  const patientBody = `
-    <div style="margin-bottom:10px;">
-      <span style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; color:var(--brand-primary); background:rgba(0,115,255,0.1); padding:4px 10px; border-radius:9999px;">
-        ویژه بیماران، مراجعین و شهروندان
-      </span>
-      <h4 style="font-size:16.5px; font-weight:900; color:var(--text-pure); margin:10px 0 6px;">درگاه سلامت و پرونده پزشکی بیمار</h4>
-      <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.7; margin:0;">
-        دسترسی یکپارچه به خدمات درمانی، نوبت‌دهی و پرونده پزشکی بدون نیاز به نسخه‌های کاغذی:
-      </p>
-    </div>
-    <ul class="auth-modal-feature-list">
-      <li class="auth-modal-feature-item">
-        <div class="auth-modal-feature-icon">
-          <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <div class="auth-modal-feature-text">
-          <strong>نوبت‌دهی آنلاین و سریع</strong>
-          <span>رزرو مستقیم نوبت ویزیت حضوری و مشاوره آنلاین از پزشکان متخصص.</span>
-        </div>
-      </li>
-      <li class="auth-modal-feature-item">
-        <div class="auth-modal-feature-icon">
-          <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        </div>
-        <div class="auth-modal-feature-text">
-          <strong>مشاهده نسخه‌ها و نتایج آزمایش</strong>
-          <span>دسترسی دائمی به سوابق پزشکی، داروهای تجویزشده و جواب آزمایش‌ها.</span>
-        </div>
-      </li>
-      <li class="auth-modal-feature-item">
-        <div class="auth-modal-feature-icon">
-          <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        </div>
-        <div class="auth-modal-feature-text">
-          <strong>یادآور هوشمند مصرف دارو و چکاپ</strong>
-          <span>دریافت هشدار زمان مصرف داروها و پیگیری مستمر روند بهبودی.</span>
-        </div>
-      </li>
-    </ul>
-    <div class="auth-modal-actions">
-      <a href="/appointments" class="btn btn-primary" style="width:100%; justify-content:center; font-size:13.5px; gap:8px;">
-        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
-        <span>نوبت‌دهی آنلاین و دریافت نوبت سریع مطب</span>
-      </a>
-      <a href="/download?role=patients" class="btn btn-secondary" style="width:100%; justify-content:center; font-size:12.5px;">دریافت و نصب اپلیکیشن بیمار</a>
-      <button type="button" onclick="renderClinicalAuthModalContent('select')" class="auth-card-link" style="margin-top:4px; color:var(--text-secondary);">
-        ← بازگشت به صفحه انتخاب نقش
-      </button>
-    </div>
-  `;
-
-  const doctorBody = `
-    <div style="margin-bottom:10px;">
-      <span style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; color:var(--brand-emerald-vital); background:rgba(5,150,105,0.1); padding:4px 10px; border-radius:9999px;">
-        ویژه پزشکان، کلینیک‌ها و کادر درمان
-      </span>
-      <h4 style="font-size:16.5px; font-weight:900; color:var(--text-pure); margin:10px 0 6px;">سامانه مدیریت مطب و پرونده الکترونیک (EMR)</h4>
-      <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.7; margin:0;">
-        مدیریت هوشمند مطب، پرونده‌های بالینی بیماران و ارتباط حرفه‌ای با مراجعان:
-      </p>
-    </div>
-    <ul class="auth-modal-feature-list">
-      <li class="auth-modal-feature-item">
-        <div class="auth-modal-feature-icon">
-          <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <div class="auth-modal-feature-text">
-          <strong>پرونده الکترونیک بیماران (EMR)</strong>
-          <span>ثبت سریع شرح‌حال، نسخه‌نویسی دیجیتال و آرشیو ابری مدارک بالینی هر بیمار.</span>
-        </div>
-      </li>
-      <li class="auth-modal-feature-item">
-        <div class="auth-modal-feature-icon">
-          <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="auth-modal-feature-text">
-          <strong>باشگاه بیماران و CRM پزشکی</strong>
-          <span>ارسال پیامک خودکار یادآور نوبت، پیگیری پس از درمان و افزایش رضایت مراجعین.</span>
-        </div>
-      </li>
-      <li class="auth-modal-feature-item">
-        <div class="auth-modal-feature-icon">
-          <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div class="auth-modal-feature-text">
-          <strong>مدیریت مالی و پذیرش هوشمند مطب</strong>
-          <span>نوبت‌دهی یکپارچه منشی، گزارش‌های دقیق درآمدی و کاهش بار تلفنی مطب.</span>
-        </div>
-      </li>
-    </ul>
-    <div class="auth-modal-actions">
-      <a href="https://app.pezeshk-on.ir/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%; justify-content:center; font-size:13.5px; gap:8px;">
-        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        <span>ورود به پنل مطب (app.pezeshk-on.ir) ↗</span>
-      </a>
-      <a href="https://app.pezeshk-on.ir/demo/doctor" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width:100%; justify-content:center; font-size:12.5px; gap:8px;">
-        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        <span>مشاهده دموی زنده و بدون لاگین پزشک</span>
-      </a>
-      <a href="/start" style="text-align:center; font-size:11.8px; color:var(--brand-primary); text-decoration:none; margin-top:4px; font-weight:700;">هنوز عضو پزشکآن نشده‌اید؟ ثبت‌نام و دریافت ۳ ماه رایگان ←</a>
-      <button type="button" onclick="renderClinicalAuthModalContent('select')" class="auth-card-link" style="margin-top:4px; color:var(--text-secondary);">
-        ← بازگشت به صفحه انتخاب نقش
-      </button>
-    </div>
-  `;
-
-  let currentBody = selectBody;
-  if (isDoctor) currentBody = doctorBody;
-  else if (isPatient) currentBody = patientBody;
-
   backdrop.innerHTML = `
-    <div class="clinical-auth-modal" role="dialog" aria-modal="true" aria-label="راهنمای ورود به سامانه‌های پزشکآن">
+    <div class="clinical-auth-modal" role="dialog" aria-modal="true" aria-label="ورود و ثبت‌نام در سامانه سلامت پزشکآن">
       <div class="auth-modal-header">
         <span style="font-size:14px; font-weight:900; color:var(--text-pure);">ورود و ثبت‌نام در سامانه سلامت پزشکآن</span>
         <button type="button" onclick="closeClinicalAuthModal()" style="background:var(--bg-surface-secondary); border:1px solid var(--glass-border); color:var(--text-secondary); width:32px; height:32px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;" title="بستن" aria-label="بستن">
           <svg class="svg-icon" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
-      <div class="auth-modal-tabs">
-        <button type="button" class="auth-modal-tab ${isSelect ? 'active-tab' : ''}" onclick="renderClinicalAuthModalContent('select')">
-          <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-          <span>انتخاب نقش</span>
-        </button>
-        <button type="button" class="auth-modal-tab ${isPatient ? 'active-patient' : ''}" onclick="renderClinicalAuthModalContent('patient')">
-          <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>پنل بیمار</span>
-        </button>
-        <button type="button" class="auth-modal-tab ${isDoctor ? 'active-doctor' : ''}" onclick="renderClinicalAuthModalContent('doctor')">
-          <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>
-          <span>پنل پزشک</span>
-        </button>
-      </div>
-      ${currentBody}
+      ${selectBody}
     </div>
   `;
 }
