@@ -8422,14 +8422,14 @@ body.intro-device-locked {
 }
 
 /* ==========================================================================
-   Clinical 3D Tactile & Embossed Content Icon System (Anti-Vibe-Coding Depth)
-   Excludes Header: Pure physical bevels, specular top rims, multi-stop depth
+   Clinical 3D Tactile & Embossed Content Icon System (Clean, Crisp & Vibrant)
+   Excludes Header: Pure crystal-clear specular highlights, zero gray film
    ========================================================================== */
 
 /* 1. Core Card Icon Containers (.card-icon-wrap in Grid Cards & Feature Cards) */
 .card-icon-wrap {
-  width: 52px !important;
-  height: 52px !important;
+  width: 50px !important;
+  height: 50px !important;
   border-radius: 14px !important;
   display: flex !important;
   align-items: center !important;
@@ -8437,14 +8437,11 @@ body.intro-device-locked {
   margin-bottom: 20px !important;
   position: relative !important;
   isolation: isolate !important;
-  border: 1px solid rgba(255, 255, 255, 0.75) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.14) !important;
-  border-right-color: rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-bottom-color: rgba(0, 115, 255, 0.12) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -2px 3.5px 0 rgba(0, 0, 0, 0.12),
-    0 8px 18px -4px rgba(0, 30, 80, 0.12),
-    0 2px 4px 0 rgba(0, 0, 0, 0.05) !important;
+    inset 0 1.5px 1px 0 #FFFFFF,
+    0 6px 18px -4px rgba(0, 50, 120, 0.1) !important;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease !important;
 }
 
@@ -8453,7 +8450,7 @@ body.intro-device-locked {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 55%, rgba(0, 0, 0, 0.06) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%);
   pointer-events: none;
   z-index: 1;
 }
@@ -8465,50 +8462,43 @@ body.intro-device-locked {
   position: relative !important;
   z-index: 2 !important;
   filter: 
-    drop-shadow(0 2px 2.5px rgba(0, 0, 0, 0.22))
-    drop-shadow(0 4px 6px rgba(0, 0, 0, 0.06))
-    drop-shadow(0 -0.75px 0.5px rgba(255, 255, 255, 0.85)) !important;
+    drop-shadow(0 1px 1px rgba(0, 30, 80, 0.16))
+    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.95)) !important;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.28s ease !important;
 }
 
 .panel-card:hover .card-icon-wrap,
 .card-icon-wrap:hover {
-  transform: translateY(-3px) scale(1.05) !important;
+  transform: translateY(-2.5px) scale(1.04) !important;
   box-shadow: 
-    inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.16),
-    0 14px 28px -4px rgba(0, 115, 255, 0.2),
-    0 4px 8px -1px rgba(0, 0, 0, 0.08) !important;
+    inset 0 1.5px 1px 0 #FFFFFF,
+    0 10px 24px -4px rgba(0, 115, 255, 0.18) !important;
 }
 
 .panel-card:hover .card-icon-wrap svg,
 .card-icon-wrap:hover svg {
-  transform: scale(1.06) !important;
+  transform: scale(1.05) !important;
   filter: 
-    drop-shadow(0 3px 4px rgba(0, 0, 0, 0.26))
-    drop-shadow(0 -0.75px 0.5px rgba(255, 255, 255, 0.95)) !important;
+    drop-shadow(0 1.5px 1.5px rgba(0, 30, 80, 0.2))
+    drop-shadow(0 -0.5px 0.5px #FFFFFF) !important;
 }
 
 [data-theme="dark"] .card-icon-wrap {
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  border-top-color: rgba(255, 255, 255, 0.35) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.24),
-    inset 0 -2.5px 4px 0 rgba(0, 0, 0, 0.65),
-    0 10px 24px -4px rgba(0, 0, 0, 0.65),
-    0 2px 6px 0 rgba(0, 0, 0, 0.45) !important;
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    0 6px 18px -2px rgba(0, 0, 0, 0.45) !important;
 }
 
 [data-theme="dark"] .card-icon-wrap::before {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.04) 40%, transparent 70%);
 }
 
 [data-theme="dark"] .card-icon-wrap svg,
 [data-theme="dark"] .card-icon-wrap .svg-icon {
   filter: 
-    drop-shadow(0 2.5px 4px rgba(0, 0, 0, 0.85))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.35))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45))
     drop-shadow(0 0 6px currentColor) !important;
 }
 
@@ -8523,14 +8513,11 @@ body.intro-device-locked {
   flex-shrink: 0 !important;
   position: relative !important;
   isolation: isolate !important;
-  border: 1px solid rgba(255, 255, 255, 0.75) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.14) !important;
-  border-right-color: rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-bottom-color: rgba(0, 115, 255, 0.12) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.14),
-    0 5px 12px -2px rgba(0, 0, 0, 0.12),
-    0 1px 3px 0 rgba(0, 0, 0, 0.06) !important;
+    inset 0 1.2px 1px 0 #FFFFFF,
+    0 4px 10px -2px rgba(0, 30, 80, 0.08) !important;
   transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s ease !important;
 }
 
@@ -8539,7 +8526,7 @@ body.intro-device-locked {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 60%, rgba(0, 0, 0, 0.06) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 75%);
   pointer-events: none;
   z-index: 1;
 }
@@ -8550,48 +8537,43 @@ body.intro-device-locked {
   position: relative !important;
   z-index: 2 !important;
   filter: 
-    drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.25))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.8)) !important;
+    drop-shadow(0 1px 1px rgba(0, 30, 80, 0.16))
+    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.9)) !important;
   transition: transform 0.2s ease !important;
 }
 
 .pez-shell-metric-card:hover .metric-icon {
   transform: translateY(-1.5px) scale(1.05) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.18),
-    0 8px 16px -2px rgba(0, 0, 0, 0.16) !important;
+    inset 0 1.2px 1px 0 #FFFFFF,
+    0 6px 14px -2px rgba(0, 115, 255, 0.18) !important;
 }
 
 [data-theme="dark"] .pez-shell-metric-card:hover .metric-icon {
   transform: translateY(-1.5px) scale(1.05) !important;
-  border-color: rgba(255, 255, 255, 0.28) !important;
-  border-top-color: rgba(255, 255, 255, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  border-top-color: rgba(255, 255, 255, 0.55) !important;
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.32),
-    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.6),
-    0 8px 18px -2px rgba(0, 0, 0, 0.55),
-    0 0 12px rgba(56, 189, 248, 0.22) !important;
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
+    0 6px 16px -2px rgba(0, 0, 0, 0.45),
+    0 0 10px rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="dark"] .metric-icon {
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  border-top-color: rgba(255, 255, 255, 0.35) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top-color: rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1.5px 2.5px 0 rgba(0, 0, 0, 0.55),
-    0 6px 16px -2px rgba(0, 0, 0, 0.55) !important;
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+    0 4px 12px -2px rgba(0, 0, 0, 0.35) !important;
 }
 
 [data-theme="dark"] .metric-icon::before {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0, 0, 0, 0.35) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 75%);
 }
 
 [data-theme="dark"] .metric-icon svg {
   filter: 
-    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.85))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.3))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4))
     drop-shadow(0 0 5px currentColor) !important;
 }
 
@@ -8607,12 +8589,10 @@ body.intro-device-locked {
   isolation: isolate !important;
   background: linear-gradient(145deg, #FFFFFF 0%, #F0F6FF 100%) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom-color: rgba(0, 115, 255, 0.25) !important;
+  border-bottom-color: rgba(0, 115, 255, 0.18) !important;
   box-shadow: 
     inset 0 1.5px 1px 0 #FFFFFF,
-    inset 0 -2px 3px 0 rgba(0, 70, 160, 0.12),
-    0 8px 18px -3px rgba(0, 70, 160, 0.16),
-    0 2px 4px 0 rgba(0, 0, 0, 0.05) !important;
+    0 6px 16px -3px rgba(0, 70, 160, 0.12) !important;
   color: var(--brand-primary) !important;
   transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
@@ -8622,7 +8602,7 @@ body.intro-device-locked {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%, rgba(0, 115, 255, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 45%, transparent 70%);
   pointer-events: none;
   z-index: 1;
 }
@@ -8633,46 +8613,43 @@ body.intro-device-locked {
   position: relative !important;
   z-index: 2 !important;
   filter: 
-    drop-shadow(0 2px 2.5px rgba(0, 70, 160, 0.25))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.9)) !important;
+    drop-shadow(0 1px 1px rgba(0, 70, 160, 0.18))
+    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.95)) !important;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
 .journey-step:hover .journey-step-icon {
-  transform: translateY(-3px) scale(1.1) !important;
+  transform: translateY(-2.5px) scale(1.08) !important;
   background: var(--brand-gradient-primary) !important;
   color: #FFFFFF !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.25),
-    0 12px 24px -4px rgba(0, 115, 255, 0.45) !important;
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.7),
+    0 10px 22px -3px rgba(0, 115, 255, 0.35) !important;
 }
 
 .journey-step:hover .journey-step-icon .svg-icon {
-  transform: scale(1.08) !important;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35)) drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.7)) !important;
+  transform: scale(1.06) !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 30, 80, 0.25)) drop-shadow(0 -0.5px 0.5px #FFFFFF) !important;
 }
 
 [data-theme="dark"] .journey-step-icon {
   background: linear-gradient(145deg, rgba(20, 32, 50, 0.95) 0%, rgba(10, 18, 30, 0.98) 100%) !important;
   border: 1.5px solid rgba(79, 203, 209, 0.35) !important;
-  border-top-color: rgba(255, 255, 255, 0.35) !important;
+  border-top-color: rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.65),
-    0 8px 20px -3px rgba(0, 0, 0, 0.65) !important;
+    inset 0 1.2px 1px 0 rgba(255, 255, 255, 0.28),
+    0 6px 18px -2px rgba(0, 0, 0, 0.5) !important;
   color: var(--brand-cyan-neon) !important;
 }
 
 [data-theme="dark"] .journey-step-icon::before {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 70%);
 }
 
 [data-theme="dark"] .journey-step-icon .svg-icon {
   filter: 
-    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.3))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4))
     drop-shadow(0 0 6px var(--brand-cyan-neon)) !important;
 }
 
@@ -8681,13 +8658,11 @@ body.intro-device-locked {
 .hero-role-chip > div:first-child {
   position: relative !important;
   isolation: isolate !important;
-  border: 1px solid rgba(255, 255, 255, 0.75) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border-bottom-color: rgba(0, 115, 255, 0.12) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1.5px 2.5px 0 rgba(0, 0, 0, 0.12),
-    0 6px 16px -3px rgba(0, 70, 160, 0.12),
-    0 2px 4px 0 rgba(0, 0, 0, 0.05) !important;
+    inset 0 1.2px 1px 0 #FFFFFF,
+    0 5px 14px -3px rgba(0, 70, 160, 0.1) !important;
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease !important;
 }
 
@@ -8697,7 +8672,7 @@ body.intro-device-locked {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 55%, rgba(0, 0, 0, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 70%);
   pointer-events: none;
   z-index: 1;
 }
@@ -8707,39 +8682,35 @@ body.intro-device-locked {
   position: relative !important;
   z-index: 2 !important;
   filter: 
-    drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.22))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.8)) !important;
+    drop-shadow(0 1px 1px rgba(0, 30, 80, 0.16))
+    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.9)) !important;
 }
 
 .hero-role-chip:hover > div:first-child {
-  transform: translateY(-2px) scale(1.05) !important;
+  transform: translateY(-2px) scale(1.04) !important;
   box-shadow: 
-    inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.16),
-    0 10px 22px -3px rgba(0, 115, 255, 0.2) !important;
+    inset 0 1.2px 1px 0 #FFFFFF,
+    0 8px 18px -3px rgba(0, 115, 255, 0.18) !important;
 }
 
 [data-theme="dark"] .demo-glass-feature-icon,
 [data-theme="dark"] .hero-role-chip > div:first-child {
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  border-top-color: rgba(255, 255, 255, 0.32) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top-color: rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.6),
-    0 10px 22px -4px rgba(0, 0, 0, 0.6) !important;
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    0 6px 18px -3px rgba(0, 0, 0, 0.5) !important;
 }
 
 [data-theme="dark"] .demo-glass-feature-icon::before,
 [data-theme="dark"] .hero-role-chip > div:first-child::before {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0, 0, 0, 0.35) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 70%);
 }
 
 [data-theme="dark"] .demo-glass-feature-icon svg,
 [data-theme="dark"] .hero-role-chip > div:first-child svg {
   filter: 
-    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.35))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4))
     drop-shadow(0 0 6px currentColor) !important;
 }
 
@@ -8747,13 +8718,11 @@ body.intro-device-locked {
 .pricing-gift-icon {
   position: relative !important;
   isolation: isolate !important;
-  border: 1px solid rgba(255, 255, 255, 0.55) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-bottom-color: rgba(5, 150, 105, 0.25) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.2),
-    0 8px 20px -3px rgba(5, 150, 105, 0.45),
-    0 2px 4px 0 rgba(0, 0, 0, 0.1) !important;
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.8),
+    0 8px 18px -3px rgba(5, 150, 105, 0.35) !important;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease !important;
 }
 
@@ -8762,7 +8731,7 @@ body.intro-device-locked {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0.15) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 75%);
   pointer-events: none;
   z-index: 1;
 }
@@ -8770,17 +8739,17 @@ body.intro-device-locked {
 .pricing-gift-icon svg {
   position: relative !important;
   z-index: 2 !important;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35)) drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.8)) !important;
+  filter: drop-shadow(0 1px 2px rgba(5, 150, 105, 0.3)) drop-shadow(0 -0.5px 0.5px #FFFFFF) !important;
 }
 
 .trial-free-badge {
   position: relative !important;
   isolation: isolate !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.75), 0 3px 8px -2px rgba(5, 150, 105, 0.25) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.85), 0 3px 8px -2px rgba(5, 150, 105, 0.2) !important;
 }
 
 .trial-free-badge svg {
-  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.2)) drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.6)) !important;
+  filter: drop-shadow(0 1px 1px rgba(5, 150, 105, 0.25)) drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.7)) !important;
 }
 
 /* 6. Feature List Checkmark Micro-Medallions (outside header) */
@@ -8792,14 +8761,13 @@ main ul.feature-list li > svg,
   height: 16px !important;
   padding: 3px !important;
   border-radius: 50% !important;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(235, 253, 245, 0.88) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.9) !important;
-  border-bottom-color: rgba(5, 150, 105, 0.3) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(235, 253, 245, 0.92) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom-color: rgba(5, 150, 105, 0.25) !important;
   box-shadow: 
     inset 0 1px 1px 0 #FFFFFF,
-    inset 0 -1px 2px 0 rgba(5, 150, 105, 0.15),
-    0 3px 8px -1px rgba(5, 150, 105, 0.22) !important;
-  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.18)) !important;
+    0 2px 6px -1px rgba(5, 150, 105, 0.18) !important;
+  filter: drop-shadow(0 0.5px 1px rgba(5, 150, 105, 0.2)) !important;
   box-sizing: content-box !important;
   flex-shrink: 0 !important;
   transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease !important;
@@ -8807,26 +8775,23 @@ main ul.feature-list li > svg,
 
 main .feature-item:hover > svg,
 main .product-module-grid li:hover > svg {
-  transform: scale(1.15) !important;
+  transform: scale(1.12) !important;
   box-shadow: 
     inset 0 1px 1px 0 #FFFFFF,
-    inset 0 -1px 2px 0 rgba(5, 150, 105, 0.2),
-    0 5px 12px -1px rgba(5, 150, 105, 0.35) !important;
+    0 4px 10px -1px rgba(5, 150, 105, 0.28) !important;
 }
 
 [data-theme="dark"] main .feature-item > svg,
 [data-theme="dark"] main .product-module-grid li > svg,
 [data-theme="dark"] main ul.feature-list li > svg,
 [data-theme="dark"] .pricing-gift-perk > svg {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(5, 150, 105, 0.2) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-top-color: rgba(255, 255, 255, 0.35) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.5) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(5, 150, 105, 0.22) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.5),
-    0 4px 10px -2px rgba(0, 0, 0, 0.5) !important;
-  filter: drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 5px currentColor) !important;
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+    0 3px 8px -2px rgba(0, 0, 0, 0.4) !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 5px currentColor) !important;
 }
 
 /* 7. Modal Avatars, Booking Checkmarks & Success Medallions */
@@ -8835,13 +8800,11 @@ main .product-module-grid li:hover > svg {
 .start-success-icon {
   position: relative !important;
   isolation: isolate !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.85) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.15) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+  border-bottom-color: rgba(0, 115, 255, 0.15) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -2px 3.5px 0 rgba(0, 0, 0, 0.14),
-    0 8px 20px -3px rgba(0, 0, 0, 0.14),
-    0 2px 4px 0 rgba(0, 0, 0, 0.05) !important;
+    inset 0 1.5px 1px 0 #FFFFFF,
+    0 6px 16px -3px rgba(0, 50, 120, 0.1) !important;
 }
 
 #aptModalDocAvatar::before,
@@ -8851,7 +8814,7 @@ main .product-module-grid li:hover > svg {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 60%, rgba(0, 0, 0, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 75%);
   pointer-events: none;
   z-index: 1;
 }
@@ -8862,27 +8825,25 @@ main .product-module-grid li:hover > svg {
   position: relative !important;
   z-index: 2 !important;
   filter: 
-    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.8)) !important;
+    drop-shadow(0 1px 1px rgba(0, 30, 80, 0.16))
+    drop-shadow(0 -0.5px 0.5px #FFFFFF) !important;
 }
 
 [data-theme="dark"] #aptModalDocAvatar,
 [data-theme="dark"] #clinicBookingSuccess > div,
 [data-theme="dark"] .start-success-icon {
-  border-color: rgba(255, 255, 255, 0.2) !important;
-  border-top-color: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
   box-shadow: 
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -2.5px 4px 0 rgba(0, 0, 0, 0.65),
-    0 10px 24px -4px rgba(0, 0, 0, 0.65) !important;
+    inset 0 1.2px 1px 0 rgba(255, 255, 255, 0.28),
+    0 6px 18px -3px rgba(0, 0, 0, 0.5) !important;
 }
 
 [data-theme="dark"] #aptModalDocAvatar svg,
 [data-theme="dark"] #clinicBookingSuccess > div svg,
 [data-theme="dark"] .start-success-icon svg {
   filter: 
-    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85))
-    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.3))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4))
     drop-shadow(0 0 6px currentColor) !important;
 }
 
@@ -8890,12 +8851,11 @@ main .product-module-grid li:hover > svg {
 .drawer-auth-icon {
   position: relative !important;
   isolation: isolate !important;
-  border: 1px solid rgba(255, 255, 255, 0.7) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  border-bottom-color: rgba(0, 115, 255, 0.12) !important;
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.12),
-    0 4px 10px -2px rgba(0, 0, 0, 0.1) !important;
+    inset 0 1px 1px 0 #FFFFFF,
+    0 3px 8px -2px rgba(0, 30, 80, 0.08) !important;
 }
 
 .drawer-auth-icon::before {
@@ -8903,7 +8863,7 @@ main .product-module-grid li:hover > svg {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.05) 55%, rgba(0, 0, 0, 0.06) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.06) 45%, transparent 75%);
   pointer-events: none;
   z-index: 1;
 }
@@ -8911,20 +8871,19 @@ main .product-module-grid li:hover > svg {
 .drawer-auth-icon svg {
   position: relative !important;
   z-index: 2 !important;
-  filter: drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.22)) drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.7)) !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 30, 80, 0.16)) drop-shadow(0 -0.5px 0.5px #FFFFFF) !important;
 }
 
 [data-theme="dark"] .drawer-auth-icon {
-  border-color: rgba(255, 255, 255, 0.18) !important;
-  border-top-color: rgba(255, 255, 255, 0.32) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  border-top-color: rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.5),
-    0 6px 14px -2px rgba(0, 0, 0, 0.5) !important;
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    0 4px 10px -2px rgba(0, 0, 0, 0.45) !important;
 }
 
 [data-theme="dark"] .drawer-auth-icon svg {
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 5px currentColor) !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 5px currentColor) !important;
 }
 
 /* 9. Strict Header Exclusion Guardrail (Preserves Clean 2D Precision for Site Header) */
