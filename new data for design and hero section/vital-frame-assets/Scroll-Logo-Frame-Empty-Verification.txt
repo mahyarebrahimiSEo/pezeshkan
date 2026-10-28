@@ -1,1 +1,0 @@
-PASS: original frozen asset hashes unchanged; empty main; no document overflow; panel fits at desktop 1440x900, portrait 390x844, landscape 844x390; day SVG loads. Edge browser. React wrapper syntax checked separately; actual Next.js integration pending.
