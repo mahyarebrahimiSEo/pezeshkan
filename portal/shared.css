@@ -9290,3 +9290,33 @@ main .product-module-grid li:hover > svg {
 .panel-card:hover .product-module-icon-wrap svg.icon-3d {
   transform: translateY(-3px) scale(1.08) rotate(-2deg) !important;
 }
+
+/* 11. Tutorial Roadmap Steps (.roadmap-step-icon-wrap in tutorials.html) */
+.roadmap-step-icon-wrap {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease !important;
+}
+
+.roadmap-step-icon-wrap svg.icon-3d,
+.roadmap-step-icon-wrap .svg-icon.icon-3d {
+  width: 32px !important;
+  height: 32px !important;
+  max-width: none !important;
+  max-height: none !important;
+  position: relative !important;
+  z-index: 2 !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.24)) !important;
+}
+
+.roadmap-step-card:hover .roadmap-step-icon-wrap svg.icon-3d {
+  transform: translateY(-2px) scale(1.08) rotate(-2deg) !important;
+}
+
