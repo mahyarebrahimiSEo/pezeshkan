@@ -52,7 +52,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
   <script>document.documentElement.setAttribute("data-theme","light");try{localStorage.setItem("pezeshkan_theme","light");}catch(e){}</script>
-  <link rel="stylesheet" href="/shared.css?v=20261031v33">
+  <link rel="stylesheet" href="/shared.css?v=20261031v36">
 </head>
 <body>
 
@@ -799,7 +799,7 @@
               </div>
             </div>
 
-            <div class="vital-dial-card story-card-enter from-center" data-signal="green" data-alt-val="AES-256" data-alt-sub="رمزنگاری سرتاسری پرونده‌های پزشکی مطابق استاندارد حفاظت از اطلاعات سلامت">
+            <div class="vital-dial-card story-card-enter from-center" data-signal="cobalt" data-alt-val="AES-256" data-alt-sub="رمزنگاری سرتاسری پرونده‌های پزشکی مطابق استاندارد حفاظت از اطلاعات سلامت">
               <div class="vital-dial-header">
                 <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>حریم خصوصی بیماران</span>
                 <span class="vital-dial-code-badge">استاندارد ۰۲</span>
@@ -825,7 +825,7 @@
               </div>
             </div>
 
-            <div class="vital-dial-card story-card-enter from-left" data-signal="amber" data-alt-val="۴۸ ساعت" data-alt-sub="حداکثر زمان استقرار حضوری و آموزش کامل پرسنل مطب و کلینیک">
+            <div class="vital-dial-card story-card-enter from-left" data-signal="sky" data-alt-val="۴۸ ساعت" data-alt-sub="حداکثر زمان استقرار حضوری و آموزش کامل پرسنل مطب و کلینیک">
               <div class="vital-dial-header">
                 <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>آموزش و راه‌اندازی مطب</span>
                 <span class="vital-dial-code-badge">استاندارد ۰۳</span>
@@ -854,31 +854,98 @@
         </article>
 
         <!-- ========================================================
-             CHAPTER 06: CALL TO ACTION BANNER
+             DESTINATION & PARTNERSHIP: CONNECTED DOCTOR CTA CARD
+             The Timeline Line Flows Seamlessly into the Top Anchor Node
              ======================================================== -->
-        <div class="about-cta-container">
-          <div class="panel-card" style="padding:40px 32px; border-radius:26px; text-align:center; position:relative; overflow:hidden;">
-            <div class="card-border-beam" aria-hidden="true"></div>
-            <div class="liquid-card-rim-light" aria-hidden="true"></div>
-            <h2 style="font-size:clamp(22px, 3.2vw, 30px); font-weight:900; color:var(--text-pure); margin-bottom:12px;">
-              آماده‌اید مطب خود را به نسل نوین مدیریت درمان مجهز کنید؟
-            </h2>
-            <p style="font-size:15px; color:var(--text-secondary); max-width:680px; margin:0 auto 28px; line-height:1.9;">
-              استقرار حضوری رایگان توسط کارشناس بالینی، آموزش کامل منشی و پرسنل، و ۳ ماه استفاده کاملاً رایگان بدون هیچ‌گونه پیش‌پرداخت اولیه.
-            </p>
-            <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
-              <a href="/start" class="btn btn-primary btn-lg" style="padding:14px 32px; font-size:15px;">
-                <span>شروع همکاری و فعال‌سازی ۳ ماه رایگان</span>
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg>
-              </a>
-              <a href="/contact" class="btn btn-secondary btn-lg" style="padding:14px 24px; font-size:14.5px;">
-                <span>مشاوره تلفنی با کارشناس بالینی</span>
-              </a>
+        <div class="about-doctor-cta-card story-card-enter from-center" id="doctorCtaCard">
+          <div class="card-border-beam" aria-hidden="true"></div>
+          <div class="liquid-card-rim-light" aria-hidden="true"></div>
+
+          <!-- Connected Milestone Anchor Node (The Physical Arrival Point of the Timeline Rail) -->
+          <div class="about-cta-anchor-node" aria-hidden="true">
+            <svg class="svg-icon" style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+
+          <!-- Status Pill -->
+          <div class="about-cta-tag-pill">
+            <span class="about-cta-live-dot"></span>
+            <span>طرح ویژه استقرار و تجهیز مطب‌های پزشکی · سال ۱۴۰۳</span>
+          </div>
+
+          <!-- Doctor-Focused Main Headline -->
+          <h2 class="about-cta-headline">
+            آماده‌اید مطب خود را به نسل نوین مدیریت درمان مجهز کنید؟
+          </h2>
+
+          <p class="about-cta-subhead">
+            پلتفرم پزشکآن با همراهی مستقیم کارشناسان بالینی، مطب شما را در کمتر از ۴۸ ساعت به پیشرفته‌ترین سامانه تمام‌ابری EMR، نوبت‌دهی ضدتداخل و تسویه آنی پوز بانکی مجهز می‌کند؛ ۳ ماه رایگان بدون هیچ‌گونه پیش‌پرداخت اولیه.
+          </p>
+
+          <!-- 3 Irresistible Clinical Perks for Doctors -->
+          <div class="about-cta-perks-grid">
+            <div class="about-cta-perk-item">
+              <div class="about-cta-perk-icon">
+                <svg class="svg-icon icon-3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <div class="about-cta-perk-text">
+                <strong>استقرار حضوری رایگان در مطب</strong>
+                <span>اعزام کارشناس بالینی، انتقال کامل سوابق و آموزش منشی</span>
+              </div>
+            </div>
+
+            <div class="about-cta-perk-item">
+              <div class="about-cta-perk-icon" style="color:#0066FF; background:rgba(0,102,255,0.08);">
+                <svg class="svg-icon icon-3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              </div>
+              <div class="about-cta-perk-text">
+                <strong>اتصال کارتخوان و تفکیک سهم</strong>
+                <span>صفر خطا در ورود مبالغ، تسویه اتوماتیک سهم پزشک و رسید رسمی</span>
+              </div>
+            </div>
+
+            <div class="about-cta-perk-item">
+              <div class="about-cta-perk-icon" style="color:#0284C7; background:rgba(2,132,199,0.08);">
+                <svg class="svg-icon icon-3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="about-cta-perk-text">
+                <strong>۳ ماه استفاده ۱۰۰٪ رایگان</strong>
+                <span>بدون چک ضمانت، بدون پیش‌پرداخت و بدون تعهد اجباری</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual High-Conversion Action CTAs -->
+          <div class="about-cta-actions">
+            <a href="/start" class="btn btn-primary btn-lg about-cta-btn-primary">
+              <span>درخواست دمو آنلاین و ۳ ماه رایگان مطب</span>
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            <a href="/contact" class="btn btn-secondary btn-lg about-cta-btn-secondary">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>مشاوره تلفنی با کارشناس بالینی: ۰۲۱-۸۸۸۸۴۴۴۴</span>
+            </a>
+          </div>
+
+          <!-- Micro-Trust Guarantee Strip -->
+          <div class="about-cta-guarantee-strip">
+            <div class="about-cta-guarantee-item">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>تاییدیه رسمی نظام پزشکی</span>
+            </div>
+            <span class="about-cta-guarantee-sep">·</span>
+            <div class="about-cta-guarantee-item">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>رمزنگاری سرتاسری پرونده‌ها (AES-256)</span>
+            </div>
+            <span class="about-cta-guarantee-sep">·</span>
+            <div class="about-cta-guarantee-item">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>پشتیبانی شبانه‌روزی ۲۴/۷</span>
             </div>
           </div>
         </div>
 
-      </div>
+      </div> <!-- End .about-story-timeline -->
     </div>
 
   </main>
@@ -955,7 +1022,7 @@
   <script src="/gsap.min.js"></script>
   <script src="/lenis.min.js"></script>
   <script src="/three.min.js"></script>
-  <script src="/shared.js?v=20261031v33"></script>
+  <script src="/shared.js?v=20261031v36"></script>
   <script>
   // 2026 Timeline Scroll Progress and Card Entrance Engine
   (function() {
@@ -963,7 +1030,7 @@
       var timeline = document.querySelector('.about-story-timeline');
       var progress = document.getElementById('aboutTimelineProgress');
       var beacon = document.getElementById('aboutTimelineBeacon');
-      var nodes = document.querySelectorAll('.about-story-chapter-node');
+      var nodes = document.querySelectorAll('.about-story-chapter-node, .about-cta-anchor-node');
 
       function onScroll() {
         if (!timeline || !progress) return;

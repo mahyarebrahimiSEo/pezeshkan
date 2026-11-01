@@ -663,6 +663,7 @@ def api_articles(request, slug=None):
             "custom_schema_json": data.get("customSchemaJson", ""),
             "is_noindex": bool(data.get("isNoindex", False)),
             "robots": data.get("robots", "noindex, follow" if data.get("isNoindex") else "index, follow"),
+            "seo_score": int(data.get("seoScore") or 0),
         }
 
         if article:

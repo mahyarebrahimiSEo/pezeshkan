@@ -3630,6 +3630,12 @@
             <p>نگارش مقالات علمی، بارگذاری مستقیم تصاویر، پاک‌سازی خودکار فرمت و تحلیل زنده سئو</p>
           </div>
           <div style="display: flex; gap: 10px; align-items: center;">
+            <!-- Rank Math Style Live SEO Score Pill -->
+            <div id="editorHeaderRankMathBadge" class="rankmath-header-pill" onclick="scrollToRankMathPanel()" title="مشاهده پنل کامل ارزیابی سئو رنک مث" style="cursor: pointer; display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 9999px; font-weight: 800; font-size: 13px; font-family: monospace, sans-serif; background: rgba(0, 229, 153, 0.12); color: #00E599; border: 1px solid rgba(0, 229, 153, 0.35); transition: all 0.25s ease;">
+              <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span id="rankMathHeaderScore">-- / ۱۰۰</span>
+              <span style="font-size: 10.5px; opacity: 0.85; padding: 1px 6px; background: rgba(255,255,255,0.08); border-radius: 4px;">رنک مث</span>
+            </div>
             <button type="button" class="btn btn-secondary" onclick="saveCurrentArticle('draft')">
               <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
               <span>ذخیره پیش‌نویس</span>
@@ -3949,6 +3955,34 @@
               </div>
               <div class="widget-body">
                 
+                <!-- Rank Math Score Meter Gauge Card -->
+                <div class="rank-math-gauge-card" id="rankMathGaugeCard" style="background: rgba(15, 23, 42, 0.75); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.25);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <div id="rmGaugeCircle" style="width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; font-family: monospace; background: rgba(0, 229, 153, 0.15); color: #00E599; border: 2.5px solid #00E599; box-shadow: 0 0 14px rgba(0, 229, 153, 0.25);">
+                        <span id="rmScoreNum">--</span>
+                      </div>
+                      <div>
+                        <div style="font-size: 13px; font-weight: 800; color: #F8FAFC; display: flex; align-items: center; gap: 6px;">
+                          <span>نمره سئو رنک مث</span>
+                          <span id="rmScoreBadgeLabel" style="font-size: 10.5px; padding: 2px 7px; border-radius: 999px; font-weight: 700; background: rgba(0, 229, 153, 0.15); color: #00E599;">عالی</span>
+                        </div>
+                        <div id="rmScoreSummaryText" style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
+                          ۰ از ۱۳ آزمون استاندارد پاس شده است
+                        </div>
+                      </div>
+                    </div>
+                    <div style="text-align: left;">
+                      <span style="font-size: 10px; color: var(--text-muted); display: block;">معیار رتبه‌بندی:</span>
+                      <span style="font-size: 10.5px; font-weight: 700; color: var(--color-cyan);">الگوریتم رنک مث</span>
+                    </div>
+                  </div>
+                  <!-- Progress bar -->
+                  <div style="background: rgba(255, 255, 255, 0.08); height: 6px; border-radius: 999px; overflow: hidden;">
+                    <div id="rmScoreProgressBar" style="height: 100%; width: 0%; background: #00E599; border-radius: 999px; transition: width 0.3s ease, background-color 0.3s ease;"></div>
+                  </div>
+                </div>
+
                 <!-- Focus Keyword -->
                 <div>
                   <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">کلیدواژه کانونی (Focus Keyword):</label>
@@ -4027,47 +4061,107 @@
                   <input type="text" id="seoPostSlug" class="form-control" placeholder="lumbar-disc-herniation-guide" oninput="runLiveSeoAudit()">
                 </div>
 
-                <!-- 9-Point SEO Live Checklist (Vector Icons, NO Emojis) -->
-                <div>
-                  <span style="font-size: 12.5px; font-weight: 700; color: #F8FAFC; display: block; margin-bottom: 10px;">چک‌لیست استانداردهای ۹گانه سئو:</span>
-                  <ul class="seo-audit-list">
-                    <li class="seo-audit-item" id="chk-kw-title">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>حضور کلیدواژه کانونی در عنوان سئو مقاله</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-kw-desc">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>حضور کلیدواژه کانونی در توضیحات متای صفحه</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-kw-first">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>به‌کارگیری کلمه کلیدی در پاراگراف آغازین</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-kw-slug">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>وجود کلیدواژه یا مفهوم مرتبط در نامک (Slug)</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-kw-density">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>چگالی استاندارد کلیدواژه در کل متن (بین ۰.۸٪ تا ۲.۵٪)</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-len-title">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>طول استاندارد عنوان سئو (۵۰ تا ۶۰ کاراکتر)</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-len-desc">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>طول بهینه توضیحات متا (۱۳۰ تا ۱۶۰ کاراکتر)</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-structure">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>ساختاربندی با تیترهای H2 و H3 در بدنه مقاله</span>
-                    </li>
-                    <li class="seo-audit-item" id="chk-img-alt">
-                      <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span>تکمیل متن جایگزین (Alt Text) برای تمامی تصاویر</span>
-                    </li>
-                  </ul>
+                <!-- 13-Point Rank Math 4-Categorized Live Checklist -->
+                <div style="margin-top: 16px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-size: 12.5px; font-weight: 800; color: #F8FAFC; display: flex; align-items: center; gap: 6px;">
+                      <svg class="icon-svg" style="width: 15px; height: 15px; color: var(--color-cyan);" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                      <span>چک‌لیست استانداردهای سئو رنک مث:</span>
+                    </span>
+                    <span id="rmTestsPassedCounter" style="font-size: 11px; font-weight: 800; color: var(--color-cyan); background: rgba(0, 255, 255, 0.1); padding: 2px 7px; border-radius: 6px; border: 1px solid rgba(0, 255, 255, 0.2);">۰ / ۱۳ تست</span>
+                  </div>
+
+                  <!-- Category 1: Basic SEO -->
+                  <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
+                    <div style="font-size: 11.5px; font-weight: 800; color: var(--color-cyan); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                      <span>۱. سئوی پایه (Basic SEO)</span>
+                      <span id="catCountBasic" style="font-size: 10px; color: var(--text-muted);">۰ / ۵</span>
+                    </div>
+                    <ul class="seo-audit-list" style="margin: 0; padding: 0;">
+                      <li class="seo-audit-item" id="chk-kw-title">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>کلیدواژه کانونی در عنوان سئو مقاله</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-kw-desc">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>کلیدواژه کانونی در توضیحات متای صفحه</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-kw-slug">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>وجود کلیدواژه در نامک اینترنتی (Slug)</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-kw-first">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>کلیدواژه در ۱۰٪ آغازین یا پاراگراف اول</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-word-count">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>طول استاندارد محتوا (حداقل ۵۰۰ کلمه)</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Category 2: Additional SEO -->
+                  <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
+                    <div style="font-size: 11.5px; font-weight: 800; color: #A78BFA; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                      <span>۲. سئوی تکمیلی (Additional SEO)</span>
+                      <span id="catCountAdd" style="font-size: 10px; color: var(--text-muted);">۰ / ۴</span>
+                    </div>
+                    <ul class="seo-audit-list" style="margin: 0; padding: 0;">
+                      <li class="seo-audit-item" id="chk-kw-heading">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>کلیدواژه در تیترهای فرعی H2 و H3</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-kw-density">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>چگالی استاندارد کلیدواژه (۰.۷٪ تا ۲.۵٪)</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-img-alt">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>متن جایگزین (Alt Text) تصویر شاخص</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-links">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>پیوندسازی داخلی و خارجی در متن</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Category 3: Title Readability -->
+                  <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
+                    <div style="font-size: 11.5px; font-weight: 800; color: #38BDF8; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                      <span>۳. خوانایی عنوان (Title Readability)</span>
+                      <span id="catCountTitle" style="font-size: 10px; color: var(--text-muted);">۰ / ۲</span>
+                    </div>
+                    <ul class="seo-audit-list" style="margin: 0; padding: 0;">
+                      <li class="seo-audit-item" id="chk-len-title">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>طول بهینه عنوان سئو (۴۵ تا ۶۵ کاراکتر)</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-kw-start">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>قرارگیری کلیدواژه در ابتدای عنوان</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Category 4: Content Readability -->
+                  <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
+                    <div style="font-size: 11.5px; font-weight: 800; color: #34D399; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                      <span>۴. خوانایی محتوا (Content Readability)</span>
+                      <span id="catCountContent" style="font-size: 10px; color: var(--text-muted);">۰ / ۲</span>
+                    </div>
+                    <ul class="seo-audit-list" style="margin: 0; padding: 0;">
+                      <li class="seo-audit-item" id="chk-len-desc">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>طول استاندارد توضیحات متا (۱۲۰ تا ۱۶۵ کاراکتر)</span>
+                      </li>
+                      <li class="seo-audit-item" id="chk-content-rich">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>قالب‌بندی غنی (جدول، لیست، یا سوالات متداول)</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
 
                 <!-- Rank Math Style Schema Builder for Article -->
@@ -7211,7 +7305,7 @@
             </td>
             <td><span class="status-pill">${pillarName}</span></td>
             <td>${doctor.name}</td>
-            <td><span class="seo-score-badge">۹۴٪</span></td>
+            <td>${renderPostRankMathCell(art)}</td>
             <td><span class="tbtn-pill ${statusClass}" style="font-size: 11px; height: 24px; padding: 0 8px;">${statusLabel}</span></td>
             <td>
               <div class="table-actions">
@@ -10415,7 +10509,7 @@ function renderDoctorsManagement(filterQuery = '') {
         tag: tag,
         tagClass: 'tag-blue',
         status: targetStatus,
-        isNoindex: currentArticleIsNoindex,
+        seoScore: (typeof currentRankMathScore !== "undefined" ? currentRankMathScore : 0), isNoindex: currentArticleIsNoindex,
         robots: currentArticleIsNoindex ? 'noindex, follow' : 'index, follow',
         metaTitle: metaTitle,
         metaDescription: metaDescription,
@@ -10560,112 +10654,308 @@ function renderDoctorsManagement(filterQuery = '') {
       }
     }
 
-    function runLiveSeoAudit() {
-      const focusKw = (document.getElementById('seoFocusKeyword').value || '').trim().toLowerCase();
-      const metaTitle = document.getElementById('seoMetaTitle').value || document.getElementById('editTitle').value || '';
-      const metaDesc = document.getElementById('seoMetaDescription').value || document.getElementById('editSummary').value || '';
-      const slug = document.getElementById('seoPostSlug').value || '';
-      const editorText = (canvas.innerText || '').toLowerCase();
-      const editorHtml = canvas.innerHTML || '';
+        // ==========================================================================
+    // RANK MATH SEO SCORING & AUDIT ENGINE
+    // ==========================================================================
+    let currentRankMathScore = 0;
 
-      // Update SERP Snippet
-      if (currentArticleIsNoindex) {
-        document.getElementById('serpPreviewTitle').innerHTML = '<span style="background:#EF4444; color:#fff; font-size:10px; padding:1px 6px; border-radius:4px; margin-left:6px; font-weight:800;">NOINDEX</span> ' + escapeHtml(metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو');
-      } else {
-        document.getElementById('serpPreviewTitle').textContent = metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو';
+    function scrollToRankMathPanel() {
+      const panel = document.getElementById('rankMathSidebarWidget') || document.getElementById('seoFocusKeyword');
+      if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        panel.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
+        panel.style.boxShadow = '0 0 0 3px rgba(0, 229, 153, 0.4)';
+        panel.style.borderColor = 'rgba(0, 229, 153, 0.6)';
+        setTimeout(() => {
+          panel.style.boxShadow = '';
+          panel.style.borderColor = '';
+        }, 1800);
       }
-      document.getElementById('serpPreviewDesc').textContent = metaDesc || 'توضیحات متای مقاله که توجه کاربران گوگل را جلب می‌کند...';
-      document.getElementById('serpPreviewUrl').textContent = 'https://pezeshkan.me/mag/' + (slug || 'article-slug');
+    }
 
-      // Title Length
-      const tLen = metaTitle.length;
-      document.getElementById('counterMetaTitle').textContent = tLen + ' / ۶۰';
-      const tProgress = Math.min(100, Math.round((tLen / 60) * 100));
-      const pBarTitle = document.getElementById('progressMetaTitle');
-      pBarTitle.style.width = tProgress + '%';
-      pBarTitle.style.backgroundColor = (tLen >= 45 && tLen <= 65) ? 'var(--color-emerald)' : (tLen > 65 ? 'var(--color-rose)' : 'var(--color-amber)');
+    function calculateRankMathSeoScore(art) {
+      if (!art) {
+        const focusKw = (document.getElementById('seoFocusKeyword')?.value || '').trim();
+        const metaTitle = (document.getElementById('seoMetaTitle')?.value || document.getElementById('editTitle')?.value || '').trim();
+        const metaDesc = (document.getElementById('seoMetaDescription')?.value || document.getElementById('editSummary')?.value || '').trim();
+        const slug = (document.getElementById('seoPostSlug')?.value || '').trim();
+        const rawHtml = (typeof canvas !== 'undefined' && canvas) ? (canvas.innerHTML || '') : '';
+        const plainText = (typeof canvas !== 'undefined' && canvas) ? (canvas.innerText || '') : '';
+        const heroAlt = (document.getElementById('editHeroImageAlt')?.value || '').trim();
+        const faqs = [];
+        document.querySelectorAll('.faq-input-row').forEach(row => {
+          const q = row.querySelector('.faq-q')?.value?.trim();
+          const a = row.querySelector('.faq-a')?.value?.trim();
+          if (q && a) faqs.push({ q, a });
+        });
+        art = { focusKeyword: focusKw, title: metaTitle, metaTitle, metaDescription: metaDesc, slug, rawHtml, contentHtml: rawHtml, plainText, imageAlt: heroAlt, faqs };
+      }
 
-      // Description Length
-      const dLen = metaDesc.length;
-      document.getElementById('counterMetaDesc').textContent = dLen + ' / ۱۶۰';
-      const dProgress = Math.min(100, Math.round((dLen / 160) * 100));
-      const pBarDesc = document.getElementById('progressMetaDesc');
-      pBarDesc.style.width = dProgress + '%';
-      pBarDesc.style.backgroundColor = (dLen >= 120 && dLen <= 165) ? 'var(--color-emerald)' : (dLen > 165 ? 'var(--color-rose)' : 'var(--color-amber)');
+      const focusKw = (art.focusKeyword || '').trim().toLowerCase();
+      const title = (art.metaTitle || art.title || '').trim();
+      const desc = (art.metaDescription || art.summary || '').trim();
+      const slug = (art.slug || '').trim().toLowerCase();
+      const rawHtml = art.rawHtml || art.contentHtml || '';
+      const plainText = art.plainText || rawHtml.replace(/<[^>]*>/g, ' ');
+      const words = plainText.trim() ? plainText.trim().split(/\s+/).filter(Boolean) : [];
+      const wordCount = words.length;
+      const heroAlt = (art.imageAlt || '').trim();
+      const faqs = Array.isArray(art.faqs) ? art.faqs : [];
 
-      // 9-Point Audit Checklist Verification
+      const tests = {};
       let score = 0;
 
-      // 1. Keyword in Title
-      const passKwTitle = focusKw && metaTitle.toLowerCase().includes(focusKw);
-      setChecklistItem('chk-kw-title', passKwTitle ? 'passed' : (focusKw ? 'failed' : 'warning'));
-      if (passKwTitle) score += 15;
+      // 1. Basic SEO (سئوی پایه - حداکثر ۴۰ امتیاز)
+      // 1.1 Focus Keyword in Title (10 pts)
+      const passKwTitle = !!(focusKw && title.toLowerCase().includes(focusKw));
+      tests['chk-kw-title'] = passKwTitle ? 'passed' : (focusKw ? 'failed' : 'warning');
+      if (passKwTitle) score += 10;
 
-      // 2. Keyword in Meta Desc
-      const passKwDesc = focusKw && metaDesc.toLowerCase().includes(focusKw);
-      setChecklistItem('chk-kw-desc', passKwDesc ? 'passed' : (focusKw ? 'failed' : 'warning'));
-      if (passKwDesc) score += 12;
+      // 1.2 Focus Keyword in Meta Description (10 pts)
+      const passKwDesc = !!(focusKw && desc.toLowerCase().includes(focusKw));
+      tests['chk-kw-desc'] = passKwDesc ? 'passed' : (focusKw ? 'failed' : 'warning');
+      if (passKwDesc) score += 10;
 
-      // 3. Keyword in First Paragraph
-      const firstPara = editorText.slice(0, 300);
-      const passKwFirst = focusKw && firstPara.includes(focusKw);
-      setChecklistItem('chk-kw-first', passKwFirst ? 'passed' : (focusKw ? 'failed' : 'warning'));
-      if (passKwFirst) score += 10;
-
-      // 4. Keyword in Slug
-      const passKwSlug = focusKw && (slug.toLowerCase().includes(focusKw.replace(/\s+/g, '-')) || slug.toLowerCase().includes(focusKw));
-      setChecklistItem('chk-kw-slug', passKwSlug ? 'passed' : (focusKw ? 'failed' : 'warning'));
+      // 1.3 Focus Keyword in URL / Slug (8 pts)
+      const passKwSlug = !!(focusKw && (slug.includes(focusKw.replace(/\s+/g, '-')) || slug.includes(focusKw)));
+      tests['chk-kw-slug'] = passKwSlug ? 'passed' : (focusKw ? 'failed' : 'warning');
       if (passKwSlug) score += 8;
 
-      // 5. Keyword Density
-      let passKwDensity = false;
-      if (focusKw && editorText) {
-        const kwMatches = editorText.split(focusKw).length - 1;
-        const totalWords = editorText.split(/\s+/).length;
-        const density = (kwMatches / Math.max(1, totalWords)) * 100;
-        passKwDensity = density >= 0.7 && density <= 3.0;
+      // 1.4 Focus Keyword in First Paragraph (6 pts)
+      const first400 = plainText.slice(0, 400).toLowerCase();
+      const passKwFirst = !!(focusKw && first400.includes(focusKw));
+      tests['chk-kw-first'] = passKwFirst ? 'passed' : (focusKw ? 'failed' : 'warning');
+      if (passKwFirst) score += 6;
+
+      // 1.5 Content Word Count (6 pts)
+      const passWordCount = wordCount >= 500;
+      tests['chk-word-count'] = passWordCount ? 'passed' : (wordCount >= 200 ? 'warning' : 'failed');
+      if (passWordCount) score += 6;
+      else if (wordCount >= 200) score += 3;
+
+      // 2. Additional SEO (سئوی تکمیلی - حداکثر ۳۰ امتیاز)
+      // 2.1 Keyword in Subheadings H2/H3 (8 pts)
+      const headings = Array.from(rawHtml.matchAll(/<h[23][^>]*>(.*?)<\/h[23]>/gi)).map(m => m[1].replace(/<[^>]*>/g, '').toLowerCase());
+      const passKwHeading = !!(focusKw && headings.some(h => h.includes(focusKw)));
+      tests['chk-kw-heading'] = passKwHeading ? 'passed' : (headings.length ? (focusKw ? 'failed' : 'warning') : 'failed');
+      if (passKwHeading) score += 8;
+
+      // 2.2 Keyword Density (8 pts)
+      let passDensity = false;
+      let densityPct = 0;
+      if (focusKw && wordCount > 0) {
+        const kwCount = plainText.toLowerCase().split(focusKw).length - 1;
+        densityPct = Number(((kwCount / Math.max(1, wordCount)) * 100).toFixed(1));
+        passDensity = densityPct >= 0.6 && densityPct <= 3.0;
       }
-      setChecklistItem('chk-kw-density', passKwDensity ? 'passed' : (focusKw ? 'failed' : 'warning'));
-      if (passKwDensity) score += 12;
+      tests['chk-kw-density'] = passDensity ? 'passed' : (focusKw ? 'warning' : 'warning');
+      if (passDensity) score += 8;
+      else if (densityPct > 0) score += 4;
 
-      // 6. Optimal Title Length
+      // 2.3 Image Alt (7 pts)
+      const hasImgAlt = heroAlt.length > 3 || /<img[^>]+alt=["'][^"']{3,}["']/i.test(rawHtml);
+      tests['chk-img-alt'] = hasImgAlt ? 'passed' : 'failed';
+      if (hasImgAlt) score += 7;
+
+      // 2.4 Internal & External Links (7 pts)
+      const hasInternalLink = /href=["'](\/|https?:\/\/pezeshkan\.me)/i.test(rawHtml);
+      const hasExternalLink = /href=["']https?:\/\/(?!pezeshkan\.me)/i.test(rawHtml);
+      const passLinks = hasInternalLink || hasExternalLink;
+      tests['chk-links'] = (hasInternalLink && hasExternalLink) ? 'passed' : (passLinks ? 'warning' : 'failed');
+      if (hasInternalLink && hasExternalLink) score += 7;
+      else if (passLinks) score += 4;
+
+      // 3. Title Readability (خوانایی عنوان - حداکثر ۱۵ امتیاز)
+      // 3.1 Title Length (8 pts)
+      const tLen = title.length;
       const passTitleLen = tLen >= 45 && tLen <= 65;
-      setChecklistItem('chk-len-title', passTitleLen ? 'passed' : 'warning');
-      if (passTitleLen) score += 10;
+      tests['chk-len-title'] = passTitleLen ? 'passed' : (tLen > 0 ? 'warning' : 'failed');
+      if (passTitleLen) score += 8;
+      else if (tLen >= 30 && tLen <= 75) score += 4;
 
-      // 7. Optimal Desc Length
+      // 3.2 Keyword Near Start (7 pts)
+      const passKwStart = !!(focusKw && title.toLowerCase().indexOf(focusKw) >= 0 && title.toLowerCase().indexOf(focusKw) <= 25);
+      tests['chk-kw-start'] = passKwStart ? 'passed' : (passKwTitle ? 'warning' : (focusKw ? 'failed' : 'warning'));
+      if (passKwStart) score += 7;
+      else if (passKwTitle) score += 3;
+
+      // 4. Content Readability (خوانایی محتوا - حداکثر ۱۵ امتیاز)
+      // 4.1 Meta Desc Length (8 pts)
+      const dLen = desc.length;
       const passDescLen = dLen >= 120 && dLen <= 165;
-      setChecklistItem('chk-len-desc', passDescLen ? 'passed' : 'warning');
-      if (passDescLen) score += 10;
+      tests['chk-len-desc'] = passDescLen ? 'passed' : (dLen >= 80 && dLen <= 180 ? 'warning' : 'failed');
+      if (passDescLen) score += 8;
+      else if (dLen >= 80 && dLen <= 180) score += 4;
 
-      // 8. Structure with H2/H3
-      const passStructure = editorHtml.includes('<h2') || editorHtml.includes('<h3');
-      setChecklistItem('chk-structure', passStructure ? 'passed' : 'failed');
-      if (passStructure) score += 13;
+      // 4.2 Rich formatting (FAQ, Tables, Lists) (7 pts)
+      const hasFaq = faqs.length > 0 || /class=["']faq-/i.test(rawHtml);
+      const hasTable = /<table/i.test(rawHtml);
+      const hasList = /<(ul|ol)/i.test(rawHtml);
+      const passRich = hasFaq || hasTable || hasList;
+      tests['chk-content-rich'] = passRich ? 'passed' : 'warning';
+      if (passRich) score += 7;
 
-      // 9. Image Alt Texts
-      const heroAlt = document.getElementById('editHeroImageAlt').value.trim();
-      const passAlt = heroAlt.length > 3;
-      setChecklistItem('chk-img-alt', passAlt ? 'passed' : 'failed');
-      if (passAlt) score += 10;
+      score = Math.max(0, Math.min(100, score));
 
-      // Update Score Badge
+      let label = 'عالی';
+      let color = '#00E599';
+      let bg = 'rgba(0, 229, 153, 0.12)';
+      let border = 'rgba(0, 229, 153, 0.35)';
+
+      if (score < 50) {
+        label = 'نیازمند بهبود';
+        color = '#F87171';
+        bg = 'rgba(239, 68, 68, 0.12)';
+        border = 'rgba(239, 68, 68, 0.35)';
+      } else if (score < 80) {
+        label = 'قابل قبول';
+        color = '#FBBF24';
+        bg = 'rgba(245, 158, 11, 0.12)';
+        border = 'rgba(245, 158, 11, 0.35)';
+      }
+
+      const passedCount = Object.values(tests).filter(s => s === 'passed').length;
+      const totalCount = Object.keys(tests).length;
+
+      return {
+        score,
+        label,
+        color,
+        bg,
+        border,
+        passedCount,
+        totalCount,
+        tests
+      };
+    }
+
+    function renderPostRankMathCell(art) {
+      const res = calculateRankMathSeoScore(art);
+      return `
+        <div style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 3px;">
+          <span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 6px; font-weight: 800; font-size: 11.5px; background: ${res.bg}; color: ${res.color}; border: 1px solid ${res.border}; cursor: pointer; transition: transform 0.15s ease;" onmouseenter="this.style.transform='translateY(-1px)'" onmouseleave="this.style.transform='none'" onclick="loadArticleForEditing('${art.id}'); switchTab('editor'); scrollToRankMathPanel();" title="نمره سئو رنک مث: ${res.score} از ۱۰۰ (${res.label}) - کلیک برای مشاهده جزئیات">
+            <svg style="width: 12px; height: 12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span>${res.score} / ۱۰۰</span>
+            <span style="font-size: 9.5px; font-weight: 700; opacity: 0.9;">• ${res.label}</span>
+          </span>
+          <span style="font-size: 10.5px; color: var(--text-muted); max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block;" title="کلیدواژه کانونی: ${art.focusKeyword || 'تعیین نشده'}">
+            ${art.focusKeyword ? `<span style="color: var(--color-cyan); font-weight: 600;">کلیدواژه:</span> ${escapeHtml(art.focusKeyword)}` : '<span style="opacity: 0.5;">بدون کلیدواژه</span>'}
+          </span>
+        </div>
+      `;
+    }
+
+    function runLiveSeoAudit() {
+      const focusKw = (document.getElementById('seoFocusKeyword')?.value || '').trim();
+      const metaTitle = (document.getElementById('seoMetaTitle')?.value || document.getElementById('editTitle')?.value || '').trim();
+      const metaDesc = (document.getElementById('seoMetaDescription')?.value || document.getElementById('editSummary')?.value || '').trim();
+      const slug = (document.getElementById('seoPostSlug')?.value || '').trim();
+
+      // 1. Update Google SERP Snippet
+      const serpTitleEl = document.getElementById('serpPreviewTitle');
+      if (serpTitleEl) {
+        if (typeof currentArticleIsNoindex !== 'undefined' && currentArticleIsNoindex) {
+          serpTitleEl.innerHTML = '<span style="background:#EF4444; color:#fff; font-size:10px; padding:1px 6px; border-radius:4px; margin-left:6px; font-weight:800;">NOINDEX</span> ' + escapeHtml(metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو');
+        } else {
+          serpTitleEl.textContent = metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو';
+        }
+      }
+      const serpDescEl = document.getElementById('serpPreviewDesc');
+      if (serpDescEl) serpDescEl.textContent = metaDesc || 'توضیحات متای مقاله که توجه کاربران گوگل را جلب می‌کند...';
+      const serpUrlEl = document.getElementById('serpPreviewUrl');
+      if (serpUrlEl) serpUrlEl.textContent = 'https://pezeshkan.me/mag/' + (slug || 'article-slug');
+
+      // 2. Title & Description Char Length Gauges
+      const tLen = metaTitle.length;
+      const counterTitle = document.getElementById('counterMetaTitle');
+      if (counterTitle) counterTitle.textContent = tLen + ' / ۶۰';
+      const pBarTitle = document.getElementById('progressMetaTitle');
+      if (pBarTitle) {
+        const tProgress = Math.min(100, Math.round((tLen / 60) * 100));
+        pBarTitle.style.width = tProgress + '%';
+        pBarTitle.style.backgroundColor = (tLen >= 45 && tLen <= 65) ? 'var(--color-emerald)' : (tLen > 65 ? 'var(--color-rose)' : 'var(--color-amber)');
+      }
+
+      const dLen = metaDesc.length;
+      const counterDesc = document.getElementById('counterMetaDesc');
+      if (counterDesc) counterDesc.textContent = dLen + ' / ۱۶۰';
+      const pBarDesc = document.getElementById('progressMetaDesc');
+      if (pBarDesc) {
+        const dProgress = Math.min(100, Math.round((dLen / 160) * 100));
+        pBarDesc.style.width = dProgress + '%';
+        pBarDesc.style.backgroundColor = (dLen >= 120 && dLen <= 165) ? 'var(--color-emerald)' : (dLen > 165 ? 'var(--color-rose)' : 'var(--color-amber)');
+      }
+
+      // 3. Compute Rank Math Evaluation
+      const res = calculateRankMathSeoScore();
+      currentRankMathScore = res.score;
+
+      // 4. Update Checklist Items Visual State
+      Object.entries(res.tests).forEach(([testId, status]) => {
+        setChecklistItem(testId, status);
+      });
+
+      // 5. Update Category Counters
+      const basicPassed = ['chk-kw-title', 'chk-kw-desc', 'chk-kw-slug', 'chk-kw-first', 'chk-word-count'].filter(k => res.tests[k] === 'passed').length;
+      const addPassed = ['chk-kw-heading', 'chk-kw-density', 'chk-img-alt', 'chk-links'].filter(k => res.tests[k] === 'passed').length;
+      const titlePassed = ['chk-len-title', 'chk-kw-start'].filter(k => res.tests[k] === 'passed').length;
+      const contentPassed = ['chk-len-desc', 'chk-content-rich'].filter(k => res.tests[k] === 'passed').length;
+
+      const cBasic = document.getElementById('catCountBasic');
+      if (cBasic) cBasic.textContent = `${basicPassed} / ۵`;
+      const cAdd = document.getElementById('catCountAdd');
+      if (cAdd) cAdd.textContent = `${addPassed} / ۴`;
+      const cTitle = document.getElementById('catCountTitle');
+      if (cTitle) cTitle.textContent = `${titlePassed} / ۲`;
+      const cContent = document.getElementById('catCountContent');
+      if (cContent) cContent.textContent = `${contentPassed} / ۲`;
+
+      const tCounter = document.getElementById('rmTestsPassedCounter');
+      if (tCounter) tCounter.textContent = `${res.passedCount} / ${res.totalCount} تست پاس شد`;
+
+      // 6. Update Sidebar Gauge Meter
+      const rmNum = document.getElementById('rmScoreNum');
+      if (rmNum) rmNum.textContent = res.score;
+      const rmCircle = document.getElementById('rmGaugeCircle');
+      if (rmCircle) {
+        rmCircle.style.color = res.color;
+        rmCircle.style.borderColor = res.color;
+        rmCircle.style.background = res.bg;
+        rmCircle.style.boxShadow = `0 0 14px ${res.color}40`;
+      }
+      const rmBadgeLabel = document.getElementById('rmScoreBadgeLabel');
+      if (rmBadgeLabel) {
+        rmBadgeLabel.textContent = res.label;
+        rmBadgeLabel.style.color = res.color;
+        rmBadgeLabel.style.background = res.bg;
+      }
+      const rmSummary = document.getElementById('rmScoreSummaryText');
+      if (rmSummary) {
+        rmSummary.textContent = `${res.passedCount} از ${res.totalCount} آزمون استاندارد پاس شده است`;
+      }
+      const rmBar = document.getElementById('rmScoreProgressBar');
+      if (rmBar) {
+        rmBar.style.width = res.score + '%';
+        rmBar.style.backgroundColor = res.color;
+      }
+
+      // 7. Update Sidebar Header Badge
       const badge = document.getElementById('seoScoreBadge');
-      if (score >= 80) {
-        badge.textContent = score + ' / ۱۰۰ — عالی';
-        badge.style.color = 'var(--color-emerald)';
-        badge.style.borderColor = 'rgba(0, 229, 153, 0.4)';
-        badge.style.background = 'rgba(0, 229, 153, 0.12)';
-      } else if (score >= 50) {
-        badge.textContent = score + ' / ۱۰۰ — متوسط';
-        badge.style.color = 'var(--color-amber)';
-        badge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-        badge.style.background = 'rgba(245, 158, 11, 0.12)';
-      } else {
-        badge.textContent = score + ' / ۱۰۰ — نیازمند بهبود';
-        badge.style.color = 'var(--color-rose)';
-        badge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
-        badge.style.background = 'rgba(239, 68, 68, 0.12)';
+      if (badge) {
+        badge.textContent = `${res.score} / ۱۰۰ — ${res.label}`;
+        badge.style.color = res.color;
+        badge.style.borderColor = res.border;
+        badge.style.background = res.bg;
+      }
+
+      // 8. Update Sticky Header Pill in Editor
+      const headerScore = document.getElementById('rankMathHeaderScore');
+      if (headerScore) headerScore.textContent = `${res.score} / ۱۰۰`;
+      const headerPill = document.getElementById('editorHeaderRankMathBadge');
+      if (headerPill) {
+        headerPill.style.color = res.color;
+        headerPill.style.borderColor = res.border;
+        headerPill.style.background = res.bg;
       }
     }
 

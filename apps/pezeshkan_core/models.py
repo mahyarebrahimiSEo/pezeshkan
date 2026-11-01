@@ -135,6 +135,7 @@ class Article(models.Model):
     custom_schema_json = models.TextField(blank=True)
     is_noindex = models.BooleanField(default=False, verbose_name="نو ایندکس (Noindex)")
     robots = models.CharField(max_length=100, default="index, follow", verbose_name="متاتگ ربات‌ها")
+    seo_score = models.IntegerField(default=0, verbose_name="امتیاز سئو رنک مث")
     last_modified = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -194,6 +195,7 @@ class Article(models.Model):
             "customSchemaJson": self.custom_schema_json,
             "isNoindex": self.is_noindex,
             "robots": self.robots or ("noindex, follow" if self.is_noindex else "index, follow"),
+            "seoScore": self.seo_score,
             "lastModified": self.last_modified.isoformat() if self.last_modified else None,
         }
 
