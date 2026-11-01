@@ -1,0 +1,241 @@
+/* ==========================================================================
+   Pezeshkan Medical Ecosystem & Magazine - 2026 Minimalist Circular Preloader
+   Apple / Linear Aesthetics - Pure PEZESHK-ON Wordmark & Smooth Circular Motion
+   ========================================================================== */
+
+.pez-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F6F9FC;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), filter 0.55s ease;
+  will-change: opacity, transform, filter;
+  overflow: hidden;
+  direction: ltr;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+[data-theme="dark"] .pez-preloader {
+  background: #080D1A;
+}
+
+.pez-preloader.is-loaded {
+  opacity: 0 !important;
+  transform: scale(1.04) !important;
+  filter: blur(8px) !important;
+  pointer-events: none !important;
+}
+
+/* Ambient Radial Light Pool */
+.pez-preloader-bg-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.14) 0%, rgba(0, 229, 255, 0.08) 45%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: pezAmbientBreathe 4s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .pez-preloader-bg-glow {
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.22) 0%, rgba(0, 229, 255, 0.12) 45%, transparent 70%);
+}
+
+@keyframes pezAmbientBreathe {
+  0% { transform: scale(0.92); opacity: 0.7; }
+  100% { transform: scale(1.08); opacity: 1; }
+}
+
+/* Minimalist Centerpiece Stage */
+.pez-preloader-centerpiece {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 22px;
+}
+
+/* ==========================================================================
+   Editorial Icon Badge for Magazine (Notebook + Writing Pencil)
+   ========================================================================== */
+.pez-mag-editorial-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: rgba(0, 102, 255, 0.06);
+  border: 1px solid rgba(0, 102, 255, 0.18);
+  box-shadow: 0 10px 24px -6px rgba(0, 102, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #0066FF;
+  margin-bottom: 2px;
+  animation: pezBadgeFloat 3.2s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .pez-mag-editorial-badge {
+  background: rgba(56, 189, 248, 0.10);
+  border-color: rgba(56, 189, 248, 0.25);
+  box-shadow: 0 12px 28px -6px rgba(0, 229, 255, 0.25);
+  color: #38BDF8;
+}
+
+.pez-mag-editorial-icon {
+  width: 28px;
+  height: 28px;
+}
+
+@keyframes pezBadgeFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+
+/* ==========================================================================
+   Circular Loading Animation (Smooth International Orbit)
+   ========================================================================== */
+.pez-circular-spinner-wrap {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pez-circular-spinner {
+  width: 100%;
+  height: 100%;
+  animation: pezSpin 1.4s linear infinite;
+  transform-origin: center center;
+}
+
+.spinner-track {
+  stroke: rgba(0, 102, 255, 0.10);
+}
+
+[data-theme="dark"] .spinner-track {
+  stroke: rgba(255, 255, 255, 0.10);
+}
+
+.spinner-arc {
+  stroke: url(#pezSpinnerGradient);
+  stroke-dasharray: 90, 150;
+  stroke-dashoffset: 0;
+  animation: pezDash 1.4s ease-in-out infinite;
+}
+
+@keyframes pezSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pezDash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+.spinner-center-dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00E5FF;
+  box-shadow: 0 0 10px #00E5FF, 0 0 20px rgba(0, 229, 255, 0.7);
+  animation: pezPulseCenter 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes pezPulseCenter {
+  0% { transform: scale(0.85); opacity: 0.6; }
+  100% { transform: scale(1.25); opacity: 1; }
+}
+
+/* ==========================================================================
+   Pure English Wordmark: PEZESHK-ON
+   ========================================================================== */
+.pez-preloader-brand-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.pez-preloader-wordmark {
+  font-family: 'JetBrains Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 4.5px;
+  color: #0F172A;
+  text-transform: uppercase;
+  margin-left: 4.5px; /* balances letter-spacing visually */
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .pez-preloader-wordmark {
+  color: #F8FAFC;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
+}
+
+.pez-preloader-subtext {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #0066FF;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .pez-preloader-subtext {
+  color: #38BDF8;
+}
+
+/* Magazine Sub-Label with Persian & Mini Pencil */
+.pez-preloader-mag-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
+  background: rgba(0, 102, 255, 0.06);
+  border: 1px solid rgba(0, 102, 255, 0.16);
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0066FF;
+  direction: rtl;
+  font-family: 'Vazirmatn', -apple-system, sans-serif;
+  letter-spacing: 0;
+  margin-top: 2px;
+}
+
+[data-theme="dark"] .pez-preloader-mag-label {
+  background: rgba(56, 189, 248, 0.10);
+  border-color: rgba(56, 189, 248, 0.24);
+  color: #38BDF8;
+}
+
+.pez-pencil-mini {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  flex-shrink: 0;
+}

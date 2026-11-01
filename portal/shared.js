@@ -1564,22 +1564,33 @@ function initModernScrollChoreography() {
       const auroraCyan = document.querySelector('.intro-aurora-cyan');
 
       const rect = introSection.getBoundingClientRect();
-      const entranceStart = vh * 0.98;
-      const entranceEnd = vh * 0.40; // Settles into view early to provide a wide reading window
-      const staticZoneEnd = -65;    // Fixed reading zone ends when section header scrolls past top
+
+      // Symmetrical Choreography Constants (Top & Bottom Scroll Displacements Are 100% Equal)
+      const scrollDist = vh * 0.52;      // Exact same scroll window for both entrance and exit
+      const entranceStart = vh * 0.92;
+      const entranceEnd = entranceStart - scrollDist; // Settles into view smoothly at vh * 0.40
+      const staticZoneEnd = -50;        // Fixed reading zone ends when section header scrolls past top
+      const exitEnd = staticZoneEnd - scrollDist;     // Symmetrical exit duration
+
+      const travelX = 220;    // Exact horizontal displacement (px) for both top and bottom
+      const travelY = 48;     // Exact vertical displacement (px) for both top and bottom
+      const travelRot = 2.4;  // Exact 3D tilt (deg) for both top and bottom
+      const travelScale = 0.10; // Exact scale variance (0.90 to 1.00)
 
       if (rect.top > entranceEnd) {
-        // Phase 1: High-presence 3D Convergence Entrance (Cards start wider apart and glide inward to meet at section)
-        const entranceProgress = Math.max(0, Math.min(1, (entranceStart - rect.top) / (entranceStart - entranceEnd)));
-        const easeIn = 1 - Math.pow(1 - entranceProgress, 3);
+        // Phase 1: Top Convergence Entrance (Cards start wider apart and glide inward to meet at section)
+        const progress = Math.max(0, Math.min(1, (entranceStart - rect.top) / scrollDist));
+        // Smooth symmetrical cosine easing (zero start/end jerk)
+        const ease = 0.5 - 0.5 * Math.cos(Math.PI * progress);
+        const invEase = 1 - ease;
 
-        const emrX = ((1 - easeIn) * 250).toFixed(1);
-        const crmX = (-(1 - easeIn) * 250).toFixed(1);
-        const y = ((1 - easeIn) * 60).toFixed(1);
-        const rotEmr = (-(1 - easeIn) * 2.8).toFixed(2);
-        const rotCrm = ((1 - easeIn) * 2.8).toFixed(2);
-        const scale = (0.88 + easeIn * 0.12).toFixed(3);
-        const opacity = Math.min(1, 0.10 + easeIn * 0.90).toFixed(2);
+        const emrX = (invEase * travelX).toFixed(1);
+        const crmX = (-invEase * travelX).toFixed(1);
+        const y = (invEase * travelY).toFixed(1);
+        const rotEmr = (-invEase * travelRot).toFixed(2);
+        const rotCrm = (invEase * travelRot).toFixed(2);
+        const scale = (1 - invEase * travelScale).toFixed(3);
+        const opacity = Math.min(1, 0.20 + ease * 0.80).toFixed(2);
 
         cardEmr.style.transform = `translate3d(${emrX}px, ${y}px, 0) rotate(${rotEmr}deg) scale(${scale})`;
         cardEmr.style.opacity = opacity;
@@ -1589,25 +1600,25 @@ function initModernScrollChoreography() {
 
         // Dial arc and trend line animate in sync with entrance
         if (dialArc) {
-          const targetOffset = 194.78 - easeIn * (194.78 - 19.48);
+          const targetOffset = 194.78 - ease * (194.78 - 19.48);
           dialArc.style.strokeDashoffset = targetOffset.toFixed(1);
         }
         if (trendLine) {
-          const lineOffset = 230 - easeIn * 230;
+          const lineOffset = 230 - ease * 230;
           trendLine.style.strokeDashoffset = Math.max(0, lineOffset).toFixed(1);
         }
         if (auroraCobalt) {
-          auroraCobalt.style.transform = `translate3d(${(easeIn * 24).toFixed(1)}px, ${(easeIn * 14).toFixed(1)}px, 0)`;
+          auroraCobalt.style.transform = `translate3d(${(ease * 24).toFixed(1)}px, ${(ease * 14).toFixed(1)}px, 0)`;
         }
         if (auroraCyan) {
-          auroraCyan.style.transform = `translate3d(${(-easeIn * 20).toFixed(1)}px, ${(-easeIn * 12).toFixed(1)}px, 0)`;
+          auroraCyan.style.transform = `translate3d(${(-ease * 20).toFixed(1)}px, ${(-ease * 12).toFixed(1)}px, 0)`;
         }
       } else if (rect.top >= staticZoneEnd) {
         // Phase 2: Static Reading Sanctuary (Zero movement / locked dead-zone for effortless, clear reading)
-        cardEmr.style.transform = 'translate3d(0, 0, 0)';
+        cardEmr.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
         cardEmr.style.opacity = '1';
 
-        cardCrm.style.transform = 'translate3d(0, 0, 0)';
+        cardCrm.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
         cardCrm.style.opacity = '1';
 
         if (dialArc) dialArc.style.strokeDashoffset = '19.5';
@@ -1615,29 +1626,32 @@ function initModernScrollChoreography() {
         if (auroraCobalt) auroraCobalt.style.transform = 'translate3d(24px, 14px, 0)';
         if (auroraCyan) auroraCyan.style.transform = 'translate3d(-20px, -12px, 0)';
       } else {
-        // Phase 3: Separating Divergence Exit (Separating animation starts after reading zone: right card goes right, left card goes left)
-        const exitDist = vh * 0.75;
-        const exitProgress = Math.max(0, Math.min(1, (staticZoneEnd - rect.top) / exitDist));
-        const exitEase = Math.pow(exitProgress, 1.3);
+        // Phase 3: Bottom Divergence Exit (Identical displacement and scroll distance to Phase 1)
+        const progress = Math.max(0, Math.min(1, (staticZoneEnd - rect.top) / scrollDist));
+        // Identical smooth symmetrical cosine easing
+        const ease = 0.5 - 0.5 * Math.cos(Math.PI * progress);
 
-        const xRight = (exitEase * 210).toFixed(1);
-        const xLeft = (-exitEase * 210).toFixed(1);
-        const exitY = (-exitEase * 38).toFixed(1);
-        const exitOpacity = (1 - exitEase * 0.62).toFixed(2);
+        const emrX = (ease * travelX).toFixed(1);
+        const crmX = (-ease * travelX).toFixed(1);
+        const y = (-ease * travelY).toFixed(1);
+        const rotEmr = (ease * travelRot).toFixed(2);
+        const rotCrm = (-ease * travelRot).toFixed(2);
+        const scale = (1 - ease * travelScale).toFixed(3);
+        const opacity = Math.max(0.20, (1 - ease * 0.80)).toFixed(2);
 
-        cardEmr.style.transform = `translate3d(${xRight}px, ${exitY}px, 0)`;
-        cardEmr.style.opacity = exitOpacity;
+        cardEmr.style.transform = `translate3d(${emrX}px, ${y}px, 0) rotate(${rotEmr}deg) scale(${scale})`;
+        cardEmr.style.opacity = opacity;
 
-        cardCrm.style.transform = `translate3d(${xLeft}px, ${exitY}px, 0)`;
-        cardCrm.style.opacity = exitOpacity;
+        cardCrm.style.transform = `translate3d(${crmX}px, ${y}px, 0) rotate(${rotCrm}deg) scale(${scale})`;
+        cardCrm.style.opacity = opacity;
 
         if (dialArc) dialArc.style.strokeDashoffset = '19.5';
         if (trendLine) trendLine.style.strokeDashoffset = '0';
         if (auroraCobalt) {
-          auroraCobalt.style.transform = `translate3d(${(24 + exitEase * 35).toFixed(1)}px, 14px, 0)`;
+          auroraCobalt.style.transform = `translate3d(${(24 + ease * 24).toFixed(1)}px, 14px, 0)`;
         }
         if (auroraCyan) {
-          auroraCyan.style.transform = `translate3d(${(-20 - exitEase * 35).toFixed(1)}px, -12px, 0)`;
+          auroraCyan.style.transform = `translate3d(${(-20 - ease * 20).toFixed(1)}px, -12px, 0)`;
         }
       }
     }
@@ -2752,3 +2766,141 @@ document.addEventListener('click', (e) => {
   }
   window.refreshHomeMagazine = initHomeMagazine;
 })();
+
+// ==========================================================================
+// 8. Pezeshkan Medical Ecosystem & Magazine - 2026 Minimalist Circular Preloader
+// Apple / Linear Aesthetics - Pure PEZESHK-ON Wordmark & Smooth Circular Motion
+// ==========================================================================
+(function () {
+  'use strict';
+
+  function getPreloaderHTML(isMag) {
+    var editorialBadgeHTML = isMag
+      ? '<div class="pez-mag-editorial-badge" aria-hidden="true">' +
+          '<svg class="pez-mag-editorial-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>' +
+            '<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>' +
+            '<line x1="9" y1="7" x2="15" y2="7"></line>' +
+            '<line x1="9" y1="11" x2="13" y2="11"></line>' +
+            '<path d="m15 15 3-3 2 2-3 3h-2v-2z"></path>' +
+          '</svg>' +
+        '</div>'
+      : '';
+
+    var subtextHTML = isMag
+      ? '<span class="pez-preloader-mag-label">' +
+          '<svg class="pez-pencil-mini" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>' +
+            '<path d="m15 5 4 4"></path>' +
+          '</svg>' +
+          '<span>مجله سلامت و دانشنامه بالینی</span>' +
+        '</span>'
+      : '<span class="pez-preloader-subtext">CLINICAL ECOSYSTEM</span>';
+
+    return (
+      '<div id="pezeshkanPreloader" class="pez-preloader' + (isMag ? ' pez-preloader-mag' : '') + '" role="status" aria-live="polite" aria-label="Loading PEZESHK-ON">' +
+        '<div class="pez-preloader-bg-glow" aria-hidden="true"></div>' +
+        '<div class="pez-preloader-centerpiece">' +
+          editorialBadgeHTML +
+          '<div class="pez-circular-spinner-wrap" aria-hidden="true">' +
+            '<svg class="pez-circular-spinner" viewBox="0 0 60 60">' +
+              '<defs>' +
+                '<linearGradient id="pezSpinnerGradient" x1="0%" y1="0%" x2="100%" y2="100%">' +
+                  '<stop offset="0%" stop-color="#0066FF"/>' +
+                  '<stop offset="50%" stop-color="#38BDF8"/>' +
+                  '<stop offset="100%" stop-color="#00E5FF"/>' +
+                '</linearGradient>' +
+              '</defs>' +
+              '<circle class="spinner-track" cx="30" cy="30" r="24" fill="none" stroke-width="3"/>' +
+              '<circle class="spinner-arc" cx="30" cy="30" r="24" fill="none" stroke-width="3.5" stroke-linecap="round"/>' +
+            '</svg>' +
+            '<div class="spinner-center-dot"></div>' +
+          '</div>' +
+          '<div class="pez-preloader-brand-box">' +
+            '<span class="pez-preloader-wordmark">PEZESHK-ON</span>' +
+            subtextHTML +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function initClinicalPreloader(options) {
+    if (typeof window !== 'undefined' && window.location && window.location.search.indexOf('nopreloader') !== -1) {
+      return;
+    }
+    if (window.__pezeshkanPreloaderInitialized) return;
+    window.__pezeshkanPreloaderInitialized = true;
+
+    options = options || {};
+    var isMag = typeof options.isMag === 'boolean' ? options.isMag : (
+      window.location.pathname.indexOf('/mag') === 0
+    );
+
+    var preloader = document.getElementById('pezeshkanPreloader');
+    if (!preloader) {
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = getPreloaderHTML(isMag);
+      preloader = wrapper.firstElementChild;
+      if (document.body) {
+        document.body.prepend(preloader);
+      } else if (document.documentElement) {
+        document.documentElement.appendChild(preloader);
+      }
+    }
+
+    var startTime = performance.now();
+    var isDismissed = false;
+
+    function dismiss() {
+      if (isDismissed) return;
+      if (typeof window !== 'undefined' && window.location && window.location.search.indexOf('freeze') !== -1) return;
+      isDismissed = true;
+
+      // Allow minimum pleasant viewing time (~350ms) for smooth visual ergonomics
+      var elapsed = performance.now() - startTime;
+      var remainingDelay = Math.max(0, 350 - elapsed);
+
+      setTimeout(function () {
+        if (preloader) {
+          preloader.classList.add('is-loaded');
+        }
+
+        try {
+          window.dispatchEvent(new CustomEvent('pezeshkan:preloader-dismissed'));
+        } catch (e) {}
+
+        setTimeout(function () {
+          if (preloader && preloader.parentNode) {
+            preloader.parentNode.removeChild(preloader);
+          }
+        }, 550);
+      }, remainingDelay);
+    }
+
+    if (document.readyState === 'complete') {
+      dismiss();
+    } else {
+      window.addEventListener('load', dismiss);
+    }
+
+    // Safety timeout: Never hold longer than 1100ms
+    setTimeout(dismiss, 1100);
+  }
+
+  if (document.readyState === 'loading') {
+    if (document.body) {
+      initClinicalPreloader();
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        initClinicalPreloader();
+      });
+    }
+  } else {
+    initClinicalPreloader();
+  }
+
+  window.initClinicalPreloader = initClinicalPreloader;
+})();
+
+

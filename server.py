@@ -33,6 +33,8 @@ import uuid
 import signal
 import logging
 from logging.handlers import RotatingFileHandler
+import gzip
+import email.utils
 
 # Pillow Image Processing (WebP Multi-Tier Optimization)
 try:
@@ -2598,7 +2600,7 @@ def render_article_ssr(art, template_html):
     last_reviewed = art.get("lastReviewed") or art.get("publishDate") or "به‌روزرسانی شده"
     
     # 1. Update Title
-    page_title = f"{title} | مجله سلامت بالینی پزشکآن لایف"
+    page_title = f"{title} | مجله سلامت بالینی پزشکآن"
     ssr_html = re.sub(r'<title>.*?</title>', f'<title>{html.escape(page_title)}</title>', template_html, count=1, flags=re.IGNORECASE)
     
     # 2. Update Description
@@ -2666,7 +2668,7 @@ def render_article_ssr(art, template_html):
                 {
                     "@type": "ListItem",
                     "position": 2,
-                    "name": "مجله سلامت پزشکآن لایف",
+                    "name": "مجله سلامت پزشکآن",
                     "item": "https://pezeshkan.me/mag"
                 },
                 {
@@ -3268,46 +3270,77 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
         if not getattr(self, "_head_only", False):
             self.wfile.write(body)
 
-    def send_json(self, data, status=200, is_private=False):
+    def _send_payload(self, body_bytes, content_type, cache_control, status=200, is_private=False, etag=None, last_modified=None):
         try:
-            body = json.dumps(data, ensure_ascii=False).encode("utf-8")
+            # 1. ETag & 304 Not Modified validation
+            if_none_match = self.headers.get("If-None-Match")
+            if etag and if_none_match:
+                client_tags = [t.strip() for t in if_none_match.split(",")]
+                if "*" in client_tags or etag in client_tags or etag.strip('"') in client_tags:
+                    self.send_response(304)
+                    self.send_header("ETag", etag)
+                    if cache_control:
+                        self.send_header("Cache-Control", cache_control)
+                    if last_modified:
+                        self.send_header("Last-Modified", last_modified)
+                    self.send_security_headers(is_private=is_private)
+                    self.end_headers()
+                    return
+
+            # 2. HTTP Gzip Compression (80%+ payload reduction for text/css/js/json/xml/svg)
+            accept_enc = self.headers.get("Accept-Encoding", "").lower()
+            use_gzip = False
+            compressible_types = (
+                "text/", "application/javascript", "application/json",
+                "application/xml", "image/svg+xml", "application/x-javascript",
+                "application/manifest+json"
+            )
+            if "gzip" in accept_enc and any(t in content_type for t in compressible_types) and len(body_bytes) > 256:
+                body_bytes = gzip.compress(body_bytes, compresslevel=6)
+                use_gzip = True
+
             self.send_response(status)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(body_bytes)))
+            if cache_control:
+                self.send_header("Cache-Control", cache_control)
+            if etag:
+                self.send_header("ETag", etag)
+            if last_modified:
+                self.send_header("Last-Modified", last_modified)
+            if use_gzip:
+                self.send_header("Content-Encoding", "gzip")
+                self.send_header("Vary", "Accept-Encoding")
             self.send_security_headers(is_private=is_private)
             self.end_headers()
             if not getattr(self, "_head_only", False):
-                self.wfile.write(body)
+                self.wfile.write(body_bytes)
         except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
             pass
+
+    def send_json(self, data, status=200, is_private=False):
+        try:
+            body = json.dumps(data, ensure_ascii=False).encode("utf-8")
+            etag = f'"{hashlib.md5(body).hexdigest()[:16]}"'
+            self._send_payload(body, "application/json; charset=utf-8", "no-cache", status=status, is_private=is_private, etag=etag)
+        except Exception as e:
+            self.send_error(500, f"JSON Error: {e}")
 
     def send_html(self, html_content, status=200, is_private=False):
         try:
             body = html_content.encode("utf-8")
-            self.send_response(status)
-            self.send_header("Content-Type", "text/html; charset=utf-8")
-            self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
-            self.send_security_headers(is_private=is_private)
-            self.end_headers()
-            if not getattr(self, "_head_only", False):
-                self.wfile.write(body)
-        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
-            pass
+            etag = f'"{hashlib.md5(body).hexdigest()[:16]}"'
+            self._send_payload(body, "text/html; charset=utf-8", "public, max-age=0, must-revalidate", status=status, is_private=is_private, etag=etag)
+        except Exception as e:
+            self.send_error(500, f"HTML Error: {e}")
 
     def send_xml(self, xml_content, status=200):
         try:
             body = xml_content.encode("utf-8")
-            self.send_response(status)
-            self.send_header("Content-Type", "application/xml; charset=utf-8")
-            self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "public, max-age=3600")
-            self.send_security_headers(is_private=False)
-            self.end_headers()
-            if not getattr(self, "_head_only", False):
-                self.wfile.write(body)
-        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
-            pass
+            etag = f'"{hashlib.md5(body).hexdigest()[:16]}"'
+            self._send_payload(body, "application/xml; charset=utf-8", "public, max-age=3600, stale-while-revalidate=86400", status=status, is_private=False, etag=etag)
+        except Exception as e:
+            self.send_error(500, f"XML Error: {e}")
 
     def serve_file(self, filepath, content_type=None, status=200, is_private=False):
         safe, code, msg = is_safe_static_request(filepath)
@@ -3320,7 +3353,7 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             if not content_type:
                 content_type = "application/octet-stream"
 
-        if content_type.startswith("text/") or content_type == "application/json" or content_type == "application/xml" or content_type == "application/manifest+json":
+        if content_type.startswith("text/") or content_type in ("application/json", "application/xml", "application/manifest+json"):
             content_type += "; charset=utf-8"
 
         # Optimized Cache-Control based on asset type
@@ -3328,26 +3361,51 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
         is_upload = os.path.realpath(filepath).startswith(os.path.realpath(UPLOADS_DIR))
         if any(lower_fp.endswith(ext) for ext in (".woff2", ".woff", ".ttf")) or (is_upload and any(lower_fp.endswith(ext) for ext in (".webp", ".png", ".jpg", ".jpeg", ".svg", ".gif"))):
             cache_header = "public, max-age=31536000, immutable"
-        elif any(lower_fp.endswith(ext) for ext in (".js", ".css", ".html", ".htm")):
-            cache_header = "no-cache, no-store, must-revalidate"
+        elif any(lower_fp.endswith(ext) for ext in (".glb", ".gltf")):
+            cache_header = "public, max-age=2592000, immutable"
+        elif any(lower_fp.endswith(ext) for ext in (".js", ".css")):
+            cache_header = "public, max-age=604800, stale-while-revalidate=86400"
         elif any(lower_fp.endswith(ext) for ext in (".svg", ".webp", ".png", ".jpg", ".jpeg", ".ico")):
-            cache_header = "public, max-age=86400"
+            cache_header = "public, max-age=2592000, stale-while-revalidate=86400"
+        elif any(lower_fp.endswith(ext) for ext in (".html", ".htm")):
+            cache_header = "public, max-age=0, must-revalidate"
         elif any(lower_fp.endswith(ext) for ext in (".xml", ".txt", ".webmanifest")):
             cache_header = "public, max-age=86400, stale-while-revalidate=43200"
         else:
             cache_header = "public, max-age=3600, stale-while-revalidate=86400"
 
         try:
+            st = os.stat(filepath)
+            mtime = st.st_mtime
+            size = st.st_size
+            raw_tag = f"{mtime}-{size}".encode()
+            etag = f'"{hashlib.md5(raw_tag).hexdigest()[:16]}"'
+            last_mod = email.utils.formatdate(mtime, usegmt=True)
+        except Exception:
+            etag = None
+            last_mod = None
+
+        # Fast 304 Not Modified validation without disk I/O
+        if_none_match = self.headers.get("If-None-Match")
+        if etag and if_none_match:
+            client_tags = [t.strip() for t in if_none_match.split(",")]
+            if "*" in client_tags or etag in client_tags or etag.strip('"') in client_tags:
+                try:
+                    self.send_response(304)
+                    self.send_header("ETag", etag)
+                    self.send_header("Cache-Control", cache_header)
+                    if last_mod:
+                        self.send_header("Last-Modified", last_mod)
+                    self.send_security_headers(is_private=is_private)
+                    self.end_headers()
+                    return
+                except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+                    return
+
+        try:
             with open(filepath, "rb") as f:
                 content = f.read()
-            self.send_response(status)
-            self.send_header("Content-Type", content_type)
-            self.send_header("Content-Length", str(len(content)))
-            self.send_header("Cache-Control", cache_header)
-            self.send_security_headers(is_private=is_private)
-            self.end_headers()
-            if not getattr(self, "_head_only", False):
-                self.wfile.write(content)
+            self._send_payload(content, content_type, cache_header, status=status, is_private=is_private, etag=etag, last_modified=last_mod)
         except Exception:
             self.send_error(500, "Internal Server Error")
 
@@ -3448,7 +3506,12 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             return self.send_redirect_301(apt_target)
 
         # Strip .html and trailing slashes for canonical URLs
-        portal_canonicals = ["/product", "/features", "/packages", "/tutorials", "/start", "/services", "/about", "/contact", "/download", "/appointments"]
+        portal_canonicals = [
+            "/product", "/features", "/packages", "/tutorials", "/start",
+            "/services", "/about", "/contact", "/download", "/appointments",
+            "/service-appointments", "/service-emr", "/service-physio",
+            "/service-sms-crm", "/service-accounting"
+        ]
         for p in portal_canonicals:
             if path == p + ".html" or (path.startswith(p + "/") and path.rstrip("/") == p):
                 return self.send_redirect_301(p)
@@ -3503,6 +3566,21 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             "/tutorials": "tutorials.html",
             "/download": "download.html",
             "/appointments": "appointments.html",
+            "/service-appointments": "service-appointments.html",
+            "/service-emr": "service-emr.html",
+            "/service-physio": "service-physio.html",
+            "/service-sms-crm": "service-sms-crm.html",
+            "/service-accounting": "service-accounting.html",
+            "/service-appointments/": "service-appointments.html",
+            "/service-emr/": "service-emr.html",
+            "/service-physio/": "service-physio.html",
+            "/service-sms-crm/": "service-sms-crm.html",
+            "/service-accounting/": "service-accounting.html",
+            "/portal/service-appointments.html": "service-appointments.html",
+            "/portal/service-emr.html": "service-emr.html",
+            "/portal/service-physio.html": "service-physio.html",
+            "/portal/service-sms-crm.html": "service-sms-crm.html",
+            "/portal/service-accounting.html": "service-accounting.html",
             "/404": "404.html",
             "/404.html": "404.html",
             "/shared.css": "shared.css",
@@ -3517,7 +3595,9 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             "/gsap.min.js": "gsap.min.js",
             "/lenis.min.js": "lenis.min.js",
             "/pezeshkon-logo.svg": "pezeshkon-logo.svg",
-            "/pezeshkon-logo.png": "pezeshkon-logo.png"
+            "/pezeshkon-logo.png": "pezeshkon-logo.png",
+            "/preloader.css": "preloader.css",
+            "/preloader.js": "preloader.js"
         }
         if path in portal_routes:
             file_name = portal_routes[path]
@@ -3581,6 +3661,12 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
 
         # 7. Health Magazine Subfolder (/mag) & Article SPA Deep-Linking
         if path == "/mag" or path.startswith("/mag/"):
+            # Direct Magazine 404 handler
+            if path in ("/mag/404", "/mag/404.html", "/mag/404/"):
+                mag_404_file = os.path.join(MAG_DIR, "404.html")
+                if os.path.isfile(mag_404_file):
+                    return self.serve_file(mag_404_file, "text/html", status=404)
+
             # Block any access to internal /mag/content directory (even if file does not exist)
             if path == "/mag/content" or path.startswith("/mag/content/"):
                 return self.send_error(403, "Access Denied")
@@ -3623,7 +3709,10 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                         ssr_html = render_article_ssr(found_article, template_html)
                         return self.send_html(ssr_html)
                     else:
-                        # Non-existent article slug: return clinical 404 to prevent soft-404 penalty
+                        # Non-existent article slug: return dedicated Magazine 404 page
+                        mag_not_found = os.path.join(MAG_DIR, "404.html")
+                        if os.path.isfile(mag_not_found):
+                            return self.serve_file(mag_not_found, "text/html", status=404)
                         not_found_file = os.path.join(PORTAL_DIR, "404.html")
                         if os.path.isfile(not_found_file):
                             return self.serve_file(not_found_file, "text/html", status=404)
@@ -3893,8 +3982,10 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
 
             return self.send_json({"error": "مسیر API یافت نشد"}, 404)
 
-        # 10. Authorized Static Assets (Public Bundles, Images, Scripts, 3D Assets)
         clean_rel = path.lstrip("/")
+        if clean_rel.startswith("portal/"):
+            clean_rel = clean_rel[len("portal/"):]
+
         for candidate_base in [PORTAL_DIR, BASE_DIR]:
             candidate_path = os.path.normpath(os.path.join(candidate_base, clean_rel))
             if os.path.isfile(candidate_path):
@@ -3903,6 +3994,10 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                     return self.serve_file(candidate_path)
                 if code == 403:
                     return self.send_error(403, msg or "Access Denied")
+            elif os.path.isfile(candidate_path + ".html"):
+                safe, code, msg = is_safe_static_request(candidate_path + ".html")
+                if safe:
+                    return self.serve_file(candidate_path + ".html", "text/html")
 
         # 404 Fallback - Custom Branded Persian Error Page
         error_404_file = os.path.join(PORTAL_DIR, "404.html")

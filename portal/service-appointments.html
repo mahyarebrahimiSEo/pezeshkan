@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>نوبت‌دهی آنلاین و تریاژ هوشمند مطب | پزشکآن</title>
   <meta name="description" content="سامانه نوبت‌دهی آنلاین ضد تداخل پزشکآن؛ مدیریت صف مراجعان، پیوند لحظه‌ای میز منشی به اتاق معاینه پزشک و ارسال خودکار لوکیشن نشان، بلد و گوگل‌مپ.">
   <link rel="canonical" href="https://pezeshkan.me/service-appointments">
 
   <!-- Favicon & PWA Manifest -->
+    <!-- Performance: Critical Font Preloads -->
+  <link rel="preload" href="/fonts/Vazirmatn-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Vazirmatn-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -22,6 +22,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
   <script>document.documentElement.setAttribute("data-theme","light");try{localStorage.setItem("pezeshkan_theme","light");}catch(e){}</script>
+  <link rel="stylesheet" href="/preloader.css?v=20261101v40">
+  <script src="/preloader.js?v=20261101v40"></script>
   <link rel="stylesheet" href="/shared.css?v=20261031v14">
 </head>
 <body>
@@ -182,7 +184,7 @@
                 </div>
                 <svg class="svg-icon nav-service-arrow" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></svg>
               </a>
-            </div>
+</div>
           </div>
         </li>
         <!-- 3. نوبت‌دهی مطب -->
@@ -206,8 +208,7 @@
         </a>
         <a class="pez-shell-pill-mag" href="/mag">
           <span>مجله سلامت</span>
-          <span class="pez-shell-mag-badge">پزشکآن لایف</span>
-        </a>
+          </a>
         <div class="header-auth-capsule">
           <a class="auth-capsule-btn auth-combined-btn" href="javascript:void(0)" onclick="openLoginNotice('select')" title="ورود و ثبت‌نام در سامانه سلامت پزشکآن">
             <svg class="svg-icon" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>
@@ -260,7 +261,7 @@
             <a class="drawer-sub-link" href="/download?role=patients">
               <span>دموی آنلاین پنل مراجعان</span>
             </a>
-          </div>
+</div>
         </li>
         <!-- آکاردئون ۲: برای پزشکان -->
         <li class="drawer-accordion drawer-accordion-doctors is-open" id="drawerAccDoctors">
@@ -324,7 +325,7 @@
         <li><a class="nav-link" href="/appointments" style="font-weight:800;">نوبت‌دهی مطب (لیست پزشکان)</a></li>
         <li><a class="nav-link" href="/packages" style="font-weight:800;">تعرفه و پلن‌ها</a></li>
         <li><a class="nav-link" href="/download" style="color:var(--brand-primary); font-weight:800;">دریافت دموی سامانه ابری</a></li>
-        <li><a class="nav-link nav-mag" href="/mag">مجله سلامت (پزشکآن لایف)</a></li>
+        <li><a class="nav-link nav-mag" href="/mag">مجله سلامت</a></li>
         <li><a class="nav-link" href="/about">درباره ما</a></li>
         <li><a class="nav-link" href="/contact">ارتباط با ما</a></li>
       </ul>
@@ -409,39 +410,78 @@
     </section>
   </main>
 
-  <!-- Footer -->
+    <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4 style="margin:0 0 10px; font-size:16px;">اکوسیستم سلامت دیجیتال پزشکآن</h4>
-          <p style="color:var(--text-secondary); font-size:12.5px; line-height:1.7;">پلتفرم یکپارچه ابری مدیریت مطب، نوبت‌دهی آنلاین و پرونده الکترونیک سلامت EMR.</p>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <div class="footer-brand-emblem">
+              <img src="/pezeshkon-logo.svg" alt="لوگوی پزشکآن PEZESHK-ON" width="38" height="38"/>
+            </div>
+            <div>
+              <h4 style="margin:0; font-size:18px; line-height:1.2;">اکوسیستم سلامت دیجیتال پزشکآن</h4>
+              <span dir="ltr" style="font-family:var(--font-mono); font-size:10.5px; font-weight:800; color:var(--brand-primary); letter-spacing:1.2px;">PEZESHK-ON ECOSYSTEM</span>
+            </div>
+          </div>
+          <p style="color:var(--text-secondary); line-height:1.9; max-width:440px;">
+            پلتفرم پیشرو و دانش‌بنیان مدیریت درمان، پرونده الکترونیک سلامت (EMR)، اتوماسیون مطب و مجله سلامت بالینی. طراحی‌شده با رعایت دقیق‌ترین استانداردهای حریم خصوصی و امنیت داده‌های پزشکی.
+          </p>
+          <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+            <span style="background:var(--signal-cyan-bg); color:var(--signal-cyan); border:1px solid var(--signal-cyan-border); padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:700;">تاییدیه نظام پزشکی</span>
+          </div>
         </div>
+
         <div class="footer-col">
-          <h4>سایر خدمات</h4>
+          <h4>خدمات و ماژول‌های بالینی</h4>
           <ul class="footer-links">
+            <li><a href="/service-appointments">نوبت‌دهی آنلاین و تریاژ</a></li>
             <li><a href="/service-emr">پرونده الکترونیک سلامت (EMR)</a></li>
-            <li><a href="/service-physio">سوئیت فیزیوتراپی و ارتوپدی</a></li>
-            <li><a href="/service-sms-crm">اتوماسیون پیامکی CRM</a></li>
-            <li><a href="/service-accounting">اتصال پوز و حسابداری</a></li>
+            <li><a href="/service-physio">ماژول فیزیوتراپی و ارتوپدی</a></li>
+            <li><a href="/service-sms-crm">اتوماسیون پیامکی و CRM</a></li>
+            <li><a href="/service-accounting">اتصال پوز و حسابداری تسهیم</a></li>
+            <li><a href="/packages">پکیج‌ها و تعرفه‌ها</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
-          <h4>پشتیبانی</h4>
+          <h4>آموزش و رسانه سلامت</h4>
           <ul class="footer-links">
-            <li><a href="/contact">ارتباط ۲۴ ساعته</a></li>
-            <li><a href="/about">درباره پزشکآن</a></li>
+            <li><a href="/mag">مجله سلامت پزشکآن</a></li>
+            <li><a href="/mag#pillars">دپارتمان‌های ۹‌گانه تخصصی</a></li>
+            <li><a href="/mag#doctors">پزشکان تاییدشده مجله</a></li>
+            <li><a href="/tutorials">راهنما و آموزش سامانه</a></li>
+            <li><a href="/features">قابلیت‌ها و پنل منشی</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>ارتباط و پشتیبانی</h4>
+          <ul class="footer-links">
+            <li><a href="/contact">تماس با مرکز ارتباط پزشکان</a></li>
+            <li><a href="/about">درباره ما و اعضای هیئت علمی</a></li>
+            <li><a href="/start">درخواست دمو و شروع همکاری</a></li>
+            <li><span style="color:var(--text-muted);">تلفن ۲۴ ساعته:</span> <strong dir="ltr" style="color:var(--text-pure); font-variant-numeric:tabular-nums;">۰۲۱-۸۸۸۸۴۴۴۴</strong></li>
+            <li><span style="color:var(--text-muted);">دفتر مرکزی:</span> تهران، ونک، برج فناوری سلامت</li>
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <span>© تمامی حقوق متعلق به شرکت دانش‌بنیان سلامت دیجیتال پزشکآن است.</span>
+        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;"><span>© تمامی حقوق مادی و معنوی متعلق به شرکت دانش‌بنیان سلامت دیجیتال پزشکآن است.</span><span style="opacity:0.4;">|</span><span>طراحی شده توسط <a href="https://onsupp.com/" rel="noopener" style="color:var(--brand-primary); font-weight:700; text-decoration:none;" target="_blank">onsupp.com</a></span></div>
+        <div style="display:flex; gap:16px;">
+          <a href="/about">قوانین و محرمانگی PHI</a>
+          <span>•</span>
+          <a href="/contact">سلب مسئولیت پزشکی</a>
+          <span>•</span>
+          <a href="/mag">مجله سلامت بالینی</a>
+        </div>
       </div>
     </div>
   </footer>
 
   <script src="/gsap.min.js"></script>
   <script src="/lenis.min.js"></script>
-  <script src="/shared.js?v=20261031v14"></script>
+  <script src="/shared.js?v=20261031v14" defer></script>
 </body>
 </html>

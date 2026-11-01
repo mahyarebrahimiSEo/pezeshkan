@@ -128,10 +128,19 @@ def inject_cache_busting(html_text):
         css_mtime = int(shared_css.stat().st_mtime) if shared_css.exists() else int(datetime.now().timestamp())
         js_mtime = int(shared_js.stat().st_mtime) if shared_js.exists() else int(datetime.now().timestamp())
 
+        preloader_css = portal_dir / 'preloader.css'
+        preloader_js = portal_dir / 'preloader.js'
+        pl_css_mtime = int(preloader_css.stat().st_mtime) if preloader_css.exists() else int(datetime.now().timestamp())
+        pl_js_mtime = int(preloader_js.stat().st_mtime) if preloader_js.exists() else int(datetime.now().timestamp())
+
         # Update /shared.css?v=...
         html_text = re.sub(r'(/shared\.css)(?:\?[^"\'\s>]*)?', rf'\g<1>?v={css_mtime}', html_text)
         # Update /shared.js?v=...
         html_text = re.sub(r'(/shared\.js)(?:\?[^"\'\s>]*)?', rf'\g<1>?v={js_mtime}', html_text)
+        # Update /preloader.css?v=...
+        html_text = re.sub(r'(/preloader\.css)(?:\?[^"\'\s>]*)?', rf'\g<1>?v={pl_css_mtime}', html_text)
+        # Update /preloader.js?v=...
+        html_text = re.sub(r'(/preloader\.js)(?:\?[^"\'\s>]*)?', rf'\g<1>?v={pl_js_mtime}', html_text)
 
         # Ensure no-cache meta tags in <head>
         meta_tags = (
@@ -147,7 +156,7 @@ def inject_cache_busting(html_text):
 
 
 # Helper: Serve file safely with exact MIME types and in-memory cache
-def serve_static_file(file_path):
+def serve_static_file(file_path, status=200):
     path = Path(file_path)
     str_path = str(path)
 
@@ -161,7 +170,7 @@ def serve_static_file(file_path):
     if ext != '.html' and str_path in _STATIC_FILE_CACHE:
         cached_mtime, content, content_type, ext_cached = _STATIC_FILE_CACHE[str_path]
         if cached_mtime == file_mtime:
-            response = HttpResponse(content, content_type=content_type)
+            response = HttpResponse(content, content_type=content_type, status=status)
             response["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
             response["Pragma"] = "no-cache"
             response["Expires"] = "0"
@@ -203,7 +212,7 @@ def serve_static_file(file_path):
         if ext != '.html' and len(_STATIC_FILE_CACHE) < _MAX_STATIC_CACHE_ENTRIES:
             _STATIC_FILE_CACHE[str_path] = (file_mtime, content, content_type, ext)
 
-        response = HttpResponse(content, content_type=content_type)
+        response = HttpResponse(content, content_type=content_type, status=status)
         response["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
         response["Pragma"] = "no-cache"
         response["Expires"] = "0"
@@ -322,9 +331,12 @@ def index_page(request):
     return response
 
 
-def portal_page(request, page_name="index"):
+def portal_page(request, page_name="index", path=None, **kwargs):
     """Serves portal HTML pages (/product, /features, /packages, etc.)."""
-    clean = page_name.strip("/").replace(".html", "")
+    actual = path if path is not None else page_name
+    clean = actual.strip("/").replace(".html", "")
+    if clean.startswith("portal/"):
+        clean = clean[len("portal/"):]
     if not clean or clean == "index":
         return index_page(request)
     elif clean in PORTAL_PAGE_NAMES:
@@ -353,6 +365,10 @@ def magazine_page(request, path=""):
     if not clean:
         target = settings.BASE_DIR / 'mag' / 'index.html'
         return serve_static_file(target)
+    elif clean in ("404", "404.html"):
+        target_404 = settings.BASE_DIR / 'mag' / '404.html'
+        if target_404.exists():
+            return serve_static_file(target_404, status=404)
     elif clean == "newsletter":
         target = settings.BASE_DIR / 'mag' / 'newsletter.html'
         return serve_static_file(target)
@@ -402,7 +418,10 @@ def magazine_page(request, path=""):
             import logging
             logging.getLogger(__name__).error(f"[SSR] Django magazine article render error for {clean}: {ssr_err}")
 
-        # If slug not found and not a static file, fallback to index.html
+        # If slug not found and not a static file, serve dedicated Magazine 404 page
+        target_404 = settings.BASE_DIR / 'mag' / '404.html'
+        if target_404.exists() and target_404.is_file():
+            return serve_static_file(target_404, status=404)
         target = settings.BASE_DIR / 'mag' / 'index.html'
         return serve_static_file(target)
 

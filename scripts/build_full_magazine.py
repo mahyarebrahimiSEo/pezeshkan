@@ -305,7 +305,7 @@ html_template = f'''<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مجله سلامت پزشکآن لایف | دانشنامه و راهنمای جامع پزشکی</title>
+  <title>مجله سلامت پزشکآن | دانشنامه و راهنمای جامع پزشکی</title>
   
   <!-- فونت استاندارد وزیرمتن -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -314,7 +314,7 @@ html_template = f'''<!DOCTYPE html>
   
   <style>
     /* ==========================================================================
-       سیستم طراحی تم روز پزشکآن لایف (Day Mode - Clinical Light Aesthetic)
+       سیستم طراحی تم روز پزشکآن (Day Mode - Clinical Light Aesthetic)
        برگرفته از وب‌سایت Axon Life (axon.me/life)
        رنگ‌بندی بالینی سفید، سرمه‌ای، آبی اکسون و سبز سلامت همراه با آیکون‌های وکتور SVG
        ========================================================================== */
@@ -2218,7 +2218,7 @@ html_template = f'''<!DOCTYPE html>
     <div class="container">
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:32px; margin-bottom:36px;">
         <div>
-          <h4 style="font-size:16px; font-weight:900; color:var(--text-heading); margin-bottom:12px;">مجله سلامت پزشکآن لایف</h4>
+          <h4 style="font-size:16px; font-weight:900; color:var(--text-heading); margin-bottom:12px;">مجله سلامت پزشکآن</h4>
           <p style="line-height:1.8; color:var(--text-body);">
             پلتفرم هوشمند آموزش سلامت، سبک زندگی و پرونده الکترونیک. تمامی مقالات با بازبینی مستقیم پزشکان تاییدشده بیمارستان منتشر می‌گردد.
           </p>

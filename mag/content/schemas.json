@@ -15,7 +15,7 @@
       "@type": "MedicalOrganization",
       "@id": "https://pezeshkan.me/#organization",
       "name": "اکوسیستم سلامت دیجیتال پزشکآن (Pezeshkan)",
-      "legalName": "شرکت نوآوران سلامت بالینی پزشکآن لایف",
+      "legalName": "شرکت نوآوران سلامت بالینی پزشکآن",
       "url": "https://pezeshkan.me",
       "logo": "https://pezeshkan.me/favicon.svg",
       "email": "info@pezeshkan.me",
@@ -57,7 +57,7 @@
       "@type": "WebSite",
       "@id": "https://pezeshkan.me/#website",
       "url": "https://pezeshkan.me",
-      "name": "پزشکآن لایف - پلتفرم سلامت و CRM تخصصی مطب",
+      "name": "پزشکآن - پلتفرم سلامت و CRM تخصصی مطب",
       "publisher": {
         "@id": "https://pezeshkan.me/#organization"
       },
