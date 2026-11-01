@@ -1,36 +1,24 @@
 @echo off
 chcp 65001 > nul
-title اکوسیستم سلامت دیجیتال پزشکآن - راه‌انداز جامع پروژه
+title اکوسیستم سلامت دیجیتال پزشکآن - سرور توسعه محلی
 cls
 
 echo ===============================================================================
-echo          اکوسیستم سلامت دیجیتال پزشکآن - راه‌انداز یکپارچه کل پروژه
+echo          اکوسیستم سلامت دیجیتال پزشکآن - راه‌انداز اختصاصی وب‌سایت اصلی
 echo ===============================================================================
 echo.
-echo  در حال اجرای سرور محلی لوکال‌هاست روی پورت 3000...
-echo.
-echo  نشانی‌های دسترسی به سامانه‌های پزشکآن:
-echo  - پلتفرم و وب‌سایت اصلی:            http://localhost:3000/
-echo  - پرونده الکترونیک و محصول (EMR):   http://localhost:3000/product
-echo  - ارزیابی هوشمند مطب و کلینیک:      http://localhost:3000/start
-echo  - مجله سلامت بالینی (ساب‌فولدر):     http://localhost:3000/mag
-echo  - استودیو مدیریت محتوا (Tiptap):     http://localhost:3000/admin
-echo  - درگاه ورود امن به پنل:             http://localhost:3000/login
-echo.
-echo  اطلاعات ورود مدیر کل سیستم (مهیار ابراهیمی):
-echo  - نام کاربری: mahyarebrahimi
-echo  - رمز عبور:   mahyebi86
-echo.
-echo ===============================================================================
-echo در حال باز کردن صفحات اصلی در مرورگر شما...
+echo  در حال بررسی پورت 3000 و راه‌اندازی سرور تازه...
 echo.
 
-timeout /t 1 /nobreak > nul
-start "" "http://localhost:3000/"
-timeout /t 1 /nobreak > nul
-start "" "http://localhost:3000/mag"
-timeout /t 1 /nobreak > nul
-start "" "http://localhost:3000/admin"
+taskkill /f /im python.exe > nul 2>&1
+
+echo  نشانی دسترسی: http://localhost:3000/
+echo.
+echo  در حال باز کردن خودکار وب‌سایت اصلی در مرورگر شما...
+echo ===============================================================================
+echo.
+
+start /b cmd /c "timeout /t 2 /nobreak > nul & start http://localhost:3000/"
 
 python "%~dp0manage.py" runserver 0.0.0.0:3000
 

@@ -15,6 +15,6 @@ urlpatterns = [
     # 2. Pezeshkan Core Application URLs (HTML pages + APIs)
     path('', include('apps.pezeshkan_core.urls')),
 
-    # 3. Universal Direct Static & Asset Servicing (shared.css, shared.js, logos, fonts, uploads, etc.)
-    re_path(r'^(?P<path>.+\.(css|js|svg|png|jpg|jpeg|webp|woff2|woff|ttf|xml|webmanifest|txt|ico|json))$', views.serve_static_asset, name='static_asset'),
+    # 3. Universal Direct Static & Asset Servicing (shared.css, shared.js, logos, fonts, 3D glb models, uploads, etc.)
+    re_path(r'^(?P<path>.+\.(css|js|svg|png|jpg|jpeg|webp|woff2|woff|ttf|xml|webmanifest|txt|ico|json|glb|gltf|bin))$', views.serve_static_asset, name='static_asset'),
 ]

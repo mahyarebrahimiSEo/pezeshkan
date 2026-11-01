@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستند جامع قابلیت‌ها و ماژول‌های پلتفرم پزشک‌آن (ویژه تیم طراحی)</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --bg-base: #CECDC7;
+            --bg-secondary: #B8B7B2;
+            --bg-card: rgba(221, 220, 215, 0.65);
+            --bg-card-hover: rgba(221, 220, 215, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.55);
+            --text-main: #1D1D1F;
+            --text-muted: #48484A;
+            --accent-primary: #0F4C5C;
+            --accent-secondary: #2C6E49;
+            --accent-highlight: #E36414;
+            --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.08);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #161618;
+            --bg-secondary: #222225;
+            --bg-card: rgba(38, 38, 42, 0.65);
+            --bg-card-hover: rgba(48, 48, 54, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.12);
+            --text-main: #F5F5F7;
+            --text-muted: #A1A1A6;
+            --accent-primary: #38BDF8;
+            --accent-secondary: #4ADE80;
+            --accent-highlight: #FB923C;
+            --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Yekan Bakh', 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--bg-base) 0%, var(--bg-secondary) 100%);
+            color: var(--text-main);
+            line-height: 1.8;
+            min-height: 100vh;
+            padding: 32px 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        /* Glassmorphic Header */
+        header {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 36px 40px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-content h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+        }
+
+        .header-content p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(15, 76, 92, 0.12);
+            color: var(--accent-primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1px solid var(--border-glass);
+        }
+
+        .btn-action {
+            background: var(--accent-primary);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        [data-theme="dark"] .btn-action {
+            color: #111;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Overview Section */
+        .overview-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 30px 36px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .overview-card h2 {
+            font-size: 1.4rem;
+            color: var(--accent-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .overview-item {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 18px 22px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-glass);
+        }
+
+        [data-theme="dark"] .overview-item {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .overview-item strong {
+            display: block;
+            color: var(--accent-secondary);
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+        }
+
+        /* Modules Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 28px;
+        }
+
+        @media (max-width: 650px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .module-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .module-number {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--accent-primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        [data-theme="dark"] .module-number {
+            color: #111;
+        }
+
+        .module-title h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .module-title span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .designer-note {
+            background: rgba(227, 100, 20, 0.12);
+            border-right: 4px solid var(--accent-highlight);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 0.92rem;
+            color: var(--text-main);
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-right: 24px;
+            font-size: 0.98rem;
+        }
+
+        .feature-list li::before {
+            content: "•";
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+            position: absolute;
+            right: 0;
+            top: -4px;
+        }
+
+        .feature-list strong {
+            color: var(--accent-primary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 48px;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .btn-action {
+                display: none;
+            }
+            .module-card, header, .overview-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-content">
+            <h1>مستند جامع قابلیت‌ها و امکانات پلتفرم «پزشکـــآن»</h1>
+            <p>راهنمای استخراج‌شده از معماری سیستم ویژه تیم طراحی گرافیک، کاتالوگ و رابط کاربری</p>
+        </div>
+        <div class="badge-group">
+            <span class="badge">نسخه ۲.۵.۱ (Smart Nobat)</span>
+            <button class="btn-action" onclick="toggleTheme()">تغییر تم (روشن / تاریک)</button>
+            <button class="btn-action" onclick="window.print()">چاپ / ذخیره PDF</button>
+        </div>
+    </header>
+
+    <section class="overview-card">
+        <h2>📌 معرفی کلی محصول (برای درک کلی دیزاینر)</h2>
+        <div class="overview-grid">
+            <div class="overview-item">
+                <strong>نام برند و محصول</strong>
+                پزشکـــآن (Pezeshkon) / اسمارت نوبت — سامانه هوشمند مدیریت مطب و کلینیک.
+            </div>
+            <div class="overview-item">
+                <strong>ماهیت محصول</strong>
+                پلتفرم ابری یکپارچه‌سازی و هوشمندسازی مسیر درمان، نوبت‌دهی آنلاین، پرونده الکترونیک سلامت و باشگاه مشتریان (CRM پزشکی).
+            </div>
+            <div class="overview-item">
+                <strong>مزیت اصلی (معماری Multi-Tenant)</strong>
+                قابلیت استفاده هم برای یک مطب شخصی و هم برای کلینیک‌های بزرگ چندتخصصی (دارای چندین پزشک، منشی و اتاق معاینه با دسترسی‌های کاملاً مجزا).
+            </div>
+        </div>
+    </section>
+
+    <div class="modules-grid">
+        <!-- Module 1 -->
+        <div class="module-card">
+            <div class="module-header">
+                <div class="module-number">۱</div>
+                <div class="module-title">
+                    <h3>امکانات نوبت‌دهی و مدیریت صف</h3>
+                    <span>Appointments & Real-time Queue</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><strong>تقویم کاری پویا برای هر پزشک:</strong> امکان تعریف ساعات کاری اختصاصی، روزهای حضور و تعطیلات سفارشی برای تک‌تک پزشکان کلینیک (همراه با تشخیص خودکار تعطیلات رسمی کشور).</li>
+                <li><strong>پشتیبانی از انواع ویزیت و دسته‌بندی خدمات:</strong> تفکیک نوع ویزیت (حضوری، مشاوره، خدمات تخصصی مثل نوار عصب و عضله EMG/NCV، تزریقات و جراحی‌های سرپایی) و قابلیت تعریف واحد برای هر خدمت.</li>
+                <li><strong>جلوگیری هوشمند از تداخل نوبت‌ها:</strong> سیستم قفل خودکار اسلات‌های زمانی برای جلوگیری از ثبت دو نوبت همزمان برای یک پزشک.</li>
+                <li><strong>مدیریت لحظه‌ای اتاق‌های معاینه (Real-time Encounter & Room Management):</strong> ارتباط زنده بین پنل منشی و پنل پزشک؛ نمایش وضعیت لحظه‌ای بیمار در مطب (در انتظار، آماده درمان، داخل اتاق معاینه، پایان ویزیت) و تخصیص بیمار به اتاق‌های مختلف.</li>
+            </ul>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-card">
+            <div class="module-header">
+                <div class="module-number">۲</div>
+                <div class="module-title">
+                    <h3>پرونده الکترونیک بیمار و بخش بالینی</h3>
+                    <span>Patients & Clinical Data</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><strong>پرونده جامع دیجیتال:</strong> تولید شماره پرونده اختصاصی برای هر بیمار، ثبت اطلاعات هویتی، کد ملی و نوع بیمه درمانی.</li>
+                <li><strong>ثبت داده‌های بالینی و شرح حال (Encounter Clinical Data):</strong> ثبت علائم بالینی، تشخیص پزشک، یادداشت‌های سریع (Quick Notes) و پیش‌نویس وضعیت درد بیمار (Pain Draft).</li>
+                <li><strong>امضای دیجیتال و رضایت‌نامه (Consent Signature):</strong> قابلیت اخذ و ذخیره امضای دیجیتال بیمار پای فرم‌های رضایت‌نامه پزشکی مستقیماً داخل پرونده الکترونیک (حذف کامل فرم‌های کاغذی).</li>
+                <li><strong>آرشیو مدارک پزشکی (Patient Documents):</strong> امکان آپلود فایل، تصاویر آزمایش، رادیولوژی و یا ثبت لینک مدارک پزشکی در پروفایل بیمار.</li>
+                <li><strong>انتقال آسان اطلاعات قبلی (Data Import):</strong> قابلیت ایمپورت کردن لیست بیماران و پرونده‌های قبلی مطب به صورت یکجا به داخل سیستم.</li>
+            </ul>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="module-card">
+            <div class="module-header">
+                <div class="module-number">۳</div>
+                <div class="module-title">
+                    <h3>ماژول اختصاصی فیزیوتراپی و توانبخشی</h3>
+                    <span>Physiotherapy & Rehabilitation Module</span>
+                </div>
+            </div>
+            <div class="designer-note">
+                <strong>💡 نکته ویژه برای دیزاینر:</strong> این بخش یکی از نقاط قوت تخصصی سیستم برای کلینیک‌های طب فیزیکی، ارتوپدی و فیزیوتراپی در کنگره است.
+            </div>
+            <ul class="feature-list">
+                <li><strong>طراحی پلن درمانی (Physiotherapy Plan):</strong> تعیین دوره درمان (Course Number)، مشخص کردن دقیق ناحیه درگیر بدن (Body Region) و تعداد جلسات مورد نیاز بیمار.</li>
+                <li><strong>مدیریت جلسات فیزیوتراپی (Session Management):</strong> ثبت خدمات انجام‌شده در هر جلسه به تفکیک، بررسی وضعیت آمادگی بیمار برای شروع جلسه درمان (Ready for Treatment) و پیگیری روند بهبودی در طول دوره.</li>
+            </ul>
+        </div>
+
+        <!-- Module 4 -->
+        <div class="module-card">
+            <div class="module-header">
+                <div class="module-number">۴</div>
+                <div class="module-title">
+                    <h3>اتوماسیون هوشمند پیامکی و باشگاه مشتریان</h3>
+                    <span>Smart SMS Automation & CRM</span>
+                </div>
+            </div>
+            <div class="designer-note">
+                <strong>💡 نکته ویژه برای دیزاینر:</strong> تمام این پیامک‌ها قابلیت شخصی‌سازی پترن دارند و با نام اختصاصی خودِ کلینیک ارسال می‌شوند.
+            </div>
+            <ul class="feature-list">
+                <li><strong>پیامک خوش‌آمدگویی و شماره پرونده:</strong> ارسال خودکار مشخصات پرونده به محض اولین پذیرش بیمار در کلینیک.</li>
+                <li><strong>یادآور هوشمند نوبت (Reminder SMS):</strong> ارسال خودکار پیامک یادآوری قبل از روز ویزیت برای کاهش چشمگیر کنسلی‌ها.</li>
+                <li><strong>پیامک آمادگی قبل از عمل / پروسیجر (Surgery Prep SMS):</strong> ارسال دستورالعمل‌های مراقبتی و آمادگی قبل از جراحی یا خدمات خاص به بیمار.</li>
+                <li><strong>پیامک پیگیری درمان (Follow-up) و نوبت بعدی:</strong> ارسال پیامک جویا شدن حال بیمار پس از ویزیت و یادآوری زمان مراجعه بعدی.</li>
+                <li><strong>پیامک پیگیری غایبین (No-Show SMS):</strong> ارسال پیامک خودکار به بیمارانی که نوبت داشته‌اند اما به مطب مراجعه نکرده‌اند جهت رزرو مجدد.</li>
+                <li><strong>نظرسنجی، تبریک تولد و خلاصه روزانه مدیر:</strong> ارسال لینک نظرسنجی پس از ویزیت، تبریک تولد بیمار، و ارسال خودکار خلاصه آمار روزانه مطب به موبایل مدیر کلینیک.</li>
+                <li><strong>پنل کمپین‌های تبلیغاتی (SMS Campaigns):</strong> ارسال پیامک‌های گروهی هدفمند به بیماران و مشاهده گزارش کامل وضعیت ارسال‌ها (SMS Log).</li>
+            </ul>
+        </div>
+
+        <!-- Module 5 -->
+        <div class="module-card">
+            <div class="module-header">
+                <div class="module-number">۵</div>
+                <div class="module-title">
+                    <h3>مدیریت مالی، حسابداری و سهم پزشکان</h3>
+                    <span>Finance, Accounting & Split Payments</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><strong>محاسبه خودکار سهم پزشک (Doctor Fee Percentage):</strong> امکان تعریف درصد توافقی برای هر پزشک در کلینیک و محاسبه اتوماتیک سهم پزشک و سهم مرکز از هر ویزیت یا خدمت.</li>
+                <li><strong>پرداخت‌های ترکیبی و چندگانه (Split Payments):</strong> قابلیت ثبت پرداخت یک فاکتور به چند روش همزمان (مثلاً بخشی نقد، بخشی کارتخوان، بخشی آنلاین یا بیمه) و صدور صورت‌حساب دقیق (Invoice).</li>
+                <li><strong>مدیریت هزینه‌ها و مخارج کلینیک (Clinic Expenses):</strong> ثبت تمامی هزینه‌های جاری مطب به همراه قابلیت پیوست عکس رسید یا فاکتور خرید (Receipt Image) برای شفافیت کامل حسابداری.</li>
+                <li><strong>اتصال به درگاه پرداخت (Payment Gateway):</strong> امکان دریافت بیعانه یا هزینه ویزیت به صورت آنلاین هنگام رزرو نوبت.</li>
+            </ul>
+        </div>
+
+        <!-- Module 6 -->
+        <div class="module-card">
+            <div class="module-header">
+                <div class="module-number">۶</div>
+                <div class="module-title">
+                    <h3>پروفایل دیجیتال کلینیک و مدیریت پرسنل</h3>
+                    <span>Clinic Profile & Role-Based Staff Control</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><strong>پروفایل آنلاین کلینیک و پزشکان:</strong> ثبت بیوگرافی پزشک، کد نظام پزشکی، تصویر پروفایل، لینک اینستاگرام، و لینک مستقیم مسیریابی مطب روی نقشه‌های <strong>گوگل‌مپ، بلد و نشان</strong>.</li>
+                <li><strong>بخش آموزش به بیمار (Clinic Education):</strong> امکان تعریف محتواهای آموزشی و مراقبتی برای بیماران کلینیک.</li>
+                <li><strong>مدیریت دقیق دسترسی پرسنل (Role-Based Permissions):</strong> تعریف نقش‌های مختلف (مدیر کلینیک، پزشک، منشی، پذیرش) با قابلیت محدودسازی دقیق دسترسی‌های هر منشی و ثبت کامل تاریخچه فعالیت‌های پرسنل در سیستم (Clinic Activity Log).</li>
+                <li><strong>رابط کاربری دوگانه (Dark/Light Mode):</strong> طراحی مدرن به سبک گلس‌مورفیسم (شیشه‌ای) همراه با آیکون‌های سه‌بعدی اختصاصی و پشتیبانی از تم روشن و تاریک.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        پلتفرم یکپارچه‌سازی و هوشمندسازی مسیر درمان · پزشکـــآن (نسخه ویژه ارائه به تیم طراحی گرافیک و کاتالوگ)
+    </footer>
+</div>
+
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.removeAttribute('data-theme');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+        }
+    }
+</script>
+
+</body>
+</html>

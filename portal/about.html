@@ -51,8 +51,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
-  <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261029v20">
+  <script>document.documentElement.setAttribute("data-theme","light");try{localStorage.setItem("pezeshkan_theme","light");}catch(e){}</script>
+  <link rel="stylesheet" href="/shared.css?v=20261031v33">
 </head>
 <body>
 
@@ -81,15 +81,11 @@
         <!-- 1. فهرست آکاردئونی مراجعان -->
         <li class="nav-dropdown nav-dropdown-patients" id="navDropdownPatients">
           <button type="button" class="nav-dropdown-trigger " onclick="toggleDesktopDropdown(event, 'navDropdownPatients')" aria-expanded="false">
-            <span class="nav-role-dot" aria-hidden="true"></span>
+            
             <span>برای مراجعان</span>
             <svg class="svg-icon nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="nav-dropdown-menu" role="menu">
-            <div class="nav-dropdown-header">
-              <span>خدمات ویژه بیماران و مراجعان</span>
-              <span style="color:var(--brand-primary);">پرتال سلامت</span>
-            </div>
             <a href="/appointments" class="nav-dropdown-link">
               <div class="nav-dropdown-icon">
                 <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
@@ -116,30 +112,17 @@
                 <strong>دموی آنلاین و نسخه وب مراجعان</strong><span>دسترسی آنی در تمامی مرورگرها بدون نیاز به نصب</span>
               </div>
             </a>
-            <a href="/tutorials?role=user" class="nav-dropdown-link">
-              <div class="nav-dropdown-icon">
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              </div>
-              <div class="nav-dropdown-text">
-                <strong>مرکز آموزش پزشکآن برای مراجعان</strong>
-                <span>راهنمای نوبت‌دهی، پرونده سلامت و کار با اپلیکیشن</span>
-              </div>
-            </a>
           </div>
         </li>
 
         <!-- 2. فهرست آکاردئونی پزشکان -->
         <li class="nav-dropdown nav-dropdown-doctors" id="navDropdownDoctors">
           <button type="button" class="nav-dropdown-trigger " onclick="toggleDesktopDropdown(event, 'navDropdownDoctors')" aria-expanded="false">
-            <span class="nav-role-dot" aria-hidden="true"></span>
+            
             <span>برای پزشکان</span>
             <svg class="svg-icon nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="nav-dropdown-menu" role="menu">
-            <div class="nav-dropdown-header">
-              <span>سامانه جامع پزشکان و کلینیک‌ها</span>
-              <span style="color:var(--brand-emerald-vital);">اتوماسیون مطب</span>
-            </div>
             <a href="/product" class="nav-dropdown-link">
               <div class="nav-dropdown-icon">
                 <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -185,15 +168,6 @@
                 <span>مشاهده آنلاین و کار با محیط CRM و پرونده الکترونیک</span>
               </div>
             </a>
-            <a href="/tutorials?role=doctor" class="nav-dropdown-link">
-              <div class="nav-dropdown-icon">
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              </div>
-              <div class="nav-dropdown-text">
-                <strong>مرکز آموزش پزشکآن برای پزشکان</strong>
-                <span>آموزش جامع CRM مطب، پنل پزشک و پذیرش منشی</span>
-              </div>
-            </a>
           </div>
         </li>
 
@@ -201,7 +175,7 @@
         <li><a href="/appointments" class="nav-link ">نوبت‌دهی مطب</a></li>
 
         <!-- 4. صفحه کلی آموزش -->
-        <li><a href="/tutorials" class="nav-link ">مرکز آموزش</a></li>
+        <li><a class="nav-link" href="/packages">تعرفه و پلن‌ها</a></li>
 
         <!-- 5. درباره ما و تماس با ما -->
         <li><a href="/about" class="nav-link active">درباره ما</a></li>
@@ -224,17 +198,7 @@
           <span>مجله سلامت</span>
           <span class="pez-shell-mag-badge">پزشکآن لایف</span>
         </a>
-        <button type="button" class="theme-toggle-btn theme-switch" id="themeToggleBtn" role="switch" aria-checked="false" title="تغییر حالت روز و شب" aria-label="تغییر حالت روز و شب">
-          <span class="theme-switch-track">
-            <span class="theme-switch-icon sun-icon" aria-hidden="true">
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
-            </span>
-            <span class="theme-switch-icon moon-icon" aria-hidden="true">
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            </span>
-            <span class="theme-switch-thumb" aria-hidden="true"></span>
-          </span>
-        </button>
+        
 
         <div class="header-auth-capsule">
           <a href="javascript:void(0)" onclick="openLoginNotice('select')" class="auth-capsule-btn auth-combined-btn" title="ورود و ثبت‌نام در سامانه سلامت پزشکآن">
@@ -284,20 +248,16 @@
           </button>
           <div class="drawer-accordion-body">
             <a href="/appointments" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>نوبت‌دهی مطب و لیست پزشکان</span>
             </a>
             <a href="/services" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>خدمات سلامت و مشاوره آنلاین</span>
             </a>
             <a href="/download?role=patients" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
+              
               <span>دموی آنلاین پنل مراجعان</span>
-            </a>
-            <a href="/tutorials?role=user" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
-              <span>مرکز آموزش ویژه مراجعان</span>
             </a>
           </div>
         </li>
@@ -315,35 +275,31 @@
           </button>
           <div class="drawer-accordion-body">
             <a href="/product" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>پرونده الکترونیک سلامت (EMR)</span>
             </a>
             <a href="/features" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>راهکارها و امکانات بالینی پزشکان</span>
             </a>
             <a href="/packages" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>تعرفه‌ها و پلن‌های اشتراک</span>
             </a>
             <a href="/start" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>ثبت‌نام و شروع همکاری پزشکان</span>
             </a>
             <a href="/download?role=doctors" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
+              
               <span>دموی آنلاین پنل پزشکان</span>
-            </a>
-            <a href="/tutorials?role=doctor" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
-              <span>مرکز آموزش ویژه پزشکان (CRM)</span>
             </a>
           </div>
         </li>
 
         <!-- لینک صفحه کلی آموزش و سایر صفحات مستقل -->
         <li><a href="/appointments" class="nav-link " style="font-weight:800;">نوبت‌دهی مطب (لیست پزشکان)</a></li>
-        <li><a href="/tutorials" class="nav-link ">مرکز جامع آموزش (صفحه کلی)</a></li>
+        <li><a class="nav-link" href="/packages" style="font-weight:800;">تعرفه و پلن‌ها</a></li>
         <li><a href="/download" class="nav-link " style="color:var(--brand-primary); font-weight:800;">دریافت دموی سامانه ابری</a></li>
         <li><a href="/mag" class="nav-link nav-mag">مجله سلامت (پزشکآن لایف)</a></li>
         <li><a href="/about" class="nav-link active">درباره ما</a></li>
@@ -377,189 +333,553 @@
   </div>
     
 
-  <main>
+    <main>
 
-    
-  <section style="padding:48px 0 32px;">
-    <div class="container">
-      <div class="section-title-wrap">
-        <span class="section-pill-tag">داستان و رسالت ما</span>
-        <h1 class="section-h2" style="font-size:32px;">پزشکآن؛ بازتعریف رابطه پزشک، درمان و فناوری</h1>
-        <p class="section-sub">یک پلتفرم دانش‌بنیان خلق‌شده با همفکری مستقیم جراحان، متخصصان بالینی و مهندسان هوش مصنوعی</p>
-      </div>
-
-      <div class="panel-card" style="margin-bottom:36px;">
-        <h3 style="font-size:20px; font-weight:900; color:var(--text-pure); margin-bottom:12px;">رسالت بنیادین ما در سلامت دیجیتال ایران</h3>
-        <p style="color:var(--text-secondary); line-height:2.0; font-size:15px;">
-          اکوسیستم سلامت «پزشکآن» با این باور بنیادین متولد شد که فناوری نباید بار اضافه بر دوش پزشک باشد، بلکه باید زمان او را برای توجه عمیق به بیمار آزاد کند. ما با حذف اصطکاک‌های فرساینده اداری، پرونده‌های کاغذی و خطاهای دستی، مطب‌های پزشکی را به مدرن‌ترین مراکز پایش سلامت تبدیل می‌کنیم.
+    <!-- 01. About Storytelling Hero Section -->
+    <section class="about-story-hero">
+      <div class="container">
+        <h1 class="about-story-hero-title">پزشکـــآن؛ بازتعریف رابطه پزشک، درمان و فناوری</h1>
+        <p class="about-story-hero-sub">
+          یک پلتفرم دانش‌بنیان و تمام‌ابری، خلق‌شده با همفکری مستقیم جراحان، متخصصان بالینی و مهندسان ارشد فناوری سلامت برای بازگرداندن آرامش، زمان و کرامت به مسیر درمان.
         </p>
-      </div>
 
-      <div class="grid-3" style="margin-bottom:40px;">
-        <div class="panel-card">
-          <div class="card-icon-wrap"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="abt-sec-shadow" x="2" y="36" width="44" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
-    <filter id="abt-sec-glow" x="12" y="14" width="24" height="24" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#00F0FF" flood-opacity="0.45" /></filter>
-    <linearGradient id="abt-sec-bevel" x1="10" y1="8" x2="38" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0284C7" /><stop offset="50%" stop-color="#0369A1" /><stop offset="100%" stop-color="#082F49" /></linearGradient>
-    <linearGradient id="abt-sec-front" x1="12" y1="7" x2="36" y2="37" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8" /><stop offset="35%" stop-color="#0284C7" /><stop offset="100%" stop-color="#0369A1" /></linearGradient>
-    <linearGradient id="abt-sec-rim" x1="12" y1="7" x2="34" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#BAE6FD" /><stop offset="100%" stop-color="#38BDF8" stop-opacity="0" /></linearGradient>
-    <linearGradient id="abt-sec-core" x1="18" y1="17" x2="30" y2="31" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#67E8F9" /><stop offset="100%" stop-color="#0284C7" /></linearGradient>
-    <linearGradient id="abt-sec-gold" x1="21" y1="19" x2="27" y2="29" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="100%" stop-color="#D97706" /></linearGradient>
-  </defs>
-  <ellipse cx="24" cy="40" rx="15" ry="3.5" fill="#001830" opacity="0.35" filter="url(#abt-sec-shadow)" />
-  <path d="M24 7L38 12.5V25C38 33.5 24 40.5 24 40.5C24 40.5 10 33.5 10 25V12.5L24 7Z" fill="url(#abt-sec-bevel)" />
-  <path d="M24 8.5L36.5 13.5V24.5C36.5 32 24 38.5 24 38.5C24 38.5 11.5 32 11.5 24.5V13.5L24 8.5Z" fill="url(#abt-sec-front)" />
-  <path d="M24 9.5L35 14V17L24 12L13 17V14L24 9.5Z" fill="url(#abt-sec-rim)" opacity="0.8" />
-  <path d="M13 15L24 10.5V37C17 32 12.5 27 12.5 24V15.5L13 15Z" fill="#FFFFFF" opacity="0.16" />
-  <g filter="url(#abt-sec-glow)">
-    <circle cx="24" cy="24" r="8.5" fill="#072338" stroke="url(#abt-sec-core)" stroke-width="1.8" />
-    <path d="M21 21C21 19.34 22.34 18 24 18C25.66 18 27 19.34 27 21V22.5H21V21Z" fill="none" stroke="url(#abt-sec-gold)" stroke-width="1.8" />
-    <rect x="20" y="22.5" width="8" height="6" rx="1.5" fill="url(#abt-sec-gold)" />
-    <circle cx="24" cy="25" r="1" fill="#78350F" />
-    <path d="M24 26V27.5" stroke="#78350F" stroke-width="1" stroke-linecap="round" />
-  </g>
-</svg></div>
-          <h4 style="font-size:16.5px; font-weight:800; margin-bottom:8px;">حریم خصوصی و رازداری بالینی</h4>
-          <p style="font-size:13px; color:var(--text-secondary); line-height:1.8;">اطلاعات پرونده پزشکی بیماران امانتی مقدس است. بالاترین پروتکل‌های رمزنگاری در سرورهای ایزوله حافظ حریم مطب شماست.</p>
-        </div>
-
-        <div class="panel-card">
-          <div class="card-icon-wrap" style="background:rgba(5,150,105,0.1); color:#059669;"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="abt-cert-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
-    <filter id="abt-cert-seal-glow" x="24" y="24" width="18" height="18" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#F59E0B" flood-opacity="0.5" /></filter>
-    <linearGradient id="abt-cert-base" x1="10" y1="8" x2="38" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#047857" /><stop offset="100%" stop-color="#064E3B" /></linearGradient>
-    <linearGradient id="abt-cert-sheet" x1="11" y1="8" x2="35" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="60%" stop-color="#F0FDF4" /><stop offset="100%" stop-color="#DCFCE7" /></linearGradient>
-    <linearGradient id="abt-cert-gold" x1="26" y1="26" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#B45309" /></linearGradient>
-    <linearGradient id="abt-cert-ribbon" x1="27" y1="33" x2="35" y2="41" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#10B981" /><stop offset="100%" stop-color="#047857" /></linearGradient>
-  </defs>
-  <ellipse cx="23" cy="40" rx="15" ry="3.5" fill="#022818" opacity="0.32" filter="url(#abt-cert-shadow)" />
-  <rect x="9" y="8" width="26" height="31" rx="4" fill="url(#abt-cert-base)" />
-  <rect x="10.5" y="7" width="25" height="30" rx="3.5" fill="url(#abt-cert-sheet)" stroke="#86EFAC" stroke-width="1" />
-  <rect x="14" y="11" width="18" height="3.5" rx="1.5" fill="#10B981" opacity="0.85" />
-  <rect x="14" y="17" width="14" height="2" rx="1" fill="#A7F3D0" />
-  <rect x="14" y="21" width="16" height="2" rx="1" fill="#A7F3D0" />
-  <rect x="14" y="25" width="10" height="2" rx="1" fill="#A7F3D0" />
-  <path d="M12 14C12 21 16 26 21 26" stroke="#059669" stroke-width="2" stroke-linecap="round" opacity="0.6" />
-  <g filter="url(#abt-cert-seal-glow)">
-    <path d="M29 33L27 41L30.5 39L34 41L32 33Z" fill="url(#abt-cert-ribbon)" />
-    <circle cx="30.5" cy="30.5" r="5.5" fill="url(#abt-cert-gold)" stroke="#FEF08A" stroke-width="1.2" />
-    <path d="M28.5 30.5L30 32L33 29" stroke="#78350F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-  </g>
-</svg></div>
-          <h4 style="font-size:16.5px; font-weight:800; margin-bottom:8px;">تاییدیه و نظارت جامعه پزشکی</h4>
-          <p style="font-size:13px; color:var(--text-secondary); line-height:1.8;">تمام فرم‌های EMR، گایدلاین‌های نسخه و ماژول‌ها تحت نظارت مستقیم اساتید هیئت علمی دانشگاه طراحی شده است.</p>
-        </div>
-
-        <div class="panel-card">
-          <div class="card-icon-wrap" style="background:rgba(217,119,6,0.1); color:#D97706;"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="abt-spd-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
-    <filter id="abt-spd-glow" x="8" y="6" width="32" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#F59E0B" flood-opacity="0.45" /></filter>
-    <linearGradient id="abt-spd-bezel" x1="12" y1="8" x2="36" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#D97706" /><stop offset="100%" stop-color="#78350F" /></linearGradient>
-    <linearGradient id="abt-spd-front" x1="14" y1="6" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="45%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#D97706" /></linearGradient>
-    <linearGradient id="abt-spd-rim" x1="15" y1="6" x2="30" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="100%" stop-color="#FBBF24" stop-opacity="0" /></linearGradient>
-    <linearGradient id="abt-spd-core" x1="18" y1="12" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="100%" stop-color="#FEF08A" /></linearGradient>
-  </defs>
-  <ellipse cx="23" cy="40" rx="14" ry="3.5" fill="#3D1D04" opacity="0.35" filter="url(#abt-spd-shadow)" />
-  <ellipse cx="24" cy="25" rx="14" ry="6" transform="rotate(-25 24 25)" stroke="#38BDF8" stroke-width="1.8" stroke-dasharray="14 10" opacity="0.75" />
-  <circle cx="12" cy="18" r="1.5" fill="#38BDF8" />
-  <circle cx="35" cy="31" r="1.5" fill="#FBBF24" />
-  <g filter="url(#abt-spd-glow)">
-    <path d="M25 6L13 22H23L20 37L34 19H24L26 6H25Z" fill="url(#abt-spd-bezel)" />
-    <path d="M24 7L14 21H23L21 35L33 19H24L25 7H24Z" fill="url(#abt-spd-front)" stroke="#FEF08A" stroke-width="0.8" />
-    <path d="M24 7L14 21H18L25 11L24 7Z" fill="url(#abt-spd-rim)" opacity="0.65" />
-    <path d="M23 11L17 20H22L21 30L29 19H24L25 11H23Z" fill="url(#abt-spd-core)" opacity="0.45" />
-  </g>
-</svg></div>
-          <h4 style="font-size:16.5px; font-weight:800; margin-bottom:8px;">سرعت و سادگی بدون پیچیدگی</h4>
-          <p style="font-size:13px; color:var(--text-secondary); line-height:1.8;">هیچ پزشکی نباید دوره‌های آموزشی طولانی ببیند؛ کار با نرم‌افزار پزشکآن ظرف ۳۰ دقیقه برای هر پزشک و منشی کاملاً شهودی است.</p>
-        </div>
-      </div>
-
-      <div class="vital-dial-grid" style="margin-top:32px;">
-        <div class="vital-dial-card" data-signal="cyan" data-alt-val="۲۴/۷" data-alt-sub="پشتیبانی شبانه‌روزی تیم استقرار و کارشناسان فناوری سلامت">
-          <div class="vital-dial-header">
-            <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>پایداری سرویس ابری</span>
-            <span class="vital-dial-code-badge">استاندارد ۰۱</span>
+        <!-- Micro-Trust Stats Capsule Bar -->
+        <div class="about-hero-stats-bar">
+          <div class="about-hero-stat-item">
+            <span class="about-hero-stat-dot"></span>
+            <span>۴ سال تحقیق و توسعه میدانی در مطب‌ها و کلینیک‌ها</span>
           </div>
-          <div class="vital-dial-gauge">
-            <svg viewBox="0 0 88 88" aria-hidden="true">
-              <circle class="vital-dial-track" cx="44" cy="44" r="36"></circle>
-              <circle class="vital-dial-ticks" cx="44" cy="44" r="30"></circle>
-              <circle class="vital-dial-progress" cx="44" cy="44" r="36" stroke-dasharray="226.2" stroke-dashoffset="12.0" style="--dial-offset: 12.0;"></circle>
-            </svg>
-            <div class="vital-dial-center">
-              <span class="vital-dial-number">۹۹.۹۸٪</span>
-              <span class="vital-dial-unit">دسترسی پایدار</span>
-            </div>
+          <div class="about-hero-stat-sep" aria-hidden="true"></div>
+          <div class="about-hero-stat-item">
+            <span class="about-hero-stat-dot" style="background:#10B981; box-shadow:0 0 10px #10B981;"></span>
+            <span>۱۰۰٪ معماری ابری بر بستر سرورهای ایزوله و امن</span>
           </div>
-          <div class="vital-dial-info">
-            <h4 class="vital-dial-title">پایداری زیرساخت ابری سلامت</h4>
-            <p class="vital-dial-sub">سرورهای ایزوله با پشتیبان‌گیری لحظه‌ای و تضمین دسترسی بدون قطعی در ساعات اوج مراجعه.</p>
-          </div>
-          <div class="vital-dial-footer-pill">
-            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <span>پشتیبانی تخصصی: ۲۴ ساعته</span>
-          </div>
-        </div>
-
-        <div class="vital-dial-card" data-signal="green" data-alt-val="AES-256" data-alt-sub="رمزنگاری سرتاسری پرونده‌های پزشکی مطابق استاندارد حفاظت از اطلاعات سلامت">
-          <div class="vital-dial-header">
-            <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>حریم خصوصی بیماران</span>
-            <span class="vital-dial-code-badge">استاندارد ۰۲</span>
-          </div>
-          <div class="vital-dial-gauge">
-            <svg viewBox="0 0 88 88" aria-hidden="true">
-              <circle class="vital-dial-track" cx="44" cy="44" r="36"></circle>
-              <circle class="vital-dial-ticks" cx="44" cy="44" r="30"></circle>
-              <circle class="vital-dial-progress" cx="44" cy="44" r="36" stroke-dasharray="226.2" stroke-dashoffset="0" style="--dial-offset: 0;"></circle>
-            </svg>
-            <div class="vital-dial-center">
-              <span class="vital-dial-number">۱۰۰٪</span>
-              <span class="vital-dial-unit">امنیت داده‌ها</span>
-            </div>
-          </div>
-          <div class="vital-dial-info">
-            <h4 class="vital-dial-title">حفاظت از رازداری بالینی بیمار</h4>
-            <p class="vital-dial-sub">کنترل دسترسی مبتنی بر نقش و ثبت کامل گزارش‌های امنیتی برای هر پرونده پزشکی.</p>
-          </div>
-          <div class="vital-dial-footer-pill">
-            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>رمزنگاری بالینی: AES-256</span>
-          </div>
-        </div>
-
-        <div class="vital-dial-card" data-signal="amber" data-alt-val="۴۸ ساعت" data-alt-sub="حداکثر زمان استقرار حضوری و آموزش کامل پرسنل مطب و کلینیک">
-          <div class="vital-dial-header">
-            <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>آموزش و راه‌اندازی مطب</span>
-            <span class="vital-dial-code-badge">استاندارد ۰۳</span>
-          </div>
-          <div class="vital-dial-gauge">
-            <svg viewBox="0 0 88 88" aria-hidden="true">
-              <circle class="vital-dial-track" cx="44" cy="44" r="36"></circle>
-              <circle class="vital-dial-ticks" cx="44" cy="44" r="30"></circle>
-              <circle class="vital-dial-progress" cx="44" cy="44" r="36" stroke-dasharray="226.2" stroke-dashoffset="28.0" style="--dial-offset: 28.0;"></circle>
-            </svg>
-            <div class="vital-dial-center">
-              <span class="vital-dial-number">۳۰ دقیقه</span>
-              <span class="vital-dial-unit">تسلط کامل</span>
-            </div>
-          </div>
-          <div class="vital-dial-info">
-            <h4 class="vital-dial-title">یادگیری سریع و ارگونومیک</h4>
-            <p class="vital-dial-sub">رابط کاربری ساده و روان؛ تسلط کامل پزشک و منشی در کمتر از نیم ساعت آموزش.</p>
-          </div>
-          <div class="vital-dial-footer-pill">
-            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>استقرار حضوری: کمتر از ۴۸ ساعت</span>
+          <div class="about-hero-stat-sep" aria-hidden="true"></div>
+          <div class="about-hero-stat-item">
+            <span class="about-hero-stat-dot" style="background:#0066FF; box-shadow:0 0 10px #0066FF;"></span>
+            <span>۳۰ دقیقه تا تسلط کامل کادر درمان و منشی مطب</span>
           </div>
         </div>
       </div>
+    </section>
 
+    <!-- 02. The Clinical Storytelling Timeline Spine -->
+    <div class="container">
+            <div class="about-story-timeline">
+
+        <!-- 2026 Dynamic Central Scroll Progress Rail -->
+        <div class="about-timeline-rail" aria-hidden="true">
+          <div class="about-timeline-track"></div>
+          <div class="about-timeline-progress" id="aboutTimelineProgress"></div>
+          <div class="about-timeline-beacon" id="aboutTimelineBeacon"></div>
+        </div>
+
+        <!-- ========================================================
+             CHAPTER 01: THE SPARK & THE CLINICAL CHALLENGE
+             ======================================================== -->
+        <article class="about-story-chapter">
+          <div class="about-story-chapter-node">۰۱</div>
+          <div class="about-story-split-grid">
+            <div class="about-story-card story-card-enter from-right">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="liquid-card-rim-light" aria-hidden="true"></div>
+              <span class="about-story-chapter-tag">فصل ۰۱ · نقطه آغاز و درک چالش‌ها</span>
+              <h2 class="about-story-title">فرسایش مطب‌داری سنتی و اتلاف وقت درمان</h2>
+              <p class="about-story-prose">
+                پزشکآن از مشاهده نزدیک فرسایش روزمره در اتاق‌های ویزیت متولد شد. انبوه پرونده‌های کاغذی، خطای ناخوانایی دست‌خط در سوابق، ساعت‌ها اشغال خط تلفن و استرس منشی، و بدتر از همه، قربانی شدن دقایق طلایی معاینه پای کارهای اداری.
+              </p>
+              <p class="about-story-prose">
+                ما دریافتیم که پزشک برای معالجه مؤثر، نیاز دارد تا زمان خود را از قید کاغذ و بوروکراسی آزاد کند. پلتفرمی می‌بایست خلق می‌شد که در سکوت و با دقت ۱۰۰٪، تمام بار هماهنگی و مستندسازی را بر دوش بکشد.
+              </p>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;">
+                <span class="about-bento-pill">۳ دقیقه صرفه‌جویی در هر ویزیت</span>
+                <span class="about-bento-pill">۷۸٪ کاهش تماس‌های تکراری منشی</span>
+              </div>
+            </div>
+
+            <div class="about-story-visual story-card-enter from-left">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="about-visual-icon-stage">
+                <!-- 3D Clinical Stethoscope & Pulse Shield -->
+                <svg class="svg-icon icon-3d" viewBox="0 0 54 54" fill="none" style="width:54px;height:54px;" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="c1-shadow" x="2" y="42" width="50" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5"/></filter>
+                    <linearGradient id="c1-shield" x1="8" y1="6" x2="46" y2="48" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#38BDF8"/>
+                      <stop offset="50%" stop-color="#0284C7"/>
+                      <stop offset="100%" stop-color="#0369A1"/>
+                    </linearGradient>
+                    <linearGradient id="c1-rim" x1="12" y1="8" x2="42" y2="24" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FFFFFF"/>
+                      <stop offset="100%" stop-color="#BAE6FD" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <ellipse cx="27" cy="46" rx="18" ry="4" fill="#001830" opacity="0.32" filter="url(#c1-shadow)"/>
+                  <path d="M27 7L44 14V28C44 38 27 47 27 47C27 47 10 38 10 28V14L27 7Z" fill="url(#c1-shield)"/>
+                  <path d="M27 9L42 15V27C42 36 27 44.5 27 44.5C27 44.5 12 36 12 27V15L27 9Z" stroke="url(#c1-rim)" stroke-width="1.4" fill="none"/>
+                  <!-- Stethoscope Pulse Wave -->
+                  <path d="M16 27H22L24.5 20L28 34L31 24L33 27H38" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="27" cy="27" r="1.8" fill="#10B981"/>
+                </svg>
+              </div>
+              <div class="about-visual-title">عبور قطعی از پرونده‌های کاغذی</div>
+              <div class="about-visual-caption">پایان اضطراب بایگانی سنتی، گم شدن سوابق آزمایش و تماس‌های بی‌پاسخ مطب.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ========================================================
+             CHAPTER 02: THE CORE MISSION & PHILOSOPHY
+             ======================================================== -->
+        <article class="about-story-chapter reversed">
+          <div class="about-story-chapter-node">۰۲</div>
+          <div class="about-story-split-grid">
+            <div class="about-story-visual story-card-enter from-right">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="about-visual-icon-stage" style="background:radial-gradient(circle at 30% 30%, rgba(240,253,250,0.95), rgba(204,251,241,0.7));">
+                <!-- 3D Pen Tablet & Intelligent Stylus -->
+                <svg class="svg-icon icon-3d" viewBox="0 0 54 54" fill="none" style="width:54px;height:54px;" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="c2-shadow" x="4" y="42" width="46" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5"/></filter>
+                    <linearGradient id="c2-tab" x1="10" y1="10" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#0F172A"/>
+                      <stop offset="100%" stop-color="#1E293B"/>
+                    </linearGradient>
+                    <linearGradient id="c2-screen" x1="12" y1="12" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#0284C7"/>
+                      <stop offset="100%" stop-color="#0369A1"/>
+                    </linearGradient>
+                    <linearGradient id="c2-pen" x1="26" y1="8" x2="46" y2="28" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FDE047"/>
+                      <stop offset="50%" stop-color="#F59E0B"/>
+                      <stop offset="100%" stop-color="#D97706"/>
+                    </linearGradient>
+                  </defs>
+                  <ellipse cx="27" cy="46" rx="17" ry="4" fill="#001830" opacity="0.32" filter="url(#c2-shadow)"/>
+                  <rect x="10" y="12" width="34" height="28" rx="4" fill="url(#c2-tab)" stroke="#38BDF8" stroke-width="1.2"/>
+                  <rect x="13" y="15" width="28" height="22" rx="2" fill="url(#c2-screen)"/>
+                  <line x1="17" y1="21" x2="27" y2="21" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+                  <line x1="17" y1="26" x2="31" y2="26" stroke="#BAE6FD" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="17" y1="31" x2="25" y2="31" stroke="#BAE6FD" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- 3D Stylus Drawing -->
+                  <path d="M38 10L44 16L34 26L28 20Z" fill="url(#c2-pen)"/>
+                  <polygon points="28 20 25 28 34 26" fill="#FEF08A"/>
+                  <circle cx="25" cy="28" r="1.5" fill="#10B981"/>
+                </svg>
+              </div>
+              <div class="about-visual-title">قلم نوری و ارگونومی ۳۰ دقیقه‌ای</div>
+              <div class="about-visual-caption">نگارش طبیعی روی تبلت؛ بدون نیاز به تایپ با کیبورد و تسلط کامل پزشک در اولین روز.</div>
+            </div>
+
+            <div class="about-story-card story-card-enter from-left">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="liquid-card-rim-light" aria-hidden="true"></div>
+              <span class="about-story-chapter-tag">فصل ۰۲ · رسالت بنیادین ما</span>
+              <h2 class="about-story-title">فناوری در خدمت کرامت پزشکی و آرامش درمان</h2>
+              <p class="about-story-prose">
+                باور قلبی ما این است که فناوری هرگز نباید بار اضافه بر دوش پزشک باشد. نرم‌افزار باید شهودی، نامرئی و بی‌نقص کار کند؛ شرح‌حال با قلم نوری حساس به فشار ثبت شود، داروها با یک کلیک نسخه شوند و رسید مالی بدون دخالت دست به پوز بانکی برود.
+              </p>
+              <p class="about-story-prose">
+                رسالت ما تبدیل مطب‌های سنتی به مدرن‌ترین کانون‌های دیجیتال سلامت است؛ جایی که پزشک با فراغ بال و بدون استرس اداری، تمام توجه خود را به چهره بیمار اختصاص می‌دهد و درمان با بالاترین استاندارد جهانی جریان می‌یابد.
+              </p>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;">
+                <span class="about-bento-pill">ثبت شرح‌حال زیر ۶۰ ثانیه</span>
+                <span class="about-bento-pill">امضای دیجیتال و رضایت‌نامه تبلتی</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ========================================================
+             CHAPTER 03: THE OVERARCHING CLINICAL CRM GOAL
+             ======================================================== -->
+        <section class="about-crm-goal-section">
+          <!-- Frosted Glass Chapter 03 Header Shield (No Line Slicing) -->
+          <div class="about-chapter-center-header">
+            <div class="about-story-chapter-node">۰۳</div>
+            <span class="about-story-chapter-tag">فصل ۰۳ · هدف غایی اکوسیستم</span>
+            <h2 class="about-story-title" style="font-size:clamp(22px, 3vw, 32px);">هدف کلی ما از CRM پزشکآن چیست؟</h2>
+            <p class="about-story-prose" style="max-width:760px; margin:0 auto;">
+              ما CRM را نه به عنوان یک ابزار بازاریابی یا ارسال پیامک‌های تبلیغاتی، بلکه به عنوان «ستون فقرات نظم، هماهنگی و حفظ کرامت درمانی» بازتعریف کرده‌ایم. هدف نهایی ما تحقق ۴ دستاورد استراتژیک در تمام مطب‌ها و کلینیک‌های کشور است:
+            </p>
+          </div>
+
+          <!-- 4-Pillar CRM Bento Grid -->
+          <div class="about-crm-bento-grid">
+            <!-- Goal 1: Zero-Conflict Scheduling -->
+            <div class="about-bento-card story-card-enter from-right">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="about-bento-top">
+                <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,102,255,0.08);display:flex;align-items:center;justify-content:center;">
+                  <svg class="svg-icon icon-3d" viewBox="0 0 48 48" fill="none" style="width:38px;height:38px;" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="g1-shadow" x="4" y="38" width="40" height="10" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2"/></filter>
+                      <linearGradient id="g1-bg" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#38BDF8"/>
+                        <stop offset="60%" stop-color="#0066FF"/>
+                        <stop offset="100%" stop-color="#004ECC"/>
+                      </linearGradient>
+                    </defs>
+                    <ellipse cx="24" cy="42" rx="14" ry="3" fill="#001830" opacity="0.3" filter="url(#g1-shadow)"/>
+                    <rect x="8" y="10" width="32" height="28" rx="7" fill="url(#g1-bg)" stroke="#BAE6FD" stroke-width="1.2"/>
+                    <path d="M14 6V12M34 6V12" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/>
+                    <circle cx="24" cy="25" r="8" fill="#0A2540" stroke="#38BDF8" stroke-width="1.2"/>
+                    <polyline points="24 21 24 25 27 27" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round"/>
+                    <circle cx="34" cy="32" r="4.5" fill="#10B981"/>
+                    <path d="M32 32L33.5 33.5L36.5 30.5" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="about-bento-num">هدف ۰۱</span>
+              </div>
+              <h3 class="about-bento-title">نوبت‌دهی ضد تداخل و اتاق انتظار آرام</h3>
+              <p class="about-bento-desc">
+                قفل اتوماتیک اسلات زمانی برای جلوگیری ۱۰۰٪ از تداخل دو بیمار. تریاژ هوشمند و ارسال خودکار لینک مسیریابی نشان، بلد و گوگل‌مپ برای بیمار بلافاصله پس از ثبت نوبت.
+              </p>
+              <div class="about-bento-pill-list">
+                <span class="about-bento-pill">صفر تداخل نوبت</span>
+                <span class="about-bento-pill">مسیریابی نشان و بلد</span>
+                <span class="about-bento-pill">مدیریت تریاژ منشی</span>
+              </div>
+            </div>
+
+            <!-- Goal 2: Lightning EMR & Paperless Record -->
+            <div class="about-bento-card story-card-enter from-left">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="about-bento-top">
+                <div style="width:52px;height:52px;border-radius:14px;background:rgba(2,132,199,0.08);display:flex;align-items:center;justify-content:center;">
+                  <svg class="svg-icon icon-3d" viewBox="0 0 48 48" fill="none" style="width:38px;height:38px;" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="g2-shadow" x="4" y="38" width="40" height="10" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2"/></filter>
+                      <linearGradient id="g2-tab" x1="10" y1="8" x2="38" y2="40" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#1E293B"/>
+                        <stop offset="100%" stop-color="#0F172A"/>
+                      </linearGradient>
+                      <linearGradient id="g2-pen" x1="28" y1="8" x2="42" y2="28" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#38BDF8"/>
+                        <stop offset="60%" stop-color="#0284C7"/>
+                        <stop offset="100%" stop-color="#0369A1"/>
+                      </linearGradient>
+                    </defs>
+                    <ellipse cx="24" cy="42" rx="14" ry="3" fill="#001830" opacity="0.3" filter="url(#g2-shadow)"/>
+                    <rect x="8" y="10" width="30" height="28" rx="5" fill="url(#g2-tab)" stroke="#38BDF8" stroke-width="1.2"/>
+                    <rect x="12" y="14" width="22" height="20" rx="3" fill="#0369A1" opacity="0.25"/>
+                    <path d="M15 20H23M15 24H27M15 28H21" stroke="#38BDF8" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M30 10L38 18L26 30L22 31L23 27L30 10Z" fill="url(#g2-pen)" stroke="#FFFFFF" stroke-width="1"/>
+                    <circle cx="22" cy="31" r="1.5" fill="#FBBF24"/>
+                  </svg>
+                </div>
+                <span class="about-bento-num">هدف ۰۲</span>
+              </div>
+              <h3 class="about-bento-title">پرونده الکترونیک (EMR) با قلم نوری</h3>
+              <p class="about-bento-desc">
+                حذف کامل زونکن‌های بایگانی کاغذی و خطاهای ناخوانایی. ثبت شرح‌حال، ترسیم موضع درد روی آناتومی بدن، بایگانی فایل‌های دایکام رادیولوژی و امضای رضایت‌نامه روی تبلت.
+              </p>
+              <div class="about-bento-pill-list">
+                <span class="about-bento-pill">قلم نوری بدون کاغذ</span>
+                <span class="about-bento-pill">کدهای استاندارد ICD-10</span>
+                <span class="about-bento-pill">بادی‌مپ تخصصی بدن</span>
+              </div>
+            </div>
+
+            <!-- Goal 3: Hardware POS Direct Sync -->
+            <div class="about-bento-card story-card-enter from-right">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="about-bento-top">
+                <div style="width:52px;height:52px;border-radius:14px;background:rgba(5,150,105,0.08);display:flex;align-items:center;justify-content:center;">
+                  <svg class="svg-icon icon-3d" viewBox="0 0 48 48" fill="none" style="width:38px;height:38px;" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="g3-shadow" x="4" y="38" width="40" height="10" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2"/></filter>
+                      <linearGradient id="g3-pos" x1="12" y1="8" x2="36" y2="40" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#10B981"/>
+                        <stop offset="60%" stop-color="#059669"/>
+                        <stop offset="100%" stop-color="#047857"/>
+                      </linearGradient>
+                    </defs>
+                    <ellipse cx="24" cy="42" rx="13" ry="3" fill="#012414" opacity="0.32" filter="url(#g3-shadow)"/>
+                    <rect x="12" y="8" width="24" height="32" rx="6" fill="url(#g3-pos)" stroke="#A7F3D0" stroke-width="1.2"/>
+                    <rect x="16" y="12" width="16" height="10" rx="2" fill="#064E3B"/>
+                    <circle cx="24" cy="17" r="2.5" fill="#34D399"/>
+                    <circle cx="17" cy="27" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+                    <circle cx="24" cy="27" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+                    <circle cx="31" cy="27" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+                    <circle cx="17" cy="32" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+                    <circle cx="24" cy="32" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+                    <circle cx="31" cy="32" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+                    <rect x="18" y="5" width="12" height="4" rx="1" fill="#FEF08A"/>
+                  </svg>
+                </div>
+                <span class="about-bento-num">هدف ۰۳</span>
+              </div>
+              <h3 class="about-bento-title">اتصال مستقیم پوز بانکی و شفافیت مالی</h3>
+              <p class="about-bento-desc">
+                پایان اشتباهات صفری در ورود مبالغ توسط منشی. ارسال خودکار رقم فاکتور به کارتخوان، تفکیک آنی سهم پزشک، مطب و مواد مصرفی، و ثبت رسید رسمی حسابداری.
+              </p>
+              <div class="about-bento-pill-list">
+                <span class="about-bento-pill">تسهیم خودکار سهم</span>
+                <span class="about-bento-pill">حذف خطای دستی منشی</span>
+                <span class="about-bento-pill">تسویه آنی کارتخوان</span>
+              </div>
+            </div>
+
+            <!-- Goal 4: Dignified Post-Visit Patient Care -->
+            <div class="about-bento-card story-card-enter from-left">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="about-bento-top">
+                <div style="width:52px;height:52px;border-radius:14px;background:rgba(225,29,72,0.08);display:flex;align-items:center;justify-content:center;">
+                  <svg class="svg-icon icon-3d" viewBox="0 0 48 48" fill="none" style="width:38px;height:38px;" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="g4-shadow" x="4" y="38" width="40" height="10" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2"/></filter>
+                      <linearGradient id="g4-heart" x1="10" y1="10" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FB7185"/>
+                        <stop offset="50%" stop-color="#E11D48"/>
+                        <stop offset="100%" stop-color="#9F1239"/>
+                      </linearGradient>
+                    </defs>
+                    <ellipse cx="24" cy="42" rx="13" ry="3" fill="#380612" opacity="0.32" filter="url(#g4-shadow)"/>
+                    <path d="M24 13C21-2 6 2 6 17C6 27 24 38 24 38C24 38 42 27 42 17C42 2 27-2 24 13Z" fill="url(#g4-heart)" stroke="#FECDD3" stroke-width="1.2"/>
+                    <path d="M12 21H18L21 16L24 26L27 19L29 21H36" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="about-bento-num">هدف ۰۴</span>
+              </div>
+              <h3 class="about-bento-title">باشگاه بیماران و حفظ کرامت درمانی</h3>
+              <p class="about-bento-desc">
+                ارتباط هدفمند و محترمانه از خطوط خدماتی بدون مسدودی بلک‌لیست. یادآورهای پیامکی نوبت، ارسال دستورات مراقبت در منزل بعد از جراحی و پیامک گزارش تجمیعی شبانه به مدیر مطب.
+              </p>
+              <div class="about-bento-pill-list">
+                <span class="about-bento-pill">پیامک مراقبت خانگی</span>
+                <span class="about-bento-pill">خط خدماتی ۱۰۰٪ تحویل</span>
+                <span class="about-bento-pill">گزارش شبانه مدیر مطب</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================
+             CHAPTER 04: THE 3 CLINICAL PILLARS OF TRUST
+             ======================================================== -->
+        <article class="about-story-chapter">
+          <!-- Frosted Glass Chapter 04 Header Shield (No Line Slicing) -->
+          <div class="about-chapter-center-header">
+            <div class="about-story-chapter-node">۰۴</div>
+            <span class="about-story-chapter-tag">فصل ۰۴ · ستون‌های اعتماد</span>
+            <h2 class="about-story-title">ارزش‌هایی که هیچ‌گاه بر سر آن‌ها سازش نمی‌کنیم</h2>
+            <p class="about-story-prose" style="max-width:760px; margin:0 auto;">سه اصل زیرساختی که از اولین خط کد تا به‌روزرسانی‌های روزانه، قطب‌نمای اخلاقی و فنی پزشکآن است:</p>
+          </div>
+
+          <!-- 3-Pillar Cards Grid: Enters from Right, Center & Left with Zero Hover Jumping -->
+          <div class="grid-3" style="margin-bottom:20px; position:relative; z-index:4;">
+            <!-- Pillar 1: Privacy & Security (Enters from Right) -->
+            <div class="panel-card story-card-enter from-right">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="card-icon-wrap" style="background:rgba(0,102,255,0.08); color:var(--brand-primary);">
+                <svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="abt-sec-shadow" x="2" y="36" width="44" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5"/></filter>
+                    <linearGradient id="abt-sec-front" x1="12" y1="7" x2="36" y2="37" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#38BDF8"/>
+                      <stop offset="35%" stop-color="#0066FF"/>
+                      <stop offset="100%" stop-color="#004ECC"/>
+                    </linearGradient>
+                    <linearGradient id="abt-sec-gold" x1="21" y1="19" x2="27" y2="29" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FBBF24"/>
+                      <stop offset="100%" stop-color="#D97706"/>
+                    </linearGradient>
+                  </defs>
+                  <ellipse cx="24" cy="40" rx="15" ry="3.5" fill="#001830" opacity="0.32" filter="url(#abt-sec-shadow)"/>
+                  <path d="M24 7L38 12.5V25C38 33.5 24 40.5 24 40.5C24 40.5 10 33.5 10 25V12.5L24 7Z" fill="url(#abt-sec-front)" stroke="#BAE6FD" stroke-width="1.2"/>
+                  <circle cx="24" cy="24" r="8.5" fill="#071E33" stroke="#38BDF8" stroke-width="1.6"/>
+                  <path d="M21 21C21 19.34 22.34 18 24 18C25.66 18 27 19.34 27 21V22.5H21V21Z" fill="none" stroke="url(#abt-sec-gold)" stroke-width="1.8"/>
+                  <rect x="20" y="22.5" width="8" height="6" rx="1.5" fill="url(#abt-sec-gold)"/>
+                </svg>
+              </div>
+              <h3 style="font-size:17.5px; font-weight:800; margin-bottom:8px; color:var(--text-pure);">حریم خصوصی و رازداری بالینی</h3>
+              <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.85;">
+                اطلاعات پرونده پزشکی بیماران امانتی مقدس است. بالاترین پروتکل‌های رمزنگاری AES-256 در سرورهای ایزوله ابری، تفکیک دقیق دسترسی پزشک و منشی را تضمین می‌کند.
+              </p>
+              <div style="margin-top:auto; padding-top:14px; font-size:12px; font-weight:800; color:var(--brand-primary);">رمزنگاری بالینی: AES-256</div>
+            </div>
+
+            <!-- Pillar 2: Academic Supervision (Enters from Center) -->
+            <div class="panel-card story-card-enter from-center">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="card-icon-wrap" style="background:rgba(0,102,255,0.08); color:var(--brand-primary);">
+                <svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="abt-cert-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5"/></filter>
+                    <linearGradient id="abt-cert-sheet" x1="11" y1="8" x2="35" y2="36" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FFFFFF"/>
+                      <stop offset="60%" stop-color="#F0F9FF"/>
+                      <stop offset="100%" stop-color="#E0F2FE"/>
+                    </linearGradient>
+                    <linearGradient id="abt-cert-brand" x1="26" y1="26" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#38BDF8"/>
+                      <stop offset="100%" stop-color="#0066FF"/>
+                    </linearGradient>
+                  </defs>
+                  <ellipse cx="23" cy="40" rx="15" ry="3.5" fill="#001830" opacity="0.30" filter="url(#abt-cert-shadow)"/>
+                  <rect x="10.5" y="7" width="25" height="30" rx="3.5" fill="url(#abt-cert-sheet)" stroke="#BAE6FD" stroke-width="1.2"/>
+                  <rect x="14" y="11" width="18" height="3.5" rx="1.5" fill="#0066FF" opacity="0.85"/>
+                  <line x1="14" y1="18" x2="26" y2="18" stroke="#38BDF8" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="14" y1="22" x2="23" y2="22" stroke="#BAE6FD" stroke-width="1.4" stroke-linecap="round"/>
+                  <circle cx="30.5" cy="30.5" r="5.5" fill="url(#abt-cert-brand)"/>
+                  <path d="M28.5 30.5L30 32L33 29" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h3 style="font-size:17.5px; font-weight:800; margin-bottom:8px; color:var(--text-pure);">تاییدیه و نظارت جامعه پزشکی</h3>
+              <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.85;">
+                تمام فرم‌های EMR، گایدلاین‌های نسخه و ماژول‌ها تحت نظارت مستقیم اساتید هیئت علمی دانشگاه و جراحان باسابقه برای هماهنگی با نیازهای واقعی مطب طراحی شده است.
+              </p>
+              <div style="margin-top:auto; padding-top:14px; font-size:12px; font-weight:800; color:var(--brand-primary);">تاییدیه اساتید هیئت علمی</div>
+            </div>
+
+            <!-- Pillar 3: Speed & Ergonomics (Enters from Left) -->
+            <div class="panel-card story-card-enter from-left">
+              <div class="card-border-beam" aria-hidden="true"></div>
+              <div class="card-icon-wrap" style="background:rgba(0,102,255,0.08); color:var(--brand-primary);">
+                <svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="abt-spd-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5"/></filter>
+                    <linearGradient id="abt-spd-front" x1="14" y1="6" x2="34" y2="36" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#38BDF8"/>
+                      <stop offset="50%" stop-color="#0066FF"/>
+                      <stop offset="100%" stop-color="#004ECC"/>
+                    </linearGradient>
+                  </defs>
+                  <ellipse cx="23" cy="40" rx="14" ry="3.5" fill="#001830" opacity="0.32" filter="url(#abt-spd-shadow)"/>
+                  <path d="M24 7L14 21H23L21 35L33 19H24L25 7H24Z" fill="url(#abt-spd-front)" stroke="#BAE6FD" stroke-width="1.2"/>
+                  <circle cx="23" cy="21" r="1.5" fill="#FFFFFF"/>
+                </svg>
+              </div>
+              <h3 style="font-size:17.5px; font-weight:800; margin-bottom:8px; color:var(--text-pure);">سرعت و سادگی بدون پیچیدگی</h3>
+              <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.85;">
+                هیچ پزشکی نباید دوره‌های آموزشی طولانی ببیند؛ کار با نرم‌افزار پزشکآن ظرف ۳۰ دقیقه برای هر پزشک و منشی کاملاً شهودی، لذت‌بخش و بدون اصطکاک است.
+              </p>
+              <div style="margin-top:auto; padding-top:14px; font-size:12px; font-weight:800; color:var(--brand-primary);">تسلط کامل در ۳۰ دقیقه</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ========================================================
+             CHAPTER 05: QUANTITATIVE VITAL PROOFS & STANDARDS
+             ======================================================== -->
+        <article class="about-story-chapter">
+          <!-- Frosted Glass Chapter 05 Header Shield (No Line Slicing) -->
+          <div class="about-chapter-center-header">
+            <div class="about-story-chapter-node">۰۵</div>
+            <span class="about-story-chapter-tag">فصل ۰۵ · سنجه‌های سنجش عملکرد</span>
+            <h2 class="about-story-title">استانداردهای بالینی شفاف، پایدار و قابل اندازه‌گیری</h2>
+            <p class="about-story-prose" style="max-width:760px; margin:0 auto;">داشبورد زنده سنجش شاخص‌های کیفی اکوسیستم برای اطمینان خاطر جامعه پزشکی کشور:</p>
+          </div>
+
+          <div class="vital-dial-grid">
+            <div class="vital-dial-card story-card-enter from-right" data-signal="cyan" data-alt-val="۲۴/۷" data-alt-sub="پشتیبانی شبانه‌روزی تیم استقرار و کارشناسان فناوری سلامت">
+              <div class="vital-dial-header">
+                <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>پایداری سرویس ابری</span>
+                <span class="vital-dial-code-badge">استاندارد ۰۱</span>
+              </div>
+              <div class="vital-dial-gauge">
+                <svg viewBox="0 0 88 88" aria-hidden="true">
+                  <circle class="vital-dial-track" cx="44" cy="44" r="36"></circle>
+                  <circle class="vital-dial-ticks" cx="44" cy="44" r="30"></circle>
+                  <circle class="vital-dial-progress" cx="44" cy="44" r="36" stroke-dasharray="226.2" stroke-dashoffset="12.0" style="--dial-offset: 12.0;"></circle>
+                </svg>
+                <div class="vital-dial-center">
+                  <span class="vital-dial-number">۹۹.۹۸٪</span>
+                  <span class="vital-dial-unit">دسترسی پایدار</span>
+                </div>
+              </div>
+              <div class="vital-dial-info">
+                <h4 class="vital-dial-title">پایداری زیرساخت ابری سلامت</h4>
+                <p class="vital-dial-sub">سرورهای ایزوله با پشتیبان‌گیری لحظه‌ای و تضمین دسترسی بدون قطعی در ساعات اوج مراجعه.</p>
+              </div>
+              <div class="vital-dial-footer-pill">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span>پشتیبانی تخصصی: ۲۴ ساعته</span>
+              </div>
+            </div>
+
+            <div class="vital-dial-card story-card-enter from-center" data-signal="green" data-alt-val="AES-256" data-alt-sub="رمزنگاری سرتاسری پرونده‌های پزشکی مطابق استاندارد حفاظت از اطلاعات سلامت">
+              <div class="vital-dial-header">
+                <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>حریم خصوصی بیماران</span>
+                <span class="vital-dial-code-badge">استاندارد ۰۲</span>
+              </div>
+              <div class="vital-dial-gauge">
+                <svg viewBox="0 0 88 88" aria-hidden="true">
+                  <circle class="vital-dial-track" cx="44" cy="44" r="36"></circle>
+                  <circle class="vital-dial-ticks" cx="44" cy="44" r="30"></circle>
+                  <circle class="vital-dial-progress" cx="44" cy="44" r="36" stroke-dasharray="226.2" stroke-dashoffset="0" style="--dial-offset: 0;"></circle>
+                </svg>
+                <div class="vital-dial-center">
+                  <span class="vital-dial-number">۱۰۰٪</span>
+                  <span class="vital-dial-unit">امنیت داده‌ها</span>
+                </div>
+              </div>
+              <div class="vital-dial-info">
+                <h4 class="vital-dial-title">حفاظت از رازداری بالینی بیمار</h4>
+                <p class="vital-dial-sub">کنترل دسترسی مبتنی بر نقش و ثبت کامل گزارش‌های امنیتی برای هر پرونده پزشکی.</p>
+              </div>
+              <div class="vital-dial-footer-pill">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>رمزنگاری بالینی: AES-256</span>
+              </div>
+            </div>
+
+            <div class="vital-dial-card story-card-enter from-left" data-signal="amber" data-alt-val="۴۸ ساعت" data-alt-sub="حداکثر زمان استقرار حضوری و آموزش کامل پرسنل مطب و کلینیک">
+              <div class="vital-dial-header">
+                <span class="vital-dial-meta-tag"><span class="signal-node-dot"></span>آموزش و راه‌اندازی مطب</span>
+                <span class="vital-dial-code-badge">استاندارد ۰۳</span>
+              </div>
+              <div class="vital-dial-gauge">
+                <svg viewBox="0 0 88 88" aria-hidden="true">
+                  <circle class="vital-dial-track" cx="44" cy="44" r="36"></circle>
+                  <circle class="vital-dial-ticks" cx="44" cy="44" r="30"></circle>
+                  <circle class="vital-dial-progress" cx="44" cy="44" r="36" stroke-dasharray="226.2" stroke-dashoffset="28.0" style="--dial-offset: 28.0;"></circle>
+                </svg>
+                <div class="vital-dial-center">
+                  <span class="vital-dial-number">۳۰ دقیقه</span>
+                  <span class="vital-dial-unit">تسلط کامل</span>
+                </div>
+              </div>
+              <div class="vital-dial-info">
+                <h4 class="vital-dial-title">یادگیری سریع و ارگونومیک</h4>
+                <p class="vital-dial-sub">رابط کاربری ساده و روان؛ تسلط کامل پزشک و منشی در کمتر از نیم ساعت آموزش.</p>
+              </div>
+              <div class="vital-dial-footer-pill">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>استقرار حضوری: کمتر از ۴۸ ساعت</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ========================================================
+             CHAPTER 06: CALL TO ACTION BANNER
+             ======================================================== -->
+        <div class="about-cta-container">
+          <div class="panel-card" style="padding:40px 32px; border-radius:26px; text-align:center; position:relative; overflow:hidden;">
+            <div class="card-border-beam" aria-hidden="true"></div>
+            <div class="liquid-card-rim-light" aria-hidden="true"></div>
+            <h2 style="font-size:clamp(22px, 3.2vw, 30px); font-weight:900; color:var(--text-pure); margin-bottom:12px;">
+              آماده‌اید مطب خود را به نسل نوین مدیریت درمان مجهز کنید؟
+            </h2>
+            <p style="font-size:15px; color:var(--text-secondary); max-width:680px; margin:0 auto 28px; line-height:1.9;">
+              استقرار حضوری رایگان توسط کارشناس بالینی، آموزش کامل منشی و پرسنل، و ۳ ماه استفاده کاملاً رایگان بدون هیچ‌گونه پیش‌پرداخت اولیه.
+            </p>
+            <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+              <a href="/start" class="btn btn-primary btn-lg" style="padding:14px 32px; font-size:15px;">
+                <span>شروع همکاری و فعال‌سازی ۳ ماه رایگان</span>
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="/contact" class="btn btn-secondary btn-lg" style="padding:14px 24px; font-size:14.5px;">
+                <span>مشاوره تلفنی با کارشناس بالینی</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </section>
 
   </main>
 
@@ -632,9 +952,81 @@
   </footer>
     
 
-  <script src="three.min.js"></script>
-  <script src="gsap.min.js"></script>
-  <script src="lenis.min.js"></script>
-  <script src="/shared.js?v=20261029v20"></script>
+  <script src="/gsap.min.js"></script>
+  <script src="/lenis.min.js"></script>
+  <script src="/three.min.js"></script>
+  <script src="/shared.js?v=20261031v33"></script>
+  <script>
+  // 2026 Timeline Scroll Progress and Card Entrance Engine
+  (function() {
+    function initTimelineEngine() {
+      var timeline = document.querySelector('.about-story-timeline');
+      var progress = document.getElementById('aboutTimelineProgress');
+      var beacon = document.getElementById('aboutTimelineBeacon');
+      var nodes = document.querySelectorAll('.about-story-chapter-node');
+
+      function onScroll() {
+        if (!timeline || !progress) return;
+        var rect = timeline.getBoundingClientRect();
+        var winH = window.innerHeight;
+        var startOffset = winH * 0.65;
+        var totalDist = rect.height;
+        var current = startOffset - rect.top;
+        var p = Math.min(Math.max(current / totalDist, 0), 1);
+
+        progress.style.transform = 'scaleY(' + p + ')';
+
+        if (beacon) {
+          if (p > 0.01 && p < 0.99) {
+            beacon.style.opacity = '1';
+            beacon.style.top = (p * 100) + '%';
+          } else if (p >= 0.99) {
+            beacon.style.opacity = '1';
+            beacon.style.top = '100%';
+          } else {
+            beacon.style.opacity = '0';
+          }
+        }
+
+        nodes.forEach(function(node) {
+          var nr = node.getBoundingClientRect();
+          if (nr.top <= winH * 0.65) {
+            node.classList.add('active');
+          } else {
+            node.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      if (window.lenis) {
+        window.lenis.on('scroll', onScroll);
+      }
+      onScroll();
+
+      // Intersection Observer for Left/Right Card Entrances
+      var cards = document.querySelectorAll('.story-card-enter');
+      if ('IntersectionObserver' in window) {
+        var cardObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        cards.forEach(function(card) { cardObs.observe(card); });
+      } else {
+        cards.forEach(function(card) { card.classList.add('is-visible'); });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTimelineEngine);
+    } else {
+      initTimelineEngine();
+    }
+  })();
+  </script>
 </body>
 </html>

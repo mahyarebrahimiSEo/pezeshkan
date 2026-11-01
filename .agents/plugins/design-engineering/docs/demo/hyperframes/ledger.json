@@ -1,0 +1,32 @@
+{
+  "_": "Seam ledger for the design-engineering launch film. One row per scene change, typed cut / match-cut / morph (references/launch-video/launch-video-seams.md). A cut row carries signed vectors (x -1 leftward, y -1 upward, z +1 push); a morph row names its carrier. Values are HyperFrames' seam-stamp values, written by hand (references/launch-video/hyperframes-reconciliation.md). Every exit is still moving on the cut frame, or the cut sits inside a full-frame fill.",
+  "fps": 30,
+  "current": "left",
+  "seams": [
+    { "id": "poster → hook", "cut": 0.066, "type": "cut", "technique": "poster frame: two frames of the endcard lockup, then the film",
+      "note": "the one deliberate static cut; it sets the thumbnail (Skale opens 9 of 29 films this way)" },
+    { "id": "hook → review", "cut": 2.633, "type": "morph", "technique": "fill the frame: the click is the seam",
+      "carrier": { "out": "#s1-fill", "in": "#s2 ground (ink)" },
+      "exit": { "selector": "#s1-fill", "from": "the pressed pill at (560, 640)", "scale": "0 → 84", "ease": "power2.in", "dur": 0.35 } },
+    { "id": "review → name", "cut": 6.2, "type": "cut", "technique": "constant ground: ink on both sides",
+      "exit": { "selector": "#s2-wrap", "axis": "y", "dir": -1, "ease": "power3.in", "dur": 0.34, "to": -150 },
+      "entry": { "selector": "#s3-caret", "note": "the incoming frame acts within 0.27 s (the caret's first blink): stillness before the name, not a dead cut" } },
+    { "id": "name → motion", "cut": 9.9, "type": "cut", "technique": "zoom into a glyph: the caret block's paper becomes the ground",
+      "exit": { "selector": "#s3-cam", "axis": "z", "dir": 1, "origin": "1469px 474px", "scale": "1.04 → 30", "ease": "power4.in", "dur": 0.5, "blur": 8 },
+      "entry": { "selector": "#s4-cam", "axis": "z", "dir": 1, "scale": "0.78 → 1", "opacity": "0.15 → 1", "ease": "expo.out", "dur": 0.5, "blur": 10 } },
+    { "id": "motion → sound", "cut": 14.3, "type": "cut", "technique": "cut the curve, in the current",
+      "exit": { "selector": "#s4-cam", "axis": "x", "dir": -1, "to": "-12 %", "ease": "power3.in", "dur": 0.34 },
+      "entry": { "selector": "#s5-cam", "axis": "x", "dir": -1, "from": "+10 % at 0.35 opacity", "ease": "power4.out", "dur": 0.42 } },
+    { "id": "sound → measured", "cut": 18.7, "type": "morph", "technique": "fill the frame: the parked playhead widens into the next ground",
+      "carrier": { "out": "#s5-fill", "in": "#s6 ground (blue)" },
+      "exit": { "selector": "#s5-fill", "from": "x 1784 (the playhead on screen)", "scaleX": "1 → 900", "ease": "power2.in", "dur": 0.35 } },
+    { "id": "measured → cta", "cut": 24.6, "type": "cut", "technique": "hard cut on a palette flip (blue → ink), mid-motion, upward",
+      "exit": { "selector": "#s6-wrap", "axis": "y", "dir": -1, "to": -160, "ease": "power3.in", "dur": 0.34 },
+      "entry": { "selector": "#s7-wrap", "axis": "y", "dir": -1, "from": "+10 % at 0.35 opacity", "ease": "power4.out", "dur": 0.42 },
+      "note": "upward is a reserved vector: the conclusion rises" },
+    { "id": "cta → endcard", "cut": 30.2, "type": "morph", "technique": "collapse to a carrier dot; paper grows out of it",
+      "carrier": { "out": "#s7-dot", "in": "#s8-dot" },
+      "exit": { "selector": "#s7-pill", "swell": "1 → 1.05 (0.15 s)", "collapse": "→ 0.03, rotate 28°", "ease": "power2.in", "dur": 0.3, "hold": "2 frames" },
+      "entry": { "selector": "#s8-paper", "from": "the dot at (882, 529)", "scale": "0.75 → 64", "dur": 0.45 } }
+  ]
+}

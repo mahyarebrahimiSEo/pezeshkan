@@ -72,6 +72,8 @@ MIME_MAP = {
     ".txt": "text/plain; charset=utf-8",
     ".ico": "image/x-icon",
     ".html": "text/html; charset=utf-8",
+    ".glb": "model/gltf-binary",
+    ".gltf": "model/gltf+json",
 }
 
 # In-Memory High-Concurrency Caches
@@ -112,23 +114,59 @@ def save_site_images(images):
         return False
 
 
+def inject_cache_busting(html_text):
+    """
+    Dynamically injects file modification timestamps (mtime) for static assets (shared.css, shared.js)
+    and attaches aggressive no-cache meta tags to HTML head.
+    Guarantees that any changes to CSS or JS instantly invalidate browser cache on a single F5 refresh.
+    """
+    try:
+        portal_dir = settings.BASE_DIR / 'portal'
+        shared_css = portal_dir / 'shared.css'
+        shared_js = portal_dir / 'shared.js'
+
+        css_mtime = int(shared_css.stat().st_mtime) if shared_css.exists() else int(datetime.now().timestamp())
+        js_mtime = int(shared_js.stat().st_mtime) if shared_js.exists() else int(datetime.now().timestamp())
+
+        # Update /shared.css?v=...
+        html_text = re.sub(r'(/shared\.css)(?:\?[^"\'\s>]*)?', rf'\g<1>?v={css_mtime}', html_text)
+        # Update /shared.js?v=...
+        html_text = re.sub(r'(/shared\.js)(?:\?[^"\'\s>]*)?', rf'\g<1>?v={js_mtime}', html_text)
+
+        # Ensure no-cache meta tags in <head>
+        meta_tags = (
+            '  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n'
+            '  <meta http-equiv="Pragma" content="no-cache">\n'
+            '  <meta http-equiv="Expires" content="0">'
+        )
+        if '<meta http-equiv="Cache-Control"' not in html_text and '</head>' in html_text:
+            html_text = html_text.replace('</head>', f'{meta_tags}\n</head>', 1)
+    except Exception:
+        pass
+    return html_text
+
+
 # Helper: Serve file safely with exact MIME types and in-memory cache
 def serve_static_file(file_path):
     path = Path(file_path)
     str_path = str(path)
 
-    # In-memory cache hit
-    if str_path in _STATIC_FILE_CACHE:
-        content, content_type, ext = _STATIC_FILE_CACHE[str_path]
-        response = HttpResponse(content, content_type=content_type)
-        if ext in (".css", ".js", ".svg", ".png", ".jpg", ".webp", ".woff2", ".woff", ".ttf"):
-            response["Cache-Control"] = "public, max-age=86400"
-        return response
-
     if not path.exists() or not path.is_file():
         return HttpResponseNotFound("Page Not Found")
-    
+
+    file_mtime = path.stat().st_mtime
     ext = path.suffix.lower()
+
+    # In-memory cache hit with mtime validation (skip HTML to allow live asset mtime injection)
+    if ext != '.html' and str_path in _STATIC_FILE_CACHE:
+        cached_mtime, content, content_type, ext_cached = _STATIC_FILE_CACHE[str_path]
+        if cached_mtime == file_mtime:
+            response = HttpResponse(content, content_type=content_type)
+            response["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
+            response["Pragma"] = "no-cache"
+            response["Expires"] = "0"
+            return response
+
     content_type = MIME_MAP.get(ext)
     if not content_type:
         content_type, _ = mimetypes.guess_type(str(path))
@@ -140,10 +178,11 @@ def serve_static_file(file_path):
         with open(path, "rb") as f:
             content = f.read()
 
-        # If serving HTML page, perform instant SSR image hydration and script injection
+        # If serving HTML page, perform instant SSR image hydration, cache busting, and script injection
         if ext == '.html':
             try:
                 html_text = content.decode('utf-8')
+                html_text = inject_cache_busting(html_text)
                 images = load_site_images()
                 if images:
                     for img in images:
@@ -157,16 +196,17 @@ def serve_static_file(file_path):
                     script_tag = f'<script>window.__SITE_IMAGES__ = {img_dict_json};</script>'
                     if '</head>' in html_text:
                         html_text = html_text.replace('</head>', f'{script_tag}\n</head>', 1)
-                    content = html_text.encode('utf-8')
+                content = html_text.encode('utf-8')
             except Exception:
                 pass
 
-        if len(_STATIC_FILE_CACHE) < _MAX_STATIC_CACHE_ENTRIES:
-            _STATIC_FILE_CACHE[str_path] = (content, content_type, ext)
+        if ext != '.html' and len(_STATIC_FILE_CACHE) < _MAX_STATIC_CACHE_ENTRIES:
+            _STATIC_FILE_CACHE[str_path] = (file_mtime, content, content_type, ext)
 
         response = HttpResponse(content, content_type=content_type)
-        if ext in (".css", ".js", ".svg", ".png", ".jpg", ".webp", ".woff2", ".woff", ".ttf"):
-            response["Cache-Control"] = "public, max-age=86400"
+        response["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
+        response["Pragma"] = "no-cache"
+        response["Expires"] = "0"
         return response
     except Exception as e:
         return HttpResponse(f"Error loading file: {e}", status=500)
@@ -214,6 +254,11 @@ PORTAL_PAGE_NAMES = {
     "tutorials": "tutorials.html",
     "download": "download.html",
     "appointments": "appointments.html",
+    "service-appointments": "service-appointments.html",
+    "service-emr": "service-emr.html",
+    "service-physio": "service-physio.html",
+    "service-sms-crm": "service-sms-crm.html",
+    "service-accounting": "service-accounting.html",
     "404": "404.html",
 }
 
@@ -267,7 +312,14 @@ def index_page(request):
             f'<div class="grid-3" id="home-magazine-grid">\n{grid_content}\n      </div>'
         )
 
-    return HttpResponse(content, content_type='text/html; charset=utf-8')
+    # Dynamic asset version injection for instant cache-busting on simple F5 refresh
+    content = inject_cache_busting(content)
+
+    response = HttpResponse(content, content_type='text/html; charset=utf-8')
+    response["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
+    response["Pragma"] = "no-cache"
+    response["Expires"] = "0"
+    return response
 
 
 def portal_page(request, page_name="index"):
@@ -609,6 +661,8 @@ def api_articles(request, slug=None):
             "old_slugs": old_slugs,
             "schema_data": data.get("schemaData", {}),
             "custom_schema_json": data.get("customSchemaJson", ""),
+            "is_noindex": bool(data.get("isNoindex", False)),
+            "robots": data.get("robots", "noindex, follow" if data.get("isNoindex") else "index, follow"),
         }
 
         if article:

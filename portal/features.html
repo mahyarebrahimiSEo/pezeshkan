@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
-  <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+  <script>document.documentElement.setAttribute("data-theme","light");try{localStorage.setItem("pezeshkan_theme","light");}catch(e){}</script>
   <link rel="stylesheet" href="/shared.css?v=20261029v20">
 </head>
 <body>
@@ -76,15 +76,11 @@
         <!-- 1. فهرست آکاردئونی مراجعان -->
         <li class="nav-dropdown nav-dropdown-patients" id="navDropdownPatients">
           <button type="button" class="nav-dropdown-trigger " onclick="toggleDesktopDropdown(event, 'navDropdownPatients')" aria-expanded="false">
-            <span class="nav-role-dot" aria-hidden="true"></span>
+            
             <span>برای مراجعان</span>
             <svg class="svg-icon nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="nav-dropdown-menu" role="menu">
-            <div class="nav-dropdown-header">
-              <span>خدمات ویژه بیماران و مراجعان</span>
-              <span style="color:var(--brand-primary);">پرتال سلامت</span>
-            </div>
             <a href="/appointments" class="nav-dropdown-link">
               <div class="nav-dropdown-icon">
                 <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
@@ -111,30 +107,17 @@
                 <strong>دموی آنلاین و نسخه وب مراجعان</strong><span>دسترسی آنی در تمامی مرورگرها بدون نیاز به نصب</span>
               </div>
             </a>
-            <a href="/tutorials?role=user" class="nav-dropdown-link">
-              <div class="nav-dropdown-icon">
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              </div>
-              <div class="nav-dropdown-text">
-                <strong>مرکز آموزش پزشکآن برای مراجعان</strong>
-                <span>راهنمای نوبت‌دهی، پرونده سلامت و کار با اپلیکیشن</span>
-              </div>
-            </a>
           </div>
         </li>
 
         <!-- 2. فهرست آکاردئونی پزشکان -->
         <li class="nav-dropdown nav-dropdown-doctors" id="navDropdownDoctors">
           <button type="button" class="nav-dropdown-trigger active" onclick="toggleDesktopDropdown(event, 'navDropdownDoctors')" aria-expanded="false">
-            <span class="nav-role-dot" aria-hidden="true"></span>
+            
             <span>برای پزشکان</span>
             <svg class="svg-icon nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="nav-dropdown-menu" role="menu">
-            <div class="nav-dropdown-header">
-              <span>سامانه جامع پزشکان و کلینیک‌ها</span>
-              <span style="color:var(--brand-emerald-vital);">اتوماسیون مطب</span>
-            </div>
             <a href="/product" class="nav-dropdown-link">
               <div class="nav-dropdown-icon">
                 <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -180,15 +163,6 @@
                 <span>مشاهده آنلاین و کار با محیط CRM و پرونده الکترونیک</span>
               </div>
             </a>
-            <a href="/tutorials?role=doctor" class="nav-dropdown-link">
-              <div class="nav-dropdown-icon">
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              </div>
-              <div class="nav-dropdown-text">
-                <strong>مرکز آموزش پزشکآن برای پزشکان</strong>
-                <span>آموزش جامع CRM مطب، پنل پزشک و پذیرش منشی</span>
-              </div>
-            </a>
           </div>
         </li>
 
@@ -196,7 +170,7 @@
         <li><a href="/appointments" class="nav-link ">نوبت‌دهی مطب</a></li>
 
         <!-- 4. صفحه کلی آموزش -->
-        <li><a href="/tutorials" class="nav-link ">مرکز آموزش</a></li>
+        <li><a class="nav-link" href="/packages">تعرفه و پلن‌ها</a></li>
 
         <!-- 5. درباره ما و تماس با ما -->
         <li><a href="/about" class="nav-link ">درباره ما</a></li>
@@ -219,17 +193,7 @@
           <span>مجله سلامت</span>
           <span class="pez-shell-mag-badge">پزشکآن لایف</span>
         </a>
-        <button type="button" class="theme-toggle-btn theme-switch" id="themeToggleBtn" role="switch" aria-checked="false" title="تغییر حالت روز و شب" aria-label="تغییر حالت روز و شب">
-          <span class="theme-switch-track">
-            <span class="theme-switch-icon sun-icon" aria-hidden="true">
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
-            </span>
-            <span class="theme-switch-icon moon-icon" aria-hidden="true">
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            </span>
-            <span class="theme-switch-thumb" aria-hidden="true"></span>
-          </span>
-        </button>
+        
 
         <div class="header-auth-capsule">
           <a href="javascript:void(0)" onclick="openLoginNotice('select')" class="auth-capsule-btn auth-combined-btn" title="ورود و ثبت‌نام در سامانه سلامت پزشکآن">
@@ -279,20 +243,16 @@
           </button>
           <div class="drawer-accordion-body">
             <a href="/appointments" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>نوبت‌دهی مطب و لیست پزشکان</span>
             </a>
             <a href="/services" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>خدمات سلامت و مشاوره آنلاین</span>
             </a>
             <a href="/download?role=patients" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
+              
               <span>دموی آنلاین پنل مراجعان</span>
-            </a>
-            <a href="/tutorials?role=user" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
-              <span>مرکز آموزش ویژه مراجعان</span>
             </a>
           </div>
         </li>
@@ -310,35 +270,31 @@
           </button>
           <div class="drawer-accordion-body">
             <a href="/product" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>پرونده الکترونیک سلامت (EMR)</span>
             </a>
             <a href="/features" class="drawer-sub-link active">
-              <span class="drawer-sub-dot"></span>
+              
               <span>راهکارها و امکانات بالینی پزشکان</span>
             </a>
             <a href="/packages" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>تعرفه‌ها و پلن‌های اشتراک</span>
             </a>
             <a href="/start" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>ثبت‌نام و شروع همکاری پزشکان</span>
             </a>
             <a href="/download?role=doctors" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
+              
               <span>دموی آنلاین پنل پزشکان</span>
-            </a>
-            <a href="/tutorials?role=doctor" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
-              <span>مرکز آموزش ویژه پزشکان (CRM)</span>
             </a>
           </div>
         </li>
 
         <!-- لینک صفحه کلی آموزش و سایر صفحات مستقل -->
         <li><a href="/appointments" class="nav-link " style="font-weight:800;">نوبت‌دهی مطب (لیست پزشکان)</a></li>
-        <li><a href="/tutorials" class="nav-link ">مرکز جامع آموزش (صفحه کلی)</a></li>
+        <li><a class="nav-link" href="/packages" style="font-weight:800;">تعرفه و پلن‌ها</a></li>
         <li><a href="/download" class="nav-link " style="color:var(--brand-primary); font-weight:800;">دریافت دموی سامانه ابری</a></li>
         <li><a href="/mag" class="nav-link nav-mag">مجله سلامت (پزشکآن لایف)</a></li>
         <li><a href="/about" class="nav-link ">درباره ما</a></li>
@@ -378,7 +334,6 @@
   <section style="padding:48px 0 32px;">
     <div class="container">
       <div class="section-title-wrap">
-        <span class="section-pill-tag">تفکیک نقش‌محور قابلیت‌ها</span>
         <h1 class="section-h2" style="font-size:32px;">قابلیت‌های اکوسیستم پزشکآن برای تمام اعضای درمان</h1>
         <p class="section-sub">تفکیک دقیق ابزارها بر اساس نیازهای واقعی پزشک، منشی مطب، مدیر کلینیک و بیمار</p>
       </div>

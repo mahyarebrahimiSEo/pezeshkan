@@ -85,6 +85,8 @@ mimetypes.add_type("image/webp", ".webp")
 mimetypes.add_type("application/xml", ".xml")
 mimetypes.add_type("text/plain", ".txt")
 mimetypes.add_type("application/manifest+json", ".webmanifest")
+mimetypes.add_type("model/gltf-binary", ".glb")
+mimetypes.add_type("model/gltf+json", ".gltf")
 
 # 2. Directory Layout
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -626,6 +628,75 @@ def is_valid_phone(phone_str):
     # Allow digits, +, spaces, dashes, parentheses, Persian/Arabic numerals
     return bool(re.match(r'^[0-9+\-\s().\u0660-\u0669\u06F0-\u06F9]+$', cleaned))
 
+def dispatch_lead_notification_emails(lead_data):
+    """
+    Sends notification emails to administrators when a partnership/lead form is submitted.
+    Target recipients:
+    - mahyarebrahimi171@gmail.com
+    - onsupp.web@gmail.com
+    """
+    recipients = ["mahyarebrahimi171@gmail.com", "onsupp.web@gmail.com"]
+    subject = f"درخواست همکاری و فعال‌سازی ۳ ماه رایگان: {lead_data.get('name', 'پزشک گرامی')}"
+    
+    text_content = f"""درخواست جدید همکاری و فعال‌سازی ۳ ماه رایگان در سامانه پزشکآن:
+
+نام و نام خانوادگی پزشک / مدیر مرکز: {lead_data.get('name', 'ثبت نشده')}
+شماره تماس همراه: {lead_data.get('phone', 'ثبت نشده')}
+تخصص بالینی: {lead_data.get('specialty', 'ثبت نشده')}
+حجم مراجعین روزانه: {lead_data.get('patientsVolume', 'ثبت نشده')}
+اهداف و دغدغه‌های اصلی: {', '.join(lead_data.get('challenges', [])) if isinstance(lead_data.get('challenges'), list) else lead_data.get('challenges', 'ثبت نشده')}
+شهر و آدرس مطب / کلینیک: {lead_data.get('address', 'ثبت نشده')}
+پلن انتخابی: {lead_data.get('chosenPlan', 'پایه (Starter)')}
+زمان ثبت: {lead_data.get('createdAt', '')}
+شناسه پیگیری: {lead_data.get('id', '')}
+آی‌پی کاربر: {lead_data.get('ip', '')}
+"""
+    try:
+        dispatched_log_path = os.path.join(LOGS_DIR, "dispatched_leads_emails.json")
+        dispatched = load_json_file(dispatched_log_path, default=[])
+        log_entry = {
+            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "recipients": recipients,
+            "lead": lead_data
+        }
+        dispatched.insert(0, log_entry)
+        if len(dispatched) > 500:
+            dispatched = dispatched[:500]
+        atomic_write_json(dispatched_log_path, dispatched)
+    except Exception as e:
+        print(f"[Lead Email Log Error] {e}")
+
+    def _send_thread():
+        try:
+            import smtplib
+            from email.mime.text import MIMEText
+            from email.mime.multipart import MIMEMultipart
+
+            smtp_host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
+            smtp_port = int(os.environ.get("SMTP_PORT", 587))
+            smtp_user = os.environ.get("SMTP_USER", "")
+            smtp_pass = os.environ.get("SMTP_PASS", "")
+
+            if smtp_user and smtp_pass:
+                msg = MIMEMultipart("alternative")
+                msg["Subject"] = subject
+                msg["From"] = f"سامانه پزشکآن <{smtp_user}>"
+                msg["To"] = ", ".join(recipients)
+                msg.attach(MIMEText(text_content, "plain", "utf-8"))
+
+                server = smtplib.SMTP(smtp_host, smtp_port, timeout=10)
+                server.starttls()
+                server.login(smtp_user, smtp_pass)
+                server.sendmail(smtp_user, recipients, msg.as_string())
+                server.quit()
+                print(f"[Lead Email] Successfully dispatched to {recipients}")
+            else:
+                print(f"[Lead Email Queued] SMTP credentials not set in env. Lead saved and queued for {recipients}")
+        except Exception as err:
+            print(f"[Lead Email SMTP Error] {err}")
+
+    threading.Thread(target=_send_thread, daemon=True).start()
+
 # 9. Static File Safety Checker
 def is_safe_static_request(filepath):
     """
@@ -697,6 +768,12 @@ def is_safe_static_request(filepath):
         os.path.realpath(os.path.join(BASE_DIR, "404.html")),
         os.path.realpath(os.path.join(BASE_DIR, "llms.txt")),
         os.path.realpath(os.path.join(BASE_DIR, "llm.txt")),
+        os.path.realpath(os.path.join(BASE_DIR, "GLTFLoader.js")),
+        os.path.realpath(os.path.join(BASE_DIR, "spine_model.glb")),
+        os.path.realpath(os.path.join(BASE_DIR, "spine-3d-brand.png")),
+        os.path.realpath(os.path.join(BASE_DIR, "spine-3d-brand.webp")),
+        os.path.realpath(os.path.join(BASE_DIR, "spine-anatomical-transparent.png")),
+        os.path.realpath(os.path.join(BASE_DIR, "spine-anatomical-transparent.webp")),
     ]
 
     # Block all files directly in root directory unless explicitly whitelisted
@@ -2542,6 +2619,26 @@ def render_article_ssr(art, template_html):
         flags=re.IGNORECASE
     )
     
+    # 3.1. Update Robots Meta (Rank Math Noindex handling)
+    is_noindex = bool(art.get("isNoindex")) or ("noindex" in (art.get("robots") or "").lower())
+    robots_content = "noindex, follow" if is_noindex else "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    if re.search(r'<meta\s+name=["\']robots["\']', ssr_html, flags=re.IGNORECASE):
+        ssr_html = re.sub(
+            r'<meta\s+name=["\']robots["\']\s+content=["\'].*?["\']',
+            f'<meta name="robots" content="{robots_content}"',
+            ssr_html,
+            count=1,
+            flags=re.IGNORECASE
+        )
+    else:
+        ssr_html = re.sub(
+            r'(<head[^>]*>)',
+            f'\\1\n  <meta name="robots" content="{robots_content}">',
+            ssr_html,
+            count=1,
+            flags=re.IGNORECASE
+        )
+    
     # 4. Update Open Graph Tags
     ssr_html = re.sub(r'<meta\s+property=["\']og:type["\']\s+content=["\'].*?["\']', '<meta property="og:type" content="article"', ssr_html, count=1, flags=re.IGNORECASE)
     ssr_html = re.sub(r'<meta\s+property=["\']og:title["\']\s+content=["\'].*?["\']', f'<meta property="og:title" content="{html.escape(page_title, quote=True)}"', ssr_html, count=1, flags=re.IGNORECASE)
@@ -3411,6 +3508,12 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             "/shared.css": "shared.css",
             "/shared.js": "shared.js",
             "/three.min.js": "three.min.js",
+            "/GLTFLoader.js": "GLTFLoader.js",
+            "/spine_model.glb": "spine_model.glb",
+            "/spine-3d-brand.png": "spine-3d-brand.png",
+            "/spine-3d-brand.webp": "spine-3d-brand.webp",
+            "/spine-anatomical-transparent.png": "spine-anatomical-transparent.png",
+            "/spine-anatomical-transparent.webp": "spine-anatomical-transparent.webp",
             "/gsap.min.js": "gsap.min.js",
             "/lenis.min.js": "lenis.min.js",
             "/pezeshkon-logo.svg": "pezeshkon-logo.svg",
@@ -3426,6 +3529,10 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                 content_type = "image/svg+xml"
             elif file_name.endswith(".png"):
                 content_type = "image/png"
+            elif file_name.endswith(".webp"):
+                content_type = "image/webp"
+            elif file_name.endswith(".glb"):
+                content_type = "model/gltf-binary"
             else:
                 content_type = "text/html"
             target_file = os.path.join(PORTAL_DIR, file_name)
@@ -3627,11 +3734,11 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                 return self.send_json(settings)
 
             # Protected Clinical Administrative Endpoints
-            if path == "/api/admin/leads":
+            if path in ("/api/admin/leads", "/api/admin/leads/"):
                 if not self.require_role("administrator", "editor"):
                     return
                 leads = load_json_file(os.path.join(CONTENT_DIR, "leads.json"), [])
-                return self.send_json({"leads": leads})
+                return self.send_json({"success": True, "leads": leads})
 
             if path == "/api/admin/inquiries":
                 if not self.require_role("administrator", "editor"):
@@ -3786,14 +3893,16 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
 
             return self.send_json({"error": "مسیر API یافت نشد"}, 404)
 
-        # 10. Authorized Static Assets (Public Bundles, Images, Scripts)
+        # 10. Authorized Static Assets (Public Bundles, Images, Scripts, 3D Assets)
         clean_rel = path.lstrip("/")
-        normalized = os.path.normpath(os.path.join(BASE_DIR, clean_rel))
-        safe, code, msg = is_safe_static_request(normalized)
-        if safe:
-            return self.serve_file(normalized)
-        if code == 403:
-            return self.send_error(403, msg or "Access Denied")
+        for candidate_base in [PORTAL_DIR, BASE_DIR]:
+            candidate_path = os.path.normpath(os.path.join(candidate_base, clean_rel))
+            if os.path.isfile(candidate_path):
+                safe, code, msg = is_safe_static_request(candidate_path)
+                if safe:
+                    return self.serve_file(candidate_path)
+                if code == 403:
+                    return self.send_error(403, msg or "Access Denied")
 
         # 404 Fallback - Custom Branded Persian Error Page
         error_404_file = os.path.join(PORTAL_DIR, "404.html")
@@ -3937,28 +4046,43 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(resp)
             return
 
-        # 3. Lead Generation (Smart Onboarding Form)
-        if path == "/api/start-lead":
+        # 3. Lead Generation (Smart Onboarding Form & Partnership)
+        if path in ("/api/start-lead", "/api/v1/leads/start/", "/api/leads", "/api/partnership"):
             allowed, retry_after = FORM_LIMITER.check(client_ip)
             if not allowed:
                 return self.send_json({"error": f"درخواست‌های مکرر. لطفاً {retry_after} ثانیه دیگر مجدداً تلاش فرمایید."}, 429)
             FORM_LIMITER.record_hit(client_ip)
 
-            name = sanitize_string(data.get("name", ""), max_len=100)
-            phone = sanitize_string(data.get("phone", ""), max_len=30)
-            address = sanitize_string(data.get("address", ""), max_len=500)
+            name = sanitize_string(data.get("doctorName") or data.get("name") or "", max_len=100)
+            phone = sanitize_string(data.get("mobile") or data.get("phone") or "", max_len=30)
+            address = sanitize_string(data.get("clinicAddress") or data.get("address") or "", max_len=500)
+            specialty = sanitize_string(data.get("specialty") or "", max_len=200)
+            patients_volume = sanitize_string(data.get("patientsVolume") or "", max_len=100)
+            chosen_plan = sanitize_string(data.get("chosenPlan") or data.get("plan") or "", max_len=100)
+            challenges = data.get("challenges", [])
+            if isinstance(challenges, list):
+                challenges = [sanitize_string(str(c), max_len=200) for c in challenges]
+            else:
+                challenges = [sanitize_string(str(challenges), max_len=200)]
 
             if not name or not phone:
-                return self.send_json({"error": "نام و شماره تماس الزامی است"}, 400)
+                return self.send_json({"error": "نام و شماره همراه پزشک الزامی است"}, 400)
             if not is_valid_phone(phone):
                 return self.send_json({"error": "فرمت شماره تماس نامعتبر است"}, 400)
 
             lead_record = {
+                "id": str(uuid.uuid4())[:8],
                 "name": name,
                 "phone": phone,
                 "address": address,
+                "specialty": specialty,
+                "patientsVolume": patients_volume,
+                "challenges": challenges,
+                "chosenPlan": chosen_plan,
                 "ip": client_ip,
-                "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                "status": "new",
+                "createdAt": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                "createdAtIso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             }
 
             leads_path = os.path.join(CONTENT_DIR, "leads.json")
@@ -3967,7 +4091,61 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             if len(leads) > 1000:
                 leads = leads[:1000]
             atomic_write_json(leads_path, leads)
-            return self.send_json({"success": True, "message": "اطلاعات پزشک با موفقیت ثبت شد"})
+
+            # Also mirror to data/leads.json
+            try:
+                data_leads_path = os.path.join(DATA_DIR, "leads.json")
+                atomic_write_json(data_leads_path, leads)
+            except Exception:
+                pass
+
+            # Dispatch notification emails to mahyarebrahimi171@gmail.com and onsupp.web@gmail.com
+            dispatch_lead_notification_emails(lead_record)
+
+            return self.send_json({
+                "success": True, 
+                "message": "اطلاعات پزشک با موفقیت در پیشخوان ثبت شد و پیام به پشتیبانی ارسال گردید",
+                "redirect_url": "https://app.pezeshk-on.ir/demo/doctor"
+            })
+
+        # 3.1 Update Lead Status
+        if path in ("/api/admin/leads/status", "/api/admin/leads/status/"):
+            if not self.require_role("administrator", "editor"):
+                return
+            lead_id = data.get("id")
+            new_status = sanitize_string(data.get("status", "new"), 50)
+            if not lead_id:
+                return self.send_json({"error": "شناسه درخواست الزامی است"}, 400)
+            leads_path = os.path.join(CONTENT_DIR, "leads.json")
+            leads = load_json_file(leads_path, default=[])
+            target = next((l for l in leads if str(l.get("id")) == str(lead_id)), None)
+            if not target:
+                return self.send_json({"error": "درخواست مورد نظر یافت نشد"}, 404)
+            target["status"] = new_status
+            target["updatedAt"] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            atomic_write_json(leads_path, leads)
+            try:
+                atomic_write_json(os.path.join(DATA_DIR, "leads.json"), leads)
+            except Exception:
+                pass
+            return self.send_json({"success": True, "lead": target, "leads": leads})
+
+        # 3.2 Delete Lead
+        if path in ("/api/admin/leads/delete", "/api/admin/leads/delete/"):
+            if not self.require_role("administrator"):
+                return
+            lead_id = data.get("id")
+            if not lead_id:
+                return self.send_json({"error": "شناسه درخواست الزامی است"}, 400)
+            leads_path = os.path.join(CONTENT_DIR, "leads.json")
+            leads = load_json_file(leads_path, default=[])
+            leads = [l for l in leads if str(l.get("id")) != str(lead_id)]
+            atomic_write_json(leads_path, leads)
+            try:
+                atomic_write_json(os.path.join(DATA_DIR, "leads.json"), leads)
+            except Exception:
+                pass
+            return self.send_json({"success": True, "leads": leads})
 
         # 4. Contact Us Form
         if path == "/api/contact":
@@ -4001,6 +4179,16 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             if len(inquiries) > 1000:
                 inquiries = inquiries[:1000]
             atomic_write_json(inquiries_path, inquiries)
+            # Dispatch notification email to mahyarebrahimi171@gmail.com and onsupp.web@gmail.com
+            dispatch_lead_notification_emails({
+                "name": name,
+                "phone": phone,
+                "specialty": subject,
+                "challenges": [message],
+                "address": "فرم تماس با ما سایت",
+                "chosenPlan": "فرم تماس مستقیم",
+                "createdAt": inquiry_record.get("createdAt")
+            })
             return self.send_json({"success": True, "message": "پیام شما با موفقیت ثبت شد"})
 
         # 5. Create Article (Protected Editorial Engine)

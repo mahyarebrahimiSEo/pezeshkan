@@ -115,4 +115,9 @@ class RedirectAndSecurityMiddleware(MiddlewareMixin):
         response['X-Frame-Options'] = 'SAMEORIGIN'
         response['Referrer-Policy'] = 'strict-origin-when-cross-origin'
         response['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()'
+
+        # Force strict no-cache headers in development so browser always reflects latest updates on simple refresh
+        response['Cache-Control'] = 'no-cache, no-store, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
         return response

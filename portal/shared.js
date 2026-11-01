@@ -4,57 +4,25 @@
  * ویزارد ۵ مرحله‌ای شروع همکاری و تعاملات ارگونومیک
  */
 
-// 1. Theme Management (Day Mode Default & Clinical Dark Mode)
+// 1. Theme Management (Always Pure Light / Day Mode - Locked per specification)
 function initTheme() {
-  const savedTheme = localStorage.getItem('pezeshkan_theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeButtonUI(savedTheme);
-  updatePezShellTheme(savedTheme);
-}
-// Apply immediately to prevent any flash during navigation
-(function applyInitialTheme() {
+  document.documentElement.setAttribute('data-theme', 'light');
   try {
-    const saved = localStorage.getItem('pezeshkan_theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
-  } catch (e) {
-    document.documentElement.setAttribute('data-theme', 'light');
-  }
+    localStorage.setItem('pezeshkan_theme', 'light');
+  } catch (e) {}
+}
+// Apply immediately to enforce Day Mode
+(function applyInitialTheme() {
+  document.documentElement.setAttribute('data-theme', 'light');
+  try {
+    localStorage.setItem('pezeshkan_theme', 'light');
+  } catch (e) {}
 })();
 
-function updatePezShellTheme(theme) {
-  const shell = document.getElementById('shell') || document.querySelector('.pez-shell');
-  const vital = document.getElementById('vital');
-  const isDay = theme !== 'dark';
-  if (shell) {
-    shell.classList.toggle('pez-shell-day', isDay);
-  }
-  if (vital) {
-    vital.src = isDay ? '/assets/vital-day.svg' : '/assets/vital-dark.svg';
-  }
-}
+function updatePezShellTheme(theme) {}
 
 function toggleTheme() {
-  const root = document.documentElement;
-  root.classList.add('theme-transitioning');
-
-  const current = root.getAttribute('data-theme') || 'light';
-  const next = current === 'dark' ? 'light' : 'dark';
-  root.setAttribute('data-theme', next);
-  try {
-    localStorage.setItem('pezeshkan_theme', next);
-  } catch (e) {}
-  updateThemeButtonUI(next);
-  updatePezShellTheme(next);
-  if (window.pezeshkan3D && typeof window.pezeshkan3D.updateThemeMaterials === 'function') {
-    window.pezeshkan3D.updateThemeMaterials(next);
-  }
-
-  // Restore micro-interaction transitions on next frame
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      root.classList.remove('theme-transitioning');
-    });
-  });
+  initTheme();
 }
 
 function updateThemeButtonUI(theme) {
@@ -189,7 +157,275 @@ function shapePersian(text) {
   return res;
 }
 
-// 2. High-Performance Three.js 3D Medical Diagnostic Console
+// 2. World-Class Real-Time 3D Anatomical Quartz Glass Vertebral Spine (Three.js WebGL Engine)
+class Pezeshkan3DSpine {
+  constructor(containerId) {
+    this.containerId = containerId;
+    this.container = document.getElementById(containerId);
+    if (!this.container) return;
+
+    if (typeof THREE === 'undefined' || typeof THREE.GLTFLoader === 'undefined') {
+      let attempts = 0;
+      const checkThree = setInterval(() => {
+        attempts++;
+        if (typeof THREE !== 'undefined' && typeof THREE.GLTFLoader !== 'undefined') {
+          clearInterval(checkThree);
+          this.init();
+        } else if (attempts > 50) {
+          clearInterval(checkThree);
+          if (typeof THREE !== 'undefined') {
+            this.init();
+          }
+        }
+      }, 50);
+      return;
+    }
+
+    this.init();
+  }
+
+  createClinicalEnvMap() {
+    const size = 64;
+    const data = new Uint8Array(size * size * 4);
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const idx = (y * size + x) * 4;
+        const u = x / size;
+        const v = y / size;
+        const r = Math.floor(Math.sin(u * Math.PI) * 15 + Math.pow(v, 2.5) * 35);
+        const g = Math.floor(Math.sin((u + 0.3) * Math.PI) * 60 + Math.pow(v, 3.5) * 45);
+        const b = Math.floor(215 + Math.cos(u * Math.PI) * 40);
+        data[idx] = r;
+        data[idx + 1] = g;
+        data[idx + 2] = b;
+        data[idx + 3] = 255;
+      }
+    }
+    const texture = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  init() {
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.spineGroup = null;
+    this.glassSpineMat = null;
+    this.clock = new THREE.Clock();
+
+    this.scrollRotation = 0;
+    this.isPaused = false;
+
+    const rect = this.container.getBoundingClientRect();
+    const width = rect.width || this.container.clientWidth || 420;
+    const height = rect.height || this.container.clientHeight || 410;
+
+    // 1. Scene & Camera (Perfect anatomical framing with generous vertical margin)
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 50);
+    this.camera.position.set(0, 0, 8.2);
+
+    // 2. High-Performance WebGL Renderer (DPR capped at 1.35 for buttery 60-120 FPS)
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.35));
+    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    this.renderer.toneMappingExposure = 1.0;
+    this.container.innerHTML = '';
+    this.container.appendChild(this.renderer.domElement);
+
+    // 3. Clinical High-Definition Lighting (Deep, Rich Cobalt & Vibrant Clinical Blues)
+    const ambientLight = new THREE.AmbientLight(0x061845, 0.70);
+    this.scene.add(ambientLight);
+
+    const cyanKeyLight = new THREE.DirectionalLight(0x00c8ff, 1.8);
+    cyanKeyLight.position.set(-5, 4, 5);
+    this.scene.add(cyanKeyLight);
+
+    const cobaltFillLight = new THREE.DirectionalLight(0x0047ba, 4.2);
+    cobaltFillLight.position.set(5, 5, 4);
+    this.scene.add(cobaltFillLight);
+
+    const specularWhiteRim = new THREE.DirectionalLight(0x90c5ff, 1.6);
+    specularWhiteRim.position.set(0, 8, 4);
+    this.scene.add(specularWhiteRim);
+
+    const deepDarkRim = new THREE.DirectionalLight(0x010b1a, 2.0);
+    deepDarkRim.position.set(0, -4, -4);
+    this.scene.add(deepDarkRim);
+
+    const bottomBounceLight = new THREE.DirectionalLight(0x0033aa, 2.2);
+    bottomBounceLight.position.set(0, -5, 3);
+    this.scene.add(bottomBounceLight);
+
+    // 4. Main 3D Anatomical Spine Group
+    this.spineGroup = new THREE.Group();
+    this.spineGroup.rotation.y = 0.35; // Majestic 3/4 anatomical perspective
+    this.scene.add(this.spineGroup);
+
+    // 5. Corporate Clinical Materials (Deep Rich Medical Cobalt #0047BA + Liquid Glaze)
+    this.envMap = this.createClinicalEnvMap();
+
+    // Solid, rich clinical cobalt vertebrae with distinct anatomical contrast and liquid glaze
+    this.glassSpineMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color(0x0052e0),          // Deep, prominent and saturated Medical Cobalt
+      emissive: new THREE.Color(0x0033cc),       // Internal clinical cobalt resonance
+      emissiveIntensity: 0.72,                   // Deep self-illuminating rich blue
+      roughness: 0.20,                           // Crisp specular ridges on vertebrae bone plates
+      metalness: 0.12,                           // Dielectric depth and deep saturation in grooves
+      clearcoat: 1.0,                            // High-gloss protective liquid glaze
+      clearcoatRoughness: 0.05,                  // Crisp specular rim highlights
+      reflectivity: 0.90,
+      envMap: this.envMap,
+      envMapIntensity: 0.72                      // Clean contrast without white reflection bleaching
+    });
+
+    // 6. Load Authentic Real-Time 3D Backbone GLB Model
+    this.modelLoaded = false;
+    this.loadSpineModel();
+
+    // 7. Event Listeners: Resize & Scroll only
+    window.addEventListener('resize', () => this.onResize(), { passive: true });
+    setTimeout(() => this.onResize(), 80);
+    setTimeout(() => this.onResize(), 350);
+
+    if (window.lenis) {
+      window.lenis.on('scroll', (e) => {
+        this.scrollRotation = (e.scroll || 0) * 0.0007;
+      });
+    } else {
+      window.addEventListener('scroll', () => {
+        this.scrollRotation = (window.scrollY || 0) * 0.0007;
+      }, { passive: true });
+    }
+
+    // 8. Intersection Observer (Zero GPU/CPU consumption when offscreen)
+    this._animating = false;
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        const wasPaused = this.isPaused;
+        this.isPaused = !entries[0].isIntersecting;
+        if (wasPaused && !this.isPaused && !this._animating) {
+          this.animate();
+        }
+      }, { threshold: 0.05 });
+      obs.observe(this.container);
+    }
+
+    // 9. Start Calm, Dignified Animation Loop
+    this.animate();
+  }
+
+  loadSpineModel() {
+    if (typeof THREE.GLTFLoader === 'undefined') {
+      setTimeout(() => this.loadSpineModel(), 60);
+      return;
+    }
+
+    const loader = new THREE.GLTFLoader();
+    loader.load('/spine_model.glb', (gltf) => {
+      const root = gltf.scene || (gltf.scenes && gltf.scenes[0]);
+      if (!root) return;
+
+      root.traverse((child) => {
+        if (child.isMesh) {
+          if (child.geometry) {
+            child.geometry.computeVertexNormals();
+          }
+          child.material = this.glassSpineMat;
+        } else if (child.isLine || child.isLineSegments || child.isPoints) {
+          // Guarantee zero wireframe lines or telemetry artifacts from 3D model
+          child.visible = false;
+        }
+      });
+
+      // Compute bounding box and center model precisely
+      const box = new THREE.Box3().setFromObject(root);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+
+      root.position.x = -center.x;
+      root.position.y = -center.y;
+      root.position.z = -center.z;
+
+      // Fit height elegantly into hero viewport without any top/bottom clipping
+      const targetHeight = 4.35;
+      const scale = targetHeight / (size.y || 1);
+
+      const pivot = new THREE.Group();
+      pivot.scale.set(scale, scale, scale);
+      pivot.add(root);
+
+      this.spineGroup.add(pivot);
+      this.modelLoaded = true;
+
+      const fallbackImg = document.getElementById('spineFallbackImage');
+      if (fallbackImg) {
+        fallbackImg.style.opacity = '0';
+      }
+
+      if (this.renderer && this.renderer.domElement) {
+        this.renderer.domElement.style.opacity = '1';
+      }
+    }, undefined, (err) => {
+      console.warn('Pezeshkan3DSpine GLB loader note:', err);
+    });
+  }
+
+  onResize() {
+    if (!this.container || !this.renderer || !this.camera) return;
+    const rect = this.container.getBoundingClientRect();
+    const width = rect.width || this.container.clientWidth || 420;
+    const height = rect.height || this.container.clientHeight || 410;
+    if (width <= 0 || height <= 0) return;
+
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
+  }
+
+  updateThemeMaterials(theme) {
+    if (!this.glassSpineMat) return;
+    this.glassSpineMat.color.setHex(0x0052e0);
+    this.glassSpineMat.emissive.setHex(0x0033cc);
+  }
+
+  animate() {
+    if (this.isPaused) {
+      this._animating = false;
+      return;
+    }
+    this._animating = true;
+    requestAnimationFrame(() => this.animate());
+
+    if (!this.renderer || !this.scene || !this.camera) return;
+
+    const elapsed = this.clock.getElapsedTime();
+
+    // Constant stable scale (NO pulsing heartbeat!)
+    this.spineGroup.scale.set(1.0, 1.0, 1.0);
+
+    // Gentle, dignified levitation breath float
+    this.spineGroup.position.y = Math.sin(elapsed * 0.75) * 0.035;
+
+    // Smooth, slow, majestic continuous axial rotation (NO mouse jump/movement)
+    this.spineGroup.rotation.y = 0.35 + elapsed * 0.18 + (this.scrollRotation || 0);
+
+    this.renderer.render(this.scene, this.camera);
+  }
+}
+
+// Aliases for seamless integration
+window.Pezeshkan3DSpine = Pezeshkan3DSpine;
+window.Pezeshkan3DHeart = Pezeshkan3DSpine;
+
+// 2.2. High-Performance Three.js 3D Medical Diagnostic Console
 class Pezeshkan3DConsole {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
@@ -1105,43 +1341,92 @@ function handleDrawerBackdropClick(e) {
   }
 }
 
-// 4. Hero Section Choreography (Seamless entrance and hint activation)
+// 4. Hero Section Choreography (Synchronous upward rise for all elements simultaneously)
 function initHeroChoreography() {
-  const header = document.querySelector('.site-header');
-  if (header) {
-    header.classList.add('header-revealed');
+  const header = document.getElementById('stickySiteHeader') || document.querySelector('.site-header');
+
+  if (typeof gsap !== 'undefined') {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    // 1. Header enters with animation: slides smoothly down from the top into view
+    if (header) {
+      tl.from(header, {
+        y: -35,
+        opacity: 0,
+        duration: 0.75
+      }, 0);
+    }
+
+    // 2. All Hero Elements rise UP simultaneously from below at the exact same time
+    // Gathers right narrative items, 3D spine display wrap, and both square HUD cards
+    const heroElements = Array.from(new Set([
+      ...document.querySelectorAll('.hero-anim-up'),
+      ...document.querySelectorAll('.pez-hero-narrative > *'),
+      document.getElementById('spine3dDisplayContainer'),
+      ...document.querySelectorAll('.pez-spine-square-card')
+    ].filter(Boolean)));
+
+    if (heroElements.length) {
+      tl.from(heroElements, {
+        y: 48,
+        opacity: 0,
+        duration: 0.85,
+        stagger: 0.0, // Strictly simultaneous / synchronous!
+        clearProps: 'transform'
+      }, 0.08);
+    }
+
+    // 3. Scroll pill fades in (Pure opacity fade to avoid transform collision with CSS breathe keyframes)
+    const scrollPill = document.getElementById('heroScrollPill');
+    if (scrollPill) {
+      tl.fromTo(scrollPill, 
+        { opacity: 0 }, 
+        { opacity: 1, duration: 0.65, ease: 'power2.out', clearProps: 'opacity' }, 
+        0.35
+      );
+    }
+  } else {
+    // Fallback if GSAP is not available
+    if (header) header.style.opacity = '1';
   }
 
-  const hint = document.getElementById('scrollPromptHint');
-  if (hint) {
-    hint.classList.add('visible');
+  // Smooth scroll handler for Primary CTA button «مشاهده قابلیت‌های پزشکآن»
+  const viewFeaturesBtn = document.getElementById('heroViewFeaturesBtn');
+  if (viewFeaturesBtn) {
+    viewFeaturesBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById('crmFeatures') || document.querySelector('.section-title-wrap');
+      if (target) {
+        if (window.lenis) {
+          window.lenis.scrollTo(target, { offset: -65, duration: 1.25 });
+        } else {
+          const y = target.getBoundingClientRect().top + window.pageYOffset - 65;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    });
   }
-
-  const textItems = document.querySelectorAll('.hero-anim-item');
-  textItems.forEach(el => {
-    el.classList.add('animate-in');
-  });
 }
 
 // Cinematic Smooth Scroll to the next section
 function scrollToNextSection() {
-  const tab = document.getElementById('pezShellTab') || document.getElementById('scrollPromptHint');
+  const tab = document.getElementById('heroScrollPill') || document.getElementById('pezShellTab') || document.getElementById('scrollPromptHint');
   if (tab) {
     tab.classList.add('clicked');
     setTimeout(() => tab.classList.remove('clicked'), 350);
   }
 
-  const shellWrap = document.querySelector('.pez-shell-hero-wrap') || document.getElementById('shell');
-  const target = (shellWrap && shellWrap.nextElementSibling) || document.querySelector('.vital-section-divider') || document.querySelector('.section-title-wrap');
+  const heroStage = document.getElementById('heroStage') || document.querySelector('.pez-hero-3d-stage') || document.querySelector('.pez-shell-hero-wrap');
+  const target = (heroStage && heroStage.nextElementSibling) || document.querySelector('.section-title-wrap');
   if (target) {
     if (window.lenis) {
       window.lenis.scrollTo(target, {
-        offset: -40,
-        duration: 1.4,
+        offset: -60,
+        duration: 1.25,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
       });
     } else {
-      const y = target.getBoundingClientRect().top + window.pageYOffset - 40;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - 60;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }
@@ -1209,6 +1494,170 @@ function initScrollReveal() {
   });
 }
 
+// ==========================================================================
+// 5.2. Ultra-Modern GPU Scroll Choreography (Hero Divergence & Dual Services Slide-In)
+// 100% Layout-Safe with Cached Offsets & Pure Composited GPU Transforms (60-120 FPS)
+// ==========================================================================
+function initModernScrollChoreography() {
+  const isMobile = (
+    window.innerWidth <= 860 ||
+    ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0)
+  );
+
+  const heroStage = document.getElementById('heroStage');
+  const heroNarrative = document.querySelector('.pez-hero-narrative');
+  const heroLeftStage = document.querySelector('.pez-hero-3d-stage-left');
+  const introSection = document.getElementById('whatIsPezeshkan');
+  const cardEmr = document.querySelector('.intro-card-emr');
+  const cardCrm = document.querySelector('.intro-card-crm');
+
+  if (isMobile) {
+    if (heroNarrative) { heroNarrative.style.transform = ''; heroNarrative.style.opacity = ''; }
+    if (heroLeftStage) { heroLeftStage.style.transform = ''; heroLeftStage.style.opacity = ''; }
+    if (cardEmr) { cardEmr.style.transform = ''; cardEmr.style.opacity = ''; }
+    if (cardCrm) { cardCrm.style.transform = ''; cardCrm.style.opacity = ''; }
+    return;
+  }
+
+  let heroHeight = 620;
+  let introAbsTop = 850;
+  let vh = window.innerHeight || 800;
+
+  function measureOffsets() {
+    vh = window.innerHeight || 800;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    if (heroStage) {
+      heroHeight = heroStage.offsetHeight || 620;
+    }
+    if (introSection) {
+      introAbsTop = introSection.getBoundingClientRect().top + scrollY;
+    }
+  }
+
+  measureOffsets();
+  window.addEventListener('resize', measureOffsets, { passive: true });
+
+  let isTicking = false;
+  function onScrollFrame() {
+    isTicking = false;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+
+    // 1. Hero Divergence: Parallax narrative to right, 3D spine stage to left
+    if (heroNarrative && heroLeftStage && scrollY < heroHeight * 1.3) {
+      const heroProgress = Math.max(0, Math.min(1, scrollY / (heroHeight * 0.72)));
+      const xRight = (heroProgress * 65).toFixed(1);
+      const xLeft = (-heroProgress * 65).toFixed(1);
+      const heroOpacity = (1 - heroProgress * 0.55).toFixed(2);
+
+      heroNarrative.style.transform = `translate3d(${xRight}px, 0, 0)`;
+      heroNarrative.style.opacity = heroOpacity;
+      heroLeftStage.style.transform = `translate3d(${xLeft}px, 0, 0)`;
+      heroLeftStage.style.opacity = heroOpacity;
+    }
+
+    // 2. Dual Liquid Glass Cards Dynamic Entrance & Kinetic Scroll Scrub
+    if (cardEmr && cardCrm && introSection) {
+      const dialArc = document.getElementById('clinicalDialArc');
+      const trendLine = document.getElementById('clinicalTrendLine');
+      const auroraCobalt = document.querySelector('.intro-aurora-cobalt');
+      const auroraCyan = document.querySelector('.intro-aurora-cyan');
+
+      const rect = introSection.getBoundingClientRect();
+      const entranceStart = vh * 0.98;
+      const entranceEnd = vh * 0.40; // Settles into view early to provide a wide reading window
+      const staticZoneEnd = -65;    // Fixed reading zone ends when section header scrolls past top
+
+      if (rect.top > entranceEnd) {
+        // Phase 1: High-presence 3D Convergence Entrance (Cards start wider apart and glide inward to meet at section)
+        const entranceProgress = Math.max(0, Math.min(1, (entranceStart - rect.top) / (entranceStart - entranceEnd)));
+        const easeIn = 1 - Math.pow(1 - entranceProgress, 3);
+
+        const emrX = ((1 - easeIn) * 250).toFixed(1);
+        const crmX = (-(1 - easeIn) * 250).toFixed(1);
+        const y = ((1 - easeIn) * 60).toFixed(1);
+        const rotEmr = (-(1 - easeIn) * 2.8).toFixed(2);
+        const rotCrm = ((1 - easeIn) * 2.8).toFixed(2);
+        const scale = (0.88 + easeIn * 0.12).toFixed(3);
+        const opacity = Math.min(1, 0.10 + easeIn * 0.90).toFixed(2);
+
+        cardEmr.style.transform = `translate3d(${emrX}px, ${y}px, 0) rotate(${rotEmr}deg) scale(${scale})`;
+        cardEmr.style.opacity = opacity;
+
+        cardCrm.style.transform = `translate3d(${crmX}px, ${y}px, 0) rotate(${rotCrm}deg) scale(${scale})`;
+        cardCrm.style.opacity = opacity;
+
+        // Dial arc and trend line animate in sync with entrance
+        if (dialArc) {
+          const targetOffset = 194.78 - easeIn * (194.78 - 19.48);
+          dialArc.style.strokeDashoffset = targetOffset.toFixed(1);
+        }
+        if (trendLine) {
+          const lineOffset = 230 - easeIn * 230;
+          trendLine.style.strokeDashoffset = Math.max(0, lineOffset).toFixed(1);
+        }
+        if (auroraCobalt) {
+          auroraCobalt.style.transform = `translate3d(${(easeIn * 24).toFixed(1)}px, ${(easeIn * 14).toFixed(1)}px, 0)`;
+        }
+        if (auroraCyan) {
+          auroraCyan.style.transform = `translate3d(${(-easeIn * 20).toFixed(1)}px, ${(-easeIn * 12).toFixed(1)}px, 0)`;
+        }
+      } else if (rect.top >= staticZoneEnd) {
+        // Phase 2: Static Reading Sanctuary (Zero movement / locked dead-zone for effortless, clear reading)
+        cardEmr.style.transform = 'translate3d(0, 0, 0)';
+        cardEmr.style.opacity = '1';
+
+        cardCrm.style.transform = 'translate3d(0, 0, 0)';
+        cardCrm.style.opacity = '1';
+
+        if (dialArc) dialArc.style.strokeDashoffset = '19.5';
+        if (trendLine) trendLine.style.strokeDashoffset = '0';
+        if (auroraCobalt) auroraCobalt.style.transform = 'translate3d(24px, 14px, 0)';
+        if (auroraCyan) auroraCyan.style.transform = 'translate3d(-20px, -12px, 0)';
+      } else {
+        // Phase 3: Separating Divergence Exit (Separating animation starts after reading zone: right card goes right, left card goes left)
+        const exitDist = vh * 0.75;
+        const exitProgress = Math.max(0, Math.min(1, (staticZoneEnd - rect.top) / exitDist));
+        const exitEase = Math.pow(exitProgress, 1.3);
+
+        const xRight = (exitEase * 210).toFixed(1);
+        const xLeft = (-exitEase * 210).toFixed(1);
+        const exitY = (-exitEase * 38).toFixed(1);
+        const exitOpacity = (1 - exitEase * 0.62).toFixed(2);
+
+        cardEmr.style.transform = `translate3d(${xRight}px, ${exitY}px, 0)`;
+        cardEmr.style.opacity = exitOpacity;
+
+        cardCrm.style.transform = `translate3d(${xLeft}px, ${exitY}px, 0)`;
+        cardCrm.style.opacity = exitOpacity;
+
+        if (dialArc) dialArc.style.strokeDashoffset = '19.5';
+        if (trendLine) trendLine.style.strokeDashoffset = '0';
+        if (auroraCobalt) {
+          auroraCobalt.style.transform = `translate3d(${(24 + exitEase * 35).toFixed(1)}px, 14px, 0)`;
+        }
+        if (auroraCyan) {
+          auroraCyan.style.transform = `translate3d(${(-20 - exitEase * 35).toFixed(1)}px, -12px, 0)`;
+        }
+      }
+    }
+  }
+
+  function queueFrame() {
+    if (!isTicking) {
+      isTicking = true;
+      requestAnimationFrame(onScrollFrame);
+    }
+  }
+
+  window.addEventListener('scroll', queueFrame, { passive: true });
+  if (window.lenis && typeof window.lenis.on === 'function') {
+    window.lenis.on('scroll', queueFrame);
+  }
+  queueFrame();
+}
+function initWallScrollScrub() {}
+
 // 5.5. Vital Dial Interactive Telemetry Sweep (10% Console Metaphor)
 function initVitalDialInteractions() {
   document.querySelectorAll('.vital-dial-card').forEach(card => {
@@ -1244,18 +1693,53 @@ function initVitalDialInteractions() {
   });
 }
 
-// 6. High-Performance Inertial Smooth Scroll (Lenis Native RAF)
+// 6. High-Performance Inertial Smooth Scroll (Lenis on Desktop, 100% Native on Mobile/Touch)
 function initSmoothScroll() {
-  if (typeof Lenis === 'undefined') return;
+  // On mobile devices & touch screens, enable 100% native momentum scrolling
+  const isTouchDevice = (
+    ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0) ||
+    (window.innerWidth <= 860)
+  );
+
+  if (isTouchDevice || typeof Lenis === 'undefined') {
+    if (document.documentElement) {
+      document.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-stopped');
+    }
+    if (document.body) {
+      document.body.classList.remove('lenis', 'lenis-smooth', 'lenis-stopped');
+    }
+    window.lenis = null;
+
+    // Native smooth scroll delegation for internal anchor links on mobile
+    document.addEventListener('click', function(e) {
+      const anchor = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!anchor) return;
+      const targetId = anchor.getAttribute('href');
+      if (targetId && targetId !== '#' && !targetId.startsWith('#!')) {
+        try {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            const y = targetEl.getBoundingClientRect().top + window.pageYOffset - 75;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        } catch (err) {}
+      }
+    });
+
+    return;
+  }
 
   const lenis = new Lenis({
-    duration: 1.18,
+    duration: 1.15,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     orientation: 'vertical',
     gestureOrientation: 'vertical',
     smoothWheel: true,
     wheelMultiplier: 0.95,
-    touchMultiplier: 1.2,
+    touchMultiplier: 0,
+    syncTouch: false,
     infinite: false,
     prevent: (node) => {
       return !!(
@@ -1270,10 +1754,12 @@ function initSmoothScroll() {
 
   window.lenis = lenis;
 
-  // Ultra-smooth native requestAnimationFrame loop for Lenis
+  // Ultra-smooth native requestAnimationFrame loop for Lenis ONLY (Single unified clock)
   function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
+    if (window.lenis) {
+      window.lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
   }
   requestAnimationFrame(raf);
 
@@ -1281,13 +1767,13 @@ function initSmoothScroll() {
   if (typeof ResizeObserver !== 'undefined' && document.body) {
     let resizeTimer = null;
     const ro = new ResizeObserver(() => {
-      if (lenis.isScrolling) return; // Never recalculate layout during active user scrolling
+      if (!window.lenis || window.lenis.isScrolling) return; // Never recalculate layout during active user scrolling
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        if (!lenis.isScrolling) {
-          lenis.resize();
+        if (window.lenis && !window.lenis.isScrolling) {
+          window.lenis.resize();
         }
-      }, 200);
+      }, 250);
     });
     ro.observe(document.body);
   }
@@ -1302,53 +1788,61 @@ function initSmoothScroll() {
         const targetEl = document.querySelector(targetId);
         if (targetEl) {
           e.preventDefault();
-          lenis.scrollTo(targetEl, { offset: -75, duration: 1.18 });
+          if (window.lenis) {
+            window.lenis.scrollTo(targetEl, { offset: -75, duration: 1.15 });
+          } else {
+            const y = targetEl.getBoundingClientRect().top + window.pageYOffset - 75;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
         }
       } catch (err) {}
     }
   });
+
+  // Window resize handler: if resized down to mobile, destroy Lenis cleanly
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 860 && window.lenis) {
+      window.lenis.destroy();
+      window.lenis = null;
+      document.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-stopped');
+      document.body.classList.remove('lenis', 'lenis-smooth', 'lenis-stopped');
+    }
+  }, { passive: true });
 }
 
-// 6.5. Sticky Header Sync (Pinned when scrolling past Hero - High Performance RAF Throttled)
+// 6.5. Dynamic Sticky Header Sync (Transparent at Hero top, Glass background on scroll)
 function initStickyHeaderSync() {
-  const stickyHeader = document.getElementById('stickySiteHeader');
-  const heroShell = document.getElementById('shell') || document.querySelector('.pez-shell');
+  const stickyHeader = document.getElementById('stickySiteHeader') || document.querySelector('.site-header');
   if (!stickyHeader) return;
 
-  let heroHeight = heroShell ? heroShell.offsetHeight : 0;
-  window.addEventListener('resize', () => {
-    if (heroShell) heroHeight = heroShell.offsetHeight;
+  function updateHeaderState(scrollVal) {
+    const scrollY = (typeof scrollVal === 'number') ? scrollVal : (window.scrollY || window.pageYOffset || 0);
+    const isScrolled = scrollY > 20;
+    stickyHeader.classList.toggle('is-scrolled', isScrolled);
+    stickyHeader.classList.toggle('is-pinned', isScrolled);
+  }
+
+  window.addEventListener('scroll', () => {
+    updateHeaderState();
   }, { passive: true });
 
-  let ticking = false;
-  function updateHeaderState() {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        if (!heroShell) {
-          stickyHeader.classList.add('is-pinned');
-          ticking = false;
-          return;
-        }
-        const scrollY = window.scrollY || window.pageYOffset || 0;
-        const heroPassed = scrollY >= (heroHeight - 40);
-        stickyHeader.classList.toggle('is-pinned', heroPassed);
-        ticking = false;
-      });
-      ticking = true;
-    }
+  if (window.lenis && typeof window.lenis.on === 'function') {
+    window.lenis.on('scroll', (e) => {
+      updateHeaderState(e.scroll || 0);
+    });
   }
 
-  window.addEventListener('scroll', updateHeaderState, { passive: true });
-  if (window.lenis && typeof window.lenis.on === 'function') {
-    window.lenis.on('scroll', updateHeaderState);
-  }
+  // Initial check on page load
   updateHeaderState();
 }
 
-// 7. Initializer on DOM ready (No Hibernate / Screen Saver on public pages)
+// 7. Initializer on DOM ready (High-Performance 60-120 FPS Clinical Architecture)
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   
+  // Premium Inertial Smooth Scroll (Initialize FIRST so Lenis clock is active)
+  initSmoothScroll();
+
   // Theme toggle listeners (attach to all switches)
   document.querySelectorAll('.theme-toggle-btn, .theme-switch, #themeToggleBtn').forEach(btn => {
     btn.addEventListener('click', toggleTheme);
@@ -1366,9 +1860,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Live Persian Date, Day & Digital Time Rail Widget
   initLiveDateTimeRail();
 
-  // Initialize Three.js 3D Diagnostic Console (if container exists)
-  if (document.getElementById('threeDeviceContainer') && typeof THREE !== 'undefined') {
-    window.pezeshkan3D = new Pezeshkan3DConsole('threeDeviceContainer');
+  // Initialize Three.js 3D Quartz Glass Spine
+  if (document.getElementById('heart3dCanvasContainer') && typeof THREE !== 'undefined') {
+    window.pezeshkanHeart3D = new Pezeshkan3DHeart('heart3dCanvasContainer');
   }
 
   // Hero entrance choreography
@@ -1380,9 +1874,163 @@ document.addEventListener('DOMContentLoaded', () => {
   // Vital Dial interactive sweep
   initVitalDialInteractions();
 
-  // Premium Inertial Smooth Scroll
-  initSmoothScroll();
+  // 2026 Liquid Glass Visual Card Interactive Dial Response
+  initIntroVisualCardInteractions();
+
+  // Cinematic Full-Width Scroll-Filling Services Engine
+  initScrollFillServices();
+
+  // Ultra-Modern GPU Scroll Choreography (Hero Divergence & Dual Services Slide-In)
+  initModernScrollChoreography();
+
+  // Interactive Clinic ROI & Efficiency Calculator
+  initRoiCalculator();
 });
+
+// 7.045. Interactive Clinic ROI & Efficiency Calculator
+function initRoiCalculator() {
+  const slider = document.getElementById('roiSliderInput');
+  if (!slider) return;
+
+  const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  function toPersianDigits(n) {
+    return String(Math.round(n)).replace(/\d/g, d => persianDigits[d]);
+  }
+
+  function update() {
+    const count = parseInt(slider.value, 10) || 30;
+    const secretaryHours = Math.round(count * 0.65);
+    const noShows = Math.round(count * 26 * 0.12 * 0.75);
+    const doctorHours = Math.round((count * 26 * 3) / 60);
+
+    const countEl = document.getElementById('roiPatientCount');
+    const secEl = document.getElementById('roiSecretaryHours');
+    const noShowEl = document.getElementById('roiNoShowSaved');
+    const docEl = document.getElementById('roiDoctorHours');
+
+    if (countEl) countEl.textContent = toPersianDigits(count);
+    if (secEl) secEl.textContent = toPersianDigits(secretaryHours) + ' ساعت';
+    if (noShowEl) noShowEl.textContent = toPersianDigits(noShows) + ' نوبت';
+    if (docEl) docEl.textContent = toPersianDigits(doctorHours) + ' ساعت';
+  }
+
+  slider.addEventListener('input', update);
+  update();
+}
+
+// 7.04. Cinematic Full-Width Scroll-Filling Services Engine (Zero-Reflow Cached Engine)
+function initScrollFillServices() {
+  const cards = document.querySelectorAll('.service-scroll-fill-card');
+  if (!cards.length) return;
+
+  const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  function toPersianDigits(n) {
+    return String(Math.round(n)).replace(/\d/g, d => persianDigits[d]);
+  }
+
+  let cachedCards = [];
+  let vh = window.innerHeight || 800;
+
+  function measureCards() {
+    if (window.innerWidth <= 900) {
+      cachedCards = [];
+      return;
+    }
+    vh = window.innerHeight || 800;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    cachedCards = Array.from(cards).map((card) => {
+      const rect = card.getBoundingClientRect();
+      return {
+        card,
+        absTop: rect.top + scrollY,
+        bar: card.querySelector('.service-fill-bar'),
+        percentEl: card.querySelector('.service-percent-num')
+      };
+    });
+  }
+
+  measureCards();
+  window.addEventListener('resize', measureCards, { passive: true });
+
+  let isTicking = false;
+  function updateFills() {
+    isTicking = false;
+    if (window.innerWidth <= 900 || !cachedCards.length) return;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const startY = vh * 0.84;
+    const endY = vh * 0.20;
+    const totalDist = startY - endY;
+
+    cachedCards.forEach((item) => {
+      const relTop = item.absTop - scrollY;
+      let progress = 0;
+      if (relTop <= endY) {
+        progress = 1.0;
+      } else if (relTop >= startY) {
+        progress = 0.0;
+      } else {
+        progress = (startY - relTop) / totalDist;
+      }
+
+      progress = Math.max(0, Math.min(1, progress));
+      const pct = Math.round(progress * 100);
+
+      if (item.bar) {
+        item.bar.style.width = pct + '%';
+      }
+      if (item.percentEl) {
+        item.percentEl.textContent = toPersianDigits(pct) + '٪';
+      }
+
+      if (progress >= 1.0) {
+        item.card.classList.add('is-completed');
+        item.card.classList.remove('is-active');
+      } else if (progress > 0) {
+        item.card.classList.add('is-active');
+        item.card.classList.remove('is-completed');
+      } else {
+        item.card.classList.remove('is-active', 'is-completed');
+      }
+    });
+  }
+
+  function requestFillTick() {
+    if (!isTicking) {
+      isTicking = true;
+      requestAnimationFrame(updateFills);
+    }
+  }
+
+  window.updateServicesScrollFill = requestFillTick;
+  window.addEventListener('scroll', requestFillTick, { passive: true });
+  if (window.lenis && typeof window.lenis.on === 'function') {
+    window.lenis.on('scroll', requestFillTick);
+  }
+  updateFills();
+}
+
+// 7.0. Interactive Response on Visual Micro-Card (Gauge Needle & Dynamic Pillars)
+function initIntroVisualCardInteractions() {
+  const visualCard = document.querySelector('.intro-card-visual, .intro-card-emr');
+  if (!visualCard) return;
+
+  const needle = visualCard.querySelector('.gauge-dial-wrap line');
+  if (!needle) return;
+
+  visualCard.addEventListener('mousemove', (e) => {
+    const rect = visualCard.getBoundingClientRect();
+    const xRatio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const angle = -12 + (1 - xRatio) * 24; // Subtle parallax deflection
+    needle.style.transformOrigin = '90px 88px';
+    needle.style.transform = `rotate(${angle.toFixed(1)}deg)`;
+    needle.style.transition = 'transform 0.12s ease-out';
+  });
+
+  visualCard.addEventListener('mouseleave', () => {
+    needle.style.transform = 'rotate(0deg)';
+    needle.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+}
 
 // 7.1. Live Persian Date, Day & Digital Time Rail Widget (Asia/Tehran)
 function initLiveDateTimeRail() {
@@ -1769,10 +2417,10 @@ function renderClinicalAuthModalContent() {
           رزرو نوبت پزشکان متخصص، دریافت نسخه الکترونیک، مشاهده جواب آزمایش‌ها و یادآور دارو.
         </p>
         <div style="display:flex; flex-direction:column; gap:8px; margin-top:auto;">
-          <a href="/appointments" class="btn btn-primary auth-card-btn auth-card-btn-patient" style="padding:9px 12px; font-size:12.5px; gap:7px; min-height:46px; justify-content:center; align-items:center; text-decoration:none;">
+          <button type="button" onclick="showClinicalToast('اتصال به نرم‌افزار', 'درگاه نوبت‌دهی مراجعین به زودی به صورت مستقیم به نرم‌افزار پزشکآن متصل خواهد شد.')" class="btn btn-primary auth-card-btn auth-card-btn-patient" style="padding:9px 12px; font-size:12.5px; gap:7px; min-height:46px; justify-content:center; align-items:center; text-decoration:none; cursor:pointer; border:none; width:100%;">
             <svg class="svg-icon" style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
             <span style="font-weight:800;">ورود و نوبت‌دهی آنلاین</span>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -1791,13 +2439,13 @@ function renderClinicalAuthModalContent() {
           پرونده الکترونیک پزشکی، نوبت‌دهی منشی، باشگاه مراجعین، CRM و سامانه مالی ابری.
         </p>
         <div style="display:flex; flex-direction:column; gap:8px; margin-top:auto;">
-          <a href="https://app.pezeshk-on.ir/" target="_blank" rel="noopener noreferrer" class="btn btn-primary auth-card-btn auth-card-btn-doctor" style="padding:7px 10px; gap:2px; flex-direction:column; justify-content:center; align-items:center; line-height:1.25; min-height:46px; text-decoration:none;">
+          <button type="button" onclick="showClinicalToast('اتصال به نرم‌افزار', 'درگاه مدیریت مطب و کلینیک به زودی به صورت مستقیم به نرم‌افزار پزشکآن متصل خواهد شد.')" class="btn btn-primary auth-card-btn auth-card-btn-doctor" style="padding:7px 10px; gap:2px; flex-direction:column; justify-content:center; align-items:center; line-height:1.25; min-height:46px; text-decoration:none; cursor:pointer; border:none; width:100%;">
             <span style="display:inline-flex; align-items:center; gap:5px; font-weight:800; font-size:12.5px; color:#FFFFFF;">
               <svg class="svg-icon" style="width:15px;height:15px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
               <span>ورود به پنل مطب</span>
             </span>
             <span style="font-size:10px; opacity:0.88; font-family:monospace; direction:ltr; font-weight:600; color:#E0F2FE; letter-spacing:0.2px;">app.pezeshk-on.ir ↗</span>
-          </a>
+          </button>
         </div>
       </div>
     </div>

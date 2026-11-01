@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>راهنمای ارزش‌آفرینی و معرفی پزشک‌آن در کنگره (بر اساس نقش‌ها)</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --bg-base: #DDDCD7;
+            --bg-secondary: #C5C4BE;
+            --bg-glass: rgba(255, 255, 255, 0.62);
+            --border-glass: rgba(255, 255, 255, 0.7);
+            --text-dark: #1E1E20;
+            --text-secondary: #4A4A4F;
+            --brand-teal: #0A5C66;
+            --brand-gold: #B45309;
+            --brand-green: #15803D;
+            --shadow-card: 0 14px 36px rgba(0, 0, 0, 0.07);
+            --radius-xl: 26px;
+            --radius-md: 16px;
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #141416;
+            --bg-secondary: #1F1F23;
+            --bg-glass: rgba(34, 34, 38, 0.72);
+            --border-glass: rgba(255, 255, 255, 0.12);
+            --text-dark: #F2F2F7;
+            --text-secondary: #AEAEB2;
+            --brand-teal: #2DD4BF;
+            --brand-gold: #FBBF24;
+            --brand-green: #4ADE80;
+            --shadow-card: 0 14px 36px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Yekan Bakh', 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(circle at top right, var(--bg-base), var(--bg-secondary));
+            color: var(--text-dark);
+            line-height: 1.85;
+            min-height: 100vh;
+            padding: 36px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: var(--bg-glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .hero-title h1 {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: var(--brand-teal);
+            margin-bottom: 8px;
+        }
+
+        .hero-title p {
+            font-size: 1.08rem;
+            color: var(--text-secondary);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: var(--brand-teal);
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        [data-theme="dark"] .btn {
+            color: #111;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Core Questions Grid (What, How, Goal) */
+        .core-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .pillar-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .pillar-tag {
+            display: inline-block;
+            background: rgba(10, 92, 102, 0.12);
+            color: var(--brand-teal);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .pillar-card h2 {
+            font-size: 1.35rem;
+            margin-bottom: 14px;
+            color: var(--text-dark);
+        }
+
+        .pillar-card p {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        /* Section Box */
+        .section-box {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            margin-bottom: 36px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .section-header h2 {
+            font-size: 1.55rem;
+            color: var(--brand-teal);
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+        }
+
+        /* 4 Process Grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .process-item {
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 22px;
+        }
+
+        [data-theme="dark"] .process-item {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .process-item h3 {
+            font-size: 1.1rem;
+            color: var(--brand-teal);
+            margin-bottom: 10px;
+        }
+
+        .process-item p {
+            font-size: 0.94rem;
+            color: var(--text-secondary);
+        }
+
+        /* Role Perspective Cards (Doctor vs Patient) */
+        .role-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .benefit-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .benefit-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.38);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 22px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        [data-theme="dark"] .benefit-item {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .benefit-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--brand-teal);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        [data-theme="dark"] .benefit-icon {
+            color: #111;
+        }
+
+        .patient-theme .benefit-icon {
+            background: var(--brand-green);
+        }
+
+        .benefit-text h4 {
+            font-size: 1.08rem;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+
+        .benefit-text p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .actions {
+                display: none;
+            }
+            .hero, .pillar-card, .section-box {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <div class="hero-title">
+            <h1>پزشکـــآن از نگاه مخاطب کنگره (مبتنی بر نقش‌ها و منافع)</h1>
+            <p>محتوای استراتژیک کاتالوگ جهت پاسخ به دغدغه‌های پزشکان، مدیران کلینیک و تجربه مراجعین</p>
+        </div>
+        <div class="actions">
+            <button class="btn" onclick="toggleTheme()">تغییر تم نمایش</button>
+            <button class="btn" onclick="window.print()">چاپ / ذخیره PDF</button>
+        </div>
+    </div>
+
+    <!-- 1 & 3: What is Pezeshkon & What is its Goal -->
+    <div class="core-pillars">
+        <div class="pillar-card">
+            <span class="pillar-tag">۱. معرفی در یک نگاه</span>
+            <h2>«پزشکـــآن» چیست؟</h2>
+            <p>
+                <strong>پزشکـــآن</strong> یک دستیار هوشمند و پلتفرم ابری یکپارچه‌سازی مسیر درمان است که تمام بخش‌های یک مطب یا کلینیک — از لحظه رزرو نوبت توسط بیمار، پذیرش منشی و معاینه پزشک گرفته تا جلسات فیزیوتراپی، حسابداری و پیگیری‌های پس از درمان — را در یک محیط مدرن و بدون نیاز به کاغذ به هم متصل می‌کند.
+            </p>
+        </div>
+
+        <div class="pillar-card">
+            <span class="pillar-tag">۲. هدف و ماموریت اصلی</span>
+            <h2>هدف «پزشکـــآن» چیست؟</h2>
+            <p>
+                هدف اصلی پزشکـــآن <strong>«حذف ترافیک کاری منشی، صفر کردن خطاهای مالی و تبدیل بیماران عبوری به مراجعین دائمی کلینیک»</strong> است. این سیستم طراحی شده تا فضای سنتی، پراسترس و کاغذی مطب‌ها را به یک کلینیک هوشمند، آرام و مدرن تبدیل کند.
+            </p>
+        </div>
+    </div>
+
+    <!-- 2: What does it do? -->
+    <section class="section-box">
+        <div class="section-header">
+            <h2>⚙️ «پزشکـــآن» در عمل چه کار می‌کند؟ (۴ رکن اصلی در مطب)</h2>
+            <p>ترجمه عملکرد فنی سیستم به فرآیندهای روزمره کلینیک</p>
+        </div>
+        <div class="process-grid">
+            <div class="process-item">
+                <h3>۱. نظم‌دهی زنده به صف و اتاق‌ها</h3>
+                <p>ارتباط زنده (Real-time) بین میز منشی و اتاق پزشک برقرار می‌کند؛ منشی بدون نیاز به رفت‌وآمد یا تماس تلفنی، بیمار را به اتاق معاینه یا فیزیوتراپی ارجاع می‌دهد و پزشک وضعیت لحظه‌ای بیماران حاضر در مطب را روی مانیتور خود می‌بیند.</p>
+            </div>
+            <div class="process-item">
+                <h3>۲. دیجیتالی کردن پرونده و رضایت‌نامه</h3>
+                <p>تمام سوابق بالینی، علائم درد، تصاویر آزمایش‌ها، پلن‌های درمانی فیزیوتراپی و حتی امضای دیجیتال بیمار پای فرم‌های رضایت‌نامه را در پرونده الکترونیک او ثبت و بایگانی می‌کند.</p>
+            </div>
+            <div class="process-item">
+                <h3>۳. حسابداری خودکار و سهم پزشک</h3>
+                <p>هزینه‌های ویزیت و خدمات، پرداخت‌های چندگانه (نقد، کارتخوان، آنلاین)، مخارج جاری مطب (همراه با عکس فاکتور) و از همه مهم‌تر <strong>سهم درصدی هر پزشک</strong> را به صورت لحظه‌ای و بدون خطای انسانی محاسبه می‌کند.</p>
+            </div>
+            <div class="process-item">
+                <h3>۴. پیگیری هوشمند بیماران با پیامک</h3>
+                <p>به جای منشی، به صورت خودکار برای بیمار پیامک‌های یادآوری نوبت، دستورالعمل‌های قبل از عمل، پیگیری وضعیت بهبودی، تبریک تولد و لینک نظرسنجی ارسال می‌کند.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="role-container">
+        <!-- 4: For Doctors & Clinic Managers -->
+        <section class="section-box">
+            <div class="section-header">
+                <h2>👨‍⚕️ به چه دردِ منِ «پزشک / مدیر کلینیک» می‌خورد؟</h2>
+                <p>پاسخ مستقیم به سوال خریدار در کنگره: منافع مالی، مدیریتی و زمانی برای پزشک</p>
+            </div>
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">۱</div>
+                    <div class="benefit-text">
+                        <h4>جلوگیری از سوختن نوبت‌ها و افزایش درآمد</h4>
+                        <p>وقتی بیمار نوبتش را فراموش می‌کند، تایم پزشک می‌سوزد. سیستم یادآور خودکار پیامکی و پیگیری غایبین (No-Show) در پزشکـــآن، آمار نوبت‌های کنسل‌شده را به حداقل می‌رساند.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">۲</div>
+                    <div class="benefit-text">
+                        <h4>پایان دادن به اختلاف حساب با پزشکان همکار و منشی</h4>
+                        <p>اگر کلینیک چندپزشکه دارید، دیگر نیازی به ساعت‌ها محاسبه دستی روی کاغذ نیست؛ سیستم بر اساس درصد توافقی هر پزشک، سهم او و سهم کلینیک را از هر خدمت به تفکیک مشخص می‌کند.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">۳</div>
+                    <div class="benefit-text">
+                        <h4>حفظ امنیت اطلاعات و نظارت کامل بر پرسنل</h4>
+                        <p>شما دقیقاً مشخص می‌کنید هر منشی به کدام بخش‌ها دسترسی داشته باشد و تمام فعالیت‌های پرسنل در سیستم ثبت (Log) می‌شود؛ حتی در پایان روز، خلاصه عملکرد مطب به موبایل شما پیامک می‌شود.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">۴</div>
+                    <div class="benefit-text">
+                        <h4>صرفه‌جویی در زمان معاینه (ویژه طب فیزیکی، ارتوپدی و فیزیوتراپی)</h4>
+                        <p>به جای نوشتن تکراری نسخه‌ها و جلسات درمان، با چند کلیک ناحیه درد، پلن فیزیوتراپی، خدمات نوار عصب و عضله (EMG/NCV) و جلسات بیمار را مدیریت می‌کنید.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">۵</div>
+                    <div class="benefit-text">
+                        <h4>بدون نگرانی بابت پرونده‌های قبلی مطب</h4>
+                        <p>تمام اطلاعات و لیست بیماران قبلی مطب شما به راحتی وارد سیستم (Import) می‌شود و از روز اول با پرونده‌های کامل کار را شروع می‌کنید.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5: For Patients -->
+        <section class="section-box patient-theme">
+            <div class="section-header">
+                <h2>🙋‍♂️ «پزشکـــآن» برای «بیمار» چه مزیت‌هایی دارد؟</h2>
+                <p>ارزش افزوده‌ای که پرستیژ کاری کلینیک را بالا می‌برد و رضایت مراجعه‌کننده را جلب می‌کند</p>
+            </div>
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-text">
+                        <h4>تجربه ویزیت VIP و بدون سردرگمی در مطب</h4>
+                        <p>بیمار به محض ورود، شماره پرونده اختصاصی خود را روی موبایلش دریافت می‌کند و به جای شلوغی و پرس‌وجوهای مکرر از منشی، در یک روند منظم به اتاق معاینه یا جلسه درمان هدایت می‌شود.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-text">
+                        <h4>دسترسی راحت به لوکیشن و اطلاعات مطب</h4>
+                        <p>بیمار از طریق پروفایل کلینیک، مستقیماً به لوکیشن مطب روی <strong>بلد، نشان و گوگل‌مپ</strong> دسترسی دارد و دچار سردرگمی برای پیدا کردن آدرس نمی‌شود.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-text">
+                        <h4>دریافت آموزش‌ها و مراقبت‌های پزشکی روی موبایل</h4>
+                        <p>بیمار قبل از جراحی یا خدمات خاص، پیامک آمادگی‌های لازم را دریافت می‌کند و پس از ویزیت هم به محتواهای آموزشی کلینیک دسترسی دارد تا روند درمانش را درست طی کند.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-text">
+                        <h4>حس ارزشمند بودن و توجه مستمر پزشک</h4>
+                        <p>وقتی چند روز بعد از ویزیت، پیامکی با نام کلینیک برای جویا شدن حال بیمار، یادآوری نوبت بعدی یا تبریک روز تولدش ارسال می‌شود، بیمار حس می‌کند پزشک واقعاً به فکر سلامت اوست.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-text">
+                        <h4>عدم نیاز به حمل پوشه‌های سنگین مدارک</h4>
+                        <p>چون تمام مدارک، عکس‌های رادیولوژی و سوابق جلسات قبلی در پرونده دیجیتال بیمار در کلینیک ذخیره شده است، در مراجعات بعدی نیازی به همراه داشتن نسخه‌ها و کاغذهای قبلی ندارد.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        پلتفرم یکپارچه‌سازی و هوشمندسازی مسیر درمان · پزشکـــآن (مستند ارزش پیشنهادی ویژه کنگره پزشکی)
+    </footer>
+</div>
+
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.removeAttribute('data-theme');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+        }
+    }
+</script>
+
+</body>
+</html>

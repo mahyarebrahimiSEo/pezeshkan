@@ -1,0 +1,827 @@
+# Changelog
+
+All notable changes to this skill are recorded here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+*Nothing yet.*
+
+## [2.10.0] — 2026-10-27
+
+Kelvin Adithya's fun-isometric ([kelvinkn17/skills](https://github.com/kelvinkn17/skills), MIT, HEAD `7c8a752`; generator at [skills.klvn.dev/fun-isometric](https://skills.klvn.dev/fun-isometric)), distilled and routed as a companion. It draws isometric slab stickers and plays them on After Effects keys, interpolated the way lottie-web plays them, and exports to live canvas or alpha video.
+
+### Added
+
+- **`isometric-stickers`** (svg) — the craft bar for an animated sticker, with or without the companion:
+  - a 500-unit square, one 5-unit ink outline, faces that lean rather than rotate;
+  - every body a slab with its side falling one way, three to six parts per hero object;
+  - colours as palette roles mapped from the contract;
+  - motion picked by the object's verb, children 4–6 frames late, sparkles on the peak frame;
+  - a still hold after the action, scale pops instead of fades, checked at 160 px.
+- **`fun-isometric-reconciliation`** (svg) — who owns a sticker job when it is installed, and ten conflicts settled: its scale-0.2 pop against `never-scale-from-zero`, frame loops against `duration-table`, its baked spring against stiffness and damping, idle loops against the delight curve, its default inks against the contract, sharp corners, grey and shape count against this install's `pov`, canvas and video against SVG-first, and its self-installing Chromium.
+
+### Changed
+
+- `skill-router`: a companion row for fun-isometric and a sticker entry in the material list; `routing-table`: one row; `MOC-svg`: a Stickers section; SKILL.md: the SVG cluster line and the companion lists.
+- Evals: 2 loading and 3 progressive-reads rows. AGENTS.md sources; README counts (148 nodes); version 2.10.0 across all seven manifests; registry rebuilt.
+
+## [2.9.0] — 2026-10-25
+
+Jakub Krehel's interfaces skills ([jakubkrehel/skills](https://github.com/jakubkrehel/skills), MIT, HEAD `592aedc`, plugin 1.17.0), distilled and routed. Six domain skills block on evidence — a WCAG criterion, a visible break, an exact value missed — and treat a deliberate convention as a preference, the same bar as `review-format`. Most of their rules were already in the graph. This release adds what wasn't: accessibility that actually speaks, colour systems named for their roles, layouts that survive translation and mirroring, and three review methods from the verb skills.
+
+### Added — accessibility
+
+- **`screen-reader-announcements`** — the four-step ladder (focus move, `aria-describedby`, `role="status"`, `role="alert"`); regions rendered empty before their text changes; `aria-busy`; alt text by purpose; 1px `sr-only`; `aria-hidden` never above anything focusable.
+- **`keyboard-patterns`** — the APG key maps a custom widget owes:
+  - `tabindex` 0 or −1 only;
+  - roving tabindex, and `aria-activedescendant` for a combobox;
+  - `showModal()` or `inert`; Escape closes the last thing opened;
+  - a destructive confirm focuses the safe button;
+  - a route change retitles the page and moves focus.
+- **`wcag-thresholds`** — the WCAG 2.2 A/AA numbers that make a finding: 4.5:1 and 3:1, 3:1 focus rings, 24×24 targets (44 and 40 px are recommendations), a single-pointer path for drags, focus never hidden under sticky chrome, 200 % text, 320 px reflow, a pause past 5 s, the forced-colours border.
+
+### Added — copy
+
+- **`strings-and-locale`** — inventory the strings first; ICU plurals, never `n === 1 ? "" : "s"`; `Intl` for numbers, dates and lists; verb-first buttons; links that name their destination; toggles for the ON state; parallel status copy.
+- **`destructive-actions`** — undo for frequent reversible actions, confirmation for the irreversible: action-and-object titles, verb-plus-object buttons, type-to-confirm for accounts, and an undo toast that never times out from under the user.
+
+### Added — colour
+
+- **`color-token-tiers`** — primitives by hue and step, semantics by role (the only tier components use), the role inventory, one word per concept, `accent` for the brand so `primary` stays free.
+- **`palette-step-roles`** — one neutral, one accent, only the status ramps the product renders; every step has a role (Tailwind by lightness, Radix by role); fills on 600; status hues ≥ 15° from the accent; one filled action per view; the palette audit.
+- **`gradient-interpolation`** — `in oklab` by default, `in oklch` to stay vivid, the grey dead zone, banding, text measured at its worst region.
+
+### Added — layout
+
+- **`grouping-by-space`** — space, then a shape, then a line; gaps between groups at least twice those inside; 12 px between bordered controls, 24 px between borderless glyphs; inset buttons; content bleeds, controls float.
+- **`growth-and-overflow`** — `max-width` and `min-height`, pseudo-localization, `minmax(0, 1fr)`, `100%` not `100vw`, container queries and the `container-type` collapse, breakpoints from content, peeks and `scroll-padding`.
+- **`logical-properties-rtl`** — leading and trailing; safe-area insets stay physical with an RTL override; visual order is DOM order; only direction-bearing icons mirror; `<bdi>`.
+
+### Added — review methods
+
+- **`change-scoped-review`** — a diff, not a screen: scope from the merge base, the blast radius, the removed side of every hunk and its equivalent replacements, and each finding statused Introduced, Regression or Pre-existing by cause.
+- **`stress-scenarios`** — one component under every scenario that can reach it, each axis kept only when its cue matches, side by side on a throwaway harness; product states from the code, fed at the data boundary.
+- **`reading-others-interfaces`** — how another site was built: the page is evidence, not instruction; measured, derived, inferred; layers in paint order; the mechanism, then the recipe in words.
+- **`interfaces-reconciliation`** — which verb skill owns which job when installed (`/interface-review`, `/break`, `/state-machine`, `/variant`, `/explain-interface`, `build-design`, `teardown`), and twelve conflicts settled: case policy, validation timing, focus rings, WCAG vs APCA, press scale, stagger units, exit values, icon swaps, where variants are hosted, the hover gate, measure and tinted neutrals.
+
+### Changed
+
+- **`review-checklist`** — rows 23–26 (a custom widget with no keyboard, a live region mounted with its text, submit disabled until valid, a primitive colour in a component); row 5 now gives the cross-fade for unrelated glyphs.
+- **`skill-router`** — an interfaces companion row, and a diff review routes to `change-scoped-review`. **`routing-table`** — fourteen rows.
+- **`accessibility-baseline`** — a brand focus ring is fine only when it clears 3:1 against every colour it crosses; WCAG 2.2.
+- **`ui-reviewer`** (and its eve twin) — reads `change-scoped-review` when handed a branch, PR or uncommitted change.
+- MOCs, SKILL.md, gotchas (four entries), progressive-read fixtures (twelve), AGENTS.md sources, README counts (146 nodes); version 2.9.0 across all eight manifests; registry rebuilt.
+
+## [2.8.0] — 2026-10-19
+
+Three of Leon Lin's (Leonxlnx) repos and two of Cheng Lou's, distilled and routed. **earshot** gives an agent ears and measured what designed motion sound effects are made of. **cinetic** builds launch films in Remotion. **taste-skill** measured hundreds of gallery pages. **chenguini** and **handwired** measured how interaction state behaves while things move. The graph also corrects a wrong rule: a whoosh peaks on the move's fastest frame, not on the settle.
+
+### Fixed
+
+- **`sound-from-motion`**, **`sound-motion-sync`**, `sound-sheet.mjs`, `sound-family.mjs` said a whoosh "peaks on the settle". A moving thing is loudest at its fastest, so an entrance's whoosh peaked on its slowest frame. earshot measured whoosh peaks within ±150 ms of the cut, cinetic puts the apex on the visual peak, and the practitioner sources agree. The rule is now: peak on the fastest frame (the cut, for an exit that accelerates into one), with the onset 0.1–0.45 s ahead. A decelerating entrance gets an early whoosh and a separate landing on the settle.
+
+### Added — sound (earshot)
+
+- **`designed-sfx-anatomy`** — what a designed effect is made of, from earshot's study of 58 bed-subtracted events in 8 professional films:
+  - one gesture per sound, in pitch or a gate that speeds up into the cut;
+  - each sound in its own band, leaving 300 Hz–1 kHz to voice and chords;
+  - hard ends; mono objects and wide textures;
+  - a sync point per kind;
+  - targets for whoosh, riser, impact, sub drop, sting, ding, pop-in, click, typing and zip;
+  - tuning to the track's key; the design chain.
+- **`earshot-reconciliation`** — earshot's commands (describe, match, find, realness, timeline, sheet, critique, and the code-rendered `sfx` / `kit` bank) and what each costs to run. Where this graph wins:
+  - loudness by register, not −14 LUFS;
+  - sound derived from the motion, not real recordings only;
+  - never lead the picture.
+
+  MotionVideo's launch film is the worked build.
+- **`sound-licensing`** — what may go into a commercial, edited, published film:
+  - CC0 and CC BY yes; NC, ND and SA no;
+  - verify on the item's own page; aggregators are not authoritative;
+  - Content ID claims on CC BY music; the credit line;
+  - audit the final mix, not the brief.
+- **`sound-sheet.mjs`** gains six designed cue kinds built to those targets:
+  - `riser` and `zip` end on the cut;
+  - `impact` and `sting` are tuned by a top-level `key`;
+  - `ding` runs climb a semitone;
+  - `pop` is an element appearing (`double`, `step`).
+
+  A whoosh takes `apex` (where the move is fastest). Existing cue sheets render byte-identical, and the report prints each effect's peak or end frame.
+
+### Added — launch films (cinetic)
+
+- **`launch-video-formats`** — the short forms beside a launch film:
+  - a feature loop: a cycle, with a seam gate and lossless intermediates; frame 0 is the poster; GIF at 25 or 50 fps, because 30 plays 11 % fast;
+  - a logo sting: assemble the mark, one tuned hit, hold ≥ 1.5 s, ~−16 LUFS;
+  - 9:16, 1:1 and 4:5 cuts: re-laid out, never cropped; feed safe zones and type minimums.
+- **`cinetic-reconciliation`** — cinetic owns a Remotion build and its checks; this graph keeps register, structure, cadence and sound. Ten value conflicts are settled for the graph's measured corpus. Its unnamed-corpus pacing claims are listed as awaiting measurement, not adopted: the energy arc, px-per-frame speeds, fragment flow, the effects census.
+
+### Added — pages and screens (taste-skill)
+
+- **`page-frame`** — the frame readers judge first, measured on 97 Awwwards Sites of the Day:
+  - equal margins; text at least 16 px from the edge;
+  - no half-empty sections, no holes (≥ 28 % of the first screen empty);
+  - a first screen that says what this is; a heading on every section;
+  - few left edges.
+- **`screenshot-critique`** — critique the render, not the code:
+  - eight single-purpose passes at three widths;
+  - a fixed `ROUND n` write-up;
+  - fix idea → hierarchy → composition → type → imagery → colour → detail → motion;
+  - stop at three rounds.
+- **`dashboard-tells`** — from 23 product screens:
+  - KPIs with no icon circles or sparklines, at 16–40 px;
+  - deltas coloured good or bad, not up or down; zero change in grey;
+  - tabular, right-aligned figures; one grotesk.
+
+### Added — interaction engineering (chenguini, handwired)
+
+- **`animated-hit-testing`** — a press on something still animating goes to where it is heading. Three presses 80 ms apart on one spot dismiss three sliding toasts against destinations, one against drawn positions. Drags grab what is drawn and pin the spring to the pointer; the just-released item stays above the rest until it settles; a touch-scrolled list selects on release.
+- **`frame-rate-independence`** — fixed 4 ms spring steps or closed forms; a ~300-step catch-up cap with a named fallback; events applied at their timestamps (the usual order differed by up to 359 px between 10 and 120 fps); store what the user placed and derive what fits; never a decision from last frame's value (a 533 px column jump).
+- **`scroll-anchoring`** — anchor to the row at the top of the view: detect user scrolls by comparing values, not events; keep the screen offset from when the anchor was picked (a per-frame delta drifted 3–4 px); store the read-back `scrollTop`; `overflow-anchor: none` when code owns it.
+- **`z-index-strategy`** — DOM order, then one global file of sequential layers, then local values inside `isolation: isolate`; no magic numbers; never mix global and local; which properties create a stacking context or a containing block.
+
+### Changed
+
+- **`gesture-momentum`** measures release velocity over the last ~100 ms of samples, not two. **`spring-animations`**, **`touch-and-focus`** (rule 11, select on release), **`ui-polish-pass`** and **`sticky-and-scroll-tells`** link the new nodes; **`routing-table`** gains four more rows; **`gotchas`** two more entries.
+- **`review-checklist`** goes from 13 rows to 22. New greppable rows: gradient text, tiny tracked caps, the generated-page purple, framework status colours, emoji as UI, placeholder data, `100vh`, looping attention animations, the em-dash habit. `ui-reviewer` and `SKILL.md` say twenty-two.
+- **`ai-default-tells`** — device prevalence on top versus weak gallery sites. Some tells get evidence; backdrop blur, thin rules and the italic accent word turn out not to be tells.
+- **`line-length-tracking`** no longer endorses tiny uppercase eyebrows (16 % of top sites against 57 % of weak ones).
+- **`type-scale-and-rhythm`** — display scale on marketing pages, and the headline character budget.
+- **`marketing-surface-rules`**:
+  - readable on first paint; no preloader (60 of 99 award sites open on one);
+  - hijacking's usability cost;
+  - two new checklist items.
+- **`prefers-reduced-motion`** — the reduced state is the finished state, never a hidden one.
+- **`sound-palette`** — counted runs climb, repeated runs cycle takes, the click stays one voice. **`launch-video-music`** — edit on bars, tune to the key. **`launch-video-sound`** — earshot's −14.8 LUFS median, put in its register.
+- **`skill-router`** gains three companion rows: cinetic for Remotion films, earshot for listening and effects, and taste-skill, opt-in, with its conflicts named. The end-to-end film steps now cite the new nodes. **`routing-table`** gains seven rows.
+- **`sound-designer`**, **`anti-pattern-scanner`** and **`launch-film-analyst`** (and their eve twins) point at the new nodes.
+- **`gotchas`** — six entries: the whoosh correction, −14 LUFS borrowed from music-led corpora, two Chromium render traps lines, the 30 fps GIF, and subtraction that leaves a page thin.
+- **`progressive-reads.jsonl`** — thirteen routing fixtures, one per new node and two for the whoosh fix.
+- **AGENTS.md** sources, README counts (132 atomic nodes) and companions. Version 2.8.0 across all eight manifests; registry rebuilt.
+
+### Not adopted
+
+- taste-skill's mono, numbering, hairline, shadow, radius and violet bans; its 8-moving-elements floor.
+- cinetic's hard bans on serif and cream, and its −14 LUFS default.
+- earshot's real-recordings-only rule.
+- MotionVideo's paid skill pack, which is private.
+
+## [2.7.2] — 2026-10-08
+
+A wrong version number for better-icons, corrected.
+
+### Fixed
+
+- **`icon-systems`** and **`skill-router`** cited better-icons 1.0.5, the version in its repo's `package.json`, but npm's latest is 1.0.4 and 1.0.5 was never published, so a server pinned from those lines could not install. Both now say 1.0.4 with the date, and the router row tells you to pin from `npm view better-icons version`.
+- **`gotchas`** — pin from `npm view <pkg> version`, never from a repo manifest.
+- Version 2.7.2 across all eight manifests; registry rebuilt.
+
+## [2.7.1] — 2026-10-08
+
+HKTITAN's diagram taste, written into `pov.md`.
+
+### Changed
+
+- **`pov.md`** gains "Diagrams (HKTITAN)", plus two rows in the override table:
+  - With no `.design` or DESIGN.md, a figure keeps diagram-design's shipped editorial skin. The Duolingo language stays in product UI.
+  - "Make a diagram" with no reader or editor named gets one question; with no answer, a finished diagram-design figure, its assumption noted.
+  - Figures are static, with diagram-design's `step` mode only when the order is the point; no `reveal`, `loop` or autoplay unless asked.
+- **`diagram-design-reconciliation`** — the pov row points at the new section.
+- Version 2.7.1 across all eight manifests; registry rebuilt.
+
+## [2.7.0] — 2026-10-08
+
+Diagrams, canvases and SVG companions. A new `diagram/` cluster decides whether a picture earns its place and which surface it lives on. Cathryn Lavery's `diagram-design` draws the finished figures and tldraw's agent surfaces edit the canvases, both routed as companions and never copied. GreenSock's GSAP skills and `better-icons` join the router for SVG tweens and icon lookup.
+
+### Added — `references/diagram/` (new cluster: a MOC and four nodes)
+
+- **`MOC-diagram`** — a diagram as a run of decisions: whether to draw at all, which surface, the figure's craft, the contract handoff, the canvas rules.
+- **`diagram-decision`** — prose, a table or a picture; then the surface, chosen by who touches it next:
+  - readers get a finished figure from diagram-design;
+  - a team that keeps editing gets a tldraw canvas;
+  - text versioned in a repo gets a Mermaid block;
+  - a Figma team gets FigJam.
+
+  The budget is 9 nodes, 12 connectors and 2 accents, and past it the figure splits in two.
+- **`diagram-craft`** — the figure rules, for drawing without diagram-design and for reviewing a figure made with it. Delete before adding; put an accent on one or two elements; give hierarchy by node treatment; follow the six connector rules (orthogonal r=8 elbows, masked labels 6–10px clear, no stacked strokes, one attach point per connector, no transit behind a box, mask before node); keep a 4px grid and a bottom legend; use mono only for technical text; make the SVG accessible, with slug-prefixed ids.
+- **`diagram-design-reconciliation`** — inside a diagram-design file, its geometry, type ramp and motion controller win, and the project's `.design` supplies only the color roles and the type families:
+  - The contract maps onto `paper` / `ink` / `muted` / `accent` / `link` through onboarding option (d), because diagram-design's own discovery doesn't parse a `.design` file.
+  - A pure-white surface wins over its warm-paper rule.
+  - Its 480 ms step is reading pace, not a UI duration to flag.
+  - Its 8–9px labels hold only at the viewBox width.
+  - The Duolingo `pov` sections don't reach a figure.
+- **`tldraw-canvas`** — which tldraw surface owns the job: the Desktop app's `tldraw-offline` skill and subagent, the tldraw MCP app for hosted clients, or the SDK with `tldraw-migrate`. The canvas rules are bound arrows, Mermaid for structure, one shape per card, the editor's own arrange calls, lints before done, one named accent color, anchored comments, and board scripts treated as code. The two surfaces speak different shape formats.
+
+### Changed
+
+- **`skill-router`** gains four companion rows, each with its boundary: `diagram-design`, tldraw (Desktop skill, MCP app, `tldraw-migrate`), GreenSock's `gsap-plugins` for DrawSVG / MorphSVG / MotionPath, and `better-icons` for Iconify lookup. better-icons always gets a pinned `--prefix` and a hand-configured MCP server, never its config-rewriting `setup`. A "diagram or whiteboard" material route is added.
+- **`routing-table`** — three rows: should this be a diagram, draw or review a figure, edit a board.
+- **`svg-animation`** routes GSAP plugin work to `gsap-plugins`; durations, easing and reduced motion stay in the graph. **`svg-creation`** adds `prefixIds` for SVGs inlined side by side. **`icon-systems`** routes lookup to `better-icons`, with the one-pack and license caveats.
+- **`gotchas`** — supermemoryai's "bounce" `keySplines="0.34 1.56 0.64 1"` is out of SMIL's 0–1 range, so the browser rejects the animation.
+- **`SKILL.md` description** gains "drawing a diagram or tldraw canvas" and drops "'s audio-haptic principles" after "Apple" to stay under the limit (1,010 → 1,020 characters).
+  - Four blind judges (Claude Opus and Sonnet, each on the old and the new description) ran 61 `loading.jsonl` rows beside 12 competing skills, including diagram-design, tldraw-offline, tldraw-migrate, gsap-plugins and better-icons.
+  - Scores were 55/61 on the old description and 60/61 on the new one.
+  - There were no regressions on the 51 earlier rows, and every judge declined the three new negatives.
+  - The one row every arm declined, an icon lookup in an already-chosen pack, was mislabelled and is now `should_load: false`.
+  - The report is in `evals/results/2026-10-08-routing/`; no GPT-class judge was run.
+- **Evals:** 10 `loading.jsonl` rows and 6 `progressive-reads.jsonl` rows for diagrams, canvases and the SVG companions.
+- **Counts:** 12 clusters, 120 atomic nodes, 11 MOCs, across README, AGENTS.md, CONTRIBUTING.md, the Codex manifest and the registry item.
+- Version 2.7.0 across all eight manifests; registry rebuilt.
+
+### Considered and not adopted
+
+Nine other skills.sh SVG skills were read on 2026-10-08:
+
+- **Generic:** `svg-logo-designer`, `svg-icon-generator` and `svg-illustration`. `svg-logo-designer` also defaults to the indigo-to-violet gradient that `ai-default-tells` flags.
+- **Unlicensed:** `SVG-skills`, `svg-art` and `pixel2motion`.
+- **Deleted:** `svg-assembly-animator`.
+- **License conflict:** `svg-character-animation` is AGPL at the repo level and MIT in its frontmatter.
+- **Overlapping:** iart-ai's `svg-animation` overlaps `svg-animation` by about 70 %. It is cited for `prefixIds` only.
+
+## [2.6.0] — 2026-09-28
+
+This repo's own launch film, built on the 2.5.0 rules and measured the way the 47 reference films were. HKTITAN's launch-film taste is written into `pov.md`, the router's launch-film path is spelled out, and the description is trimmed under the Agent Skills limit.
+
+### Added — the launch film
+
+- **`docs/demo/hyperframes/`** is rebuilt as a 34.6 s launch film in eight sub-compositions, on hyperframes 0.8.82. `check` passes with 0 errors, 0 warnings and 75/75 contrast.
+  - **Arc:** a hook with a slammed "UI." and nine AI-default tells, a Before / After / Why review, and the name flapping in slot by slot. Then motion with numbers (a modal and a plotted curve on one ease), sound derived from motion, 47 films measured (an accelerating montage that snaps to counters), the CTA `npx skills add AgentsORG/design-engineering` typed at read speed, and a bookend endcard.
+  - **Seams:** eight, typed in `ledger.json` using HyperFrames' stamp values. They are a click that fills the frame, a constant ground, a dive through the caret, cut-the-curve on a leftward current, a playhead that widens into a fill, a rising cut on a palette flip, and a carrier dot.
+  - **Storyboard:** `STORYBOARD.md` carries the register, the acts, the cue map and a HyperFrames blueprint citation per scene. Shared eases and seeded typing live in `assets/film-motion.js`. Instrument Sans (OFL) ships with its licence.
+- **Sound:** one stem from `assets/sfx/cues.json` through `sound-sheet.mjs`. It has 138 cues and 240 onsets, a bed in F with three dropouts (before the name, before the snap, before Enter), and keystrokes on their seeded onsets, with no library files.
+- **Measured** with `docs/research/launch-films/measure.py` at native fps:
+  - one detectable hard cut in 34.6 s;
+  - 6.8 % of frames still (Skale's UI-motion films: 9 %);
+  - 45 moves a minute, with a 0.52 s median;
+  - the name at 19 % of the runtime and a 4.4 s endcard;
+  - −18.5 LUFS and −2.2 dBTP in the rendered file, with half of the strong hits within 67 ms of a motion peak.
+- **README:** "Demo" becomes "Launch film", with the first ten seconds as a GIF, the whole film as an MP4 with sound, the measured numbers, and eight gallery frames.
+
+### Changed
+
+- **`pov.md`** gains "Launch films (HKTITAN)", plus a row in the override table:
+  - An unspecified launch film gets Skale's UI-motion register, with bounce only on request.
+  - "Lively" means creep, accelerating rhythm and causality.
+  - Sound is OpenAI's register B, derived from motion; a beat track only when its drop can be placed on the picture.
+  - Every film ships with its numbers.
+- **`skill-router`** gains "5. A launch film, end to end": the contract, then taste; decide the film; plan, then build in HyperFrames; lock the picture, then score it; measure the render. A film this graph directs builds in `general-video` with `flow: companion`; `product-launch-video` runs its own voice-over and library-music pipeline.
+- **`SKILL.md` description** trimmed from 1,515 to 1,010 characters, under the Agent Skills limit of 1,024. The trigger clauses are kept and the source list compressed. Four blind judges (Claude Opus and Sonnet, each on the old and the new description) scored 51/51 on the 41 `loading.jsonl` rows plus 10 new hard cases, with identical decisions. The 10 cases are added to `loading.jsonl`, and the report is in `evals/results/2026-09-28-routing/`. No GPT-class judge was run.
+- **`launch-video-seams`** and **`sound-from-motion`** take their examples and numbers from the new film.
+- **HyperFrames CLI pin:** 0.8.29 → 0.8.82. The 2.4.0 composition passed `check` on 0.8.82 before it was replaced.
+- Version 2.6.0 across all eight manifests; registry rebuilt.
+
+### Removed
+
+- The 2.4.0 demo's mascot flipbook, its six product one-shots and its six screenshots. They remain in git history, and `svg-flipbook.mjs` and `sound-sheet.mjs --family` still make them.
+
+## [2.5.0] — 2026-09-28
+
+Launch films, measured. Skale's whole portfolio (28 client films and the 2025 reel), 18 acclaimed 2024–2026 launch films (Linear, Raycast, Cursor, Notion, Figma, Framer, Arc, Spline, Granola, Apple, Anthropic, Google; studios BUCK, Studio Freight, Ordinary Folk) and HeyGen's open launch source and HyperFrames skills, studied frame by frame at native frame rate. The result is a new cluster, and a correction of what 2.4.0 said about launch films.
+
+### Added — `references/launch-video/` (new cluster: a MOC and nine nodes)
+
+- **`MOC-launch-video`** — a launch film as an ordered run of decisions, each with one owner: register → beats → words → UI demo → motion → seams and cuts → sound → review. HyperFrames builds the film; this cluster decides it.
+- **`launch-video-registers`** — pick the register first, because cut rate, stillness, move length and loudness belong to it: Skale's UI-motion films cut 4.0 times a minute and are 9 % still; product-camera films (Linear Agent, Raycast, Claude Cowork) cut 14 and are 49 % still; beat-cut sizzles cut 31. Six more rows with medians and ranges, the studio-vs-in-house split, and why a studio's reel is not its client work.
+- **`launch-video-structure`** — measured beats: a readable word by 0.2–0.7 s, the name early, at the end of a problem act or at ~70 % once the product has shown itself, the low end arriving on the first reveal, proof, a payoff before the endcard, and an endcard of 4.4–6.3 s holding ~2 s.
+- **`launch-video-type`** — words built per word at ~0.2 s, the newest word marked then settled, holds of 1.15–1.5 s, statements at video sizes, the slam word, stamped type moves.
+- **`launch-video-ui-demo`** — rebuilt UI cropped tight, a cursor big enough to read with a visible press, prompts typed at ~15 characters a second to be read or ~53 to be recognised, human and agent text told apart, and the agent's wait stepped or cut.
+- **`launch-video-motion`** — exponential settles chosen per move (~0.1–0.15 s for objects, ~0.43 s for one measured crane, 0.6–0.8 s for counters), cameras exempt, overshoot and velocity blur as registers with base rates, no decorative idle on UI objects, liveliness from creep, accelerating rhythm and causes that ignite their effects.
+- **`launch-video-cuts`** — launch films cut; the craft is where the cut lands (on a cause, a constant ground, the element being read, inside a fill), and the two cuts that fail everywhere (the dead cut, and a crossfade whose midpoint exposes a different ground).
+- **`launch-video-review`** — review at native fps against the film's register: recount cuts by eye, check seams and onsets on frames, then taste; the measurement traps and an eleven-row film rubric.
+- **`hyperframes-reconciliation`** — where this graph and HyperFrames give different values (seam eases, zoom-through, springs, crossfades, idle motion, blur, cursor, captions, clip timing, sound) and which to use inside a HyperFrames project; notes that HyperFrames' seam doctrine is repo-internal and not installed by `npx skills add`.
+- **`launch-video-seams`** moved here from `motion/` (same basename) and rewritten: the vector law, one current per film, measured carriers (fill the frame, zoom-through, inverse zoom, zoom into a glyph, cut the curve, dock, carrier dot, conveyor), a seam budget, and a typed ledger (`cut` / `match-cut` / `morph`).
+
+### Added — sound
+
+- **`references/sound/launch-video-music.md`** — placing a licensed track or a voice on the picture: the drop on the reveal, breakdowns under anything read, locked cuts on the onset frame, the voice as the clock with the bed 10–13 dB under it.
+- **`launch-video-sound`** rewritten around five measured registers (dry reveal, OpenAI's one-key bed with derived clicks, Skale's beat track, voice-led, product-camera pad with consequence foley), subtraction before the reveal (23 of 28 Skale films, 14 of 18 acclaimed), and loudness as a stated register choice with −1 dBTP the only fixed number.
+- **`sound-from-motion`** and **`sound-motion-sync`** — the picture places a bed's or a track's structure; cuts land on the onset frame; library files are placed by their measured onset, not their file start; human typing spreads about ±30 % of the interval, not ±8 ms.
+- **`scripts/sound-sheet.mjs`** — an opt-in `jitter` on type runs (a fraction of `every`; 0.35 gives the measured human spread) and a `--report` warning for runs faster than ten keys a second. The default is unchanged, so existing cue sheets, including the demo's, render byte-identical.
+
+### Added — the analyst
+
+- **`agents/launch-film-analyst.md`** (+ eve twin in `agent/subagents/launch-film-analyst/`) and **`/film-review`** — measure a reference film or your own render at native fps with ffmpeg and ffprobe (the full `measure.py` when run from a repo checkout), recount cuts by eye, and return the `launch-video-review` rubric plus a per-film JSON. It never downloads without the user's approval and never commits media or frames. Ten subagents, ten commands.
+
+### Added — research harness
+
+- **`docs/research/launch-films/`** — `measure.py` (native-fps measurer: cuts, shots, still share, move runs, camera share, blur, luma, colour, loudness, onsets, cut and hit sync, contact sheets), `aggregate.py`, per-film metrics for 50 films (29 Skale, 18 acclaimed, 3 HeyGen renders), corpus tables, the stats scripts behind every count, the two syntheses, the HeyGen tween census (3,446 calls) and the HyperFrames doctrine digest. Films contribute derived numbers and short descriptions only; `.gitignore` now keeps research media, frames and arrays out of the repo.
+
+### Added — evals
+
+- 11 `progressive-reads` rows and 4 `loading` rows for the new nodes and the description change; 6 `design-bench` fixtures (an opaque crossfade with a breathe loop, the corrected zoom-through, a Z-sign seam, read-speed typing, onset-audited click placement, a drop placed by moving the track); `evals/launch-values.eval.ts` (launch-film advice names measured numbers).
+
+### Corrected — what 2.4.0 said
+
+- **"No cuts."** 26 of 29 Skale films and 14 of 18 acclaimed films hard-cut. What fails is the static cut and the opaque crossfade, not the cut. A zero-cut morph chain is one continuity choice.
+- **The Skale reel as house style.** Its "median move 4 frames" was partly an artifact of resampling 24/25 fps footage to 30 fps, which inserts duplicate frames; measured at its native 60 fps the median move run is 0.19 s. Its 32 % stillness is real but the reel is not the client work, which is 12 % still. The reel's 3 hard cuts stand. Skale's portfolio lists Google DeepMind and Polymarket, but neither is among the 28 films.
+- **zeta 1/3 as the bounce, one tau (0.131 s) for everything.** Both are HeyGen's bouncy-sting template (`heygen-apple-motion/02-bouncy-ui`), now a named register; visible overshoot appears in 4 of 29 Skale films and 3 of 18 acclaimed. Tau is chosen per move.
+- **Blur "never authored" and unscoped "no idle motion".** Authored focus is a scene tool in 13 Skale films; nothing decorative moves on a UI object, but camera creep under holds is common (10 of 29, 10 of 18).
+- **Zoom-through 1 → 1.18 / 0.92 → 1 and exits at 60–70 %.** The reused HeyGen recipe is 1 → 1.2 out and 0.75 → 1 in (blur ~20 px, `power3.in` / `expo.out`); exit/entry ratios run 36–82 % by seam type.
+- **The property census.** Per tween call, opacity (46 %), scale (22 %), y (20 %), x (15 %) and blur (13 %) do the work; skew is never tweened. "Twenty-one compositions" is 20 project folders. The ledger's `dir: 0` row is now a typed morph.
+- **HyperFrames specifics** that disagreed with HyperFrames' own docs moved into `hyperframes-reconciliation`, with file and date per row.
+- **Sound.** −14 LUFS is one option, not the launch master (medians ≈ −18 LUFS; ≤ 38 s sizzles −12 to −13; walkthroughs near −33). A 3–5 kHz click layer and "nothing sits on a grid" describe OpenAI's register only; Skale's music films run a beat whose drop lands on the reveal. The stock-bed gotcha is rescoped to unstructured beds.
+- **The router's HyperFrames row** named only `hyperframes-creative` and `hyperframes-audio`; it now names the front door (`/hyperframes`) and the owning workflows (`product-launch-video`, `motion-graphics`, `general-video`).
+
+### Changed
+
+- `SKILL.md` — a Launch video section linking the new MOC; the description's launch clause now reads "planning, cutting, or reviewing a product launch video".
+- `MOC-motion`, `MOC-sound`, `skill-router`, `routing-table`, `stacking-chains`, `review-checklist`, `disambiguation`, `design-vocabulary`, `sound-spec`, `ai-default-tells` — point at the new cluster; twelve dated gotchas.
+- `sound-designer` and `motion-auditor` (both formats) route film work to the new nodes.
+- The demo is unchanged on screen; its STORYBOARD, ledger and README text now call its motion HeyGen's bouncy-sting register, one choice among the measured registers.
+- Version 2.5.0 across all eight manifests; registry rebuilt.
+
+## [2.4.0] — 2026-09-05
+
+Motion that is alive: the demo remade on HeyGen's launch motion system, measured against Skale's reel, and the system written into the graph.
+
+### Added — the launch motion system
+
+- **`references/motion/launch-video-seams.md`** rewritten as the motion system plus the seams: one easing law (exponential arrivals with tau 0.131 s, mirrored exits, as ease *functions* because GSAP's `expo` is a different curve), a damped spring at zeta 1/3 on three channels (position 1.45 Hz, shape 1.88 Hz, rotation 2.5 Hz) with the windowed GSAP ease that ends exactly at rest, blur derived from velocity, stamp decisions vs ease curves, no idle motion; a catalogue of shared-element seams (velocity-matched cut, zoom-through, edge-on collapse → unfold, dock, conveyor, mask-open / recede, explode-out) with a ledger; the measured numbers — HeyGen's 2,300 tweens by ease and property, Skale's reel (3 cuts in 41.7 s, median move 4 frames, 32 % still, motion decaying to a tenth within 12 frames of a cut), OpenAI's stillness; and the HyperFrames lint rules that bite (same-selector hard kills, collapsed-but-visible elements, CSS initial states).
+
+### Changed — the demo
+
+- **Remade on the system.** The wordmark lands on a spring with squash and clearing blur; words pop in with their own blur; cards spring from below with a ±3° rotation ring; the terminal unfolds from the axis the cards collapsed on; cells stream with blur; a cursor arrives, flips the toggle (knob on a spring, track to blue) and presses Save (the button dips and rings back); the modal docks into the mascot stage, which grows on a spring; bars ride a conveyor in and accelerate off the top; the command pill rises, types, pops volume-conservingly and takes a shine. Four seams, zero cuts. Text reveals stay stepped, so the sound still sits on frames.
+- **Sound follows.** Cue sheet retimed to the springs' first rest crossings; four soft breaths of air under the seams (the register has no whooshes); clicks for the toggle press, the knob seating, and the Save press, with an octave-up thud at −10 dB. 81 onsets from 31 cues, −16.0 LUFS.
+- `STORYBOARD.md` and `ledger.json` carry the new acts, seams, and the system constants.
+
+## [2.3.0] — 2026-09-05
+
+The launch-video register, measured from the films HKTITAN pointed at — OpenAI's *Refreshed.* and *Introducing GPT-5* — and built into the renderer and the demo.
+
+### Added — the bed-and-clicks register
+
+- **`references/sound/launch-video-sound.md`** rewritten around two measured registers: A, the sparse logo reveal (no bed, every hit on a motion peak); B, the OpenAI brand film — a warm sub-heavy bed in F (66 % of the energy under 120 Hz, root F1 with C2 · F2 · A2), dry clicks at 3.5–4.7 kHz with a 20–30 ms ten-dB decay sitting 10–20 dB under the sub, 3–5 hits per second while text streams, no tempo grid, silences of 0.5–1 s as punctuation, the sub alone pulled for a "thinking" beat, 61–64 % of frames still. Numbers, sources, and the gotcha that a stock bed is not this bed.
+- **`scripts/sound-sheet.mjs`** — a `bed` block (root, sub and pad levels, `gainPoints` as the film's act arc in dB, dropouts with `keep: "pad"`, swells, a 0.26 s pulse, automatic ducking under thuds) and four new cue kinds: `click`, `thud`, `type` (a run at a cadence with hand jitter), `flicker` (a cut-exact run at seven frames a step). Clicks stay in 2.8–5.2 kHz whatever the element; a big thing gets a thud on the bed's root. The `--family` one-shots now come from these voices.
+- **`references/sound/sound-from-motion.md`** — the bed and the runs added to the cue sheet, the arc as step four of the workflow.
+- **`docs/research/launch-register/`** — the three analysis scripts (onsets vs motion, tempo / bed / cuts, hits above the bed) and both films' summaries, so the numbers can be re-derived.
+
+### Changed — the demo
+
+- **Motion** in the OpenAI vocabulary: the wordmark arrives as a glyph flipbook (three accented variants, seven frames a step, weight climbing 300 → 600), the thesis streams in word by word at 110 ms, cards build line by line, the review table fills cell by cell at 210 ms, the command types in five chunks; placement still eases with `power3.out`; no whooshes, the bed carries every cut.
+- **Sound**: 72 onsets from 22 cues over a bed with a gain arc (−9 dB open, full by the review, resolving on the install), one sub dropout before the modal, ducking under six thuds; integrated −16.5 LUFS. `STORYBOARD.md` carries the act table, the cue map, and the reference measurements.
+- The footer uses the icon; the header-row contrast in the terminal now passes.
+
+## [2.2.0] — 2026-09-05
+
+Sound that is derived from the motion instead of placed against it, the launch-video cut grammar, a with/without benchmark run, and the AgentsORG mark.
+
+### Added — sound from motion
+
+- **`references/sound/sound-from-motion.md`** — the mapping (size → pitch and decay, x → pan, y → brightness, direction → contour, tween → length, contact frame → transient), the cue-sheet format, the workflow, and the rule that two settles on one frame are one cue.
+- **`scripts/sound-sheet.mjs`** — dependency-free, deterministic: a cue sheet → a stereo stem peak-normalized to −1 dBFS, with `--report` printing every onset's frame, pitch, length, and pan, and `--family` writing the six product one-shots from the same voices. One material (felt mallet on a wooden bar, breath through paper for travel), RBJ band-pass, constant-power pan, no randomness.
+- **The demo is rescored** with it: 25 cues, integrated −17.4 LUFS, every onset within one frame of its tween's settle, silence elsewhere. The nine library clips are gone; one clip carries the stem. `docs/demo/hyperframes/` gains the HeyGen project shape — `STORYBOARD.md` (act table + audio cue map), `ledger.json` (seams), `assets/sfx/cues.json`.
+
+### Added — launch-video seams
+
+- **`references/motion/launch-video-seams.md`** — from HeyGen's open-sourced launch compositions: one ease family with mirrored exits, matched vectors at every cut, a ledger per seam, the storyboard shape, and the HyperFrames gotchas (timeline padding, audio ids, preview autoplay). Routed from `routing-table` and `MOC-motion`.
+
+### Added — benchmark run
+
+- **`evals/run-bench.mjs`** — scores with/without-skill outputs against `design-bench.jsonl` on the fenced code each arm shipped (a Before column is not an answer). **`evals/results/2026-09-05-sonnet/`** — twenty raw outputs and the report: Sonnet alone 32/36 rules, Sonnet + the skill 35/36. The README carries the table and one fixture side by side.
+- The `gen-send-sound-01` rule now targets module-level `new AudioContext()` only; a lazy `ctx ??= new AudioContext()` inside the unlock gesture is the correct pattern, not a miss.
+
+### Added — brand
+
+- **`docs/brand/`** — the AgentsORG wordmark in light-background (the word set in ink) and dark-background variants, plus the icon; the README header and the demo's title and footer use them.
+
+### Changed
+
+- `sound-designer` (both formats), `/sound-pass`, `agents/README.md`, `AGENTS.md`, `MOC-sound`, `SKILL.md` — route launch-video sound to the cue sheet and `sound-sheet.mjs`; product families stay on `sound-family.mjs`.
+- Version 2.2.0 across all eight manifests; registry rebuilt.
+
+## [2.1.0] — 2026-09-05
+
+Three things at once: `/design-engineering` becomes a **router** over the design-skill ecosystem; two new clusters, **sound** and **svg**; and twenty nodes distilled from Emil Kowalski's design-engineering practice that fill the graph's thin spots (typography mechanics, OKLCH color, surfaces, forms, touch, polish, performance, component APIs, marketing surfaces, prototyping, tooling, docs, the unslop passes, skill writing). Plus design benchmarks and alignment with AgentsORG `.design` contract 1.3.
+
+### Added — the router
+
+- **`references/meta/skill-router.md`** — what `/design-engineering` does first: resolve the design contract (`.design` → `frame.md` / `design.md` / `DESIGN.md`), classify the phase (undecided → foundation → pieces → refine → check → name), pick the material, and hand the job to **one owner** — a node, a subagent, or an installed companion: AgentsORG `design`, impeccable (`/impeccable <command>`), HyperFrames, ElevenLabs `sound-effects`, `transitions-dev`, the shadcn CLI / MCP, `soundcn`. Detection rule for "installed"; companions inherit the contract and [[gotchas]] / [[pov]]. `SKILL.md` step 0, `agent/instructions.md`, `SOUL.md`, and `agents/README.md` point at it.
+
+### Added — `references/svg/` (4 nodes + MOC)
+
+- **`svg-creation`** — viewBox always, paths when it animates, `currentColor` / CSS variables, defs and symbols, named layers, SVGO with animation-safe flags, `<title>`/`<desc>`, the tells of generated SVG.
+- **`svg-animation`** — engine by where the file lives (inline CSS/WAAPI · library for gestures · embedded keyframes or SMIL for image use), stroke drawing, `transform-box: fill-box`, composite-only, reduced motion, size budgets vs Lottie.
+- **`svg-path-morphing`** — the same-command-count rule, authoring to it, flubber when it fails, and why icon swaps usually beat morphs.
+- **`video-to-vector-pipeline`** — flat clip → frames → quantize → vectorize (vtracer / Potrace) → clean → match layers → vector flipbook → Lottie / Rive; the flat-art constraint; after Adrian Abelarde's Anim8.
+- **`scripts/svg-flipbook.mjs`** — dependency-free: a folder of SVG frames → one self-contained animated SVG (stepped keyframes, duplicate frames collapsed into holds, `--vars` lifts colors to CSS custom properties, reduced motion freezes on frame 0, `<title>` labelling).
+- **`agents/svg-creator.md`**, **`agents/svg-animator.md`** (+ eve twins) and **`commands/svg-create.md`**, **`commands/svg-animate.md`**.
+
+### Added — distilled craft nodes (20)
+
+- surface: **`color-scales-oklch`**, **`depth-and-nesting`**. typography: **`type-scale-and-rhythm`**, **`line-behavior`**. components: **`forms-behavior`**, **`touch-and-focus`** (with the mobile-native fixes table), **`ui-polish-pass`**, **`component-api-design`**. motion: **`performance-discipline`**. layout: **`marketing-surface-rules`**. anti-patterns: **`unslop-pass`**, **`copy-tells`**, **`code-tells`**. meta: **`prototype-picker`**, **`build-a-tool`**, **`vibe-to-generator`**, **`design-system-docs`**, **`skill-writing-rules`**, **`design-benchmarks`**, **`skill-router`**.
+- Every one cites "Emil Kowalski's design-engineering practice, distilled by HKTITAN" plus public references; no course material is quoted or linked.
+
+### Added — demo
+
+- **`docs/demo/`** — a twelve-second HyperFrames composition (`hyperframes/index.html`, `check` clean) rendered to MP4 with sound and GIF for the README, five scene screenshots, the six ElevenLabs-generated sounds with their manifest, and the mascot flipbook produced by `svg-flipbook.mjs`. README gains a Demo section and a "What `/design-engineering` produces" gallery.
+- **`sound-family.example.json`** — `send` and `receive` prompts ask for damped, very-short-decay notes.
+- **`sound-family.mjs`** — tails are trimmed *relative to the peak* (a 5 ms RMS envelope followed until it sits 36 dB under its own peak) instead of at an absolute threshold, because generated audio's room tone lands at a different level every run; the WAV reader walks RIFF chunks. Verified live: tick 66 ms, tap 60 ms, receive 120 ms, error 153 ms, send 384 ms, success 641 ms, all at −3 dBFS.
+- **Demo motion pass** — 80 ms group staggers, exits at ~65% of the entrance with an 8 px nudge, overlay and modal paired, every transient placed one frame after its tween settles.
+
+### Added — benchmarks and evals
+
+- **`references/meta/design-benchmarks.md`** — DesignBench (generation / edit / repair, compile + CLIP + MLLM-judge, 9 edit types, repair issue categories) and Design Arena (anonymous pairwise votes, Bradley-Terry, vote threshold), and how this skill borrows both shapes.
+- **`skills/design-engineering/evals/design-bench.jsonl`** — twelve fixtures: generation, edit, and repair rows with `must_match` / `must_not_match` regexes tied to review-checklist rows, plus two `arena` rows for blind pairwise judging of node changes.
+- **`evals/design-bench.eval.ts`** — eve eval: a generated modal must carry reduced motion and a 0.9x start scale and must not carry `transition: all` or `scale(0)`.
+
+### Added — `.design` contract 1.3 alignment
+
+- **`spec/design-file-spec.md`** mirror and **`references/meta/using-design-file.md`** — `tokens.sound`, `assets.sounds`, `decisions.sound`, video targets, `exports.frame_md`, companion routing; the contract's sound tokens outrank `sound-spec` / `sound-decision-framework`.
+- **`templates/design-engineering.design`** — `tokens.sound.enabled: false` + `material`, `exports.frame_md`, commented `assets.sounds`; template 1.2.0; validates against the upstream linter and exports a `frame.md`.
+
+### Added — sound cluster
+
+Adds a ninth cluster: **sound**. The web forgot audio; this release gives the skill a source-cited way to decide whether an interface should be heard, design one material family, sync it to motion, and produce the files — with ElevenLabs when a key is present and open-weight / procedural / CC0 paths when it is not. The launch-video register (OpenAI / Studio Dumbar, bruno @tvnxty) is treated as its own surface with opposite defaults.
+
+### Added — `references/sound/` (8 nodes + MOC)
+
+- **`MOC-sound`** — the two surfaces (product UI silent by default; launch video sound-as-medium) and the read order.
+- **`sound-decision-framework`** — frequency → purpose → the 100th-use test → visual twin → off-by-default. Extends `delight-impact-curve` one notch stricter. Sources: Apple WWDC19 *Designing Audio-Haptic Experiences* (utility), Benji Taylor, Josh Comeau, Material Design.
+- **`sound-motion-sync`** — the transient lands on the contact frame; audio may lag a frame but never leads. ITU-R BT.1359 thresholds (+45 / −125 ms detectable). Measured: 32 onsets in a 10.7 s bruno (@tvnxty) logo reveal, every one within two frames of a visual motion peak; holds at −56 dBFS.
+- **`sound-palette`** — one material per product; size → pitch and length; contour → meaning; consonance → success, dissonance → error; pitch variation on repeats. Earcon grammar (Blattner 1989), Apple's real-instrument practice.
+- **`sound-spec`** — duration bands by category, −18 to −14 LUFS for feedback, ≈ −12 for notifications, −14 LUFS / −1 dBTP video master, −3 dBFS peak, mono 44.1 kHz, zero leading silence, high-pass at 150 Hz.
+- **`sound-playback-web`** — lazy `AudioContext`, resume on first gesture, decode once, one `AudioBufferSourceNode` per play, persisted mute off by default, never sound-only information, never on `focus`; iOS silent switch and `ambient` session category.
+- **`sound-generation-elevenlabs`** — `POST /v1/sound-generation` fields and ranges, 200 credits per generation, the material-first prompt formula ("felt mallet on wood, dry, no tail"), `prompt_influence` 0.8, 0.5 s requests, one session per family, regenerate the whole family.
+- **`sound-generation-open-source`** — decision table across open-weight models (Stable Audio 3 Small-SFX on CPU under the Community License; AudioGen weights are non-commercial), procedural synthesis (Web Audio, ZzFX < 1 KB MIT), and CC0 libraries (Kenney, soundcn via shadcn CLI, Freesound APIv2 with a CC0 filter).
+- **`launch-video-sound`** — the four measurable properties of the premium register (density mirrors motion, holds are silence, size → pitch/length, materials not effects), a full timed sound map of the @tvnxty Base reveal, and a Remotion / HyperFrames timeline recipe.
+
+### Added — tooling
+
+- **`skills/design-engineering/scripts/sound-family.mjs`** — dependency-free Node 18+ script. One manifest → a normalized family of files. Uses ElevenLabs when `ELEVENLABS_API_KEY` is set, a built-in synthesizer (tick, tap, chime, thud, pop, whoosh) when it is not; trims leading and trailing silence, fades the tail, peaks at −3 dBFS, writes mono 44.1 kHz WAV and a `manifest.json` with prompts, recipes, and licenses. `--dry-run` prints prompts without spending credits. **`sound-family.example.json`** ships a six-sound family.
+- **`agents/sound-designer.md`** (+ eve twin `agent/subagents/sound-designer/`) — seventh subagent: decide → palette → generate → spec → wire → sound-map table. **`commands/sound-pass.md`** — its slash command.
+- **`evals/sound-values.eval.ts`** — sound advice must name a duration, a level, or say "no sound".
+
+### Changed
+
+- **`SKILL.md`** — description gains sound triggers (deciding whether an interaction should make a sound, generating UI sound effects, syncing sound to animation, scoring a launch video) and the new sources; new **Sound** section; subagents list gains `sound-designer`; version **2.1.0**.
+- **`references/meta/routing-table`** — four sound rows. **`disambiguation`** — "Sound has three owners". **`stacking-chains`** — "Add sound to a product" and "Launch video or logo reveal" chains.
+- **`references/meta/review-checklist`** — rows 12 (sound with no mute / on by default) and 13 (sound on hover / focus / keystroke / page load); "eleven-row" → "thirteen-row" in `ui-reviewer` and `SKILL.md`.
+- **`references/meta/design-vocabulary`** — new category 13, Sound (transient, earcon, contour, material, envelope, tail, dry/wet, one-shot/loop, sprite, LUFS/dBFS/true peak, ducking, pre-roll, whoosh/riser/stinger/braam, audio-haptic harmony).
+- **`references/anti-patterns/ai-default-tells`** — Sound table (click on every button, stock-pack sounds, reverb blips, on by default, bed hiding unsynced hits). **`MOC-anti-patterns`**, **`MOC-motion`**, **`interaction-personality`** — cross-cluster pointers.
+- **`references/meta/gotchas`** — six sound gotchas dated 2026-09-05.
+- **`evals/loading.jsonl`** — five positive and three negative sound queries. **`evals/progressive-reads.jsonl`** — one row per new node.
+- **`templates/design-engineering.design`** — `tokens.sound` (default off, peak, loudness classes, durations, max sync lag), `decisions.sound`, three `constraints.never` rows, a sound source; template version 1.1.0.
+- **`scripts/build-registry.mjs`** — the skill item now ships `.mjs` and `.json` under `skills/` so the generator installs with the graph; descriptions updated to nine clusters / seven subagents. Registry rebuilt.
+- **`.github/workflows/lint.yml`** — required files gain `agents/sound-designer.md` and the script.
+- **`README.md`**, **`AGENTS.md`**, **`SOUL.md`**, **`CONTRIBUTING.md`**, **`agents/README.md`**, **`agent/instructions.md`**, all six plugin manifests, `package.json` — ten clusters, nine subagents, nine commands, new sources, version 2.1.0.
+- **`references/meta/routing-table`** — twenty new rows for the distilled and SVG nodes; **`disambiguation`** — feels-finished now routes to `ui-polish-pass`, plus feels-wrong vs drops-frames and broken vs unpolished; **`stacking-chains`** — mascot/vector, "looks AI-generated", and documenting-the-system chains; the undecided chain now names `prototype-picker`, `vibe-to-generator`, `build-a-tool`.
+- **`references/meta/gotchas`** — nine more entries (nested radius, L-only contrast, `text-wrap: balance` on paragraphs, `opacity: 0` drawers in the tab order, cargo-cult `will-change`, restyling without subtracting, SVG origin, morph command mismatch, loading four skills at once).
+- **`evals/loading.jsonl`** and **`progressive-reads.jsonl`** — rows for every new node and the router.
+- **`.github/workflows/lint.yml`** — required files gain both SVG subagents and `svg-flipbook.mjs`.
+
+## [2.0.0] — 2026-08-08
+
+The repo is reorganised around **four primitives**: Knowledge (the skill graph), Package ([Agent Plugins v1.0.0](https://agent-plugins.org/)), Runtime ([eve](https://eve.dev/)), and Client extensions (per-host manifests, plus a [shadcn registry](https://ui.shadcn.com/docs/registry)). No knowledge was removed; the delivery layers were rebuilt from first principles.
+
+### Added — shadcn registry
+
+The repo is now a [shadcn registry](https://ui.shadcn.com/docs/registry), so any frontend project can install the skill with the CLI it already has: `npx shadcn@latest add https://raw.githubusercontent.com/AgentsORG/design-engineering/main/r/design-engineering.json`.
+
+- **`registry.json`** + **`r/*.json`** — four items: `design-engineering` (the full 85-file skill graph → `.agents/skills/`), `design-engineering-agents` (six subagents + six commands → `.claude/`), `design-engineering-design-file` (the starter `.design` → project root), and `design-engineering-motion` (a `registry:theme` of easing curves and durations as CSS variables — the lightest way in, no skill install).
+- **`scripts/build-registry.mjs`** + `npm run build:registry` — generates both from the canonical sources. The `r/` items embed file content and are committed so raw URLs resolve.
+- **CI `registry-check`** — rebuilds and fails on drift, then validates every item and the registry against the published shadcn schemas.
+
+### Added — `.design` contract support
+
+Integrates the [`design.v1` living visual contract](https://github.com/AgentsORG/design) — a machine-readable YAML system with committed aesthetic intent, executable policy, and copy voice.
+
+- **`references/meta/using-design-file.md`** — new meta node: discovery (nearest wins, `extends` resolution), load order, following, updating, drift verification, and the shadcn bridge. States the precedence chain plainly: a project's `.design` outranks this skill, which sits at the generic-taste tier. Silence in the contract is where the craft canon still applies.
+- **`spec/design-file-spec.md`** — offline spec mirror (MIT), matching the existing `spec/` convention.
+- **`templates/design-engineering.design`** — a starter contract encoding this skill's canonical motion and surface defaults (four easing curves, the duration scale with a 0.6 exit ratio, layered elevation, `constraints.never`). Color and typography are declared in `omitted` — brand decisions the skill advises on but does not make. Validates clean against the upstream linter.
+- **`agents/design-md-consumer.md`** (+ eve twin) — broadened from DESIGN.md-only to any design contract: discovers `.design` first, resolves precedence, reports drift as added/removed/modified with a regression flag, and honors `locked` paths.
+- **`commands/apply-design-md.md`** — rewritten around contract discovery and bootstrap.
+- **`references/meta/using-design-md.md`** — now points at `.design` as the higher-precedence contract when both exist.
+- **`plugin.json`** — new `com.shadcn.registry` and `org.agentsorg.design` extension namespaces.
+
+### Added — Agent Plugins conformance
+
+- **`plugin.json`** (repo root, NEW) — canonical manifest with `$schema: https://agent-plugins.org/schemas/1.0.0/plugin.schema.json`. The portable core is `plugin.json` + `skills/`; every client-specific surface is declared under `extensions`, keyed by reverse-domain namespace (`com.anthropic.claude-code`, `com.openai.codex`, `com.cursor.editor`, `dev.vercel.plugins`, `dev.eve.agent`). Clients ignore namespaces they don't implement.
+
+### Added — eve runtime
+
+The repo is now a runnable [eve](https://eve.dev/) project: a durable design-engineering agent whose knowledge is the skill graph.
+
+- **`agent/agent.ts`** — `defineAgent()` runtime config for the root agent.
+- **`agent/instructions.md`** — base system prompt distilled from `SOUL.md` (core truths, operating rules, delegation, voice).
+- **`agent/subagents/<name>/`** — eve twins of all six workflow subagents, each with an `agent.ts` (delegation description + model) and `instructions.md` (skill paths rewritten to the sandbox seed location `$HOME/.agents/skills/...`).
+- **`evals/`** — `defineEval()` scored checks: `review-format.eval.ts` (review requests must return the Before | After | Why table) and `motion-values.eval.ts` (easing advice must name concrete values). `evals.config.ts` holds shared defaults.
+- **`scripts/sync-skills.mjs`** + **`package.json`** scripts — `skills/design-engineering/` stays the single source of truth; `agent/skills/` is generated (gitignored) before `eve dev` / `eve eval`.
+
+### Added — routing layer (meta cluster)
+
+Three new meta nodes encode how to *navigate* the graph, not just what's in it:
+
+- **`references/meta/routing-table.md`** — intent → entry-node router plus the four postures (build / judge / decide / name) and their output-shape rules.
+- **`references/meta/disambiguation.md`** — the questions that blur together (the four motion questions, three dark-mode owners, two layout-shift owners, craft-vs-floor hit areas) with tiebreakers.
+- **`references/meta/stacking-chains.md`** — ordered node chains for multi-step jobs (new screen start-to-ship, feel-better pass, design system from scratch, marketing surface, a11y pass, jank triage, divergent prototyping on a named axis).
+
+### Changed — delivery layers
+
+- **`skills/design-engineering/SKILL.md`** — "How to use" now routes through `[[routing-table]]` first; Meta section lists the three routing nodes; version **2.0.0**.
+- **`README.md`** — rewritten around the four primitives; repository layout, Agent Plugins conformance section, eve runtime section.
+- **`AGENTS.md`** — four-primitives overview, eve-mirror editing rule (change `agents/<name>.md` and `agent/subagents/<name>/` together), six-manifest version parity.
+- **`.github/workflows/lint.yml`** — validates root `plugin.json` + `package.json` JSON; version parity now spans eight files; required-files list includes the eve runtime.
+- **`.gitignore`** — ignores `.eve/`, `agent/skills/` (generated), `package-lock.json`.
+- All manifests bumped to **2.0.0**.
+
+### Added — Index "articulate" integration (index.how)
+
+Integrates [index.how/to/articulate](https://index.how/to/articulate) — Emil Kowalski & Glenn Carstens-Peters' "say precisely what you mean" design vocabulary — into the skill. Glosses are this skill's own (re-expressed, not lifted); Index is the canonical reference.
+
+- **`references/philosophy/articulate-precisely.md`** — new philosophy node: name the phenomenon exactly and say why it works; precise vocabulary is what converts taste into a rule an agent can follow. Sibling to `pointing-beats-describing` (the *word* vs the *target*). Sources: Index and Emil Kowalski's *Agents with Taste*.
+- **`references/meta/design-vocabulary.md`** — new lexicon node: the precise word for each design phenomenon across Index's 188-term `articulate` module (12 categories), with original glosses and `→ [[node]]` cross-links to where each concept is treated in depth. Terms with no deeper node are named but left as plain vocabulary.
+- **`references/components/component-confusables.md`** — new components node converting Index's confusable component pairs into a rule: tooltip vs popover (interactive content?), badge vs tag (attached/read-only vs standalone/interactive), sheet vs drawer vs dialog.
+
+### Changed
+
+- **`skills/design-engineering/SKILL.md`** — Philosophy MOC line gains `articulate-precisely`; Meta section gains `design-vocabulary`; description source list adds Index (index.how).
+- **`references/philosophy/MOC-philosophy.md`** — lists the new `articulate-precisely` node.
+- **`references/components/MOC-components.md`** — lists `component-confusables`.
+- **`references/typography/MOC-typography.md`** — cross-cluster pointer to `design-vocabulary` for precise typographic terms.
+- **`README.md`**, **`AGENTS.md`**, **`SOUL.md`** — Index added to the "Distills…" intro, repository-layout tree, node count (66 atomic nodes / 86 files), and the Sources / Sources-of-truth / taste-lineage registries.
+
+## [1.7.2] — 2026-05-22
+
+### Added
+
+- **`.plugin/plugin.json`** — vendor-neutral manifest for `npx plugins add AgentsORG/design-engineering` ([vercel-labs/plugins](https://github.com/vercel-labs/plugins)).
+- **`agents/`** (repo root) — six workflow subagents hoisted from `skills/design-engineering/agents/` so the plugins CLI and Cursor/Codex manifests discover them at install time.
+- **`commands/`** — six slash workflows: `review-ui`, `motion-audit`, `scan-ai-tells`, `agentation-fix`, `apply-design-md`, `fork-pov`.
+
+### Changed
+
+- **`.cursor-plugin/plugin.json`**, **`.codex-plugin/plugin.json`** — `agents` and `commands` paths; version **1.7.2**.
+- **`README.md`** — Plugins CLI install section; repository layout updated.
+- **`AGENTS.md`**, **`SOUL.md`**, **`skills/design-engineering/SKILL.md`** — subagent path `agents/`; version **1.7.2**.
+- **`.github/workflows/lint.yml`** — CI checks `agents/` at repo root; five-manifest version parity including `.plugin/`.
+
+### Removed
+
+- **`skills/design-engineering/agents/*.md`** (except redirect `README.md`) — content lives under repo-root `agents/`.
+
+## [1.7.1] — 2026-05-22
+
+### Fixed
+
+- **`skills/design-engineering/SKILL.md`** — description rewrapped as a double-quoted YAML scalar and embedded `"..."` substrings rephrased to plain prose. The skills.sh web indexer was showing "0 skills" despite the CLI installing fine (CLI parses YAML loosely; the indexer's parser appeared brittle on unquoted double-quote substrings inside the value). Similar regressions documented at [vercel-labs/skills#1017](https://github.com/vercel-labs/skills/issues/1017) and [#1036](https://github.com/vercel-labs/skills/issues/1036).
+- **`.claude-plugin/plugin.json`**, **`.claude-plugin/marketplace.json`**, **`.codex-plugin/plugin.json`**, **`.cursor-plugin/plugin.json`** — version bumped to 1.7.1 to satisfy the `Plugin manifest versions match` CI check.
+
+No content changes; pure indexing-safety patch.
+
+## [1.7.0] — 2026-05-22
+
+### Added — multi-agent plugin manifests (hyperframes pattern)
+
+The repo now ships three agent-specific plugin manifests in addition to the skills.sh / `npx skills add` install path, following the same pattern as [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes). Each major agent host can install the design-engineering skill via its native plugin system without going through the cross-agent `skills.sh` shim.
+
+- **`.claude-plugin/plugin.json`** (NEW) — minimal Claude Code plugin metadata (name, description, version, author, homepage, repository, license). No `skills` field — Claude Code auto-discovers from `skills/`.
+- **`.claude-plugin/marketplace.json`** (refactored) — single-entry pattern with `"source": "./"` so the repo doubles as its own marketplace. Drops the nested `plugins[].skills[]` array in favor of auto-discovery. Top-level `owner` instead of `author` (matches the hyperframes / Claude Code marketplace schema).
+- **`.codex-plugin/plugin.json`** (NEW) — full OpenAI Codex manifest with `keywords`, `skills: "./skills/"`, and an `interface` block (displayName: "Design Engineering by HKTITAN", shortDescription, longDescription, developerName, category: Design, capabilities: Read+Write, defaultPrompt array, brandColor: `#0a0a0a`).
+- **`.cursor-plugin/plugin.json`** (NEW) — Cursor IDE manifest with `$schema`, `displayName`, `publisher`, `category: developer-tools`, `tags`, `keywords`, and the same `skills` path.
+
+Install paths now read:
+
+```bash
+# Cross-agent (recommended) — skills.sh
+npx skills add AgentsORG/design-engineering
+
+# Claude Code marketplace
+/plugin marketplace add AgentsORG/design-engineering
+/plugin install design-engineering
+
+# Codex marketplace
+codex plugin marketplace add AgentsORG/design-engineering --sparse .codex-plugin --sparse skills
+
+# Cursor — sideload via Settings → Plugins → Load unpacked
+```
+
+### Changed
+
+- **`README.md`** — Install section expanded with per-agent commands. Repository-layout tree updated to show all three plugin dotfolders.
+- **`AGENTS.md`** — new `## Plugin manifests` section documenting the four manifests and the version-parity convention.
+- **`.github/workflows/lint.yml`** — required-files check extended to `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`. New `Plugin manifests are valid JSON` step parses all four manifests with Python. New `Plugin manifest versions match` step verifies that all four manifests + SKILL.md report the same version (drift fails the lint job).
+- **`skills/design-engineering/SKILL.md`** version bumped to 1.7.0.
+
+### Breaking-ish
+
+The Claude Code `marketplace.json` schema changed shape: top-level `owner` replaces `author`, and the nested `plugins[].skills[]` array was removed in favor of auto-discovery from `skills/`. Existing installs continue to work because the skill content path (`skills/design-engineering/SKILL.md`) is unchanged. New installs via `/plugin marketplace add` use the simpler pattern.
+
+## [1.6.0] — 2026-05-22
+
+### Added — per-agent souls
+
+Each of the six workflow subagents now carries its own `## Soul` section at the bottom of its file. The block inherits from the repo-root `SOUL.md` and narrows that floor to the subagent's specific job — who it is, truths it holds, boundaries it refuses to cross, and the voice it speaks in.
+
+The pattern follows the same five-section spirit as [steipete/SOUL.md](https://github.com/steipete/SOUL.md), compressed inline so the harness can load it alongside the agent's system prompt without a separate file fetch:
+
+- **`ui-reviewer`** — Senior design engineer pairing on code review. Table is the deliverable; prose is throat-clearing.
+- **`motion-auditor`** — Tuner of timing and easing. Animator's precision, no flourish; cite the curve and the number.
+- **`anti-pattern-scanner`** — Deletion specialist. Clinical, surgical; flag the unmotivated, not the merely common.
+- **`agentation-fix-loop`** — Implementer's voice. Annotation is the spec; the diff is the deliverable.
+- **`design-md-consumer`** — Consumer, not author. Deferential to the project's design system; confident about *how*, respectful about *what*.
+- **`pov-curator`** — Facilitator, not author. Prompts with the right questions; writes only what the installer dictates.
+
+### Changed
+
+- **`SOUL.md`** — Related section now flags that each subagent ships its own narrowed soul block.
+- **`skills/design-engineering/agents/README.md`** — "What they all share" section documents the soul-block convention.
+- **`.github/workflows/lint.yml`** — new `Subagent soul block` step verifies every subagent file declares a `## Soul` section. Joins the existing frontmatter + filename-match checks.
+- **`skills/design-engineering/SKILL.md`** + **`.claude-plugin/marketplace.json`** version bumped to 1.6.0.
+
+## [1.5.0] — 2026-05-22
+
+### Added — SOUL.md, 6 workflow subagents, AGENTS.md polish
+
+The skill now ships an identity layer (`SOUL.md`) and a set of six narrow-purpose subagents that cover the highest-value design-engineering workflows. Everything stays Obsidian-compatible and skills.sh-compliant.
+
+- **`SOUL.md`** at repo root — the [steipete/SOUL.md](https://github.com/steipete/SOUL.md) + [OpenClaw](https://docs.openclaw.ai/reference/templates/SOUL) five-section template (Core Truths, Boundaries, Vibe, Continuity, Related). Anchors voice in the existing taste lineage (Emil, Benji, Jakub, guidelines.sh, Vercel, Ben DC). Cross-linked from AGENTS.md and SKILL.md so non-OpenClaw harnesses pick it up.
+- **`skills/design-engineering/agents/`** — six workflow subagents, each ~80–150 lines, with `name` / `description` / `tools` / `model` frontmatter per the [Claude Code subagent spec](https://docs.claude.com/en/docs/claude-code/sub-agents):
+  - `ui-reviewer` — runs the `[[review-format]]` Before / After / Why table + `[[review-checklist]]` audit.
+  - `motion-auditor` — animation / transition critique against the motion cluster + transitions.dev.
+  - `anti-pattern-scanner` — AI-default-tell deletion list (purple gradients, Inter-on-marketing, stock copy).
+  - `agentation-fix-loop` — Session-2 fix side of the [[agentation-workflow]] two-session pattern.
+  - `design-md-consumer` — reads a project's DESIGN.md and threads tokens through generated UI.
+  - `pov-curator` — helps installers fork [[pov]] and append to [[gotchas]].
+- **`skills/design-engineering/agents/README.md`** — directory index + selection guide. Documents *why* there are workflow subagents instead of theme parrots.
+
+### Changed
+
+- **`AGENTS.md`** — adds explicit `## Testing` section (CI gate explainer), a `## skills.sh discovery` paragraph documenting the re-index trigger, and a cross-link to SOUL.md. File-conventions section now covers the `agents/` directory layout.
+- **`SKILL.md`** — adds `compatibility:` frontmatter field per [Agent Skills specification](spec/agent-skills-spec.md), `metadata.subagents` + `metadata.soul` pointers, and two new MOC sections (Workflow subagents, Identity / SOUL.md). Version bumped to 1.5.0.
+- **`.github/workflows/lint.yml`** — required-files check extended to validate SOUL.md and all six subagent files. New `Subagent frontmatter fields` step verifies each subagent declares `name`, `description`, `tools`, `model`, and that the name matches the filename. Wikilink resolver now indexes `agents/` basenames so cross-references from SKILL.md resolve.
+- **`.claude-plugin/marketplace.json`** — version bumped to 1.5.0; description expanded to mention subagents and SOUL.md.
+
+### skills.sh compatibility note
+
+The local SKILL.md was already structurally compatible with [skills.sh](https://www.skills.sh) (valid `name` / `description`, `Load when` prefix, name-matches-folder). The live page at [skills.sh/agentsorg/design-engineering/design-engineering](https://www.skills.sh/agentsorg/design-engineering/design-engineering) was showing a stale "No SKILL.md available" warning. Re-running `npx skills add AgentsORG/design-engineering` after this release should trigger a re-index.
+
+## [1.4.0] — 2026-05-22
+
+### Added — Obsidian vault polish
+
+The `.obsidian/` config now ships a coherent visual layer for installers who open the repo as a vault:
+
+- **Graph view color groups** — every node is colored by its theme cluster, with `MOC-*.md` hub files standing out in the warmest hue so the structure of the graph reads at a glance. Nine groups: MOCs, philosophy, motion, typography, surface, components, layout, anti-patterns, meta.
+- **`.obsidian/snippets/vault-tokens.css`** — small CSS snippet that wires Obsidian's UI to the same tokens the skill itself recommends: one easing curve, three durations (60ms / 180ms / 220ms), the 6 / 10 / 14px radius scale, 1px hover lifts on interactive elements, `scale(0.98)` press, full `prefers-reduced-motion` guard.
+- **Accent color** set to a calm coral that complements the warm-cream surface most note-taking themes default to.
+- **`appearance.json`** declares the snippet enabled so it's active on first open.
+
+Nothing in the published skill content changed — these only affect the vault-view experience when installers browse the repo in Obsidian.
+
+## [1.3.0] — 2026-05-22
+
+### Changed — repo migration
+
+The skill's canonical home moved from [`HKTITAN/design-engineering`](https://github.com/AgentsORG/design-engineering) (auto-redirects) to [`AgentsORG/design-engineering`](https://github.com/AgentsORG/design-engineering). All URL references updated:
+
+- **Install command** is now `npx skills add AgentsORG/design-engineering`.
+- **README** badges (`skills.sh`, `CI`), the paste-into-agent block, file-tree mentions, and Sources section updated to the new URL.
+- **AGENTS.md** install command updated.
+- **CONTRIBUTING.md** clone URL and issues link updated.
+- **.claude-plugin/marketplace.json** `homepage` and `repository` updated; version bumped to 1.3.0.
+- **skills/design-engineering/SKILL.md** frontmatter `metadata.version` bumped to 1.3.0.
+- **CHANGELOG** compare links updated.
+
+The old URL (`HKTITAN/design-engineering`) auto-redirects via GitHub, so existing clones and installed skills continue to work. New installs should use the AgentsORG URL.
+
+### Attribution unchanged
+
+- LICENSE copyright stays "HKTITAN" — the individual author.
+- `metadata.author: HKTITAN` in SKILL.md frontmatter — unchanged.
+- `marketplace.json` `author.name: HKTITAN`, `author.url: https://github.com/HKTITAN` — unchanged (HKTITAN is the human curator; AgentsORG is the new repo owner).
+- `meta/pov.md` HKTITAN starter POV — unchanged (it's an example for installers to override).
+
+## [1.2.1] — 2026-05-22
+
+### Fixed
+
+- `template/SKILL.md` renamed to `template/TEMPLATE.md`. The skills.sh CLI globs `**/SKILL.md` across the repo when discovering installable skills, so the template file was appearing as a second skill candidate (`your-skill-name`) in the install picker. Renaming sidesteps the glob while keeping the starter content discoverable to contributors. ([#install-picker-fix](https://github.com/AgentsORG/design-engineering/commit/v1.2.1))
+- `.github/workflows/lint.yml` required-files check updated to reference `template/TEMPLATE.md`.
+- README file tree and `marketplace.json` version updated accordingly.
+
+## [1.2.0] — 2026-05-21
+
+Adds two more named sources mirrored offline in `spec/` — the full [Agent Skills specification](https://github.com/agentskills/agentskills) and [Google Labs' design.md format](https://github.com/google-labs-code/design.md) — plus integrates [Agentation](https://www.agentation.com) as both an installer-recommended companion tool and a skill-graph node.
+
+### Added — 3 new nodes
+
+- `meta/using-design-md.md` — How the agent reads, respects, and rarely updates a project's `DESIGN.md` file. Token-category → relevant skill-node cross-reference table.
+- `meta/agentation-workflow.md` — Install Agentation. Click-to-annotate design review. Two-session critique-then-fix workflow with MCP. Critique style guidelines.
+- `philosophy/pointing-beats-describing.md` — Benji Taylor's principle: precise machine-readable selection (selectors, file paths, computed styles) beats prose when feedback goes to an AI agent.
+
+### Added — 2 new spec mirrors
+
+- `spec/agent-skills-spec.md` — Full mirror of the canonical Agent Skills specification (previously only a one-line pointer). Apache-2.0 / CC-BY-4.0.
+- `spec/design-md-spec.md` — Full mirror of the design.md format spec (frontmatter token schema, section order, CLI, linter rules, programmatic API). Apache-2.0.
+
+### Changed
+
+- `SKILL.md` description expanded to mention consuming DESIGN.md tokens and giving feedback through Agentation. Version bumped to 1.2.0.
+- `MOC-philosophy.md` links `[[pointing-beats-describing]]`. SKILL.md Meta section links the two new meta nodes.
+- `README.md` adds a **Recommended companions** section that points installers to Obsidian and Agentation, with install commands. Sources section expanded with Google Labs Code, agentskills.io, and Agentation. See-also section links the new spec mirrors. File count updated to 75.
+- `AGENTS.md` adds three new entries to Sources of truth: Google Labs Code, Agentation, agentskills.io.
+- `marketplace.json` v1.2.0; description mentions Agentation workflow and design.md consumption.
+
+## [1.1.0] — 2026-05-21
+
+Adds two more named sources — [Vercel's web-interface guidelines](https://vercel.com/design/guidelines) and [Ben DC's frontend-guidelines](https://github.com/bendc/frontend-guidelines) — distilled into 7 new atomic nodes covering accessibility, copy voice, URL state, contrast math, optimistic updates, CSS conventions, and dependency discipline.
+
+### Added — 7 new nodes
+
+**`components/` (3 nodes)**
+
+- `accessibility-baseline.md` — Keyboard-everywhere, `:focus-visible` rings, hit targets (24/44px), ARIA names on icon-only buttons, polite aria-live for async. The a11y floor below taste. (Vercel + bendc)
+- `optimistic-updates.md` — Update UI immediately on likely-success actions, reconcile or undo on failure. Largest perceived-latency win available without infra changes. Pair destructive actions with Undo toasts. (Vercel)
+- `copy-voice.md` — Active voice, Title Case for headings/buttons, "&" over "and", numerals for counts, error messages that guide the exit. Microcopy is design. (Vercel)
+
+**`layout/` (1 node)**
+
+- `url-as-state.md` — Filters, tabs, pagination, panels — all live in the URL. Back/forward restores scroll. Deep-link every modal. (Vercel)
+
+**`surface/` (1 node)**
+
+- `contrast-and-color-scheme.md` — APCA over WCAG 2 for contrast math. `<meta name="theme-color">` + `color-scheme: dark`. Interactions raise contrast. Avoid gradient banding. (Vercel)
+
+**`motion/` (1 node)**
+
+- `css-conventions.md` — `1turn` over `360deg`, unitless line-height, hex over rgb, native browser APIs over libraries. Ben DC's CSS dialect choices. (bendc)
+
+**`philosophy/` (1 node)**
+
+- `dependency-discipline.md` — Every dependency is a tax. Replicate simple utilities. Draw shapes in CSS. Prefer native browser APIs. The bundle is design. (bendc)
+
+### Changed
+
+- `SKILL.md` description expanded to mention writing UI copy and auditing a11y. All 5 affected MOCs updated to link the new nodes.
+- `marketplace.json` version bumped to 1.1.0; description expanded to list the new source authors.
+- `README.md` — repo layout tree includes new nodes; Sources section adds Vercel + bendc with their specific contributions; file count updated to 72 markdown files.
+- `AGENTS.md` — Sources of truth section adds Vercel + bendc with the node lists they sourced.
+
+## [1.0.0] — 2026-05-21
+
+Initial public release of the `design-engineering` skill graph.
+
+### Skill content
+
+**8 themed clusters, 53 atomic nodes + 8 MOCs + 1 SKILL.md.**
+
+- `philosophy/` — 8 nodes: taste-is-trained, unseen-details-compound, beauty-is-leverage, delight-impact-curve, feeling-right, marketing-vs-product-ui, states-are-the-work, data-is-content.
+- `motion/` — 25 nodes covering animation decisions, easing, durations, springs, gestures, stagger, accessibility, transitions, library design, debugging, and Benji Taylor's full catalog (lerp-breathing, morphing-icons, shared-letter-morph, tray-rules) plus the lucide-animated hover-default-imperative pattern.
+- `typography/` — 2 nodes: typography-humanity, line-length-tracking.
+- `surface/` — 5 nodes: color-monochromatic, dark-mode, shadows-whisper, border-radius, visual-imperfection.
+- `components/` — 7 nodes: hover-states-subtle, empty-loading-states, icon-systems, cards-design, forms-validation, avatar-systems (all 31 DiceBear v9.x styles with previews), interaction-personality.
+- `layout/` — 2 nodes: viewport-custom-design, sticky-and-scroll-tells.
+- `anti-patterns/` — 2 nodes: ai-default-tells, content-authenticity.
+- `meta/` — 5 files: review-format (required for UI critiques), review-checklist, cross-model-testing, gotchas, pov.
+
+### Evals (Perplexity Step 0)
+
+- `skills/design-engineering/evals/loading.jsonl` — 20 positive + negative routing tests.
+- `skills/design-engineering/evals/progressive-reads.jsonl` — 20 retrieval tests.
+- `skills/design-engineering/evals/README.md` — format spec.
+
+### Scaffolding
+
+- `spec/agent-skills-spec.md` — pointer to the [Agent Skills specification](https://agentskills.io/specification).
+- `template/SKILL.md` — starter template for new skills.
+- `.claude-plugin/marketplace.json` — Claude Code marketplace manifest.
+
+### Policy and CI
+
+- `CODE_OF_CONDUCT.md` — Contributor Covenant v2.1.
+- `SECURITY.md` — responsible-disclosure (3-business-day acknowledgement).
+- `CONTRIBUTING.md` — node format, length targets, themes table, PR checklist, evals guidance, cross-model testing.
+- `.github/workflows/lint.yml` — markdownlint, frontmatter check, required-files check, `Load when` description check, wikilink resolution check.
+- `.github/PULL_REQUEST_TEMPLATE.md`.
+- `AGENTS.md` — repo-level operating guidance for AI agents editing the repo.
+
+### Sources distilled
+
+- **Emil Kowalski** — [emilkowalski/skill](https://github.com/emilkowalski/skill), [animations.dev](https://animations.dev), Sonner, Vaul.
+- **Benji Taylor** — [benji.org](https://benji.org) (Family Values, Honkish, Liveline, Morphing Icons with Claude, Annotating, Agentation).
+- **Jakub Antalik** — [transitions.dev](https://transitions.dev) (cross-blur, compose-subtract-asymmetry, distance-falloff-propagation, multi-segment-shake).
+- **James Frewin** — [guidelines.sh](https://guidelines.sh).
+- **dmytro / @pqoqubbw** — [lucide-animated.com](https://lucide-animated.com).
+- **DiceBear** — [dicebear.com/styles](https://www.dicebear.com/styles) — all 31 v9.x styles in `components/avatar-systems`.
+- **HKTITAN / Duolingo Skills** — [hktitan/duolingo](https://github.com/hktitan/duolingo) — skill-graph layout reference.
+- **Akshay Pachaar** — [Skill Graphs > SKILL.md](https://x.com/akshay_pachaar) — skill-graph framing.
+- **Perplexity Agents team** — [Designing, Refining, and Maintaining Agent Skills](https://research.perplexity.ai/articles/designing-refining-and-maintaining-agent-skills-at-perplexity) — progressive disclosure, gotchas flywheel, evals-first.
+- **Anthropic** — [anthropics/skills](https://github.com/anthropics/skills) — `spec/` + `template/` repo layout.
+
+### Install
+
+```bash
+npx skills add AgentsORG/design-engineering
+```
+
+[Unreleased]: https://github.com/AgentsORG/design-engineering/compare/v1.7.1...HEAD
+[1.7.1]: https://github.com/AgentsORG/design-engineering/compare/v1.7.0...v1.7.1
+[1.7.0]: https://github.com/AgentsORG/design-engineering/compare/v1.6.0...v1.7.0
+[1.6.0]: https://github.com/AgentsORG/design-engineering/compare/v1.5.0...v1.6.0
+[1.5.0]: https://github.com/AgentsORG/design-engineering/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/AgentsORG/design-engineering/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/AgentsORG/design-engineering/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/AgentsORG/design-engineering/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/AgentsORG/design-engineering/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/AgentsORG/design-engineering/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/AgentsORG/design-engineering/releases/tag/v1.0.0

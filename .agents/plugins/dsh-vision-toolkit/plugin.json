@@ -1,0 +1,9 @@
+{
+  "name": "dsh-vision-toolkit",
+  "description": "Antigravity plugin bundle for dsh-vision-toolkit imported from Anionex/dsh-vision-toolkit.",
+  "suggestedPrompts": [
+    "Start using dsh-vision-toolkit",
+    "Show capabilities of dsh-vision-toolkit",
+    "Run health check for dsh-vision-toolkit"
+  ]
+}

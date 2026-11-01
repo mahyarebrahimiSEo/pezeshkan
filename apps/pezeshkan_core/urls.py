@@ -22,6 +22,11 @@ urlpatterns = [
     path('download', views.portal_page, {'page_name': 'download'}, name='download'),
     path('appointments', views.appointments_page, name='appointments_portal'),
     path('portal/appointments.html', views.appointments_page, name='portal_appointments_html'),
+    path('service-appointments', views.portal_page, {'page_name': 'service-appointments'}, name='service_appointments'),
+    path('service-emr', views.portal_page, {'page_name': 'service-emr'}, name='service_emr'),
+    path('service-physio', views.portal_page, {'page_name': 'service-physio'}, name='service_physio'),
+    path('service-sms-crm', views.portal_page, {'page_name': 'service-sms-crm'}, name='service_sms_crm'),
+    path('service-accounting', views.portal_page, {'page_name': 'service-accounting'}, name='service_accounting'),
     path('portal/', views.portal_page, name='portal_index'),
     path('portal/<path:path>', views.portal_page, name='portal_subpage'),
 

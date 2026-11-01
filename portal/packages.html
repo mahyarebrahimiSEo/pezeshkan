@@ -46,8 +46,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   
-  <script>(function(){try{var t=localStorage.getItem('pezeshkan_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
-  <link rel="stylesheet" href="/shared.css?v=20261029v20">
+  <script>document.documentElement.setAttribute("data-theme","light");try{localStorage.setItem("pezeshkan_theme","light");}catch(e){}</script>
+  <link rel="stylesheet" href="/shared.css?v=20261031v17">
 </head>
 <body>
 
@@ -76,15 +76,11 @@
         <!-- 1. فهرست آکاردئونی مراجعان -->
         <li class="nav-dropdown nav-dropdown-patients" id="navDropdownPatients">
           <button type="button" class="nav-dropdown-trigger " onclick="toggleDesktopDropdown(event, 'navDropdownPatients')" aria-expanded="false">
-            <span class="nav-role-dot" aria-hidden="true"></span>
+            
             <span>برای مراجعان</span>
             <svg class="svg-icon nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="nav-dropdown-menu" role="menu">
-            <div class="nav-dropdown-header">
-              <span>خدمات ویژه بیماران و مراجعان</span>
-              <span style="color:var(--brand-primary);">پرتال سلامت</span>
-            </div>
             <a href="/appointments" class="nav-dropdown-link">
               <div class="nav-dropdown-icon">
                 <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
@@ -111,30 +107,17 @@
                 <strong>دموی آنلاین و نسخه وب مراجعان</strong><span>دسترسی آنی در تمامی مرورگرها بدون نیاز به نصب</span>
               </div>
             </a>
-            <a href="/tutorials?role=user" class="nav-dropdown-link">
-              <div class="nav-dropdown-icon">
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              </div>
-              <div class="nav-dropdown-text">
-                <strong>مرکز آموزش پزشکآن برای مراجعان</strong>
-                <span>راهنمای نوبت‌دهی، پرونده سلامت و کار با اپلیکیشن</span>
-              </div>
-            </a>
           </div>
         </li>
 
         <!-- 2. فهرست آکاردئونی پزشکان -->
         <li class="nav-dropdown nav-dropdown-doctors" id="navDropdownDoctors">
           <button type="button" class="nav-dropdown-trigger active" onclick="toggleDesktopDropdown(event, 'navDropdownDoctors')" aria-expanded="false">
-            <span class="nav-role-dot" aria-hidden="true"></span>
+            
             <span>برای پزشکان</span>
             <svg class="svg-icon nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="nav-dropdown-menu" role="menu">
-            <div class="nav-dropdown-header">
-              <span>سامانه جامع پزشکان و کلینیک‌ها</span>
-              <span style="color:var(--brand-emerald-vital);">اتوماسیون مطب</span>
-            </div>
             <a href="/product" class="nav-dropdown-link">
               <div class="nav-dropdown-icon">
                 <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -180,15 +163,6 @@
                 <span>مشاهده آنلاین و کار با محیط CRM و پرونده الکترونیک</span>
               </div>
             </a>
-            <a href="/tutorials?role=doctor" class="nav-dropdown-link">
-              <div class="nav-dropdown-icon">
-                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              </div>
-              <div class="nav-dropdown-text">
-                <strong>مرکز آموزش پزشکآن برای پزشکان</strong>
-                <span>آموزش جامع CRM مطب، پنل پزشک و پذیرش منشی</span>
-              </div>
-            </a>
           </div>
         </li>
 
@@ -196,7 +170,7 @@
         <li><a href="/appointments" class="nav-link ">نوبت‌دهی مطب</a></li>
 
         <!-- 4. صفحه کلی آموزش -->
-        <li><a href="/tutorials" class="nav-link ">مرکز آموزش</a></li>
+        <li><a href="/packages" class="nav-link active">تعرفه و پلن‌ها</a></li>
 
         <!-- 5. درباره ما و تماس با ما -->
         <li><a href="/about" class="nav-link ">درباره ما</a></li>
@@ -219,17 +193,7 @@
           <span>مجله سلامت</span>
           <span class="pez-shell-mag-badge">پزشکآن لایف</span>
         </a>
-        <button type="button" class="theme-toggle-btn theme-switch" id="themeToggleBtn" role="switch" aria-checked="false" title="تغییر حالت روز و شب" aria-label="تغییر حالت روز و شب">
-          <span class="theme-switch-track">
-            <span class="theme-switch-icon sun-icon" aria-hidden="true">
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
-            </span>
-            <span class="theme-switch-icon moon-icon" aria-hidden="true">
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            </span>
-            <span class="theme-switch-thumb" aria-hidden="true"></span>
-          </span>
-        </button>
+        
 
         <div class="header-auth-capsule">
           <a href="javascript:void(0)" onclick="openLoginNotice('select')" class="auth-capsule-btn auth-combined-btn" title="ورود و ثبت‌نام در سامانه سلامت پزشکآن">
@@ -279,20 +243,16 @@
           </button>
           <div class="drawer-accordion-body">
             <a href="/appointments" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>نوبت‌دهی مطب و لیست پزشکان</span>
             </a>
             <a href="/services" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>خدمات سلامت و مشاوره آنلاین</span>
             </a>
             <a href="/download?role=patients" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
+              
               <span>دموی آنلاین پنل مراجعان</span>
-            </a>
-            <a href="/tutorials?role=user" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
-              <span>مرکز آموزش ویژه مراجعان</span>
             </a>
           </div>
         </li>
@@ -310,35 +270,31 @@
           </button>
           <div class="drawer-accordion-body">
             <a href="/product" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>پرونده الکترونیک سلامت (EMR)</span>
             </a>
             <a href="/features" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>راهکارها و امکانات بالینی پزشکان</span>
             </a>
             <a href="/packages" class="drawer-sub-link active">
-              <span class="drawer-sub-dot"></span>
+              
               <span>تعرفه‌ها و پلن‌های اشتراک</span>
             </a>
             <a href="/start" class="drawer-sub-link ">
-              <span class="drawer-sub-dot"></span>
+              
               <span>ثبت‌نام و شروع همکاری پزشکان</span>
             </a>
             <a href="/download?role=doctors" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
+              
               <span>دموی آنلاین پنل پزشکان</span>
-            </a>
-            <a href="/tutorials?role=doctor" class="drawer-sub-link">
-              <span class="drawer-sub-dot"></span>
-              <span>مرکز آموزش ویژه پزشکان (CRM)</span>
             </a>
           </div>
         </li>
 
         <!-- لینک صفحه کلی آموزش و سایر صفحات مستقل -->
         <li><a href="/appointments" class="nav-link " style="font-weight:800;">نوبت‌دهی مطب (لیست پزشکان)</a></li>
-        <li><a href="/tutorials" class="nav-link ">مرکز جامع آموزش (صفحه کلی)</a></li>
+        <li><a class="nav-link" href="/packages" style="font-weight:800;">تعرفه و پلن‌ها</a></li>
         <li><a href="/download" class="nav-link " style="color:var(--brand-primary); font-weight:800;">دریافت دموی سامانه ابری</a></li>
         <li><a href="/mag" class="nav-link nav-mag">مجله سلامت (پزشکآن لایف)</a></li>
         <li><a href="/about" class="nav-link ">درباره ما</a></li>
@@ -374,276 +330,326 @@
 
   <main>
     
-  <section style="padding:48px 0 24px;">
+  <section class="google-pricing-section" style="padding:48px 0 60px;">
     <div class="container">
-      <div class="section-title-wrap">
-        <span class="section-pill-tag">تعرفه‌های شفاف و منصفانه</span>
-        <h1 class="section-h2" style="font-size:32px;">پلن مناسب مطب یا کلینیک خود را انتخاب کنید</h1>
-        <p class="section-sub">۳ ماه نخست برای کلیه پزشکان ۱۰۰٪ رایگان همراه با استقرار حضوری؛ شروع تعرفه پس از دوره آزمایشی از ۵ میلیون تومان ماهانه</p>
-      </div>
+      <!-- Google-style Header -->
+      <div class="google-pricing-header" style="text-align:center; margin-bottom:36px;">
+        <h1 class="google-pricing-title">پلن‌ها و تعرفه‌های شفاف اکوسیستم پزشکآن</h1>
+        <p class="google-pricing-sub">
+          ۳ ماه نخست برای کلیه پزشکان و کلینیک‌ها ۱۰۰٪ رایگان همراه با استقرار حضوری کارشناس در مطب، اتصال رایگان پوز بانکی و انتقال کامل سوابق؛ بدون نیاز به چک ضمانت یا پیش‌پرداخت.
+        </p>
 
-      <!-- 3-Month Free Gift Banner -->
-      <div class="pricing-gift-banner">
-        <div class="pricing-gift-icon"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="pkg-gft-shadow" x="3" y="36" width="42" height="12" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="2.5" /></filter>
-    <filter id="pkg-gft-glow" x="6" y="8" width="36" height="32" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#10B981" flood-opacity="0.45" /></filter>
-    <linearGradient id="pkg-gft-box" x1="10" y1="16" x2="38" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399" /><stop offset="60%" stop-color="#059669" /><stop offset="100%" stop-color="#064E3B" /></linearGradient>
-    <linearGradient id="pkg-gft-lid" x1="8" y1="13" x2="40" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6EE7B7" /><stop offset="100%" stop-color="#059669" /></linearGradient>
-    <linearGradient id="pkg-gft-gold" x1="20" y1="8" x2="28" y2="38" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#B45309" /></linearGradient>
-  </defs>
-  <ellipse cx="24" cy="39" rx="15" ry="3.5" fill="#022818" opacity="0.32" filter="url(#pkg-gft-shadow)" />
-  <g filter="url(#pkg-gft-glow)">
-    <!-- Box Base -->
-    <rect x="11" y="19" width="26" height="17" rx="2.5" fill="url(#pkg-gft-box)" stroke="#A7F3D0" stroke-width="0.8" />
-    <!-- Box Lid -->
-    <rect x="9" y="15" width="30" height="6" rx="2" fill="url(#pkg-gft-lid)" stroke="#D1FAE5" stroke-width="0.8" />
-    <!-- Golden Ribbon Horizontal & Vertical -->
-    <rect x="22" y="15" width="4" height="21" fill="url(#pkg-gft-gold)" />
-    <!-- 3D Ribbon Bow -->
-    <path d="M24 15C20 10 14 11 17 14C19 16 23 15 24 15Z" fill="url(#pkg-gft-gold)" stroke="#FEF08A" stroke-width="0.6" />
-    <path d="M24 15C28 10 34 11 31 14C29 16 25 15 24 15Z" fill="url(#pkg-gft-gold)" stroke="#FEF08A" stroke-width="0.6" />
-    <circle cx="24" cy="15" r="2" fill="#FEF08A" />
-  </g>
-</svg></div>
-        <div class="pricing-gift-text">
-          <strong>هدیه ویژه توسعه سلامت دیجیتال به پزشکان محترم سراسر کشور:</strong>
-          <p>تمامی پلن‌های اتوماسیون مطب و EMR پزشکآن در ۳ ماه نخست بدون دریافت هیچ‌گونه پیش‌پرداخت، ۱۰۰٪ رایگان همراه با اعزام کارشناس و استقرار حضوری در مطب در اختیار شما قرار می‌گیرد. شروع تعرفه پس از اتمام دوره ۳ ماهه آزمایشی، از ۵ میلیون تومان ماهانه خواهد بود.</p>
-          <div class="pricing-gift-perks">
-            <span class="pricing-gift-perk">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              بدون نیاز به پیش‌پرداخت یا چک ضمانت
-            </span>
-            <span class="pricing-gift-perk">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              استقرار و آموزش حضوری رایگان در مطب
-            </span>
-            <span class="pricing-gift-perk">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              لغو اشتراک در هر زمان بدون جریمه
-            </span>
-            <span class="pricing-gift-perk">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              حفظ و انتقال ۱۰۰٪ پرونده‌های پزشکی
-            </span>
+        <!-- Google-style Segmented Capsule Toggle -->
+        <div class="google-pricing-toggle-wrap">
+          <div class="google-pricing-toggle" role="tablist">
+            <button type="button" class="google-toggle-pill active" id="btnClinicSolo" onclick="setPricingView('solo')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>مطب انفرادی و تک‌پزشک</span>
+            </button>
+            <button type="button" class="google-toggle-pill" id="btnClinicMulti" onclick="setPricingView('multi')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>کلینیک و مراکز چندتخصصی</span>
+            </button>
           </div>
         </div>
       </div>
 
-      <div class="grid-3">
-        <!-- Starter Plan -->
-        <div class="pricing-card">
-          <div class="trial-free-badge">
-            <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>دوره آزمایشی رایگان</span>
-          </div>
-          <div class="plan-3d-badge"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="pkg-b-glow" x="8" y="6" width="32" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0284C7" flood-opacity="0.4" /></filter>
-    <linearGradient id="pkg-b-grad" x1="12" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8" /><stop offset="60%" stop-color="#0284C7" /><stop offset="100%" stop-color="#0369A1" /></linearGradient>
-  </defs>
-  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#001830" opacity="0.3" />
-  <g filter="url(#pkg-b-glow)">
-    <polygon points="24 7 36 12 36 24 24 35 12 24 12 12" fill="url(#pkg-b-grad)" stroke="#BAE6FD" stroke-width="1.2" />
-    <path d="M20 20L23 23L29 17" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-  </g>
-</svg></div><div class="price-title">طرح پایه مطب (Starter)</div>
-          <div class="price-desc">ویژه مطب‌های تک‌پزشک با مراجعه متوسط روزانه و نیاز به ثبت نسخه سریع</div>
-          
-          <div class="price-amount-box">
-            <div class="price-promo-hero">
-              <div class="price-promo-info">
-                <span class="promo-tag">
-                  <svg class="svg-icon" style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  ۳ ماه نخست ۱۰۰٪ رایگان
-                </span>
-                <span class="promo-sub">هدیه استقرار و راه‌اندازی</span>
-              </div>
-              <span class="promo-amount">رایگان</span>
-            </div>
-
-            <div class="price-after-trial-box">
-              <div class="after-trial-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>تعرفه پس از ۳ ماه:</span>
-              </div>
-              <div class="after-trial-price">
-                <strong class="after-trial-num">۵,۰۰۰,۰۰۰</strong>
-                <span class="after-trial-unit">تومان / ماهانه</span>
-              </div>
-            </div>
+      <!-- Google Cloud / Workspace Style Pricing Grid -->
+      <div class="google-pricing-grid">
+        <!-- Card 1: Starter Plan -->
+        <div class="google-pricing-card" id="pricingCardStarter">
+          <div class="google-plan-icon-wrap" style="background:rgba(0, 102, 255, 0.08);">
+            <!-- 3D Medical Shield in Clinical Cobalt & Sky -->
+            <svg class="google-plan-3d-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="pkg-st-glow" x="4" y="4" width="32" height="34" filterUnits="userSpaceOnUse">
+                  <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0066FF" flood-opacity="0.35" />
+                </filter>
+                <linearGradient id="pkg-st-grad" x1="8" y1="6" x2="32" y2="34" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#38BDF8" />
+                  <stop offset="60%" stop-color="#0066FF" />
+                  <stop offset="100%" stop-color="#004ECC" />
+                </linearGradient>
+              </defs>
+              <ellipse cx="20" cy="37" rx="13" ry="3" fill="#001830" opacity="0.25" />
+              <g filter="url(#pkg-st-glow)">
+                <polygon points="20 6 32 11 32 22 20 33 8 22 8 11" fill="url(#pkg-st-grad)" stroke="#BAE6FD" stroke-width="1.2" />
+                <path d="M16 19L19 22L25 16" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+            </svg>
           </div>
 
-          <ul class="pricing-features-list">
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> پرونده الکترونیک سلامت نامحدود</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ثبت نسخه الکترونیک تامین اجتماعی و سلامت</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> پنل نوبت‌دهی آنلاین با یادآور پیامکی</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> استقرار و آموزش حضوری رایگان در مطب</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> پشتیبانی در ساعات اداری</li>
+          <h3 class="google-plan-title">طرح پایه مطب (Starter)</h3>
+          <p class="google-plan-desc">ویژه مطب‌های تک‌پزشک با مراجعه متوسط روزانه و نیاز به ثبت نسخه سریع و نوبت‌دهی خودکار</p>
+
+          <!-- Crossed-out price & Free launch pricing -->
+          <div class="plan-price-strike-wrap">
+            <span class="plan-price-strike">۵,۰۰۰,۰۰۰ تومان</span>
+            <span class="plan-strike-badge">۱۰۰٪ تخفیف دوره آزمایشی</span>
+          </div>
+
+          <div class="plan-price-hero">
+            <span class="price-val">۰</span>
+            <span class="price-curr">تومان</span>
+            <span class="price-badge-free">۳ ماه نخست رایگان</span>
+          </div>
+          <div class="plan-price-subnote">تعرفه پس از ۳ ماه رایگان: ۵ میلیون تومان ماهانه · بدون تعهد یا جریمه لغو</div>
+
+          <ul class="google-features-list">
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>پرونده الکترونیک سلامت (EMR) نامحدود</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>ثبت نسخه الکترونیک تامین اجتماعی و سلامت</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>نوبت‌دهی آنلاین با یادآور پیامکی هوشمند</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>استقرار و آموزش حضوری رایگان در مطب</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>پشتیبانی بالینی در ساعات کاری مطب</span>
+            </li>
           </ul>
-          <a href="/start?plan=starter" class="btn btn-secondary" style="width:100%; justify-content:center;">فعال‌سازی ۳ ماه رایگان مطب</a>
+
+          <a href="/start?plan=starter" class="google-plan-btn google-plan-btn-secondary">فعال‌سازی ۳ ماه رایگان مطب ↗</a>
         </div>
 
-        <!-- Pro Plan -->
-        <div class="pricing-card popular">
-          <span class="popular-badge" style="display:inline-flex;align-items:center;gap:5px;"><svg style="width:13px;height:13px;fill:currentColor;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> بیشترین انتخاب پزشکان</span>
-          <div class="trial-free-badge">
-            <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>پکیج طلایی استقرار حضوری</span>
-          </div>
-          <div class="plan-3d-badge"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="pkg-p-glow" x="6" y="6" width="36" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#F59E0B" flood-opacity="0.45" /></filter>
-    <linearGradient id="pkg-p-gold" x1="10" y1="8" x2="38" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE047" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#B45309" /></linearGradient>
-  </defs>
-  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#3D1D04" opacity="0.3" />
-  <g filter="url(#pkg-p-glow)">
-    <!-- 3D Crown Shape -->
-    <path d="M10 28L13 14L19 20L24 10L29 20L35 14L38 28C38 31 35 33 24 33C13 33 10 31 10 28Z" fill="url(#pkg-p-gold)" stroke="#FEF08A" stroke-width="1" />
-    <!-- Center Emerald Jewel -->
-    <circle cx="24" cy="24" r="3" fill="#10B981" stroke="#A7F3D0" stroke-width="0.8" />
-  </g>
-</svg></div><div class="price-title">طرح حرفه‌ای (Pro)</div>
-          <div class="price-desc">ویژه مطب‌های پرمراجعه، کلینیک‌ها و مراکز با ۲ یونیت یا پزشک فعال</div>
-          
-          <div class="price-amount-box">
-            <div class="price-promo-hero promo-blue">
-              <div class="price-promo-info">
-                <span class="promo-tag">
-                  <svg class="svg-icon" style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  ۳ ماه نخست ۱۰۰٪ رایگان
-                </span>
-                <span class="promo-sub">همراه با دستیار بالینی AI</span>
-              </div>
-              <span class="promo-amount">رایگان</span>
-            </div>
-
-            <div class="price-after-trial-box">
-              <div class="after-trial-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>تعرفه پس از ۳ ماه:</span>
-              </div>
-              <div class="after-trial-price">
-                <strong class="after-trial-num">۸,۵۰۰,۰۰۰</strong>
-                <span class="after-trial-unit">تومان / ماهانه</span>
-              </div>
-            </div>
+        <!-- Card 2: Pro Plan (Popular) -->
+        <div class="google-pricing-card popular" id="pricingCardPro">
+          <!-- Ribbon badge -->
+          <div class="google-popular-ribbon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>بیشترین انتخاب پزشکان و جراحان</span>
           </div>
 
-          <ul class="pricing-features-list">
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> تمام قابلیت‌های طرح پایه به صورت نامحدود</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <strong>دستیار بالینی هوش مصنوعی (AI Copilot)</strong></li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> اتصال مستقیم دستگاه کارتخوان مطب به EMR</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> پورتال و اپلیکیشن اختصاصی بیماران کلینیک</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> پشتیبانی اختصاصی شبانه‌روزی ۲۴ ساعته VIP</li>
+          <div class="google-plan-icon-wrap" style="background:rgba(0, 102, 255, 0.12);">
+            <!-- 3D Clinical Pulse Emblem in Medical Cobalt & Emerald Vital -->
+            <svg class="google-plan-3d-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="pkg-pr-glow" x="4" y="4" width="32" height="34" filterUnits="userSpaceOnUse">
+                  <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0066FF" flood-opacity="0.45" />
+                </filter>
+                <linearGradient id="pkg-pr-grad" x1="8" y1="6" x2="32" y2="34" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#00E5FF" />
+                  <stop offset="50%" stop-color="#0066FF" />
+                  <stop offset="100%" stop-color="#004ECC" />
+                </linearGradient>
+              </defs>
+              <ellipse cx="20" cy="37" rx="13" ry="3" fill="#001830" opacity="0.3" />
+              <g filter="url(#pkg-pr-glow)">
+                <circle cx="20" cy="19" r="14" fill="url(#pkg-pr-grad)" stroke="#BAE6FD" stroke-width="1.2" />
+                <path d="M10 19H14L17 12L21 26L24 16L26 19H30" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="21" cy="26" r="2.5" fill="#10B981" stroke="#A7F3D0" stroke-width="0.8" />
+              </g>
+            </svg>
+          </div>
+
+          <h3 class="google-plan-title">طرح جامع حرفه‌ای (Pro)</h3>
+          <p class="google-plan-desc">ویژه مطب‌های پرمراجعه، کلینیک‌ها و مراکزی با ۲ یونیت یا پزشک همکار فعال</p>
+
+          <!-- Crossed-out price & Free launch pricing -->
+          <div class="plan-price-strike-wrap">
+            <span class="plan-price-strike">۸,۵۰۰,۰۰۰ تومان</span>
+            <span class="plan-strike-badge">۱۰۰٪ تخفیف دوره پایلوت</span>
+          </div>
+
+          <div class="plan-price-hero">
+            <span class="price-val">۰</span>
+            <span class="price-curr">تومان</span>
+            <span class="price-badge-free promo-glow">۳ ماه نخست رایگان</span>
+          </div>
+          <div class="plan-price-subnote">تعرفه پس از ۳ ماه رایگان: ۸.۵ میلیون تومان ماهانه · پکیج طلایی استقرار</div>
+
+          <ul class="google-features-list">
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>تمام قابلیت‌های طرح پایه به صورت نامحدود</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>دستیار بالینی هوش مصنوعی (AI Copilot)</strong></span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>اتصال مستقیم پوز بانکی به EMR و تفکیک سهم مطب</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>چارتینگ بالینی و قلم نوری تبلت بدون کاغذ</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>پورتال و وب‌اپلیکیشن اختصاصی بیماران کلینیک</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>پشتیبانی شبانه‌روزی ۲۴ ساعته VIP</span>
+            </li>
           </ul>
-          <a href="/start?plan=pro" class="btn btn-primary" style="width:100%; justify-content:center;">شروع ۳ ماه رایگان حرفه‌ای ↗</a>
+
+          <a href="/start?plan=pro" class="google-plan-btn google-plan-btn-primary">شروع همکاری و ۳ ماه رایگان ↗</a>
         </div>
 
-        <!-- Enterprise Plan -->
-        <div class="pricing-card">
-          <div class="trial-free-badge">
-            <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>پایلوت آزمایشی ۳ ماهه</span>
-          </div>
-          <div class="plan-3d-badge"><svg class="svg-icon icon-3d" viewBox="4 4 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="pkg-e-glow" x="6" y="6" width="36" height="34" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#8B5CF6" flood-opacity="0.45" /></filter>
-    <linearGradient id="pkg-e-purp" x1="10" y1="8" x2="38" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#A78BFA" /><stop offset="60%" stop-color="#7C3AED" /><stop offset="100%" stop-color="#4C1D95" /></linearGradient>
-  </defs>
-  <ellipse cx="24" cy="39" rx="14" ry="3.5" fill="#1E0A3C" opacity="0.3" />
-  <g filter="url(#pkg-e-glow)">
-    <!-- 3D Diamond / Hospital Tower Shield -->
-    <polygon points="24 6 37 15 37 28 24 37 11 28 11 15" fill="url(#pkg-e-purp)" stroke="#DDD6FE" stroke-width="1.2" />
-    <!-- Medical Plus Symbol inside Diamond -->
-    <path d="M24 16V26M19 21H29" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
-  </g>
-</svg></div><div class="price-title">سازمانی (Enterprise)</div>
-          <div class="price-desc">ویژه کلینیک‌های چندتخصصی، مراکز درمانی و بیمارستان‌ها</div>
-          
-          <div class="price-amount-box">
-            <div class="price-promo-hero promo-purple">
-              <div class="price-promo-info">
-                <span class="promo-tag">
-                  <svg class="svg-icon" style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  پایلوت ارزیابی رایگان
-                </span>
-                <span class="promo-sub">استقرار کامل زیرساخت</span>
-              </div>
-              <span class="promo-amount" style="font-size:22px;">۳ ماه پایلوت</span>
-            </div>
-
-            <div class="price-after-trial-box">
-              <div class="after-trial-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>تعرفه دوره بهره‌برداری:</span>
-              </div>
-              <div class="after-trial-price">
-                <strong class="after-trial-num" style="font-size:14px;">سفارشی</strong>
-                <span class="after-trial-unit">بر اساس یونیت</span>
-              </div>
-            </div>
+        <!-- Card 3: Enterprise Plan -->
+        <div class="google-pricing-card" id="pricingCardEnterprise">
+          <div class="google-plan-icon-wrap" style="background:rgba(0, 102, 255, 0.08);">
+            <!-- 3D Hospital Tower / Shield in Medical Cobalt & Slate -->
+            <svg class="google-plan-3d-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="pkg-en-glow" x="4" y="4" width="32" height="34" filterUnits="userSpaceOnUse">
+                  <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0066FF" flood-opacity="0.35" />
+                </filter>
+                <linearGradient id="pkg-en-grad" x1="8" y1="6" x2="32" y2="34" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#38BDF8" />
+                  <stop offset="50%" stop-color="#0066FF" />
+                  <stop offset="100%" stop-color="#0D1527" />
+                </linearGradient>
+              </defs>
+              <ellipse cx="20" cy="37" rx="13" ry="3" fill="#001830" opacity="0.25" />
+              <g filter="url(#pkg-en-glow)">
+                <polygon points="20 6 33 14 33 26 20 34 7 26 7 14" fill="url(#pkg-en-grad)" stroke="#BAE6FD" stroke-width="1.2" />
+                <path d="M20 14V26M14 20H26" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+              </g>
+            </svg>
           </div>
 
-          <ul class="pricing-features-list">
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> کاربران و یونیت‌های درمانی نامحدود</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> سرور اختصاصی و پایگاه داده ایزوله بیمارستان</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> اتصال به سامانه‌های HIS و PACS تصویربرداری</li>
-            <li class="feature-item"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> استقرار و آموزش حضوری کلیه پرسنل</li>
+          <h3 class="google-plan-title">سازمانی و مراکز (Enterprise)</h3>
+          <p class="google-plan-desc">ویژه کلینیک‌های چندتخصصی، دی‌کلینیک‌ها، مراکز تصویربرداری و بیمارستان‌ها</p>
+
+          <!-- Crossed-out price & Free launch pricing -->
+          <div class="plan-price-strike-wrap">
+            <span class="plan-price-strike">۱۵,۰۰۰,۰۰۰ تومان</span>
+            <span class="plan-strike-badge">پایلوت رایگان سازمانی</span>
+          </div>
+
+          <div class="plan-price-hero">
+            <span class="price-val">۰</span>
+            <span class="price-curr">تومان</span>
+            <span class="price-badge-free">۳ ماه پایلوت رایگان</span>
+          </div>
+          <div class="plan-price-subnote">تعرفه پس از دوره پایلوت: سفارشی بر اساس تعداد یونیت و پزشکان مرکز</div>
+
+          <ul class="google-features-list">
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>کاربران، پزشکان، منشی‌ها و یونیت‌های نامحدود</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>سرور اختصاصی ابری و پایگاه داده ایزوله بیمارستان</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>اتصال مستقیم به سامانه‌های HIS و PACS تصویربرداری</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>حسابداری تفکیکی پیشرفته و گزارش‌های سودآوری کلینیک</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>استقرار حضوری تیم فنی و آموزش جامع کلیه پرسنل</span>
+            </li>
+            <li class="google-feature-item">
+              <svg class="google-feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>قرارداد سطح خدمات (SLA ۹۹.۹٪) با مدیر حساب اختصاصی</span>
+            </li>
           </ul>
-          <a href="/contact?subject=enterprise" class="btn btn-secondary" style="width:100%; justify-content:center;">مشاوره سازمانی و پایلوت</a>
+
+          <a href="/start?plan=enterprise" class="google-plan-btn google-plan-btn-secondary">مشاوره سازمانی و پایلوت ↗</a>
         </div>
       </div>
 
-      <!-- Doctor FAQs on 3-Month Free Model -->
-      <div style="margin-top:36px; margin-bottom:44px; background:var(--bg-surface-primary); border:1px solid var(--glass-border); border-radius:var(--radius-xl); padding:32px 28px;">
-        <h2 style="font-size:18px; font-weight:900; color:var(--text-pure); margin:0 0 20px 0; text-align:center;">
-          پرسش‌های متداول پزشکان درباره دوره ۳ ماهه رایگان
-        </h3>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:18px;">
-          <div style="background:rgba(0,115,255,0.03); border:1px solid rgba(0,115,255,0.1); border-radius:var(--radius-md); padding:16px 18px;">
-            <h4 style="font-size:14px; font-weight:800; color:var(--brand-primary); margin:0 0 8px 0;">آیا برای شروع دوره ۳ ماهه نیاز به پرداخت یا ثبت کارت است؟</h4>
-            <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.75; margin:0;">خیر، هیچ‌گونه وجه، چک ضمانت یا تعهدی دریافت نمی‌شود و ثبت‌نام صرفاً با شماره نظام پزشکی پزشک انجام می‌گردد.</p>
-          </div>
-          <div style="background:rgba(5,150,105,0.03); border:1px solid rgba(5,150,105,0.1); border-radius:var(--radius-md); padding:16px 18px;">
-            <h4 style="font-size:14px; font-weight:800; color:var(--brand-emerald-vital); margin:0 0 8px 0;">استقرار و آموزش حضوری چگونه انجام می‌شود؟</h4>
-            <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.75; margin:0;">کارشناس ارشد استقرار پزشکآن به صورت حضوری در مطب شما حضور یافته و سیستم، سامانه‌های بیمه و کارتخوان را کانفیگ کرده و به منشی آموزش می‌دهد.</p>
-          </div>
-          <div style="background:rgba(0,115,255,0.03); border:1px solid rgba(0,115,255,0.1); border-radius:var(--radius-md); padding:16px 18px;">
-            <h4 style="font-size:14px; font-weight:800; color:var(--brand-primary); margin:0 0 8px 0;">پس از پایان ۳ ماه، آیا الزامی برای ادامه همکاری وجود دارد؟</h4>
-            <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.75; margin:0;">خیر، تصمیم‌گیری کاملاً بر عهده شماست. در صورت تمایل، تمدید اشتراک با تعرفه شروع از ۵ میلیون تومان انجام می‌شود و در غیر این صورت خروجی پرونده‌ها به شما تحویل داده می‌شود.</p>
-          </div>
-          <div style="background:rgba(5,150,105,0.03); border:1px solid rgba(5,150,105,0.1); border-radius:var(--radius-md); padding:16px 18px;">
-            <h4 style="font-size:14px; font-weight:800; color:var(--brand-emerald-vital); margin:0 0 8px 0;">انتقال پرونده‌های بیماران قبلی چگونه است؟</h4>
-            <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.75; margin:0;">تیم فنی پزشکآن به صورت رایگان دیتابیس نرم‌افزار قدیمی شما را ایمپورت کرده و بدون از دست رفتن هیچ سابقه‌ای در اکوسیستم جدید قرار می‌دهد.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <!-- Google-Style Interactive Accordion FAQ -->
+      <div class="google-faq-section">
+        <h2 class="google-faq-title">پرسش‌های متداول پزشکان درباره دوره ۳ ماهه رایگان</h2>
+        <p class="google-faq-subtitle">پاسخ شفاف به پرتکرارترین پرسش‌ها درباره استقرار حضوری، هزینه‌ها و انتقال پرونده‌های بالینی</p>
 
-  <!-- Doctor Partnership Call-To-Action Banner -->
-  <section class="doctor-cta-section" style="padding:10px 0 54px;">
-    <div class="container">
-      <div class="doctor-cta-card">
-        <div class="doctor-cta-content">
-          <div class="doctor-cta-badge">
-            <span class="pulse-ring" style="position:static; display:inline-block; width:8px; height:8px; border-radius:50%; background:#00E599; margin-left:6px;"></span>
-            <span>طرح ملی توسعه مطب‌های الکترونیک هوشمند</span>
+        <div class="google-faq-accordion">
+          <!-- FAQ 1 -->
+          <div class="google-faq-item active">
+            <button type="button" class="google-faq-header" onclick="toggleFaqItem(this)">
+              <span>آیا برای شروع دوره ۳ ماهه نیاز به پرداخت هزینه یا ثبت کارت بانکی است؟</span>
+              <svg class="google-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="google-faq-body">
+              <div class="google-faq-content">
+                خیر، هیچ‌گونه وجه، چک ضمانت یا تعهد مالی برای شروع دریافت نمی‌شود. پزشکآن با هدف تحول سلامت دیجیتال و اثبات کارایی بالینی، سامانه را به مدت ۳ ماه کاملاً رایگان در اختیار شما قرار می‌دهد و فعال‌سازی صرفاً با احراز هویت شماره نظام پزشکی انجام می‌گیرد.
+              </div>
+            </div>
           </div>
-          <h3 class="doctor-cta-title">پزشک گرامی، مطب خود را با ۳ ماه استفاده کاملاً رایگان مجهز کنید</h3>
-          <p class="doctor-cta-desc">
-            استقرار حضوری، آموزش پرسنل پذیرش و اتصال کامل به بیمه‌ها بدون پرداخت هیچ هزینه اولیه‌ای؛ شروع تعرفه پس از ۳ ماه از ۵ میلیون تومان ماهانه خواهد بود.
-          </p>
-        </div>
-        <div class="doctor-cta-actions">
-          <a href="/start" class="btn btn-primary btn-lg">
-            <span>شروع همکاری و فعال‌سازی ۳ ماه رایگان</span>
-            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
-          <a href="/contact" class="btn btn-secondary">
-            <span>مشاوره تلفنی با کارشناس بالینی</span>
-          </a>
+
+          <!-- FAQ 2 -->
+          <div class="google-faq-item">
+            <button type="button" class="google-faq-header" onclick="toggleFaqItem(this)">
+              <span>استقرار و آموزش حضوری در مطب چگونه و توسط چه کسی انجام می‌شود؟</span>
+              <svg class="google-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="google-faq-body">
+              <div class="google-faq-content">
+                کارشناس ارشد استقرار پزشکآن به صورت حضوری در مطب یا کلینیک شما حاضر شده، سامانه‌های بیمه سلامت و تامین اجتماعی، دستگاه کارتخوان (POS) و تبلت قلم نوری را کانفیگ کرده و به صورت مرحله‌به‌مرحله به منشی و پرسنل پذیرش آموزش می‌دهد تا هیچ تداخلی در ویزیت بیماران رخ ندهد.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="google-faq-item">
+            <button type="button" class="google-faq-header" onclick="toggleFaqItem(this)">
+              <span>پس از پایان دوره ۳ ماهه رایگان، آیا الزامی برای ادامه همکاری وجود دارد؟</span>
+              <svg class="google-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="google-faq-body">
+              <div class="google-faq-content">
+                خیر، هیچ‌گونه الزام یا جریمه‌ای وجود ندارد. در صورت رضایت از عملکرد سیستم، تمدید اشتراک با تعرفه منصفانه (از ۵ میلیون تومان ماهانه) انجام می‌شود و در غیر این صورت، خروجی استاندارد و رمزنگاری‌شده از کلیه پرونده‌های بیماران به شما تقدیم خواهد شد.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="google-faq-item">
+            <button type="button" class="google-faq-header" onclick="toggleFaqItem(this)">
+              <span>انتقال پرونده‌ها و دیتابیس نرم‌افزار قدیمی مطب چگونه انجام می‌شود؟</span>
+              <svg class="google-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="google-faq-body">
+              <div class="google-faq-content">
+                تیم فنی پزشکآن پایگاه داده نرم‌افزارهای قدیمی مطب شما را به صورت کاملاً رایگان و ایمن استخراج کرده و بدون از دست رفتن هیچ سابقه‌ای، آن را وارد EMR ابری پزشکآن می‌کند.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="google-faq-item">
+            <button type="button" class="google-faq-header" onclick="toggleFaqItem(this)">
+              <span>اتصال مستقیم کارتخوان (POS) چگونه خطای مالی منشی را به صفر می‌رساند؟</span>
+              <svg class="google-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="google-faq-body">
+              <div class="google-faq-content">
+                با ارسال اتوماتیک مبلغ ویزیت و خدمات از نرم‌افزار به دستگاه پوز، منشی مبلغ را دستی وارد نمی‌کند. پس از تراکنش موفق، رسید پرداخت بلافاصله به پرونده بیمار متصل شده و سهم پزشک و مطب به تفکیک محاسبه می‌گردد.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 6 -->
+          <div class="google-faq-item">
+            <button type="button" class="google-faq-header" onclick="toggleFaqItem(this)">
+              <span>امنیت و محرمانگی داده‌ها و پرونده‌های پزشکی مراجعان (PHI) چگونه تضمین می‌شود؟</span>
+              <svg class="google-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="google-faq-body">
+              <div class="google-faq-content">
+                پزشکآن از پروتکل‌های رمزنگاری پیشرفته نظامی AES-256 و ایزولاسیون کامل دیتابیس در سرورهای ابری امن داخل کشور استفاده می‌کند. همچنین لاگ کامل دسترسی‌ها ثبت شده و کلیه استانداردهای امنیت داده‌های سلامت رعایت شده است.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -724,5 +730,37 @@
   <script src="gsap.min.js"></script>
   <script src="lenis.min.js"></script>
   <script src="/shared.js?v=20261029v20"></script>
+  <script>
+    function toggleFaqItem(btn) {
+      const item = btn.closest('.google-faq-item');
+      const wasActive = item.classList.contains('active');
+      document.querySelectorAll('.google-faq-item').forEach(el => el.classList.remove('active'));
+      if (!wasActive) {
+        item.classList.add('active');
+      }
+    }
+
+    function setPricingView(mode) {
+      const btnSolo = document.getElementById('btnClinicSolo');
+      const btnMulti = document.getElementById('btnClinicMulti');
+      const cardStarter = document.getElementById('pricingCardStarter');
+      const cardPro = document.getElementById('pricingCardPro');
+      const cardEnterprise = document.getElementById('pricingCardEnterprise');
+      
+      if (mode === 'solo') {
+        btnSolo.classList.add('active');
+        btnMulti.classList.remove('active');
+        if (cardStarter) cardStarter.style.opacity = '1';
+        if (cardPro) cardPro.style.opacity = '1';
+        if (cardEnterprise) cardEnterprise.style.opacity = '0.7';
+      } else {
+        btnSolo.classList.remove('active');
+        btnMulti.classList.add('active');
+        if (cardStarter) cardStarter.style.opacity = '0.7';
+        if (cardPro) cardPro.style.opacity = '1';
+        if (cardEnterprise) cardEnterprise.style.opacity = '1';
+      }
+    }
+  </script>
 </body>
 </html>

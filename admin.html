@@ -3331,6 +3331,11 @@
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span>کاربران و نویسندگان</span>
         </li>
+        <li class="sidebar-item" id="menu-leads" onclick="switchTab('leads')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+          <span>درخواست‌های همکاری (Leads)</span>
+          <span class="badge-leads-count" id="sidebarLeadsBadge" style="display:none; margin-right:auto; background:var(--color-primary, #0073FF); color:#fff; font-size:11px; padding:2px 7px; border-radius:99px; font-weight:800;">0</span>
+        </li>
         <li class="sidebar-item" id="menu-doctors" onclick="switchTab('doctors')">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M19 8v6"/><path d="M16 11h6"/></svg>
           <span>پزشکان و نوبت‌دهی سریع</span>
@@ -3437,6 +3442,16 @@
               <div class="metric-num" style="font-size: 18px; color: #00E599;">پایدار و استاندارد</div>
             </div>
           </div>
+
+          <div class="metric-card" onclick="switchTab('leads')" style="cursor:pointer;" title="مشاهده کلیه درخواست‌های همکاری پزشکان">
+            <div class="metric-icon-wrap" style="background: rgba(0, 115, 255, 0.15); color: #38BDF8;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>درخواست‌های همکاری (Leads)</h4>
+              <div class="metric-num" id="dashTotalLeads" style="font-size: 18px; color: #38BDF8;">۰ درخواست</div>
+            </div>
+          </div>
         </div>
 
         <!-- CRM Training Section Banner in Dashboard -->
@@ -3475,6 +3490,75 @@
                 </tr>
               </thead>
               <tbody id="dashboardRecentPosts"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: LEADS (DOCTOR ONBOARDING & PARTNERSHIP) ================= -->
+      <section id="tab-leads" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>درخواست‌های همکاری و فعال‌سازی ۳ ماه رایگان (Leads)</h2>
+            <p>اطلاعات ثبت‌شده پزشکانی که فرم درخواست دمو یا شروع همکاری را در سایت تکمیل کرده‌اند</p>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button type="button" class="btn btn-secondary" onclick="fetchLeads()">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              <span>به‌روزرسانی داده‌ها</span>
+            </button>
+            <button type="button" class="btn btn-primary" onclick="exportLeadsCsv()">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>خروجی اکسل (CSV)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0; overflow:hidden;">
+          <div style="padding:16px 20px; background:var(--bg-card); border-bottom:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <input type="text" id="leadsSearchInput" class="form-control" placeholder="جستجو در نام، شماره یا تخصص..." style="width:240px; font-size:12.5px;" oninput="renderLeadsTable()">
+              <select id="leadsPlanFilter" class="form-control" style="width:170px; font-size:12.5px;" onchange="renderLeadsTable()">
+                <option value="">همه طرح‌ها</option>
+                <option value="starter">طرح پایه (Starter)</option>
+                <option value="pro">طرح حرفه‌ای (Pro)</option>
+                <option value="enterprise">طرح سازمانی</option>
+              </select>
+              <select id="leadsStatusFilter" class="form-control" style="width:160px; font-size:12.5px;" onchange="renderLeadsTable()">
+                <option value="">همه وضعیت‌ها</option>
+                <option value="new">جدید (بررسی‌نشده)</option>
+                <option value="contacted">تماس حاصل شده</option>
+                <option value="scheduled">زمان استقرار هماهنگ شد</option>
+                <option value="active">فعال و مستقر</option>
+              </select>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:12px; color:var(--text-muted);">مجموع درخواست‌ها:</span>
+              <strong id="leadsCountHeader" style="color:var(--color-primary, #38BDF8); font-size:14px;">۰</strong>
+            </div>
+          </div>
+
+          <div class="clinical-table-wrap">
+            <table class="clinical-table" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th style="padding:14px 18px; text-align:right;">نام پزشک</th>
+                  <th style="padding:14px 18px; text-align:right;">شماره تماس</th>
+                  <th style="padding:14px 18px; text-align:right;">تخصص</th>
+                  <th style="padding:14px 18px; text-align:right;">طرح انتخابی</th>
+                  <th style="padding:14px 18px; text-align:right;">حجم مراجعان و چالش‌ها</th>
+                  <th style="padding:14px 18px; text-align:right;">نشانی مطب</th>
+                  <th style="padding:14px 18px; text-align:right;">تاریخ ثبت</th>
+                  <th style="padding:14px 18px; text-align:center;">وضعیت و اقدام</th>
+                </tr>
+              </thead>
+              <tbody id="leadsTableBody">
+                <tr>
+                  <td colspan="8" style="text-align:center; padding:36px; color:var(--text-secondary);">
+                    در حال دریافت فهرست درخواست‌های همکاری پزشکان...
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -3869,6 +3953,30 @@
                 <div>
                   <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">کلیدواژه کانونی (Focus Keyword):</label>
                   <input type="text" id="seoFocusKeyword" class="form-control" placeholder="مثال: درمان دیسک کمر بدون جراحی" oninput="runLiveSeoAudit()">
+                </div>
+
+                <!-- Rank Math Style Robots Meta (Index / Noindex) Switcher -->
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; margin-top: 12px; margin-bottom: 12px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 12px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+                      <svg class="icon-svg" style="width: 14px; height: 14px; color: var(--color-cyan);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                      <span>وضعیت نمایه در گوگل (Robots Meta):</span>
+                    </span>
+                    <span id="articleRobotsBadge" class="inlink-badge inlink-active" style="font-size: 11px;">ایندکس (Index)</span>
+                  </div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <button type="button" id="btnSetIndex" class="btn btn-primary" style="font-size: 11.5px; padding: 6px 8px; justify-content: center;" onclick="setArticleRobotsIndex(false)">
+                      <svg class="icon-svg" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>ایندکس (Index)</span>
+                    </button>
+                    <button type="button" id="btnSetNoindex" class="btn btn-secondary" style="font-size: 11.5px; padding: 6px 8px; justify-content: center;" onclick="setArticleRobotsIndex(true)">
+                      <svg class="icon-svg" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                      <span>نو ایندکس (Noindex)</span>
+                    </button>
+                  </div>
+                  <div id="articleRobotsNoticeText" style="font-size: 11px; color: var(--text-muted); margin-top: 7px; line-height: 1.5;">
+                    این مقاله به صورت پیش‌فرض توسط گوگل ایندکس و در نتایج جستجو رتبه‌بندی می‌شود (استاندارد <code>index, follow</code>).
+                  </div>
                 </div>
 
                 <!-- Google SERP Snippet Preview -->
@@ -6237,10 +6345,14 @@
           <span style="font-size: 11px; color: var(--text-secondary); display: block; margin-top: 3px;">با انتخاب هر مقاله یا برگه از لیست زیر، در صورت خالی بودن این فیلد، با عنوان آن پر می‌شود.</span>
         </div>
 
-        <div style="margin-bottom: 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 9px 12px;">
+        <div style="margin-bottom: 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 14px; display: flex; flex-direction: column; gap: 8px;">
           <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12px; color: var(--text-primary); margin: 0;">
             <input type="checkbox" id="linkModalTargetBlank" checked style="accent-color: var(--color-cyan); width: 16px; height: 16px;">
-            <span>باز شدن پیوند در برگه جدید (target="_blank" با امنیت rel="noopener noreferrer")</span>
+            <span>باز شدن پیوند در برگه جدید (target="_blank")</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12px; color: var(--text-primary); margin: 0; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 6px;">
+            <input type="checkbox" id="linkModalNofollow" style="accent-color: var(--color-cyan); width: 16px; height: 16px;">
+            <span>علامت‌گذاری پیوند به عنوان نوفالو (rel="nofollow")</span>
           </label>
         </div>
 
@@ -6999,6 +7111,7 @@
       if (menuEl) menuEl.classList.add('active');
       if (tabEl) tabEl.classList.add('active');
 
+      if (tabId === 'leads') fetchLeads();
       if (tabId === 'dashboard') renderDashboard();
       if (tabId === 'posts') renderPostsTable();
       if (tabId === 'media') renderMediaGallery();
@@ -7090,7 +7203,10 @@
         return `
           <tr>
             <td>
-              <strong style="color: var(--text-primary); font-size: 14px; display: block; margin-bottom: 2px;">${art.title}</strong>
+              <div style="display:flex; align-items:center; gap:6px; margin-bottom: 2px; flex-wrap:wrap;">
+                <strong style="color: var(--text-primary); font-size: 14px;">${art.title}</strong>
+                ${(art.isNoindex || (art.robots && art.robots.includes('noindex'))) ? '<span style="font-size:10px; background:rgba(239,68,68,0.15); color:#F87171; border:1px solid rgba(239,68,68,0.3); border-radius:4px; padding:1px 5px; font-weight:700;">نو ایندکس</span>' : ''}
+              </div>
               <span style="font-size: 11px; color: var(--text-muted); direction: ltr; display: inline-block;">/${art.slug || ''}</span>
             </td>
             <td><span class="status-pill">${pillarName}</span></td>
@@ -7793,6 +7909,7 @@
       const txtInput = document.getElementById('linkModalText');
       const urlInput = document.getElementById('linkModalUrl');
       const targetBlank = document.getElementById('linkModalTargetBlank');
+      const targetNofollow = document.getElementById('linkModalNofollow');
       const btnUnlink = document.getElementById('btnLinkModalUnlink');
 
       if (existingLinkNode) {
@@ -7800,12 +7917,15 @@
         txtInput.dataset.autoFilled = 'false';
         urlInput.value = existingLinkNode.getAttribute('href') || 'https://';
         targetBlank.checked = (existingLinkNode.getAttribute('target') === '_blank');
+        const existingRel = (existingLinkNode.getAttribute('rel') || '').toLowerCase();
+        if (targetNofollow) targetNofollow.checked = existingRel.includes('nofollow');
         if (btnUnlink) btnUnlink.style.display = 'inline-block';
       } else {
         txtInput.value = selectedText;
         txtInput.dataset.autoFilled = selectedText ? 'false' : 'true';
         urlInput.value = 'https://';
         targetBlank.checked = true;
+        if (targetNofollow) targetNofollow.checked = false;
         if (btnUnlink) btnUnlink.style.display = 'none';
       }
 
@@ -7837,7 +7957,8 @@
 
       const text = document.getElementById('linkModalText').value.trim();
       const url = document.getElementById('linkModalUrl').value.trim();
-      const isBlank = document.getElementById('linkModalTargetBlank').checked;
+      const isBlank = document.getElementById('linkModalTargetBlank')?.checked || false;
+      const isNofollow = document.getElementById('linkModalNofollow')?.checked || false;
 
       if (!url || url === 'https://' || url === 'http://') {
         alert('لطفاً نشانی معتبر اینترنتی یا مسیر صفحه مقصد را وارد فرمایید.');
@@ -7864,23 +7985,31 @@
         if (node) existingLinkNode = node.closest('a');
       }
 
+      const relTokens = [];
+      if (isNofollow) relTokens.push('nofollow');
+      if (isBlank) relTokens.push('noopener', 'noreferrer');
+
+      const targetAttr = isBlank ? ' target="_blank"' : '';
+      const relAttr = relTokens.length ? ` rel="${relTokens.join(' ')}"` : '';
       const safeUrl = escapeHtml(url);
-      const targetAttr = isBlank ? ' target="_blank" rel="noopener noreferrer"' : '';
       const displayText = text || (existingLinkNode ? existingLinkNode.textContent : '') || url;
 
       if (existingLinkNode && targetCanvas.contains(existingLinkNode)) {
         existingLinkNode.setAttribute('href', url);
         if (isBlank) {
           existingLinkNode.setAttribute('target', '_blank');
-          existingLinkNode.setAttribute('rel', 'noopener noreferrer');
         } else {
           existingLinkNode.removeAttribute('target');
+        }
+        if (relTokens.length) {
+          existingLinkNode.setAttribute('rel', relTokens.join(' '));
+        } else {
           existingLinkNode.removeAttribute('rel');
         }
         existingLinkNode.classList.add('editorial-link');
         if (text) existingLinkNode.textContent = text;
       } else {
-        const linkHtml = `<a href="${safeUrl}"${targetAttr} class="editorial-link">${escapeHtml(displayText)}</a>`;
+        const linkHtml = `<a href="${safeUrl}"${targetAttr}${relAttr} class="editorial-link">${escapeHtml(displayText)}</a>`;
         document.execCommand('insertHTML', false, linkHtml);
       }
 
@@ -10015,6 +10144,7 @@ function renderDoctorsManagement(filterQuery = '') {
       document.getElementById('seoMetaTitle').value = '';
       document.getElementById('seoMetaDescription').value = '';
       document.getElementById('seoPostSlug').value = '';
+      setArticleRobotsIndex(false);
       const faqCont = document.getElementById('faqItemsContainer'); if (faqCont) { faqCont.innerHTML = ''; addFaqRow(); }
 
       // Reset Rank Math Schema Builder
@@ -10099,6 +10229,7 @@ function renderDoctorsManagement(filterQuery = '') {
       document.getElementById('seoMetaTitle').value = art.metaTitle || art.title || '';
       document.getElementById('seoMetaDescription').value = art.metaDescription || art.summary || '';
       document.getElementById('seoPostSlug').value = art.slug || art.id || '';
+      setArticleRobotsIndex(Boolean(art.isNoindex || (art.robots && art.robots.includes('noindex')) || (art.schemaData && art.schemaData.isNoindex)));
 
       // FAQs
       const faqCont = document.getElementById('faqItemsContainer');
@@ -10284,6 +10415,8 @@ function renderDoctorsManagement(filterQuery = '') {
         tag: tag,
         tagClass: 'tag-blue',
         status: targetStatus,
+        isNoindex: currentArticleIsNoindex,
+        robots: currentArticleIsNoindex ? 'noindex, follow' : 'index, follow',
         metaTitle: metaTitle,
         metaDescription: metaDescription,
         focusKeyword: focusKeyword,
@@ -10292,6 +10425,8 @@ function renderDoctorsManagement(filterQuery = '') {
         schemaType: schemaType,
         oldSlugs: oldSlugs,
         schemaData: {
+          isNoindex: currentArticleIsNoindex,
+          robots: currentArticleIsNoindex ? 'noindex, follow' : 'index, follow',
           syncTitle: syncTitle,
           syncDesc: syncDesc,
           headline: schemaHeadline,
@@ -10434,7 +10569,11 @@ function renderDoctorsManagement(filterQuery = '') {
       const editorHtml = canvas.innerHTML || '';
 
       // Update SERP Snippet
-      document.getElementById('serpPreviewTitle').textContent = metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو';
+      if (currentArticleIsNoindex) {
+        document.getElementById('serpPreviewTitle').innerHTML = '<span style="background:#EF4444; color:#fff; font-size:10px; padding:1px 6px; border-radius:4px; margin-left:6px; font-weight:800;">NOINDEX</span> ' + escapeHtml(metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو');
+      } else {
+        document.getElementById('serpPreviewTitle').textContent = metaTitle || 'عنوان سئو مقاله در نتایج موتورهای جستجو';
+      }
       document.getElementById('serpPreviewDesc').textContent = metaDesc || 'توضیحات متای مقاله که توجه کاربران گوگل را جلب می‌کند...';
       document.getElementById('serpPreviewUrl').textContent = 'https://pezeshkan.me/mag/' + (slug || 'article-slug');
 
@@ -14109,10 +14248,13 @@ Sitemap: https://pezeshkan.me/sitemap.xml
             }
           }
 
+          const relVal = (a.getAttribute('rel') || '').toLowerCase();
+          const isNofollow = relVal.includes('nofollow');
           detectedLinks.push({
             href: href,
             anchor: text || 'بدون انکر تکست',
-            targetSlug: targetSlug
+            targetSlug: targetSlug,
+            isNofollow: isNofollow
           });
         }
       });
@@ -14136,8 +14278,11 @@ Sitemap: https://pezeshkan.me/sitemap.xml
         listContainer.innerHTML = detectedLinks.map(lnk => {
           return `
             <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 4px 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
-              <span style="color: var(--text-primary); font-weight: 700;">«${escapeHtml(lnk.anchor)}»</span>
-              <span style="color: var(--text-muted); direction: ltr;">${escapeHtml(lnk.href)}</span>
+              <div style="display:flex; align-items:center; gap:6px; overflow:hidden;">
+                <span style="color: var(--text-primary); font-weight: 700;">«${escapeHtml(lnk.anchor)}»</span>
+                <span class="link-item-type" style="font-size: 9.5px; padding: 1px 5px; ${lnk.isNofollow ? 'background:rgba(239,68,68,0.15); color:#F87171; border:1px solid rgba(239,68,68,0.3);' : 'background:rgba(16,185,129,0.15); color:#34D399; border:1px solid rgba(16,185,129,0.3);'}">${lnk.isNofollow ? 'نوفالو' : 'فالو'}</span>
+              </div>
+              <span style="color: var(--text-muted); direction: ltr; font-size:10.5px;">${escapeHtml(lnk.href)}</span>
             </div>
           `;
         }).join('');
@@ -14615,6 +14760,196 @@ Sitemap: https://pezeshkan.me/sitemap.xml
         `;
       }
     }
+  
+    // ================= 16. LEADS (DOCTOR ONBOARDING & CRM) =================
+    let LEADS = [];
+
+    async function fetchLeads() {
+      try {
+        const res = await fetch('/api/admin/leads');
+        if (!res.ok) {
+          if (res.status === 401) return;
+        }
+        const data = await res.json();
+        LEADS = Array.isArray(data) ? data : (data.leads || []);
+        
+        const badge = document.getElementById('sidebarLeadsBadge');
+        if (badge) {
+          badge.textContent = LEADS.length;
+          badge.style.display = LEADS.length > 0 ? 'inline-block' : 'none';
+        }
+        const dashCount = document.getElementById('dashTotalLeads');
+        if (dashCount) {
+          dashCount.textContent = LEADS.length + ' درخواست';
+        }
+        const hdrCount = document.getElementById('leadsCountHeader');
+        if (hdrCount) {
+          hdrCount.textContent = LEADS.length;
+        }
+        
+        renderLeadsTable();
+      } catch (err) {
+        console.error('Error fetching leads:', err);
+      }
+    }
+
+    function renderLeadsTable() {
+      const tbody = document.getElementById('leadsTableBody');
+      if (!tbody) return;
+      
+      const search = (document.getElementById('leadsSearchInput')?.value || '').trim().toLowerCase();
+      const planFilter = document.getElementById('leadsPlanFilter')?.value || '';
+      const statusFilter = document.getElementById('leadsStatusFilter')?.value || '';
+      
+      let filtered = LEADS.filter(l => {
+        if (planFilter && (l.chosenPlan || '').toLowerCase() !== planFilter.toLowerCase()) return false;
+        if (statusFilter && (l.status || 'new') !== statusFilter) return false;
+        if (search) {
+          const hay = ((l.name || '') + ' ' + (l.phone || '') + ' ' + (l.specialty || '') + ' ' + (l.address || '')).toLowerCase();
+          if (!hay.includes(search)) return false;
+        }
+        return true;
+      });
+      
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:36px; color:var(--text-secondary);">هیچ درخواستی با این مشخصات یافت نشد.</td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = filtered.map(lead => {
+        const planMap = {
+          'starter': { title: 'طرح پایه (Starter)', color: '#0284C7', bg: 'rgba(2,132,199,0.1)' },
+          'pro': { title: 'طرح حرفه‌ای (Pro)', color: '#0066FF', bg: 'rgba(0,102,255,0.12)' },
+          'enterprise': { title: 'طرح سازمانی', color: '#8B5CF6', bg: 'rgba(139,92,246,0.12)' }
+        };
+        const planInfo = planMap[(lead.chosenPlan || '').toLowerCase()] || { title: lead.chosenPlan || 'طرح نامشخص', color: '#10B981', bg: 'rgba(16,185,129,0.1)' };
+        
+        const challengesList = Array.isArray(lead.challenges) ? lead.challenges : (lead.challenges ? [lead.challenges] : []);
+        const challengesHtml = challengesList.map(c => `<span style="display:inline-block; font-size:10.5px; background:rgba(255,255,255,0.06); padding:1px 6px; border-radius:4px; margin:2px;">${c}</span>`).join('');
+        
+        const currStatus = lead.status || 'new';
+        
+        return `
+          <tr>
+            <td>
+              <strong style="color:var(--text-primary); font-size:14px; display:block;">${lead.name || 'بدون نام'}</strong>
+              <span style="font-size:11px; color:var(--text-muted);">${lead.id || ''}</span>
+            </td>
+            <td>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <a href="tel:${lead.phone}" style="color:var(--color-cyan, #38BDF8); font-weight:700; direction:ltr; font-family:monospace;" title="تماس تلفنی با پزشک">${lead.phone || '-'}</a>
+                <button type="button" class="table-btn-action" style="padding:2px 6px; font-size:11px;" onclick="copyLeadPhone('${lead.phone}')" title="کپی شماره">📋</button>
+              </div>
+            </td>
+            <td>
+              <span style="font-size:13px; color:var(--text-primary);">${lead.specialty || 'تخصص ثبت نشده'}</span>
+            </td>
+            <td>
+              <span style="font-size:11.5px; font-weight:700; color:${planInfo.color}; background:${planInfo.bg}; padding:3px 8px; border-radius:6px; display:inline-block;">
+                ${planInfo.title}
+              </span>
+            </td>
+            <td>
+              <div style="font-size:12px; color:var(--text-secondary); margin-bottom:4px;">
+                <strong>حجم:</strong> ${lead.patientsVolume || '-'}
+              </div>
+              <div>${challengesHtml}</div>
+            </td>
+            <td style="max-width:220px;">
+              <span style="font-size:12px; color:var(--text-secondary); line-height:1.5; display:block;">
+                ${lead.address || 'آدرس ثبت نشده'}
+              </span>
+            </td>
+            <td>
+              <span style="font-size:12px; color:var(--text-muted); direction:ltr; display:inline-block;">
+                ${lead.createdAt || lead.createdAtIso || '-'}
+              </span>
+            </td>
+            <td style="text-align:center;">
+              <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+                <select class="form-control" style="font-size:11.5px; padding:3px 6px; width:130px;" onchange="updateLeadStatus('${lead.id}', this.value)">
+                  <option value="new" ${currStatus==='new'?'selected':''}>جدید</option>
+                  <option value="contacted" ${currStatus==='contacted'?'selected':''}>تماس گرفته شد</option>
+                  <option value="scheduled" ${currStatus==='scheduled'?'selected':''}>هماهنگی استقرار</option>
+                  <option value="active" ${currStatus==='active'?'selected':''}>مستقر و فعال</option>
+                </select>
+                <button type="button" class="table-btn-action btn-action-delete" style="font-size:11px; padding:2px 8px;" onclick="deleteLead('${lead.id}')">حذف</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateLeadStatus(id, newStatus) {
+      try {
+        const res = await fetch('/api/admin/leads/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, status: newStatus })
+        });
+        if (res.ok) {
+          if (typeof showToast === 'function') showToast('وضعیت درخواست با موفقیت به‌روز شد');
+          fetchLeads();
+        } else {
+          if (typeof showToast === 'function') showToast('خطا در به‌روزرسانی وضعیت');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function deleteLead(id) {
+      if (!confirm('آیا از حذف این درخواست اطمینان دارید؟')) return;
+      try {
+        const res = await fetch('/api/admin/leads/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+        if (res.ok) {
+          if (typeof showToast === 'function') showToast('درخواست همکاری حذف شد');
+          fetchLeads();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function copyLeadPhone(phone) {
+      if (!phone) return;
+      navigator.clipboard.writeText(phone).then(() => {
+        if (typeof showToast === 'function') showToast('شماره تماس کپی شد: ' + phone);
+      });
+    }
+
+    function exportLeadsCsv() {
+      if (!LEADS.length) {
+        alert('هیچ داده‌ای برای خروجی وجود ندارد.');
+        return;
+      }
+      const headers = ['شناسه', 'نام پزشک', 'شماره تماس', 'تخصص', 'طرح انتخابی', 'حجم بیماران', 'چالش‌ها', 'آدرس', 'وضعیت', 'تاریخ'];
+      const rows = LEADS.map(l => [
+        l.id || '',
+        `"${(l.name || '').replace(/"/g, '""')}"`,
+        `"${l.phone || ''}"`,
+        `"${(l.specialty || '').replace(/"/g, '""')}"`,
+        `"${l.chosenPlan || ''}"`,
+        `"${l.patientsVolume || ''}"`,
+        `"${(Array.isArray(l.challenges) ? l.challenges.join(' - ') : (l.challenges || '')).replace(/"/g, '""')}"`,
+        `"${(l.address || '').replace(/"/g, '""')}"`,
+        `"${l.status || 'new'}"`,
+        `"${l.createdAt || ''}"`
+      ]);
+      const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `pezeshkan_leads_${new Date().toISOString().slice(0,10)}.csv`;
+      link.click();
+    }
+
+    fetchLeads();
   </script>
 </body>
 </html>

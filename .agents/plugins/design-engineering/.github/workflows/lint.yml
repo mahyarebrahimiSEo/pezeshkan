@@ -1,0 +1,288 @@
+name: Lint and validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  markdown-lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli@0.41.0
+
+      - name: Run markdownlint
+        run: markdownlint '**/*.md' --ignore node_modules --ignore .obsidian --config .markdownlint.jsonc
+
+  frontmatter-check:
+    name: Frontmatter present on all nodes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check every reference node and subagent starts with frontmatter
+        run: |
+          set -e
+          missing=0
+          for dir in skills/design-engineering/references agents; do
+            for f in $(find "$dir" -name '*.md'); do
+              first_line=$(head -n 1 "$f")
+              if [ "$first_line" != "---" ]; then
+                echo "::error file=$f::Missing YAML frontmatter (file must start with ---)"
+                missing=$((missing + 1))
+              fi
+            done
+          done
+          if [ $missing -gt 0 ]; then
+            echo "::error::$missing file(s) missing frontmatter"
+            exit 1
+          fi
+          echo "All reference nodes and subagents have frontmatter."
+
+  skill-structure:
+    name: Skill structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify required files exist
+        run: |
+          set -e
+          required=(
+            "skills/design-engineering/SKILL.md"
+            "agents/README.md"
+            "agents/ui-reviewer.md"
+            "agents/motion-auditor.md"
+            "agents/anti-pattern-scanner.md"
+            "agents/agentation-fix-loop.md"
+            "agents/design-md-consumer.md"
+            "agents/pov-curator.md"
+            "agents/sound-designer.md"
+            "agents/svg-creator.md"
+            "agents/svg-animator.md"
+            "agents/launch-film-analyst.md"
+            "skills/design-engineering/scripts/sound-family.mjs"
+            "skills/design-engineering/scripts/sound-sheet.mjs"
+            "skills/design-engineering/scripts/svg-flipbook.mjs"
+            "plugin.json"
+            "package.json"
+            "registry.json"
+            "scripts/build-registry.mjs"
+            "templates/design-engineering.design"
+            "spec/design-file-spec.md"
+            "agent/agent.ts"
+            "agent/instructions.md"
+            "evals/evals.config.ts"
+            "scripts/sync-skills.mjs"
+            ".plugin/plugin.json"
+            "AGENTS.md"
+            "SOUL.md"
+            "README.md"
+            "LICENSE"
+            "CONTRIBUTING.md"
+            "CODE_OF_CONDUCT.md"
+            "SECURITY.md"
+            "spec/agent-skills-spec.md"
+            "template/TEMPLATE.md"
+            ".claude-plugin/marketplace.json"
+            ".claude-plugin/plugin.json"
+            ".codex-plugin/plugin.json"
+            ".cursor-plugin/plugin.json"
+          )
+          for f in "${required[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "::error file=$f::Required file missing"
+              exit 1
+            fi
+          done
+          echo "All required files present."
+
+      - name: SKILL.md description starts with 'Load when'
+        run: |
+          desc=$(awk '/^description:/{flag=1; sub(/^description: /, ""); print; next} flag && /^[a-z]+:/ {flag=0} flag {print}' skills/design-engineering/SKILL.md)
+          if ! echo "$desc" | head -n 1 | grep -qiE '^["\'']?(load when|use when)'; then
+            echo "::warning file=skills/design-engineering/SKILL.md::Description should start with 'Load when...' or 'Use when...' per Perplexity's skill-building guide"
+          else
+            echo "Description starts with 'Load when' / 'Use when' — OK."
+          fi
+
+      - name: Skill name matches folder name
+        run: |
+          name=$(grep -m 1 '^name:' skills/design-engineering/SKILL.md | awk '{print $2}' | tr -d '"')
+          if [ "$name" != "design-engineering" ]; then
+            echo "::error::SKILL.md name ($name) does not match folder name (design-engineering)"
+            exit 1
+          fi
+          echo "Name matches folder name."
+
+      - name: Subagent frontmatter fields
+        run: |
+          set -e
+          missing=0
+          for f in $(find agents -name '*.md' -not -name 'README.md'); do
+            base=$(basename "$f" .md)
+            # Each subagent must declare: name, description, tools, model
+            for field in name description tools model; do
+              if ! grep -qE "^${field}:" "$f"; then
+                echo "::error file=$f::Subagent missing required frontmatter field: $field"
+                missing=$((missing + 1))
+              fi
+            done
+            # Subagent name must match filename
+            agent_name=$(grep -m 1 '^name:' "$f" | awk '{print $2}' | tr -d '"')
+            if [ "$agent_name" != "$base" ]; then
+              echo "::error file=$f::Subagent name ($agent_name) does not match filename ($base)"
+              missing=$((missing + 1))
+            fi
+          done
+          if [ $missing -gt 0 ]; then
+            echo "::error::$missing subagent frontmatter error(s)"
+            exit 1
+          fi
+          echo "All subagents have required frontmatter (name, description, tools, model) and names match filenames."
+
+      - name: Subagent soul block
+        run: |
+          set -e
+          missing=0
+          for f in $(find agents -name '*.md' -not -name 'README.md'); do
+            if ! grep -qE '^## Soul' "$f"; then
+              echo "::error file=$f::Subagent missing required ## Soul section"
+              missing=$((missing + 1))
+            fi
+          done
+          if [ $missing -gt 0 ]; then
+            echo "::error::$missing subagent(s) missing ## Soul section"
+            exit 1
+          fi
+          echo "All subagents carry a ## Soul section."
+
+      - name: Plugin manifests are valid JSON
+        run: |
+          set -e
+          fails=0
+          for f in plugin.json package.json .plugin/plugin.json .claude-plugin/plugin.json .claude-plugin/marketplace.json .codex-plugin/plugin.json .cursor-plugin/plugin.json; do
+            if ! python3 -c "import json,sys; json.load(open('$f'))" 2>/dev/null; then
+              echo "::error file=$f::Invalid JSON"
+              fails=$((fails + 1))
+            fi
+          done
+          if [ $fails -gt 0 ]; then
+            echo "::error::$fails plugin manifest(s) failed JSON validation"
+            exit 1
+          fi
+          echo "All plugin manifests are valid JSON."
+
+      - name: Plugin manifest versions match
+        run: |
+          set -e
+          v_root=$(python3 -c "import json; print(json.load(open('plugin.json'))['version'])")
+          v_pkg=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
+          v_plugin=$(python3 -c "import json; print(json.load(open('.plugin/plugin.json'))['version'])")
+          v_claude=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+          v_market=$(python3 -c "import json; print(json.load(open('.claude-plugin/marketplace.json'))['plugins'][0]['version'])")
+          v_codex=$(python3 -c "import json; print(json.load(open('.codex-plugin/plugin.json'))['version'])")
+          v_cursor=$(python3 -c "import json; print(json.load(open('.cursor-plugin/plugin.json'))['version'])")
+          v_skill=$(grep -m 1 'version:' skills/design-engineering/SKILL.md | sed -E 's/.*"([^"]+)".*/\1/')
+          if [ "$v_root" != "$v_plugin" ] || [ "$v_root" != "$v_pkg" ] || [ "$v_plugin" != "$v_claude" ] || [ "$v_claude" != "$v_market" ] || [ "$v_claude" != "$v_codex" ] || [ "$v_claude" != "$v_cursor" ] || [ "$v_claude" != "$v_skill" ]; then
+            echo "::error::Version mismatch — root:$v_root package:$v_pkg plugin:$v_plugin claude:$v_claude marketplace:$v_market codex:$v_codex cursor:$v_cursor skill:$v_skill"
+            exit 1
+          fi
+          echo "All plugin manifests + SKILL.md report version $v_claude."
+
+  registry-check:
+    name: shadcn registry is current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Rebuild registry and verify no drift
+        run: |
+          set -e
+          node scripts/build-registry.mjs
+          if ! git diff --quiet -- registry.json r/; then
+            echo "::error::registry.json / r/ are stale. Run 'npm run build:registry' and commit the result."
+            git diff --stat -- registry.json r/
+            exit 1
+          fi
+          echo "Registry output matches the source files."
+
+      - name: Validate against the shadcn schemas
+        run: |
+          set -e
+          # Install the validators outside the project so npm never resolves the root
+          # package.json's devDependencies (npm 10 on Node 20 crashed there: "reading 'edgesOut'").
+          npm install --prefix /tmp/validate ajv@8 ajv-formats@3 --no-fund --no-audit --no-package-lock
+          export NODE_PATH=/tmp/validate/node_modules
+          curl -sSL https://ui.shadcn.com/schema/registry-item.json -o /tmp/item.schema.json
+          curl -sSL https://ui.shadcn.com/schema/registry.json -o /tmp/reg.schema.json
+          node -e "
+            const Ajv=require('ajv'), addFormats=require('ajv-formats'), fs=require('fs');
+            const load=p=>{const s=JSON.parse(fs.readFileSync(p,'utf8'));delete s['\$schema'];return s};
+            const ajv=new Ajv({strict:false,allErrors:true}); addFormats(ajv);
+            ajv.addSchema(load('/tmp/item.schema.json'),'https://ui.shadcn.com/schema/registry-item.json');
+            const vi=ajv.compile(load('/tmp/item.schema.json'));
+            let bad=0;
+            for (const f of fs.readdirSync('r')) {
+              const d=JSON.parse(fs.readFileSync('r/'+f,'utf8'));
+              if (!vi(d)) { console.error('::error file=r/'+f+'::'+JSON.stringify(vi.errors.slice(0,3))); bad++; }
+            }
+            const vr=ajv.compile(load('/tmp/reg.schema.json'));
+            if (!vr(JSON.parse(fs.readFileSync('registry.json','utf8')))) {
+              console.error('::error file=registry.json::'+JSON.stringify(vr.errors.slice(0,3))); bad++;
+            }
+            if (bad) process.exit(1);
+            console.log('Registry and all items validate against the shadcn schemas.');
+          "
+
+  link-check:
+    name: Internal wikilink check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify every [[wikilink]] in skill content resolves to a file
+        run: |
+          set -e
+          # Collect basenames of reference files AND subagents (the resolvable wikilink targets).
+          # Also include "SKILL" so cross-refs from subagents/README to the main SKILL.md resolve.
+          basenames=$( { find skills/design-engineering/references agents -name '*.md' -exec basename {} .md \; ; echo SKILL ; } )
+
+          # Descriptive uses that aren't real links (allow-list)
+          allowlist=$(printf '%s\n' wikilinks node-name name foo bar wikilink-1 wikilink-2)
+
+          unresolved=0
+          # Only check actual skill content — not docs (CONTRIBUTING/README/AGENTS/spec/template)
+          for f in $(find skills/design-engineering -name '*.md'); do
+            # Strip code fences and inline backticks so descriptive [[wikilinks]] in code don't false-positive.
+            stripped=$(awk 'BEGIN{infence=0} /^```/{infence=!infence; next} !infence' "$f" | sed 's/`[^`]*`//g')
+            for link in $(echo "$stripped" | grep -oE '\[\[[a-zA-Z0-9_-]+\]\]' | sed 's/\[\[//;s/\]\]//' | sort -u); do
+              if echo "$allowlist" | grep -qx "$link"; then
+                continue
+              fi
+              if ! echo "$basenames" | grep -qx "$link"; then
+                echo "::error file=$f::Unresolved wikilink: [[$link]]"
+                unresolved=$((unresolved + 1))
+              fi
+            done
+          done
+          if [ $unresolved -gt 0 ]; then
+            echo "::error::$unresolved unresolved wikilink(s)"
+            exit 1
+          fi
+          echo "All wikilinks in skill content resolve."

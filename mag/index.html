@@ -6429,6 +6429,19 @@ function escapeHtml(str) {
       }
       canonicalEl.setAttribute('href', `https://pezeshkan.me${targetUrl}`);
 
+      // Update Robots Meta in Head (Rank Math Noindex handling)
+      let robotsEl = document.querySelector('meta[name="robots"]');
+      if (!robotsEl) {
+        robotsEl = document.createElement('meta');
+        robotsEl.setAttribute('name', 'robots');
+        document.head.appendChild(robotsEl);
+      }
+      if (art.isNoindex || (art.robots && art.robots.includes('noindex'))) {
+        robotsEl.setAttribute('content', 'noindex, follow');
+      } else {
+        robotsEl.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+      }
+
       const artIcon = medicalIcons[art.categoryIcon] || medicalIcons['stethoscope'];
 
       const tocHtml = (art.sections || []).map(s => `
@@ -6709,6 +6722,10 @@ function escapeHtml(str) {
         window.history.pushState({ view: 'hub' }, 'مجله سلامت بالینی | پزشکآن', '/mag');
       }
       document.title = 'مجله سلامت بالینی | پزشکآن';
+      const robotsEl = document.querySelector('meta[name="robots"]');
+      if (robotsEl) {
+        robotsEl.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+      }
     }
 
     // کنترل نوار پیشرفت مطالعه و دکمه بازگشت به بالا (بهینه‌سازی شده با RAF و شتاب‌دهنده GPU)
