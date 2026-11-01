@@ -370,7 +370,7 @@ def magazine_page(request, path=""):
         if target_404.exists():
             return serve_static_file(target_404, status=404)
     elif clean == "newsletter":
-        target = settings.BASE_DIR / 'mag' / 'newsletter.html'
+        return HttpResponsePermanentRedirect('/mag')
         return serve_static_file(target)
     else:
         # Check if direct file exists (assets, css, js, etc.)

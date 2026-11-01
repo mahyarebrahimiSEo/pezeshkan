@@ -2945,7 +2945,6 @@ def generate_dynamic_sitemap_xml():
         ("https://pezeshkan.me/", now_iso, "daily", "1.0"),
         ("https://pezeshkan.me/mag", now_iso, "daily", "0.95"),
         ("https://pezeshkan.me/appointments", now_iso, "daily", "0.9"),
-        ("https://pezeshkan.me/mag/newsletter", now_iso, "weekly", "0.9"),
     ]
 
     for a in articles:
@@ -3489,10 +3488,8 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
         # Health Magazine canonicalization
         if path in ["/mag/index.html", "/mag/"]:
             return self.send_redirect_301("/mag")
-        if path in ["/mag/newsletter.html", "/mag/newsletter/"]:
-            return self.send_redirect_301("/mag/newsletter")
-        if path in ["/newsletter", "/newsletter.html", "/newsletter/"]:
-            return self.send_redirect_301("/mag/newsletter")
+        if path in ["/mag/newsletter.html", "/mag/newsletter/", "/mag/newsletter", "/newsletter", "/newsletter.html", "/newsletter/"]:
+            return self.send_redirect_301("/mag")
 
         # Aliases
         if path in ["/pricing", "/pricing.html", "/pricing/"]:
@@ -3655,9 +3652,9 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                 return
             return self.serve_file(os.path.join(MAG_DIR, "admin.html"), "text/html", is_private=True)
 
-        # 6.5. Health Magazine Newsletter
+        # 6.5. Health Magazine Newsletter (Permanently redirected to /mag)
         if path == "/mag/newsletter":
-            return self.serve_file(os.path.join(MAG_DIR, "newsletter.html"), "text/html")
+            return self.send_redirect_301("/mag")
 
         # 7. Health Magazine Subfolder (/mag) & Article SPA Deep-Linking
         if path == "/mag" or path.startswith("/mag/"):

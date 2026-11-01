@@ -3344,10 +3344,6 @@
           <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/><path d="M14 8h.01"/><path d="M3 16l4-4a2 2 0 0 1 2.8 0L12 14"/></svg>
           <span>تصاویر سایت اصلی</span>
         </li>
-        <li class="sidebar-item" id="menu-newsletters" onclick="switchTab('newsletters')">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span>خبرنامه‌ها و بولتن‌ها</span>
-        </li>
         <li class="sidebar-divider"></li>
         <li class="sidebar-item" id="menu-redirects" onclick="switchTab('redirects')">
           <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
@@ -5552,357 +5548,6 @@
         </div>
       </section>
 
-      <!-- ================= 12. TAB: NEWSLETTERS MANAGEMENT ================= -->
-      <section id="tab-newsletters" class="tab-section">
-        <div class="section-header-box">
-          <div class="section-title-wrap">
-            <h2>
-              <span>مدیریت خبرنامه‌ها و بولتن‌های تخصصی</span>
-              <span class="admin-badge-clinical" id="newslettersTotalBadge" style="background: rgba(0, 115, 255, 0.15); color: #0073FF; border: 1px solid rgba(0, 115, 255, 0.3);">۴ شماره منتشرشده</span>
-            </h2>
-            <p>ایجاد، ویرایش و ارسال هفته‌نامه‌های بالینی پزشکآن و تحلیل‌های دارویی همراه با خروجی به صفحه اختصاصی خبرنامه</p>
-          </div>
-          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <button type="button" class="btn btn-secondary" onclick="window.open('/mag/newsletter', '_blank')" style="display: flex; align-items: center; gap: 6px;">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              <span>مشاهده صفحه خبرنامه</span>
-            </button>
-            <button type="button" class="btn btn-primary" onclick="createNewNewsletter()" style="display: flex; align-items: center; gap: 8px;">
-              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-              <span>نگارش خبرنامه تازه</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Filter & Search Toolbar -->
-        <div class="card" style="margin-bottom: 20px; padding: 16px 20px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; gap: 10px; align-items: center; flex: 1; min-width: 260px;">
-              <input type="text" id="newslettersSearchInput" class="form-control" placeholder="جستجو در عنوان، شماره یا نام پزشک..." oninput="onNewslettersSearchInput(this.value)" style="max-width: 380px;">
-            </div>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <select id="newslettersStatusFilter" class="form-control" onchange="renderNewslettersManagement()" style="width: 170px;">
-                <option value="all">همه وضعیت‌ها</option>
-                <option value="published">فقط منتشرشده</option>
-                <option value="draft">فقط پیش‌نویس‌ها</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Newsletters Table / Grid Card -->
-        <div class="card" style="padding: 0; overflow: hidden;">
-          <div style="overflow-x: auto;">
-            <table class="clinical-table" style="width: 100%; border-collapse: collapse;">
-              <thead>
-                <tr>
-                  <th style="width: 100px; text-align: center;">شماره نسخه</th>
-                  <th style="min-width: 280px;">عنوان و خلاصه خبرنامه</th>
-                  <th style="width: 180px;">پزشک ناظر و حوزه</th>
-                  <th style="width: 130px; text-align: center;">تاریخ انتشار</th>
-                  <th style="width: 110px; text-align: center;">وضعیت</th>
-                  <th style="width: 220px; text-align: center;">عملیات</th>
-                </tr>
-              </thead>
-              <tbody id="newslettersTableBody">
-                <tr>
-                  <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">
-                    در حال بارگذاری اطلاعات خبرنامه‌ها...
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= 13. TAB: NEWSLETTER DEDICATED EDITOR ================= -->
-      <section id="tab-newsletter-editor" class="tab-section">
-        <div class="section-header-box">
-          <div class="section-title-wrap">
-            <h2>
-              <span id="newsletterEditorMainHeading">نگارش و ویرایش شماره خبرنامه بالینی</span>
-              <span class="admin-badge-clinical" id="newsletterEditorModeBadge">ویرایشگر خبرنامه</span>
-            </h2>
-            <p>ویرایش ساختاریافته، نقل‌قول‌های بالینی و خلاصه‌های تخصصی هفته‌نامه با تمام قابلیت‌های ویرایشگر نوشته</p>
-          </div>
-          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <button type="button" class="btn btn-secondary" onclick="saveCurrentNewsletter('draft')">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-              <span>ذخیره پیش‌نویس</span>
-            </button>
-            <button type="button" class="btn btn-success" onclick="saveCurrentNewsletter('published')">
-              <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>انتشار خبرنامه در سایت</span>
-            </button>
-            <button type="button" class="btn btn-secondary" onclick="switchTab('newsletters')">بازگشت</button>
-          </div>
-        </div>
-
-        <!-- 2-Column Structured Document Workspace for Newsletter -->
-        <div class="article-editor-workspace">
-          
-          <!-- Column 1: Main Paper Document Canvas -->
-          <div class="editor-paper-card">
-            
-            <!-- Newsletter Document Header: Issue #, Date, Title & Lead -->
-            <div class="editor-paper-header">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
-                <div>
-                  <label for="newsletterEditIssueNumber" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">شماره نسخه خبرنامه:</label>
-                  <input type="text" id="newsletterEditIssueNumber" class="form-control" placeholder="مثال: شماره ۵۳" style="font-weight: 800;">
-                </div>
-                <div>
-                  <label for="newsletterEditPublishDate" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">تاریخ انتشار:</label>
-                  <input type="text" id="newsletterEditPublishDate" class="form-control" placeholder="مثال: سه‌شنبه ۲۱ مهر ۱۴۰۵">
-                </div>
-              </div>
-
-              <div>
-                <label for="newsletterEditTitle" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px;">عنوان اصلی خبرنامه (H1):</label>
-                <input type="text" id="newsletterEditTitle" class="input-title-h1" placeholder="تیتر اصلی و جذاب شماره خبرنامه..." oninput="handleNewsletterTitleChange()">
-              </div>
-              
-              <div style="margin-top: 14px;">
-                <label for="newsletterEditSummary" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">لید و چکیده اجرایی خبرنامه (ارسال ایمیل و نمایش در آرشیو):</label>
-                <textarea id="newsletterEditSummary" class="textarea-lead" placeholder="خلاصه ۲ تا ۳ خطی از مهم‌ترین پیام این شماره خبرنامه..." oninput="handleNewsletterSummaryChange()"></textarea>
-              </div>
-            </div>
-
-            <!-- Sticky Formatting Toolbar (All Features Identical to Article Editor, but NO Quick Booking) -->
-            <div class="editorial-toolbar-sticky">
-              
-              <!-- Headings -->
-              <div class="toolbar-cluster">
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('formatBlock', '<h2>')" title="تیتر اصلی بخش (H2)">H2</button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('formatBlock', '<h3>')" title="زیرعنوان بخش (H3)">H3</button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('formatBlock', '<p>')" title="متن عادی (پاراگراف)">P</button>
-              </div>
-
-              <!-- Inline Formats -->
-              <div class="toolbar-cluster">
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('bold')" title="ضخیم (Ctrl+B)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('italic')" title="مورب (Ctrl+I)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('underline')" title="زیرخط (Ctrl+U)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('strikeThrough')" title="خط‌خورده">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
-                </button>
-              </div>
-
-              <!-- Alignment & Direction (RTL / LTR) -->
-              <div class="toolbar-cluster">
-                <button type="button" class="tbtn" onclick="setNewsletterAlignment('right')" title="راست‌چین و فارسی (RTL)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="12" x2="9" y2="12"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="setNewsletterAlignment('center')" title="وسط‌چین">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="6"/><line x1="21" y1="12" x2="3" y2="12"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="setNewsletterAlignment('left')" title="چپ‌چین (LTR)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="21" y1="6" x2="3" y2="6"/><line x1="15" y1="12" x2="3" y2="12"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="setNewsletterAlignment('justify')" title="تراز دوطرفه (Justify)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="12" x2="3" y2="12"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="setNewsletterDirection('rtl')" title="جهت متن راست به چپ (RTL)" style="font-weight: 800; font-size: 11px;">
-                  <span>RTL</span>
-                </button>
-                <button type="button" class="tbtn" onclick="setNewsletterDirection('ltr')" title="جهت متن چپ به راست (LTR)" style="font-weight: 800; font-size: 11px;">
-                  <span>LTR</span>
-                </button>
-              </div>
-
-              <!-- Lists & Quotes -->
-              <div class="toolbar-cluster">
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('insertUnorderedList')" title="لیست نشانه‌دار">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('insertOrderedList')" title="لیست شماره‌دار">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('formatBlock', '<blockquote>')" title="نقل‌قول بالینی">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/></svg>
-                </button>
-              </div>
-
-              <!-- Clinical Callout Blocks (Clean SVGs) -->
-              <div class="toolbar-cluster">
-                <button type="button" class="tbtn-pill btn-callout-warning" onclick="insertNewsletterCallout('warning')" title="باکس هشدار بالینی و منع مصرف">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                  <span>هشدار بالینی</span>
-                </button>
-                <button type="button" class="tbtn-pill btn-callout-advice" onclick="insertNewsletterCallout('advice')" title="باکس توصیه متخصص">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
-                  <span>توصیه پزشک</span>
-                </button>
-                <button type="button" class="tbtn-pill btn-callout-protocol" onclick="insertNewsletterCallout('protocol')" title="باکس پروتکل تریاژ">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  <span>پروتکل تریاژ</span>
-                </button>
-              </div>
-
-              <!-- Media Inserter & Links -->
-              <div class="toolbar-cluster">
-                <button type="button" class="tbtn-pill btn-callout-media" onclick="openMediaModal('newsletter-editor')" title="انتخاب تصویر از کتابخانه یا آپلود فایل تازه">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                  <span>افزودن تصویر</span>
-                </button>
-                <button type="button" class="tbtn" onclick="openEditorLinkModal(true)" title="درج یا ویرایش پیوند (انکر تکست)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('insertHorizontalRule')" title="خط جداکننده">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-              </div>
-
-              <!-- History -->
-              <div class="toolbar-cluster" style="margin-right: auto; border-left: none;">
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('undo')" title="واگرد (Ctrl+Z)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
-                </button>
-                <button type="button" class="tbtn" onclick="execNewsletterFormat('redo')" title="بازگرد (Ctrl+Y)">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Bulletproof WYSIWYG ContentEditable Surface -->
-            <div class="editor-canvas-body" onclick="focusNewsletterEditorCanvas()">
-              <div id="newsletterEditorialCanvas" 
-                   class="editorial-wysiwyg-surface" 
-                   contenteditable="true" 
-                   spellcheck="false" 
-                   dir="rtl" 
-                   data-placeholder="محتوا، هشدارها و یافته‌های بالینی این شماره خبرنامه را اینجا بنویسید یا متن را جای‌گذاری (Paste) فرمایید...">
-              </div>
-            </div>
-
-            <!-- Bottom Status Strip -->
-            <div class="editor-status-strip">
-              <div class="status-group">
-                <span>تعداد واژه‌ها: <strong id="newsletterStatWordCount" style="color: #F8FAFC;">۰</strong></span>
-                <span>حروف و کاراکترها: <strong id="newsletterStatCharCount" style="color: #F8FAFC;">۰</strong></span>
-                <span>زمان تخمینی مطالعه: <strong id="newsletterStatReadTimeCalc" style="color: #00FFFF;">۱ دقیقه</strong></span>
-              </div>
-              <div class="status-group">
-                <span id="newsletterStatSaveIndicator" style="color: var(--color-emerald); font-weight: 700;">آماده برای نگارش</span>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Column 2: Sidebar Settings for Newsletter -->
-          <div class="editor-sidebar-col">
-            
-            <!-- Metadata & Attribution Widget -->
-            <div class="sidebar-widget">
-              <div class="widget-header">
-                <span>تنظیمات بالینی و ارجاع خبرنامه</span>
-                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div class="widget-body">
-                <div>
-                  <label for="newsletterEditCategory" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">حوزه پزشکی تخصصی:</label>
-                  <select id="newsletterEditCategory" class="form-control">
-                    <option value="همه موضوعات سلامت و هشدارهای درمانی">همه موضوعات سلامت</option>
-                    <option value="ستون فقرات و توانبخشی">ستون فقرات و توانبخشی</option>
-                    <option value="سلامت زنان و مادر و جنین">سلامت زنان و مادر و جنین</option>
-                    <option value="قلب، عروق و غدد">قلب، عروق و غدد</option>
-                    <option value="تریاژ و اورژانس بالینی">تریاژ و اورژانس بالینی</option>
-                    <option value="جراحی‌های متابولیک و لاپاراسکوپی">جراحی‌های متابولیک و لاپاراسکوپی</option>
-                    <option value="گوارش و کبد">گوارش و کبد</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label for="newsletterEditDoctor" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">پزشک ناظر و داور علمی خبرنامه:</label>
-                  <select id="newsletterEditDoctor" class="form-control"></select>
-                </div>
-
-                <div>
-                  <label for="newsletterEditTags" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">محورهای کلیدی (با کاما جدا کنید):</label>
-                  <input type="text" id="newsletterEditTags" class="form-control" placeholder="مثال: تکارتراپی RF، پرچم قرمز، شاک‌ویو">
-                </div>
-
-                <div>
-                  <label for="newsletterEditArticleSlug" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">پیوند به مقاله مرجع در مجله (اختیاری):</label>
-                  <select id="newsletterEditArticleSlug" class="form-control">
-                    <option value="">بدون مقاله متصل</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Featured Hero Image Widget -->
-            <div class="sidebar-widget">
-              <div class="widget-header">
-                <span>تصویر بنر و سربرگ خبرنامه</span>
-                <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-              </div>
-              <div class="widget-body">
-                <div class="featured-img-preview-box" id="newsletterHeroImagePreviewBox" onclick="openMediaModal('newsletter-hero')">
-                  <div id="newsletterHeroEmptyPlaceholder" style="text-align: center;">
-                    <svg class="icon-svg" style="font-size: 32px; color: var(--text-secondary); margin-bottom: 6px;" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                    <div style="font-size: 12px; color: var(--text-secondary);">کلیک کنید تا از کتابخانه رسانه‌ها انتخاب شود</div>
-                  </div>
-                  <img id="newsletterHeroImageEl" style="display: none;" alt="تصویر بنر خبرنامه">
-                </div>
-                <input type="hidden" id="newsletterEditHeroUrl">
-                <input type="text" id="newsletterEditHeroAlt" class="form-control" placeholder="متن جایگزین تصویر (Alt Text)...">
-              </div>
-            </div>
-
-            <!-- SEO & Meta Information -->
-            <div class="sidebar-widget">
-              <div class="widget-header">
-                <span>تنظیمات سئو و متادیتا</span>
-                <span class="seo-score-badge" id="newsletterSeoBadge" style="background: rgba(0, 229, 153, 0.15); color: #00E599; border: 1px solid rgba(0, 229, 153, 0.3);">استاندارد</span>
-              </div>
-              <div class="widget-body">
-                <div>
-                  <label for="newsletterSeoFocusKeyword" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">کلیدواژه کانونی (Focus Keyword):</label>
-                  <input type="text" id="newsletterSeoFocusKeyword" class="form-control" placeholder="مثال: درمان دیسک کمر بدون جراحی" oninput="runLiveNewsletterSeoAudit()">
-                </div>
-
-                <div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">پیش‌نمایش در گوگل:</span>
-                  </div>
-                  <div class="google-serp-box">
-                    <div class="serp-url" id="newsletterSerpUrl">https://pezeshkan.me/mag/newsletter</div>
-                    <div class="serp-title" id="newsletterSerpTitle">عنوان خبرنامه در نتایج جستجو</div>
-                    <div class="serp-desc" id="newsletterSerpDesc">خلاصه این شماره از هفته‌نامه بالینی پزشکآن...</div>
-                  </div>
-                </div>
-
-                <div>
-                  <label for="newsletterSeoMetaTitle" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">عنوان سئو (Title Tag):</label>
-                  <input type="text" id="newsletterSeoMetaTitle" class="form-control" placeholder="عنوان بهینه برای سئو..." oninput="handleNewsletterMetaTitleChange()">
-                  <div class="char-counter-wrap">
-                    <span>پیشنهادی: ۵۰ تا ۶۰ کاراکتر</span>
-                    <span id="counterNewsletterMetaTitle">۰ / ۶۰</span>
-                  </div>
-                </div>
-
-                <div>
-                  <label for="newsletterSeoMetaDesc" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">توضیحات متا (Meta Description):</label>
-                  <textarea id="newsletterSeoMetaDesc" class="form-control" rows="3" placeholder="توضیحات کوتاه برای موتورهای جستجو..." oninput="handleNewsletterMetaDescChange()"></textarea>
-                  <div class="char-counter-wrap">
-                    <span>پیشنهادی: ۱۲۰ تا ۱۶۰ کاراکتر</span>
-                    <span id="counterNewsletterMetaDesc">۰ / ۱۶۰</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
 
     </main>
   </div>
@@ -6894,37 +6539,7 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: NEWSLETTER PREVIEW READER ================= -->
-  <div class="modal-backdrop" id="newsletterPreviewModalBackdrop" style="display: none; align-items: center; justify-content: center; z-index: 9999;">
-    <div class="modal-box" style="max-width: 860px; width: 95%; max-height: 90vh; overflow-y: auto;">
-      <div class="modal-header" style="position: sticky; top: 0; background: var(--bg-surface); z-index: 10; border-bottom: 1px solid var(--border-subtle); padding: 16px 20px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <span class="admin-badge-clinical" id="previewModalIssueBadge" style="background: rgba(0, 115, 255, 0.15); color: #0073FF; border: 1px solid rgba(0, 115, 255, 0.3);">شماره ۵۲</span>
-          <div>
-            <h3 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0;" id="previewModalTitle">پیش‌نمایش شماره خبرنامه بالینی</h3>
-            <span style="font-size: 11.5px; color: var(--text-muted);" id="previewModalSubtitle">نمایش دقیق خروجی برای خوانندگان مجله و دریافت‌کنندگان ایمیل</span>
-          </div>
-        </div>
-        <button type="button" class="btn btn-secondary" style="padding: 6px 10px;" onclick="closeNewsletterPreviewModal()">
-          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-
-      <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 20px;" id="previewModalBody">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <div class="modal-footer" style="padding: 14px 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
-        <div style="font-size: 12px; color: var(--text-muted);" id="previewModalFooterMeta">پزشک داور: دکتر مهران رادمنش</div>
-        <div style="display: flex; gap: 8px;">
-          <button type="button" class="btn btn-secondary" onclick="closeNewsletterPreviewModal()">بستن</button>
-          <button type="button" class="btn btn-primary" id="btnPreviewEditCurrent" onclick="editCurrentFromPreview()">ویرایش با ویرایشگر خبرنامه</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= FLOATING TOOLBAR: EDITOR IMAGE ACTIONS ================= -->
+<!-- ================= FLOATING TOOLBAR: EDITOR IMAGE ACTIONS ================= -->
   <div id="editorImageToolbar" class="editor-image-floating-toolbar" role="toolbar" aria-label="مدیریت تصویر">
     <button type="button" class="img-tb-btn" onclick="openImageAltEditModal()" title="ویرایش متن جایگزین (Alt) و توضیح زیر تصویر">
       <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
@@ -7105,8 +6720,7 @@
     }
 
     function updateArticleDropdownsInUI() {
-      const nArtSlug = document.getElementById('newsletterEditArticleSlug');
-      if (nArtSlug && ARTICLES && ARTICLES.length) {
+            if (nArtSlug && ARTICLES && ARTICLES.length) {
         const curVal = nArtSlug.value;
         nArtSlug.innerHTML = '<option value="">بدون مقاله متصل</option>' + ARTICLES.map(a => `<option value="${a.slug || a.id}">${a.title}</option>`).join('');
         if (curVal) nArtSlug.value = curVal;
@@ -7119,10 +6733,7 @@
     let modalMode = 'editor'; // 'editor' or 'hero'
     let postFilterStatus = 'all';
     let currentCrmRoleFilter = 'all';
-    let NEWSLETTERS = [];
-    let currentEditingNewsletterId = null;
-    let newslettersSearchQuery = '';
-
+        
     // 0. Theme Manager (Day & Night Mode Engine)
     function initTheme() {
       const saved = localStorage.getItem('pezeshkan_admin_theme') || 'dark';
@@ -7165,8 +6776,6 @@
       fetchRobotsTxt();
       fetchLlmsSettings();
       fetchSiteStructure();
-      fetchNewsletters();
-      setupNewsletterEditorListeners();
       setupPasteSanitizer();
       setupDropZones();
       setupEditorImageSelection();
@@ -7182,16 +6791,6 @@
       // Populate Doctor select
       const dEdit = document.getElementById('editDoctor');
       dEdit.innerHTML = `<option value="pezeshkan-editorial-team" selected>تیم متخصص محتوا نویس پزشکآن — تحریریه علمی و پایش بالینی</option>` + DOCTORS.map(d => `<option value="${d.id}">${d.name} — ${d.title} (نظام: ${d.mc})</option>`).join('');
-
-      // Populate Newsletter select options
-      const nDocEdit = document.getElementById('newsletterEditDoctor');
-      if (nDocEdit) {
-        nDocEdit.innerHTML = `<option value="pezeshkan-editorial-team" selected>تیم متخصص محتوا نویس پزشکآن — تحریریه علمی و پایش بالینی</option>` + DOCTORS.map(d => `<option value="${d.id}">${d.name} — ${d.title || d.dept} (نظام: ${d.mcNumber || d.mc || 'معتبر'})</option>`).join('');
-      }
-      const nArtSlug = document.getElementById('newsletterEditArticleSlug');
-      if (nArtSlug) {
-        nArtSlug.innerHTML = '<option value="">بدون مقاله متصل</option>' + ARTICLES.map(a => `<option value="${a.slug || a.id}">${a.title}</option>`).join('');
-      }
     }
 
     // 2. Navigation Tabs
@@ -7213,7 +6812,6 @@
       if (tabId === 'users') fetchUsers();
       if (tabId === 'doctors') renderDoctorsManagement();
       if (tabId === 'site-images') fetchSiteImages();
-      if (tabId === 'newsletters') renderNewslettersManagement();
       if (tabId === 'redirects') renderRedirectsTable();
       if (tabId === 'schemas') renderSchemasTable();
       if (tabId === 'robots') fetchRobotsTxt();
@@ -7573,10 +7171,7 @@
       currentlySelectedFigure.remove();
       deselectEditorImage();
 
-      if (canvasEl && canvasEl.id === 'newsletterEditorialCanvas') {
-        enforceRtlOnNewsletterEditorNodes();
-        updateNewsletterWordStats();
-      } else {
+       else {
         onEditorContentChanged();
       }
       showToast('تصویر با موفقیت از ویرایشگر حذف گردید');
@@ -7589,9 +7184,7 @@
         currentlySelectedFigure.classList.add(alignClass);
       }
       updateEditorImageToolbarPosition();
-      if (activeCanvasForFigure && activeCanvasForFigure.id === 'newsletterEditorialCanvas') {
-        updateNewsletterWordStats();
-      } else {
+       else {
         onEditorContentChanged();
       }
       showToast('چینش تصویر با موفقیت تنظیم شد');
@@ -7621,9 +7214,7 @@
           showToast('تصویر در انتهای محتوا قرار دارد');
         }
       }
-      if (activeCanvasForFigure && activeCanvasForFigure.id === 'newsletterEditorialCanvas') {
-        updateNewsletterWordStats();
-      } else {
+       else {
         onEditorContentChanged();
       }
     }
@@ -7690,9 +7281,7 @@
       closeImageAltEditModal();
       updateEditorImageToolbarPosition();
 
-      if (activeCanvasForFigure && activeCanvasForFigure.id === 'newsletterEditorialCanvas') {
-        updateNewsletterWordStats();
-      } else {
+       else {
         onEditorContentChanged();
         runLiveSeoAudit();
       }
@@ -7702,7 +7291,7 @@
     function setupEditorImageSelection() {
       const canvases = [
         document.getElementById('editorialCanvas'),
-        document.getElementById('newsletterEditorialCanvas')
+        null
       ].filter(Boolean);
 
       canvases.forEach(c => {
@@ -7779,9 +7368,7 @@
                 targetBlock.parentElement.insertBefore(window.__draggedEditorFigure, targetBlock);
               }
               selectEditorFigure(window.__draggedEditorFigure, c);
-              if (c.id === 'newsletterEditorialCanvas') {
-                updateNewsletterWordStats();
-              } else {
+               else {
                 onEditorContentChanged();
               }
               showToast('تصویر به موقعیت جدید منتقل شد');
@@ -7835,20 +7422,7 @@
     // ==========================================================================
     // سیستم جامع درج، ویرایش و مدیریت پیوندهای انکر تکست (Anchor Text Links)
     // ==========================================================================
-    let currentLinkEditorTarget = 'article'; // 'article' or 'newsletter'
-    let savedNewsletterRange = null;
 
-    function saveNewsletterSelection() {
-      const sel = window.getSelection();
-      if (sel && sel.rangeCount > 0) {
-        const range = sel.getRangeAt(0);
-        const nCanvas = document.getElementById('newsletterEditorialCanvas');
-        if (nCanvas && (nCanvas === range.commonAncestorContainer || nCanvas.contains(range.commonAncestorContainer))) {
-          savedNewsletterRange = range.cloneRange();
-          return;
-        }
-      }
-    }
 
 
     // ==========================================================================
@@ -7969,18 +7543,12 @@
       }
     }
 
-    function openEditorLinkModal(isNewsletter = false) {
-      currentLinkEditorTarget = isNewsletter ? 'newsletter' : 'article';
-      const targetCanvas = isNewsletter ? document.getElementById('newsletterEditorialCanvas') : canvas;
-      if (!targetCanvas) return;
+    function openEditorLinkModal() {
+      currentLinkEditorTarget = 'article';
+      if (!canvas) return;
+      saveEditorSelection();
 
-      if (isNewsletter) {
-        saveNewsletterSelection();
-      } else {
-        saveEditorSelection();
-      }
-
-      const range = isNewsletter ? savedNewsletterRange : savedEditorRange;
+      const range = savedEditorRange;
       let selectedText = '';
       let existingLinkNode = null;
 
@@ -8045,8 +7613,7 @@
     }
 
     function applyEditorLink() {
-      const isNewsletter = (currentLinkEditorTarget === 'newsletter');
-      const targetCanvas = isNewsletter ? document.getElementById('newsletterEditorialCanvas') : canvas;
+            const targetCanvas = canvas;
       if (!targetCanvas) return;
 
       const text = document.getElementById('linkModalText').value.trim();
@@ -8060,7 +7627,7 @@
         return;
       }
 
-      const range = isNewsletter ? savedNewsletterRange : savedEditorRange;
+      const range = savedEditorRange;
       targetCanvas.focus();
 
       if (range) {
@@ -8109,21 +7676,17 @@
 
       closeEditorLinkModal();
 
-      if (isNewsletter) {
-        enforceRtlOnNewsletterEditorNodes();
-        updateNewsletterWordStats();
-      } else {
+       else {
         enforceRtlOnEditorNodes();
         onEditorContentChanged();
       }
     }
 
     function applyEditorUnlink() {
-      const isNewsletter = (currentLinkEditorTarget === 'newsletter');
-      const targetCanvas = isNewsletter ? document.getElementById('newsletterEditorialCanvas') : canvas;
+            const targetCanvas = canvas;
       if (!targetCanvas) return;
 
-      const range = isNewsletter ? savedNewsletterRange : savedEditorRange;
+      const range = savedEditorRange;
       targetCanvas.focus();
 
       if (range) {
@@ -8150,10 +7713,7 @@
 
       closeEditorLinkModal();
 
-      if (isNewsletter) {
-        enforceRtlOnNewsletterEditorNodes();
-        updateNewsletterWordStats();
-      } else {
+       else {
         enforceRtlOnEditorNodes();
         onEditorContentChanged();
       }
@@ -9588,615 +9148,7 @@ function renderDoctorsManagement(filterQuery = '') {
       }
     }
 
-    // ==========================================================================
-    // 6.5. مدیریت و ویرایشگر اختصاصی خبرنامه (Newsletter Management & Editor)
-    // ==========================================================================
-    async function fetchNewsletters() {
-      try {
-        const res = await fetch('/api/newsletters');
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data)) {
-            NEWSLETTERS = data;
-            const badge = document.getElementById('newslettersTotalBadge');
-            if (badge) badge.textContent = `${NEWSLETTERS.length} شماره ثبت‌شده`;
-            if (activeTab === 'newsletters') renderNewslettersManagement();
-          }
-        }
-      } catch (err) {
-        console.warn('Could not fetch newsletters from API, using fallback data:', err);
-      }
-    }
-
-    function onNewslettersSearchInput(query) {
-      newslettersSearchQuery = (query || '').trim().toLowerCase();
-      renderNewslettersManagement();
-    }
-
-    function renderNewslettersManagement() {
-      const tbody = document.getElementById('newslettersTableBody');
-      if (!tbody) return;
-
-      const statusFilter = document.getElementById('newslettersStatusFilter')?.value || 'all';
-
-      let list = NEWSLETTERS;
-      if (statusFilter !== 'all') {
-        list = list.filter(n => (n.status || 'published') === statusFilter);
-      }
-      if (newslettersSearchQuery) {
-        list = list.filter(n => 
-          (n.title || '').toLowerCase().includes(newslettersSearchQuery) ||
-          (n.issueNumber || '').toLowerCase().includes(newslettersSearchQuery) ||
-          (n.summary || '').toLowerCase().includes(newslettersSearchQuery) ||
-          (n.doctor || '').toLowerCase().includes(newslettersSearchQuery)
-        );
-      }
-
-      if (!list || list.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="6" style="text-align: center; padding: 48px; color: var(--text-muted);">
-              هیچ شماره خبرنامه‌ای با این مشخصات یافت نشد. می‌توانید با دکمه «نگارش خبرنامه تازه» یک شماره جدید ثبت فرمایید.
-            </td>
-          </tr>
-        `;
-        return;
-      }
-
-      tbody.innerHTML = list.map(item => {
-        const isPublished = (item.status || 'published') === 'published';
-        const statusBadge = isPublished
-          ? '<span class="status-badge status-published">منتشر شده</span>'
-          : '<span class="status-badge" style="background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3);">پیش‌نویس</span>';
-
-        const tagsHtml = Array.isArray(item.tags)
-          ? item.tags.slice(0, 3).map(t => `<span style="display: inline-block; font-size: 11px; background: rgba(0, 115, 255, 0.08); color: var(--color-primary); border: 1px solid rgba(0, 115, 255, 0.2); padding: 1px 7px; border-radius: 4px; margin-left: 4px;">${escapeHtml(t)}</span>`).join('')
-          : '';
-
-        return `
-          <tr>
-            <td style="text-align: center;">
-              <span class="admin-badge-clinical" style="background: rgba(0, 115, 255, 0.15); color: #0073FF; border: 1px solid rgba(0, 115, 255, 0.3); font-weight: 800; font-size: 12px; padding: 3px 8px;">
-                ${escapeHtml(item.issueNumber || 'نسخه')}
-              </span>
-            </td>
-            <td>
-              <strong style="color: var(--text-primary); display: block; font-size: 14.5px; margin-bottom: 4px; line-height: 1.5;">${escapeHtml(item.title || '')}</strong>
-              <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px;">${escapeHtml(item.summary ? (item.summary.length > 120 ? item.summary.slice(0, 120) + '...' : item.summary) : '')}</div>
-              <div>${tagsHtml}</div>
-            </td>
-            <td>
-              <div style="font-weight: 700; font-size: 13px; color: var(--text-primary);">${escapeHtml(item.doctor || 'هیئت علمی پزشکآن')}</div>
-              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">${escapeHtml(item.category || 'پزشکی عمومی')}</div>
-            </td>
-            <td style="text-align: center;">
-              <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">${escapeHtml(item.publishDate || 'امروز')}</div>
-              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">${escapeHtml(item.readTime || '۴ دقیقه')}</div>
-            </td>
-            <td style="text-align: center;">
-              ${statusBadge}
-            </td>
-            <td style="text-align: center;">
-              <div style="display: flex; gap: 6px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                <button type="button" class="btn btn-secondary" style="padding: 5px 9px; font-size: 12px;" onclick="previewNewsletterModal('${item.id}')" title="پیش‌نمایش شماره خبرنامه">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                </button>
-                <button type="button" class="btn btn-primary" style="padding: 5px 12px; font-size: 12px; display: inline-flex; align-items: center; gap: 4px;" onclick="editNewsletter('${item.id}')" title="ویرایش کامل در ویرایشگر خبرنامه">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                  <span>ویرایش</span>
-                </button>
-                <button type="button" class="btn btn-danger" style="padding: 5px 9px; font-size: 12px;" onclick="deleteNewsletter('${item.id}')" title="حذف خبرنامه">
-                  <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    }
-
-    function createNewNewsletter() {
-      currentEditingNewsletterId = null;
-      document.getElementById('newsletterEditorMainHeading').textContent = 'نگارش شماره تازه خبرنامه بالینی';
-      document.getElementById('newsletterEditorModeBadge').textContent = 'شماره جدید';
-
-      // Guess next issue number
-      let nextNum = 53;
-      if (NEWSLETTERS && NEWSLETTERS.length) {
-        const nums = NEWSLETTERS.map(n => {
-          const m = (n.issueNumber || '').match(/\d+/);
-          return m ? parseInt(m[0], 10) : 0;
-        });
-        nextNum = Math.max(...nums, 52) + 1;
-      }
-
-      document.getElementById('newsletterEditIssueNumber').value = `شماره ${nextNum}`;
-      document.getElementById('newsletterEditPublishDate').value = 'سه‌شنبه ' + new Intl.DateTimeFormat('fa-IR', { month: 'long', day: 'numeric', year: 'numeric' }).format(new Date());
-      document.getElementById('newsletterEditTitle').value = '';
-      document.getElementById('newsletterEditSummary').value = '';
-      
-      const nCanvas = document.getElementById('newsletterEditorialCanvas');
-      if (nCanvas) {
-        nCanvas.innerHTML = '<p dir="rtl"><br></p>';
-        enforceRtlOnNewsletterEditorNodes();
-      }
-
-      document.getElementById('newsletterEditTags').value = '';
-      document.getElementById('newsletterEditHeroUrl').value = '';
-      document.getElementById('newsletterEditHeroAlt').value = '';
-      const heroImg = document.getElementById('newsletterHeroImageEl');
-      const heroPlaceholder = document.getElementById('newsletterHeroEmptyPlaceholder');
-      if (heroImg) heroImg.style.display = 'none';
-      if (heroPlaceholder) heroPlaceholder.style.display = 'block';
-
-      document.getElementById('newsletterSeoFocusKeyword').value = '';
-      document.getElementById('newsletterSeoMetaTitle').value = '';
-      document.getElementById('newsletterSeoMetaDesc').value = '';
-
-      updateNewsletterWordStats();
-      runLiveNewsletterSeoAudit();
-      switchTab('newsletter-editor');
-    }
-
-    function editNewsletter(id) {
-      const item = NEWSLETTERS.find(n => n.id === id);
-      if (!item) {
-        alert('خبرنامه مورد نظر یافت نشد.');
-        return;
-      }
-
-      currentEditingNewsletterId = id;
-      document.getElementById('newsletterEditorMainHeading').textContent = `ویرایش ${item.issueNumber || 'خبرنامه'} - ${item.title}`;
-      document.getElementById('newsletterEditorModeBadge').textContent = item.status === 'draft' ? 'پیش‌نویس' : 'منتشر شده';
-
-      document.getElementById('newsletterEditIssueNumber').value = item.issueNumber || '';
-      document.getElementById('newsletterEditPublishDate').value = item.publishDate || '';
-      document.getElementById('newsletterEditTitle').value = item.title || '';
-      document.getElementById('newsletterEditSummary').value = item.summary || '';
-
-      const nCanvas = document.getElementById('newsletterEditorialCanvas');
-      if (nCanvas) {
-        nCanvas.innerHTML = item.rawHtml || item.contentHtml || '<p dir="rtl"><br></p>';
-        enforceRtlOnNewsletterEditorNodes();
-      }
-
-      const docSel = document.getElementById('newsletterEditDoctor');
-      if (docSel && item.doctorId) docSel.value = item.doctorId;
-
-      const catSel = document.getElementById('newsletterEditCategory');
-      if (catSel && item.category) catSel.value = item.category;
-
-      document.getElementById('newsletterEditTags').value = Array.isArray(item.tags) ? item.tags.join('، ') : (item.tags || '');
-
-      const artSlugSel = document.getElementById('newsletterEditArticleSlug');
-      if (artSlugSel && item.articleSlug) artSlugSel.value = item.articleSlug;
-
-      document.getElementById('newsletterEditHeroUrl').value = item.heroImage || '';
-      document.getElementById('newsletterEditHeroAlt').value = item.heroAlt || '';
-
-      const heroImg = document.getElementById('newsletterHeroImageEl');
-      const heroPlaceholder = document.getElementById('newsletterHeroEmptyPlaceholder');
-      if (item.heroImage && heroImg && heroPlaceholder) {
-        heroImg.src = item.heroImage;
-        heroImg.style.display = 'block';
-        heroPlaceholder.style.display = 'none';
-      } else if (heroImg && heroPlaceholder) {
-        heroImg.style.display = 'none';
-        heroPlaceholder.style.display = 'block';
-      }
-
-      document.getElementById('newsletterSeoFocusKeyword').value = item.focusKeyword || '';
-      document.getElementById('newsletterSeoMetaTitle').value = item.metaTitle || item.title || '';
-      document.getElementById('newsletterSeoMetaDesc').value = item.metaDescription || item.summary || '';
-
-      updateNewsletterWordStats();
-      runLiveNewsletterSeoAudit();
-      switchTab('newsletter-editor');
-    }
-
-    async function saveCurrentNewsletter(targetStatus = 'published') {
-      const title = document.getElementById('newsletterEditTitle')?.value.trim();
-      if (!title) {
-        alert('لطفاً عنوان اصلی خبرنامه را وارد فرمایید.');
-        document.getElementById('newsletterEditTitle')?.focus();
-        return;
-      }
-
-      const issueNumber = document.getElementById('newsletterEditIssueNumber')?.value.trim() || 'شماره جدید';
-      const publishDate = document.getElementById('newsletterEditPublishDate')?.value.trim() || 'امروز';
-      const summary = document.getElementById('newsletterEditSummary')?.value.trim() || '';
-      
-      const nCanvas = document.getElementById('newsletterEditorialCanvas');
-      const rawHtml = sanitizeArticleHtml(nCanvas ? nCanvas.innerHTML : '');
-
-      const doctorId = document.getElementById('newsletterEditDoctor')?.value || '';
-      const doc = DOCTORS.find(d => d.id === doctorId) || (DOCTORS[0] || {});
-      const doctorName = doc.name || 'هیئت علمی مجله';
-      const doctorSpecialty = doc.title || doc.dept || 'پزشک متخصص';
-
-      const category = document.getElementById('newsletterEditCategory')?.value || 'همه موضوعات سلامت و هشدارهای درمانی';
-      const rawTags = document.getElementById('newsletterEditTags')?.value.trim() || '';
-      const tags = rawTags ? rawTags.split(/[,،]/).map(t => t.trim()).filter(Boolean) : [];
-
-      const articleSlug = document.getElementById('newsletterEditArticleSlug')?.value.trim() || '';
-      const heroImage = document.getElementById('newsletterEditHeroUrl')?.value || '';
-      const heroAlt = document.getElementById('newsletterEditHeroAlt')?.value.trim() || title;
-
-      const focusKeyword = document.getElementById('newsletterSeoFocusKeyword')?.value.trim() || '';
-      const metaTitle = document.getElementById('newsletterSeoMetaTitle')?.value.trim() || `${issueNumber} | ${title}`;
-      const metaDescription = document.getElementById('newsletterSeoMetaDesc')?.value.trim() || summary;
-
-      const words = nCanvas ? (nCanvas.innerText || '').trim().split(/\s+/).length : 0;
-      const readTime = Math.max(1, Math.ceil(words / 180)) + ' دقیقه';
-
-      const issueId = currentEditingNewsletterId || ('issue-' + Date.now());
-
-      const payload = {
-        id: issueId,
-        issueNumber,
-        title,
-        summary,
-        publishDate,
-        readTime,
-        status: targetStatus,
-        doctor: doctorName,
-        doctorId: doc.id || doctorId,
-        doctorSpecialty,
-        category,
-        tags,
-        articleSlug,
-        heroImage,
-        heroAlt,
-        focusKeyword,
-        metaTitle,
-        metaDescription,
-        rawHtml,
-        contentHtml: rawHtml
-      };
-
-      try {
-        const res = await apiFetch('/api/newsletters', { method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          const resData = await res.json();
-          if (resData.newsletters && Array.isArray(resData.newsletters)) {
-            NEWSLETTERS = resData.newsletters;
-          } else {
-            const idx = NEWSLETTERS.findIndex(n => n.id === issueId);
-            if (idx !== -1) NEWSLETTERS[idx] = payload;
-            else NEWSLETTERS.unshift(payload);
-          }
-        } else {
-          const idx = NEWSLETTERS.findIndex(n => n.id === issueId);
-          if (idx !== -1) NEWSLETTERS[idx] = payload;
-          else NEWSLETTERS.unshift(payload);
-        }
-
-        showToast(targetStatus === 'published' ? 'شماره خبرنامه با موفقیت منتشر گردید' : 'پیش‌نویس خبرنامه ذخیره شد');
-        switchTab('newsletters');
-      } catch (err) {
-        console.error('Error saving newsletter:', err);
-        const idx = NEWSLETTERS.findIndex(n => n.id === issueId);
-        if (idx !== -1) NEWSLETTERS[idx] = payload;
-        else NEWSLETTERS.unshift(payload);
-        showToast('خبرنامه ذخیره شد');
-        switchTab('newsletters');
-      }
-    }
-
-    async function deleteNewsletter(id) {
-      const item = NEWSLETTERS.find(n => n.id === id);
-      const title = item ? item.title : id;
-      if (!confirm(`آیا از حذف خبرنامه «${title}» اطمینان دارید؟`)) return;
-
-      try {
-        const res = await fetch(`/api/newsletters?id=${encodeURIComponent(id)}`, {
-          method: 'DELETE'
-        });
-        if (res.ok) {
-          const resData = await res.json();
-          if (resData.newsletters && Array.isArray(resData.newsletters)) {
-            NEWSLETTERS = resData.newsletters;
-          } else {
-            NEWSLETTERS = NEWSLETTERS.filter(n => n.id !== id);
-          }
-        } else {
-          NEWSLETTERS = NEWSLETTERS.filter(n => n.id !== id);
-        }
-        renderNewslettersManagement();
-        showNotification(`خبرنامه «${title}» حذف گردید.`);
-      } catch (err) {
-        console.error('Error deleting newsletter:', err);
-        NEWSLETTERS = NEWSLETTERS.filter(n => n.id !== id);
-        renderNewslettersManagement();
-        showNotification(`خبرنامه حذف گردید.`);
-      }
-    }
-
-    function previewNewsletterModal(id) {
-      const item = NEWSLETTERS.find(n => n.id === id);
-      if (!item) return;
-
-      window._currentPreviewNewsletterId = id;
-      document.getElementById('previewModalIssueBadge').textContent = item.issueNumber || 'خبرنامه';
-      document.getElementById('previewModalTitle').textContent = item.title;
-      document.getElementById('previewModalSubtitle').textContent = `تاریخ انتشار: ${item.publishDate || 'امروز'} • حوزه: ${item.category || 'پزشکی بالینی'}`;
-      document.getElementById('previewModalFooterMeta').textContent = `پزشک ناظر و داور علمی: ${item.doctor || 'هیئت علمی'} (${item.doctorSpecialty || ''})`;
-
-      const body = document.getElementById('previewModalBody');
-      const heroHtml = item.heroImage ? `
-        <div style="border-radius: 12px; overflow: hidden; margin-bottom: 16px; max-height: 320px;">
-          <img src="${item.heroImage}" alt="${escapeHtml(item.heroAlt || item.title)}" style="width: 100%; height: auto; object-fit: cover; display: block;">
-        </div>
-      ` : '';
-
-      body.innerHTML = `
-        ${heroHtml}
-        <div style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px; margin-bottom: 16px;">
-          <h2 style="font-size: 20px; font-weight: 900; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px;">${escapeHtml(item.title)}</h2>
-          <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px;">${escapeHtml(item.summary || '')}</p>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            ${(item.tags || []).map(t => `<span class="badge-tag-clinical">${escapeHtml(t)}</span>`).join('')}
-          </div>
-        </div>
-        <div class="editorial-wysiwyg-surface" style="padding: 0; min-height: auto; border: none; background: transparent;" dir="rtl">
-          ${item.rawHtml || item.contentHtml || '<p>محتوایی ثبت نشده است.</p>'}
-        </div>
-      `;
-
-      document.getElementById('newsletterPreviewModalBackdrop').style.display = 'flex';
-    }
-
-    function closeNewsletterPreviewModal() {
-      document.getElementById('newsletterPreviewModalBackdrop').style.display = 'none';
-    }
-
-    function editCurrentFromPreview() {
-      closeNewsletterPreviewModal();
-      if (window._currentPreviewNewsletterId) {
-        editNewsletter(window._currentPreviewNewsletterId);
-      }
-    }
-
-    // Formatting Toolbar Helpers for Newsletter Editor (RTL Enforced, NO Quick Booking Button)
-    function focusNewsletterEditorCanvas() {
-      const c = document.getElementById('newsletterEditorialCanvas');
-      if (c) c.focus();
-    }
-
-    function execNewsletterFormat(command, value = null) {
-      focusNewsletterEditorCanvas();
-      document.execCommand(command, false, value);
-      enforceRtlOnNewsletterEditorNodes();
-      updateNewsletterWordStats();
-    }
-
-    function setNewsletterAlignment(align) {
-      focusNewsletterEditorCanvas();
-      const c = document.getElementById('newsletterEditorialCanvas');
-      if (!c) return;
-      const sel = window.getSelection();
-      if (!sel || !sel.rangeCount) return;
-      let node = sel.anchorNode;
-      if (node && node.nodeType === 3) node = node.parentNode;
-
-      let block = null;
-      let curr = node;
-      while (curr && curr !== c) {
-        if (curr.nodeName.match(/^(P|H[1-6]|DIV|LI|BLOCKQUOTE)$/i)) {
-          block = curr;
-          break;
-        }
-        curr = curr.parentNode;
-      }
-
-      if (block) {
-        block.style.textAlign = align;
-        block.setAttribute('data-align', align);
-        block.classList.remove('text-right', 'text-center', 'text-left', 'text-justify');
-        block.classList.add(`text-${align}`);
-        if (align === 'left') {
-          block.setAttribute('dir', 'ltr');
-          block.style.direction = 'ltr';
-        } else {
-          if (!block.getAttribute('dir')) {
-            block.setAttribute('dir', 'rtl');
-            block.style.direction = 'rtl';
-          }
-        }
-      } else {
-        const cmdMap = {
-          'right': 'justifyRight',
-          'center': 'justifyCenter',
-          'left': 'justifyLeft',
-          'justify': 'justifyFull'
-        };
-        document.execCommand(cmdMap[align] || 'justifyRight');
-      }
-      enforceRtlOnNewsletterEditorNodes();
-      updateNewsletterWordStats();
-    }
-
-    function setNewsletterDirection(dir) {
-      focusNewsletterEditorCanvas();
-      const sel = window.getSelection();
-      if (!sel || !sel.rangeCount) return;
-      let node = sel.anchorNode;
-      if (node && node.nodeType === 3) node = node.parentNode;
-      const c = document.getElementById('newsletterEditorialCanvas');
-      while (node && node !== c) {
-        if (node.nodeName.match(/^(P|H[1-6]|DIV|LI|BLOCKQUOTE)$/i)) {
-          node.setAttribute('dir', dir);
-          node.style.direction = dir;
-          if (!node.style.textAlign || node.style.textAlign === 'right' || node.style.textAlign === 'left') {
-            node.style.textAlign = dir === 'rtl' ? 'right' : 'left';
-          }
-          break;
-        }
-        node = node.parentNode;
-      }
-      enforceRtlOnNewsletterEditorNodes();
-    }
-
-    function insertNewsletterCallout(type = 'advice') {
-      focusNewsletterEditorCanvas();
-      let iconSvg = '';
-      let title = '';
-      if (type === 'warning') {
-        iconSvg = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
-        title = 'هشدار بالینی و منع مصرف:';
-      } else if (type === 'protocol') {
-        iconSvg = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-        title = 'پروتکل تریاژ بالینی:';
-      } else {
-        iconSvg = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>';
-        title = 'توصیه پزشک متخصص:';
-      }
-      const html = `<div class="clinical-callout ${type}"><div class="callout-header">${iconSvg}<span>${title}</span></div><p>متن راهنما و توضیحات تخصصی را اینجا وارد نمایید...</p></div><p dir="rtl"><br></p>`;
-      document.execCommand('insertHTML', false, html);
-      enforceRtlOnNewsletterEditorNodes();
-      updateNewsletterWordStats();
-    }
-
-    function promptInsertNewsletterLink() {
-      openEditorLinkModal(true);
-    }
-
-    function insertImageToNewsletterEditor(url, alt = '', caption = '') {
-      focusNewsletterEditorCanvas();
-      const nCanvas = document.getElementById('newsletterEditorialCanvas');
-      const figHtml = `
-        <figure class="clinical-img-figure align-center" contenteditable="false" draggable="true" tabindex="0">
-          <img src="${url}" alt="${escapeHtml(alt || '')}">
-          ${caption ? `<figcaption class="clinical-img-caption" contenteditable="true">${escapeHtml(caption)}</figcaption>` : ''}
-        </figure>
-        <p dir="rtl"><br></p>
-      `;
-      document.execCommand('insertHTML', false, figHtml);
-      enforceRtlOnNewsletterEditorNodes();
-      updateNewsletterWordStats();
-      setTimeout(() => {
-        if (nCanvas) {
-          const figures = nCanvas.querySelectorAll('figure');
-          if (figures.length > 0) {
-            const lastFig = figures[figures.length - 1];
-            selectEditorFigure(lastFig, nCanvas);
-            lastFig.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        }
-      }, 100);
-    }
-
-    function updateNewsletterWordStats() {
-      const c = document.getElementById('newsletterEditorialCanvas');
-      if (!c) return;
-      const text = c.innerText || '';
-      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-      const chars = text.length;
-      const readMinutes = Math.max(1, Math.ceil(words / 180));
-
-      const wEl = document.getElementById('newsletterStatWordCount');
-      const cEl = document.getElementById('newsletterStatCharCount');
-      const rEl = document.getElementById('newsletterStatReadTimeCalc');
-      if (wEl) wEl.textContent = words;
-      if (cEl) cEl.textContent = chars;
-      if (rEl) rEl.textContent = readMinutes + ' دقیقه';
-    }
-
-    function runLiveNewsletterSeoAudit() {
-      const title = document.getElementById('newsletterEditTitle')?.value || '';
-      const summary = document.getElementById('newsletterEditSummary')?.value || '';
-      const metaTitle = document.getElementById('newsletterSeoMetaTitle')?.value || title;
-      const metaDesc = document.getElementById('newsletterSeoMetaDesc')?.value || summary;
-
-      const serpTitle = document.getElementById('newsletterSerpTitle');
-      const serpDesc = document.getElementById('newsletterSerpDesc');
-      if (serpTitle) serpTitle.textContent = metaTitle || 'عنوان خبرنامه در نتایج موتورهای جستجو';
-      if (serpDesc) serpDesc.textContent = metaDesc || 'خلاصه این شماره از هفته‌نامه بالینی...';
-
-      const cTitle = document.getElementById('counterNewsletterMetaTitle');
-      const cDesc = document.getElementById('counterNewsletterMetaDesc');
-      if (cTitle) cTitle.textContent = `${metaTitle.length} / ۶۰`;
-      if (cDesc) cDesc.textContent = `${metaDesc.length} / ۱۶۰`;
-    }
-
-    function handleNewsletterTitleChange() {
-      const t = document.getElementById('newsletterEditTitle')?.value || '';
-      const metaT = document.getElementById('newsletterSeoMetaTitle');
-      if (metaT && (!metaT.value || metaT.dataset.synced !== 'false')) {
-        metaT.value = t;
-      }
-      runLiveNewsletterSeoAudit();
-    }
-
-    function handleNewsletterSummaryChange() {
-      const s = document.getElementById('newsletterEditSummary')?.value || '';
-      const metaD = document.getElementById('newsletterSeoMetaDesc');
-      if (metaD && (!metaD.value || metaD.dataset.synced !== 'false')) {
-        metaD.value = s;
-      }
-      runLiveNewsletterSeoAudit();
-    }
-
-    function handleNewsletterMetaTitleChange() {
-      const metaT = document.getElementById('newsletterSeoMetaTitle');
-      if (metaT) metaT.dataset.synced = 'false';
-      runLiveNewsletterSeoAudit();
-    }
-
-    function handleNewsletterMetaDescChange() {
-      const metaD = document.getElementById('newsletterSeoMetaDesc');
-      if (metaD) metaD.dataset.synced = 'false';
-      runLiveNewsletterSeoAudit();
-    }
-
-    function enforceRtlOnNewsletterEditorNodes() {
-      const c = document.getElementById('newsletterEditorialCanvas');
-      if (!c) return;
-      c.querySelectorAll('p, div, li, blockquote, h1, h2, h3, h4, h5, h6').forEach(node => {
-        if (!node.getAttribute('dir')) {
-          node.setAttribute('dir', 'rtl');
-        }
-        if (!node.style.direction) {
-          node.style.direction = 'rtl';
-        }
-        if (!node.style.textAlign || node.style.textAlign === '') {
-          node.style.textAlign = 'right';
-        }
-        node.style.unicodeBidi = 'isolate';
-      });
-    }
-
-    function setupNewsletterEditorListeners() {
-      const nCanvas = document.getElementById('newsletterEditorialCanvas');
-      if (!nCanvas) return;
-
-      nCanvas.addEventListener('input', () => {
-        enforceRtlOnNewsletterEditorNodes();
-        updateNewsletterWordStats();
-      });
-
-      nCanvas.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          setTimeout(() => {
-            enforceRtlOnNewsletterEditorNodes();
-            updateNewsletterWordStats();
-          }, 0);
-        }
-      });
-
-      nCanvas.addEventListener('paste', (e) => {
-        setTimeout(() => {
-          enforceRtlOnNewsletterEditorNodes();
-          updateNewsletterWordStats();
-        }, 10);
-      });
-    }
-
-    function onEditorContentChanged() {
+function onEditorContentChanged() {
       updateWordStats();
       runLiveSeoAudit();
       syncEditorLinkingAudit();
@@ -11254,7 +10206,7 @@ function renderDoctorsManagement(filterQuery = '') {
       const metaInfo = document.getElementById('modalSelectedMetaInfo');
       if (metaInfo) metaInfo.textContent = 'هیچ تصویری انتخاب نشده است';
 
-      if (mode === 'hero' || mode === 'newsletter-hero') {
+      if (mode === 'hero') {
         document.getElementById('btnConfirmMediaInsert').textContent = 'تنظیم به عنوان تصویر شاخص';
       } else if (mode === 'site-image-slot') {
         document.getElementById('btnConfirmMediaInsert').textContent = 'انتخاب برای این بخش سایت';
@@ -11422,24 +10374,6 @@ function renderDoctorsManagement(filterQuery = '') {
         closeMediaModal();
         runLiveSeoAudit();
         showToast('تصویر شاخص به همراه متن جایگزین تنظیم شد');
-      } else if (modalMode === 'newsletter-hero') {
-        document.getElementById('newsletterEditHeroUrl').value = item.url;
-        document.getElementById('newsletterEditHeroAlt').value = altVal;
-        const heroImg = document.getElementById('newsletterHeroImageEl');
-        const heroPlaceholder = document.getElementById('newsletterHeroEmptyPlaceholder');
-        if (heroImg) {
-          heroImg.src = item.url;
-          heroImg.style.display = 'block';
-        }
-        if (heroPlaceholder) {
-          heroPlaceholder.style.display = 'none';
-        }
-        closeMediaModal();
-        showToast('تصویر بنر خبرنامه به همراه متن جایگزین تنظیم شد');
-      } else if (modalMode === 'newsletter-editor') {
-        insertImageToNewsletterEditor(item.url, altVal, captionVal);
-        closeMediaModal();
-        showToast('تصویر با متن جایگزین در متن خبرنامه درج شد');
       } else {
         insertImageToEditor(item.url, altVal, captionVal);
         closeMediaModal();
