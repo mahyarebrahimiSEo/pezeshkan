@@ -6062,14 +6062,9 @@ function escapeHtml(str) {
         !a.id.startsWith('newsletter-') &&
         !a.id.startsWith('issue-') &&
         a.categoryName !== 'خبرنامه و ویژه‌نامه‌های سلامت' &&
-        (a.categoryName.includes(cat.name) || cat.name.includes(a.categoryName))
+        (a.categoryName === cat.name || a.categoryName.includes(cat.name) || cat.name.includes(a.categoryName) || String(a.pillarId) === String(cat.id))
       );
-      const normalArticles = articlesData.filter(a =>
-        !a.id.startsWith('newsletter-') &&
-        !a.id.startsWith('issue-') &&
-        a.categoryName !== 'خبرنامه و ویژه‌نامه‌های سلامت'
-      );
-      const toShow = filtered.length ? filtered : normalArticles.slice(0, 4);
+      const toShow = filtered;
 
       if (!toShow.length) {
         grid.innerHTML = '<div style="grid-column: 1 / -1; padding: 36px 20px; text-align: center; color: var(--color-text-dim); font-size: 0.95rem;">هیچ مقاله‌ای در این دسته‌بندی یافت نشد.</div>';

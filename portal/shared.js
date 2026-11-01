@@ -240,28 +240,32 @@ class Pezeshkan3DSpine {
     this.container.innerHTML = '';
     this.container.appendChild(this.renderer.domElement);
 
-    // 3. Clinical High-Definition Lighting (Deep, Rich Cobalt & Vibrant Clinical Blues)
-    const ambientLight = new THREE.AmbientLight(0x061845, 0.70);
+    // 3. Clinical High-Definition Lighting with Dedicated Silver / Platinum Key & Rim Lights
+    const ambientLight = new THREE.AmbientLight(0x071530, 0.60);
     this.scene.add(ambientLight);
 
-    const cyanKeyLight = new THREE.DirectionalLight(0x00c8ff, 1.8);
-    cyanKeyLight.position.set(-5, 4, 5);
+    // Brilliant Silver / Platinum key light hitting front vertebral plates
+    const silverKeyLight = new THREE.DirectionalLight(0xFFFFFF, 3.4);
+    silverKeyLight.position.set(-2.0, 4.0, 5.5);
+    this.scene.add(silverKeyLight);
+
+    // Platinum specular rim light from upper right
+    const platinumRimLight = new THREE.DirectionalLight(0xE2E8F0, 2.5);
+    platinumRimLight.position.set(3.5, 6.0, 3.5);
+    this.scene.add(platinumRimLight);
+
+    // Medical Cyan fill light for electric pulse
+    const cyanKeyLight = new THREE.DirectionalLight(0x00E5FF, 1.8);
+    cyanKeyLight.position.set(-4.5, -1.5, 3.5);
     this.scene.add(cyanKeyLight);
 
-    const cobaltFillLight = new THREE.DirectionalLight(0x0047ba, 4.2);
-    cobaltFillLight.position.set(5, 5, 4);
+    // Deep cobalt fill & rear bounce
+    const cobaltFillLight = new THREE.DirectionalLight(0x0047ba, 2.6);
+    cobaltFillLight.position.set(0, -5.0, -1.5);
     this.scene.add(cobaltFillLight);
 
-    const specularWhiteRim = new THREE.DirectionalLight(0x90c5ff, 1.6);
-    specularWhiteRim.position.set(0, 8, 4);
-    this.scene.add(specularWhiteRim);
-
-    const deepDarkRim = new THREE.DirectionalLight(0x010b1a, 2.0);
-    deepDarkRim.position.set(0, -4, -4);
-    this.scene.add(deepDarkRim);
-
-    const bottomBounceLight = new THREE.DirectionalLight(0x0033aa, 2.2);
-    bottomBounceLight.position.set(0, -5, 3);
+    const bottomBounceLight = new THREE.DirectionalLight(0x0033aa, 1.8);
+    bottomBounceLight.position.set(0, -5, 2);
     this.scene.add(bottomBounceLight);
 
     // 4. Main 3D Anatomical Spine Group
@@ -269,21 +273,21 @@ class Pezeshkan3DSpine {
     this.spineGroup.rotation.y = 0.35; // Majestic 3/4 anatomical perspective
     this.scene.add(this.spineGroup);
 
-    // 5. Corporate Clinical Materials (Deep Rich Medical Cobalt #0047BA + Liquid Glaze)
+    // 5. Corporate Clinical Materials (Surgical Silver & Titanium Vertebrae + Deep Cobalt Recesses)
     this.envMap = this.createClinicalEnvMap();
 
-    // Solid, rich clinical cobalt vertebrae with distinct anatomical contrast and liquid glaze
+    // High-definition surgical silver / titanium material with liquid glaze
     this.glassSpineMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color(0x0052e0),          // Deep, prominent and saturated Medical Cobalt
-      emissive: new THREE.Color(0x0033cc),       // Internal clinical cobalt resonance
-      emissiveIntensity: 0.72,                   // Deep self-illuminating rich blue
-      roughness: 0.20,                           // Crisp specular ridges on vertebrae bone plates
-      metalness: 0.12,                           // Dielectric depth and deep saturation in grooves
-      clearcoat: 1.0,                            // High-gloss protective liquid glaze
-      clearcoatRoughness: 0.05,                  // Crisp specular rim highlights
-      reflectivity: 0.90,
+      vertexColors: true,
+      metalness: 0.38,                           // Polished surgical titanium/silver sheen
+      roughness: 0.22,                           // Crisp specular ridges on vertebrae bone plates
+      clearcoat: 1.0,                            // High-gloss protective clinical liquid glaze
+      clearcoatRoughness: 0.08,                  // Crisp specular rim highlights
+      reflectivity: 0.95,
       envMap: this.envMap,
-      envMapIntensity: 0.72                      // Clean contrast without white reflection bleaching
+      envMapIntensity: 0.85,
+      emissive: new THREE.Color(0x001438),       // Deep internal cobalt resonance without surface wash
+      emissiveIntensity: 0.22
     });
 
     // 6. Load Authentic Real-Time 3D Backbone GLB Model
@@ -334,10 +338,67 @@ class Pezeshkan3DSpine {
       if (!root) return;
 
       root.traverse((child) => {
-        if (child.isMesh) {
-          if (child.geometry) {
-            child.geometry.computeVertexNormals();
+        if (child.isMesh && child.geometry) {
+          child.geometry.computeVertexNormals();
+
+          // Procedural anatomical vertex coloring: Surgical Silver on vertebrae + Clinical Cobalt in recesses
+          const pos = child.geometry.attributes.position;
+          const norm = child.geometry.attributes.normal;
+          const count = pos.count;
+          const colors = new Float32Array(count * 3);
+
+          const cSilverPlate = new THREE.Color(0xF8FAFC); // Gleaming Platinum/Silver
+          const cSilverMid   = new THREE.Color(0xCBD5E1); // Brushed surgical titanium
+          const cCobalt      = new THREE.Color(0x0052E0); // Medical Cobalt
+          const cDeepCobalt  = new THREE.Color(0x002B80); // Crevice Shadow Cobalt
+          const cCyan        = new THREE.Color(0x00E5FF); // Electric Cyan Accent
+
+          for (let i = 0; i < count; i++) {
+            const y = pos.getY(i);
+            const nx = norm.getX(i);
+            const ny = norm.getY(i);
+            const nz = norm.getZ(i);
+
+            // Front-facing angle & upward bone prominence
+            const frontFacing = Math.max(0, nz * 0.72 + ny * 0.38 + 0.12);
+
+            // Periodic vertebral bodies along spine height (discrete bone layers)
+            const vertebraFreq = Math.sin((y + 0.5) * 145.0);
+
+            // Partial silver placement on vertebrae bodies & prominent 3D crests
+            let silverWeight = 0;
+            if (frontFacing > 0.35 && vertebraFreq > 0.05) {
+              silverWeight = Math.pow((frontFacing - 0.35) / 0.65, 1.2) * Math.pow((vertebraFreq - 0.05) / 0.95, 0.7);
+            }
+
+            // Lateral spinous tip highlights
+            const lateralTip = Math.abs(nx) * 0.55 + Math.max(0, nz) * 0.45;
+            if (lateralTip > 0.60 && frontFacing > 0.25) {
+              silverWeight = Math.max(silverWeight, (lateralTip - 0.60) * 1.6);
+            }
+
+            silverWeight = Math.min(1.0, Math.max(0, silverWeight));
+
+            // Base color: Medical Cobalt in crevices, brightening towards bone
+            const col = new THREE.Color().lerpColors(cDeepCobalt, cCobalt, Math.max(0, frontFacing));
+
+            // Cyan neural accent at the boundary of silver and cobalt
+            if (frontFacing > 0.2 && frontFacing < 0.55 && silverWeight < 0.25) {
+              col.lerp(cCyan, 0.35);
+            }
+
+            // Blend genuine metallic silver onto vertebrae
+            if (silverWeight > 0) {
+              const targetSilv = silverWeight > 0.55 ? cSilverPlate : cSilverMid;
+              col.lerp(targetSilv, silverWeight * 0.94);
+            }
+
+            colors[i * 3]     = col.r;
+            colors[i * 3 + 1] = col.g;
+            colors[i * 3 + 2] = col.b;
           }
+
+          child.geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
           child.material = this.glassSpineMat;
         } else if (child.isLine || child.isLineSegments || child.isPoints) {
           // Guarantee zero wireframe lines or telemetry artifacts from 3D model

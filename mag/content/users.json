@@ -15,7 +15,7 @@
     "medicalCouncil": "",
     "status": "active",
     "registeredAt": "2026-01-10T10:00:00Z",
-    "lastLogin": "2026-10-31T17:02:33Z",
+    "lastLogin": "2026-11-01T15:00:47Z",
     "passwordSalt": "SzPzxix2wJ1rEqkwzG2jXw",
     "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$SzPzxix2wJ1rEqkwzG2jXw$ibMSfj0iLaHaLazlOoXInOEjqH+8JYruRNaXCDTWrfM"
   },
