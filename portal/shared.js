@@ -1328,6 +1328,20 @@ function toggleMobileMenu() {
     drawer.classList.toggle('active');
     const isActive = drawer.classList.contains('active');
     document.body.style.overflow = isActive ? 'hidden' : '';
+
+    if (isActive) {
+      // Ensure all collapsible dropdown accordions inside mobile menu are closed by default
+      document.querySelectorAll('.drawer-accordion').forEach(el => {
+        el.classList.remove('is-open');
+      });
+      // Also close any desktop header dropdowns
+      document.querySelectorAll('.nav-dropdown.is-open').forEach(el => {
+        el.classList.remove('is-open');
+        const btn = el.querySelector('.nav-dropdown-trigger');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
     if (window.lenis) {
       if (isActive) window.lenis.stop();
       else window.lenis.start();

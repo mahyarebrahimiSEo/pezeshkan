@@ -291,7 +291,7 @@
         <li><a href="/" class="nav-link ">صفحه اصلی</a></li>
 
         <!-- آکاردئون ۱: برای مراجعان -->
-        <li class="drawer-accordion " id="drawerAccPatients">
+        <li class="drawer-accordion" id="drawerAccPatients">
           <button type="button" class="drawer-accordion-btn" onclick="toggleDrawerNavAccordion('drawerAccPatients')">
             <span class="drawer-accordion-title-wrap">
               <span class="drawer-accordion-badge">
@@ -318,7 +318,7 @@
         </li>
 
         <!-- آکاردئون ۲: برای پزشکان -->
-        <li class="drawer-accordion drawer-accordion-doctors is-open" id="drawerAccDoctors">
+        <li class="drawer-accordion drawer-accordion-doctors" id="drawerAccDoctors">
           <button type="button" class="drawer-accordion-btn" onclick="toggleDrawerNavAccordion('drawerAccDoctors')">
             <span class="drawer-accordion-title-wrap">
               <span class="drawer-accordion-badge">
@@ -937,11 +937,13 @@
           </div>
         </article>
 
-        <!-- ========================================================
-             DESTINATION & PARTNERSHIP: CONNECTED DOCTOR CTA CARD
-             The Timeline Line Flows Seamlessly into the Top Anchor Node
-             ======================================================== -->
-        <div class="about-doctor-cta-card story-card-enter from-center" id="doctorCtaCard">
+      </div> <!-- End .about-story-timeline -->
+
+      <!-- ========================================================
+           DESTINATION & PARTNERSHIP: CONNECTED DOCTOR CTA CARD
+           The Timeline Line Flows Seamlessly into the Top Anchor Node & Tucks Behind
+           ======================================================== -->
+      <div class="about-doctor-cta-card story-card-enter from-center" id="doctorCtaCard">
           <div class="card-border-beam" aria-hidden="true"></div>
           <div class="liquid-card-rim-light" aria-hidden="true"></div>
 
@@ -1028,8 +1030,6 @@
             </div>
           </div>
         </div>
-
-      </div> <!-- End .about-story-timeline -->
     </div>
 
   </main>
@@ -1131,12 +1131,9 @@
         progress.style.transform = 'scaleY(' + p + ')';
 
         if (beacon) {
-          if (p > 0.01 && p < 0.99) {
+          if (p > 0.01 && p < 0.96) {
             beacon.style.opacity = '1';
             beacon.style.top = (p * 100) + '%';
-          } else if (p >= 0.99) {
-            beacon.style.opacity = '1';
-            beacon.style.top = '100%';
           } else {
             beacon.style.opacity = '0';
           }
@@ -1144,7 +1141,7 @@
 
         nodes.forEach(function(node) {
           var nr = node.getBoundingClientRect();
-          if (nr.top <= winH * 0.65) {
+          if (nr.top <= winH * 0.70 || p >= 0.95) {
             node.classList.add('active');
           } else {
             node.classList.remove('active');

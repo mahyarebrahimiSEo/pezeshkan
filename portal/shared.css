@@ -3028,14 +3028,47 @@ a:hover {
     justify-content: center !important;
   }
   .pez-hero-trust-bar {
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    padding: 16px;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    width: 100% !important;
+    padding: 12px 6px !important;
+    border-radius: 16px !important;
+    margin: 16px 0 0 !important;
+    text-align: center !important;
   }
   .pez-hero-trust-bar .trust-sep {
-    width: 100%;
-    height: 1px;
+    display: none !important;
+  }
+  .pez-hero-trust-bar .trust-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 2px 6px !important;
+    border-left: 1px solid var(--glass-border) !important;
+    border-right: none !important;
+    text-align: center !important;
+  }
+  .pez-hero-trust-bar .trust-item:last-child {
+    border-left: none !important;
+  }
+  .pez-hero-trust-bar .trust-val {
+    font-size: 13.5px !important;
+    font-weight: 900 !important;
+    color: var(--text-pure) !important;
+    line-height: 1.25 !important;
+    font-variant-numeric: tabular-nums !important;
+    white-space: nowrap !important;
+  }
+  .pez-hero-trust-bar .trust-lbl {
+    font-size: 9.5px !important;
+    line-height: 1.35 !important;
+    color: var(--text-muted) !important;
+    display: block !important;
+    text-align: center !important;
   }
   .pez-hero-scroll-pill {
     position: relative !important;
@@ -4449,8 +4482,8 @@ body.intro-device-locked {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: auto;
-  right: 0;
+  left: 0;
+  right: auto;
   background: var(--bg-surface-primary);
   width: 310px;
   max-width: 86vw;
@@ -4459,10 +4492,10 @@ body.intro-device-locked {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.65);
-  border-left: 1px solid var(--glass-border);
-  border-right: none;
-  transform: translateX(100%);
+  box-shadow: 14px 0 44px rgba(0, 0, 0, 0.65);
+  border-right: 1px solid var(--glass-border);
+  border-left: none;
+  transform: translateX(-100%);
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
 }
@@ -12596,7 +12629,7 @@ main .product-module-grid li:hover > svg {
 .about-timeline-rail {
   position: absolute;
   top: 40px;
-  bottom: 30px;
+  bottom: -46px; /* Connects smoothly into the top anchor node and terminates safely behind the CTA card */
   right: 50%;
   transform: translateX(50%);
   width: 3px;
@@ -13080,6 +13113,7 @@ main .product-module-grid li:hover > svg {
     left: auto !important;
     transform: none !important;
     width: 3px !important;
+    bottom: -32px !important;
     z-index: 2 !important;
   }
 
