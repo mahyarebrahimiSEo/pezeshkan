@@ -1619,48 +1619,92 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
        ========================================================================== */
     .clinical-trust-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-      gap: 16px;
-      background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      padding: 20px 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(28px) saturate(190%) contrast(105%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(105%);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 24px 28px;
       margin-bottom: 44px;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 14px 38px -8px rgba(0, 102, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    @media (max-width: 960px) {
+      .clinical-trust-strip {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 16px;
+      }
+    }
+    [data-theme="dark"] .clinical-trust-strip {
+      background: rgba(13, 21, 39, 0.72) !important;
+      border-color: rgba(56, 189, 248, 0.22) !important;
+      border-top: 1.5px solid rgba(255, 255, 255, 0.30) !important;
+      box-shadow: 0 18px 44px -10px rgba(0, 0, 0, 0.65), 0 0 35px rgba(0, 229, 255, 0.06) !important;
     }
     .trust-strip-item {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
     .strip-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      background: var(--color-primary-light);
-      color: var(--color-primary);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(0, 102, 255, 0.08);
+      border: 1px solid rgba(0, 102, 255, 0.18);
+      color: #0066FF;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 102, 255, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .trust-strip-item:hover .strip-icon-box {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 102, 255, 0.16);
+    }
+    [data-theme="dark"] .strip-icon-box {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.28);
+      color: #38BDF8;
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.12);
     }
     .strip-icon-box.teal {
-      background: var(--color-teal-light);
-      color: var(--color-teal);
+      background: rgba(2, 132, 199, 0.08);
+      border: 1px solid rgba(2, 132, 199, 0.20);
+      color: #0284C7;
+    }
+    [data-theme="dark"] .strip-icon-box.teal {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.28);
+      color: #38BDF8;
     }
     .strip-icon-box.orange {
-      background: var(--color-orange-light);
-      color: var(--color-orange);
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.22);
+      color: #0077B6;
     }
-    .strip-details h4 {
-      font-size: 14px;
+    [data-theme="dark"] .strip-icon-box.orange {
+      background: rgba(0, 229, 255, 0.12);
+      border-color: rgba(0, 229, 255, 0.32);
+      color: #00E5FF;
+    }
+    .strip-details h4,
+    .strip-details-title {
+      font-size: 14.5px;
       font-weight: 800;
       color: var(--text-heading);
-      margin-bottom: 2px;
+      margin: 0 0 4px 0;
     }
     .strip-details p {
-      font-size: 12px;
+      font-size: 12.5px;
+      line-height: 1.65;
       color: var(--text-secondary);
+      margin: 0;
     }
 
     /* ==========================================================================
@@ -1838,6 +1882,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       transition: all 0.25s ease;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
       font-family: var(--font-main);
+      text-decoration: none;
     }
     .inside-cta-btn:hover {
       background: var(--color-primary-light);
@@ -1851,26 +1896,91 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
     .specialty-section-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 12.5px;
+      border-radius: 9999px;
+      font-size: 12px;
       font-weight: 800;
       margin-bottom: 8px;
+      backdrop-filter: blur(12px);
+      letter-spacing: -0.01em;
+    }
+    .badge-editorial {
+      background: rgba(0, 102, 255, 0.10);
+      color: #0066FF;
+      border: 1px solid rgba(0, 102, 255, 0.22);
+    }
+    .badge-spine {
+      background: rgba(2, 132, 199, 0.10);
+      color: #0284C7;
+      border: 1px solid rgba(2, 132, 199, 0.24);
+    }
+    .badge-cardio {
+      background: rgba(225, 29, 72, 0.08);
+      color: #E11D48;
+      border: 1px solid rgba(225, 29, 72, 0.22);
     }
     .badge-pediatrics {
-      background: rgba(236, 72, 153, 0.12);
-      color: #F472B6;
-      border: 1px solid rgba(236, 72, 153, 0.28);
+      background: rgba(0, 102, 255, 0.10);
+      color: #0066FF;
+      border: 1px solid rgba(0, 102, 255, 0.22);
     }
     .badge-pharma {
-      background: rgba(0, 229, 153, 0.12);
-      color: #00E599;
-      border: 1px solid rgba(0, 229, 153, 0.28);
+      background: rgba(5, 150, 105, 0.10);
+      color: #059669;
+      border: 1px solid rgba(5, 150, 105, 0.24);
     }
+    [data-theme="dark"] .badge-editorial,
+    [data-theme="dark"] .badge-spine,
+    [data-theme="dark"] .badge-pediatrics {
+      background: rgba(56, 189, 248, 0.12);
+      color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.28);
+    }
+    [data-theme="dark"] .badge-cardio {
+      background: rgba(244, 63, 94, 0.12);
+      color: #F43F5E;
+      border-color: rgba(244, 63, 94, 0.28);
+    }
+    [data-theme="dark"] .badge-pharma {
+      background: rgba(16, 185, 129, 0.12);
+      color: #10B981;
+      border-color: rgba(16, 185, 129, 0.28);
+    }
+
+    .section-view-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(0, 102, 255, 0.06);
+      border: 1px solid rgba(0, 102, 255, 0.18);
+      white-space: nowrap;
+    }
+    .section-view-all-link:hover {
+      background: var(--color-primary);
+      color: #FFFFFF !important;
+      transform: translateX(-3px);
+    }
+    [data-theme="dark"] .section-view-all-link {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.22);
+      color: #38BDF8;
+    }
+    [data-theme="dark"] .section-view-all-link:hover {
+      background: #38BDF8;
+      color: #080D1A !important;
+    }
+
     .editorial-cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
       margin-bottom: 50px;
     }
@@ -2118,36 +2228,55 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       50% { transform: scale(1.35); opacity: 0.6; }
     }
     .mag-hub-main-title {
-      font-size: clamp(22px, 2.5vw, 32px);
+      font-size: clamp(20px, 2.1vw, 29px);
       font-weight: 900;
       color: var(--text-heading);
-      line-height: 1.42;
+      line-height: 1.4;
       margin: 0 0 10px 0;
       letter-spacing: -0.01em;
     }
+    @media (min-width: 1100px) {
+      .mag-hub-main-title {
+        white-space: nowrap;
+      }
+    }
     .mag-title-brand-gradient {
-      background: linear-gradient(135deg, #0052CC 0%, #0066FF 45%, #00E5FF 100%);
+      color: #0044B2;
+      background: linear-gradient(180deg, #003D99 0%, #0055D4 45%, #0066FF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
-      font-weight: 900;
+      font-weight: 950;
+      filter: drop-shadow(0 1px 1px rgba(0, 68, 178, 0.25));
     }
     [data-theme="dark"] .mag-title-brand-gradient {
-      background: linear-gradient(135deg, #38BDF8 0%, #00E5FF 55%, #C084FC 100%);
+      color: #38BDF8;
+      background: linear-gradient(180deg, #38BDF8 0%, #00E5FF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      display: inline-block;
+      font-weight: 950;
+      filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.4));
     }
     .mag-hub-main-subtitle {
-      font-size: clamp(14px, 1.1vw, 16px);
+      font-size: clamp(13px, 1.02vw, 15px);
       color: var(--text-secondary);
-      line-height: 1.85;
+      line-height: 1.75;
       margin: 0 0 18px 0;
-      max-width: 900px;
+      max-width: 100%;
+    }
+    @media (min-width: 1080px) {
+      .mag-hub-main-subtitle {
+        white-space: nowrap;
+      }
     }
     .mag-subtitle-highlight {
-      color: var(--color-primary);
+      color: #004BB5;
       font-weight: 800;
       position: relative;
+    }
+    [data-theme="dark"] .mag-subtitle-highlight {
+      color: #38BDF8;
     }
     .mag-hero-quick-meta {
       display: flex;
@@ -3069,11 +3198,32 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
         justify-content: center !important;
       }
 
-      /* Editorial articles */
+      /* Editorial articles: اسلایدر تک‌کارت ریسپانسیو فوق روان روی گوشی */
       .editorial-cards-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        margin-bottom: 36px;
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scroll-behavior: smooth !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 16px !important;
+        padding: 4px 16px 20px 16px !important;
+        margin: 0 -16px 36px -16px !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+      .editorial-cards-grid::-webkit-scrollbar {
+        display: none !important;
+      }
+      .editorial-cards-grid > .magazine-article-card {
+        flex: 0 0 calc(100% - 28px) !important;
+        min-width: calc(100% - 28px) !important;
+        max-width: calc(100% - 28px) !important;
+        scroll-snap-align: center !important;
+        scroll-snap-stop: always !important;
+        height: 420px !important;
+        min-height: 400px !important;
+        border-radius: 22px !important;
       }
       .magazine-article-card {
         height: 380px;
@@ -4687,8 +4837,6 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       background: var(--bg-subtle) !important;
       border-color: var(--border-color) !important;
     }
-    [data-theme="dark"] .clinical-trust-strip,
-    [data-theme="dark"] .trust-strip-item,
     [data-theme="dark"] .dept-card,
     [data-theme="dark"] .magazine-article-card,
     [data-theme="dark"] .category-hub-card,
@@ -5096,10 +5244,10 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           <span>بازگشت به سایت اصلی</span>
         </a>
-        <button class="btn-ui btn-primary-gradient header-btn-booking" onclick="openBookingDrawer()">
+        <a href="/appointments" class="btn-ui btn-primary-gradient header-btn-booking" title="سامانه نوبت‌دهی آنلاین و لیست پزشکان">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v3m8-3v3"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></g></svg>
           <span>نوبت‌دهی آنلاین</span>
-        </button>
+        </a>
       </div>
     </div>
   </header>
@@ -5129,11 +5277,6 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
         </button>
 
         <div class="category-pills-list" id="categoryPillsList">
-          <!-- دکمه خانه مجله با آیکون بیمارستان -->
-          <div class="nav-pill-item active" onclick="showMainHub()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4"/><path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"/><path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></g></svg>
-            <span>صفحه اصلی مجله</span>
-          </div>
           <!-- دسته‌بندی‌ها با آیکون‌های وکتور پزشکی در JS لود می‌شوند -->
         </div>
 
@@ -5198,10 +5341,6 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       
       <!-- ۰. عنوان شاخص و تیتر اصلی مجله سلامت پزشکآن (2026 Modern Clinical Glass Hero) -->
       <div class="mag-hub-hero-banner">
-        <div class="mag-hero-badge">
-          <span class="mag-hero-badge-pulse"></span>
-          <span>دانشنامه تخصصی پزشکی و خودمراقبتی ۲۰۲۶ · بازبینی بالینی هیئت علمی</span>
-        </div>
         <h1 class="mag-hub-main-title">
           مجله سلامت <span class="mag-title-brand-gradient">پزشکـــآن</span>؛ دانشنامه و راهنمای تخصصی پزشکی و خودمراقبتی
         </h1>
@@ -5217,10 +5356,6 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span>به‌روزرسانی هفتگی گایدلاین‌ها</span>
           </div>
-          <div class="mag-hero-meta-pill">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <span>۱۰۰٪ مستقل و بدون سوگیری تجاری</span>
-          </div>
         </div>
       </div>
 
@@ -5228,7 +5363,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       <section id="heroMagazineSection" style="margin-bottom: 36px; display: none;">
         <div class="section-title-wrap" style="margin-bottom: 16px;">
           <h2 style="font-size: 20px; font-weight: 900; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; vertical-align:middle;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
             <span>مقالات منتخب و راهنماهای بالینی برگزیده</span>
           </h2>
         </div>
@@ -5261,91 +5396,134 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
           </div>
           <div class="strip-details">
             <p class="strip-details-title" style="font-size:14px; font-weight:800; color:var(--text-heading); margin-bottom:2px;">دانشنامه و مرجع سلامت</p>
-            <p>بیش از ۳۴۰ سرفصل تشخیصی، دارویی و درمانی به‌روز و بدون اصطلاحات پیچیده.</p>
+            <p>سرفصل‌های جامع تشخیصی، دارویی و خودمراقبتی به‌روز، مستند و بدون اصطلاحات پیچیده.</p>
           </div>
         </div>
       </section>
 
-      <!-- ۵. کارت‌های هاب دسته‌بندی موضوعی با چیپ‌ها -->
-      <section style="margin-bottom: 50px;">
+<!-- بخش ۱: تازه‌های سلامت و مقالات برگزیده (۳ مقاله) -->
+      <section id="editorialArticlesSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
         <div class="section-head-bar">
           <div class="section-title-wrap">
-            <h2>
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4"/><path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"/><path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></g></svg>
-              <span>دپارتمان‌های تخصصی مجله سلامت</span>
+            <span class="specialty-section-badge badge-editorial">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
+              <span>تازه‌های تحریریه بالینی</span>
+            </span>
+            <h2 style="margin-top: 6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
+              <span>تازه‌های سلامت و مقالات برگزیده</span>
             </h2>
-            <p>دسته‌بندی موضوعی مقالات علمی و تشخیصی بر اساس نیازهای درمانی بیماران</p>
+            <p>راهنماهای خودمراقبتی و مقالات بررسی شده توسط پزشکان بیمارستان</p>
           </div>
+          <a href="javascript:void(0)" onclick="showCategoryDetail(0)" class="section-view-all-link">
+            <span>مشاهده همه</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg>
+          </a>
         </div>
-        <div class="category-cards-grid" id="categoryCardsGrid"></div>
+        <div class="editorial-cards-grid" id="editorialCardsGrid"></div>
+      </section>
+
+      <!-- بخش ۲: مقالات دسته بندی ستون فقرات و توانبخشی (۳ مقاله) -->
+      <section id="spineShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
+        <div class="section-head-bar">
+          <div class="section-title-wrap">
+            <span class="specialty-section-badge badge-spine">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
+              <span>کلینیک ستون فقرات و طب فیزیکی</span>
+            </span>
+            <h2 style="margin-top: 6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
+              <span>راهنماهای بالینی ستون فقرات، درد و توانبخشی</span>
+            </h2>
+            <p>تشخیص و درمان‌های غیرتهاجمی دیسک کمر، آرتروز، نوار عصب و پروتکل‌های توانبخشی</p>
+          </div>
+          <a href="javascript:void(0)" onclick="showCategoryDetail(0)" class="section-view-all-link">
+            <span>مشاهده همه مقالات ستون فقرات</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg>
+          </a>
+        </div>
+        <div class="editorial-cards-grid" id="spineCardsGrid"></div>
+      </section>
+
+      <!-- بخش ۳: مقالات دسته بندی قلب، عروق، دیابت و غدد (۳ مقاله) -->
+      <section id="cardioShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
+        <div class="section-head-bar">
+          <div class="section-title-wrap">
+            <span class="specialty-section-badge badge-cardio">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27"/></svg>
+              <span>مرکز قلب، عروق و دیابت</span>
+            </span>
+            <h2 style="margin-top: 6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E11D48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27"/></svg>
+              <span>راهنماهای جامع سلامت قلب، عروق و کنترل دیابت</span>
+            </h2>
+            <p>مراقبت‌های آنژیوپلاستی و استنت، داروهای نوین اوزمپیک، پایش فشار خون و پیشگیری از حوادث قلبی</p>
+          </div>
+          <a href="javascript:void(0)" onclick="showCategoryDetail(2)" class="section-view-all-link">
+            <span>مشاهده همه مقالات قلب و دیابت</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg>
+          </a>
+        </div>
+        <div class="editorial-cards-grid" id="cardioCardsGrid"></div>
+      </section>
+
+      <!-- بخش ۴: ویترین اختصاصی مقالات و راهنمای کودکان (۳ مقاله) -->
+      <section id="pediatricsShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
+        <div class="section-head-bar">
+          <div class="section-title-wrap">
+            <span class="specialty-section-badge badge-pediatrics">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+              <span>ویترین سلامت، رشد و مراقبت کودکان</span>
+            </span>
+            <h2 style="margin-top: 6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 11l2 2 4-4"/></svg>
+              <span>راهنماهای بالینی سلامت و بیماری‌های کودکان</span>
+            </h2>
+            <p>آموزش‌های کاربردی والدین، مدیریت تب، دوز داروها، تغذیه و علائم هشدار تحت نظارت متخصصان اطفال</p>
+          </div>
+          <a href="javascript:void(0)" onclick="showCategoryDetail(1)" class="section-view-all-link">
+            <span>مشاهده همه مقالات کودکان</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg>
+          </a>
+        </div>
+        <div class="editorial-cards-grid" id="pediatricsCardsGrid"></div>
+      </section>
+
+      <!-- بخش ۵: ویترین اختصاصی مقالات و راهنمای دارویی (۳ مقاله) -->
+      <section id="pharmaShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
+        <div class="section-head-bar">
+          <div class="section-title-wrap">
+            <span class="specialty-section-badge badge-pharma">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5l7 7"/></svg>
+              <span>دانشنامه و اطلاعات دارویی بالینی</span>
+            </span>
+            <h2 style="margin-top: 6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5l7 7"/></svg>
+              <span>راهنمای مصرف اصولی داروها و هشدارهای دارویی</span>
+            </h2>
+            <p>طریقه صحیح مصرف، عوارض جانبی، تداخلات دارویی و غذایی خطرناک و راهنماهای فارماکولوژی بیمارستانی</p>
+          </div>
+          <a href="javascript:void(0)" onclick="showCategoryDetail(8)" class="section-view-all-link">
+            <span>مشاهده همه اطلاعات دارویی</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg>
+          </a>
+        </div>
+        <div class="editorial-cards-grid" id="pharmaCardsGrid"></div>
       </section>
 
       <!-- ۶. بنر تبدیل اکسون (InsideBanner) -->
-      <section class="axon-inside-banner">
+      <section class="axon-inside-banner" style="margin-bottom: 60px;">
         <div class="inside-text">
           <h2 style="font-size: 22px; font-weight: 900; margin-bottom: 10px; color: #FFFFFF;">از آگاهی تا درمان: کنار شماییم</h2>
           <p>
             تمامی محتواهای این پایگاه توسط پزشکان فوق‌تخصص و با کد نظام پزشکی معتبر تهیه شده است. برای بررسی پرونده یا دریافت ویزیت تخصصی حضوری یا تله‌مدیسین، می‌توانید همین حالا اقدام فرمایید.
           </p>
         </div>
-        <button class="inside-cta-btn" onclick="openBookingDrawer()">
+        <a href="/appointments" class="inside-cta-btn" title="مشاهده لیست پزشکان متخصص و درخواست نوبت">
           <span>درخواست نوبت پزشک متخصص</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 19l-7-7l7-7m7 7H5"/></svg>
-        </button>
+        </a>
       </section>
-
-
-      <!-- ۷. تازه‌های مقالات همراه با تصاویر شاخص بالینی -->
-      <section id="editorialArticlesSection" style="margin-bottom: 60px; display: none;">
-        <div class="section-head-bar">
-          <div class="section-title-wrap">
-            <h2>
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></g></svg>
-              <span>تازه‌های سلامت و مقالات برگزیده</span>
-            </h2>
-            <p>راهنماهای خودمراقبتی و مقالات بررسی شده توسط پزشکان بیمارستان</p>
-          </div>
-        </div>
-        <div class="editorial-cards-grid" id="editorialCardsGrid"></div>
-      </section>
-
-      <!-- بخش ویترین اختصاصی مقالات کودکان -->
-      <section id="pediatricsShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 60px; display: none;">
-        <div class="section-head-bar">
-          <div class="section-title-wrap">
-            <span class="specialty-section-badge badge-pediatrics">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a5 5 0 0 1 5 5v3a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5m-4 13a4 4 0 0 0-4 4v1h16v-1a4 4 0 0 0-4-4z"/></svg>
-              <span>ویترین سلامت، رشد و مراقبت کودکان</span>
-            </span>
-            <h2 style="margin-top: 8px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2"/></svg>
-              <span>راهنماهای بالینی سلامت و بیماری‌های کودکان</span>
-            </h2>
-            <p>آموزش‌های کاربردی والدین، مدیریت تب، دوز داروها، تغذیه و علائم هشدار تحت نظارت متخصصان اطفال</p>
-          </div>
-        </div>
-        <div class="editorial-cards-grid" id="pediatricsCardsGrid"></div>
-      </section>
-
-      <!-- بخش ویترین اختصاصی مقالات دارویی -->
-      <section id="pharmaShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 60px; display: none;">
-        <div class="section-head-bar">
-          <div class="section-title-wrap">
-            <span class="specialty-section-badge badge-pharma">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5l7 7"/></g></svg>
-              <span>دانشنامه و اطلاعات دارویی بالینی</span>
-            </span>
-            <h2 style="margin-top: 8px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 11l-8-8l-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11m-14 2l5 5m2-2l5-5"/></svg>
-              <span>راهنمای مصرف اصولی داروها و هشدارهای دارویی</span>
-            </h2>
-            <p>طریقه صحیح مصرف، عوارض جانبی، تداخلات دارویی و غذایی خطرناک و راهنماهای فارماکولوژی بیمارستانی</p>
-          </div>
-        </div>
-        <div class="editorial-cards-grid" id="pharmaCardsGrid"></div>
-      </section>
-
-    </div>
     <div id="viewCategoryArea" style="display: none; padding-bottom: 60px;">
       <div style="margin-bottom: 24px;">
         <button class="btn-ui btn-subtle-outline" onclick="showMainHub()">
@@ -5439,10 +5617,10 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
 
       <!-- فوتر دراور -->
       <div class="mobile-drawer-footer">
-        <button type="button" class="btn-ui btn-primary-gradient" style="width:100%; justify-content:center; font-size:12.5px; padding:10px 14px;" onclick="closeMobileCategoryDrawer(); openBookingDrawer();">
+        <a href="/appointments" class="btn-ui btn-primary-gradient" style="width:100%; justify-content:center; font-size:12.5px; padding:10px 14px; text-decoration:none;" onclick="closeMobileCategoryDrawer();" title="سامانه نوبت‌دهی آنلاین و لیست پزشکان">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3m8-3v3"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></svg>
           <span>نوبت‌دهی آنلاین پزشکان</span>
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -5676,6 +5854,8 @@ function escapeHtml(str) {
       renderCategoryCards();
       renderHeroSection();
       renderEditorialCards();
+      renderSpineShowcase();
+      renderCardioShowcase();
       renderPediatricsShowcase();
       renderPharmaShowcase();
       renderMegaMenuContent();
@@ -5822,6 +6002,10 @@ function escapeHtml(str) {
       }));
       renderHeroSection();
       renderEditorialCards();
+      renderSpineShowcase();
+      renderCardioShowcase();
+      renderPediatricsShowcase();
+      renderPharmaShowcase();
 
       if (window._pendingArticleSlug) {
         const target = findArticleBySlugOrId(window._pendingArticleSlug);
@@ -5895,21 +6079,7 @@ function escapeHtml(str) {
 
       list.innerHTML = '';
 
-      // ۱. دکمه ثابت خانه / صفحه اصلی مجله
-      const homePill = document.createElement('div');
-      homePill.className = (currentCategoryId === null) ? 'nav-pill-item active' : 'nav-pill-item';
-      homePill.onclick = () => {
-        currentCategoryId = null;
-        showMainHub();
-        renderNavPills();
-      };
-      homePill.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4"/><path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"/><path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></g></svg>
-        <span>صفحه اصلی مجله</span>
-      `;
-      list.appendChild(homePill);
-
-      // ۲. انتخاب ۴ دسته‌بندی برای بچ جاری
+      // انتخاب ۴ دسته‌بندی برای بچ جاری
       const total = categoriesData.length;
       const startIdx = currentCatBatch * CATS_PER_BATCH;
       const visibleBatch = [];
@@ -6026,6 +6196,7 @@ function escapeHtml(str) {
     // رندر کارت‌های هاب موضوعی
     function renderCategoryCards() {
       const grid = document.getElementById('categoryCardsGrid');
+      if (!grid) return;
       grid.innerHTML = '';
       categoriesData.forEach((cat, idx) => {
         const card = document.createElement('div');
@@ -6110,6 +6281,85 @@ function escapeHtml(str) {
       return card;
     }
 
+function renderEditorialCards() {
+      const section = document.getElementById('editorialArticlesSection');
+      const grid = document.getElementById('editorialCardsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const generalArticles = articlesData.filter(art =>
+        art &&
+        art.status !== 'trash' && art.status !== 'draft' &&
+        !String(art.id).startsWith('newsletter-') &&
+        !String(art.id).startsWith('issue-') &&
+        art.categoryName !== 'خبرنامه و ویژه‌نامه‌های سلامت'
+      );
+
+      const items = generalArticles.slice(0, 3);
+      if (!items.length) {
+        if (section) section.style.display = 'none';
+        return;
+      }
+      if (section) section.style.display = 'block';
+      items.forEach(art => grid.appendChild(createMagazineCard(art)));
+    }
+
+    function renderSpineShowcase() {
+      const section = document.getElementById('spineShowcaseSection');
+      const grid = document.getElementById('spineCardsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const spineArticles = articlesData.filter(art =>
+        art &&
+        art.status !== 'trash' && art.status !== 'draft' &&
+        (
+          art.pillarId === 0 || art.pillarId === '0' ||
+          (art.categoryName && art.categoryName.includes('ستون فقرات')) ||
+          (art.tag && art.tag.includes('ستون فقرات')) ||
+          (art.tag && art.tag.includes('سیاتیک')) ||
+          (art.tag && art.tag.includes('دیسک')) ||
+          (art.slug && (art.slug.includes('spine') || art.slug.includes('sciatica') || art.slug.includes('cervical') || art.slug.includes('lumbar')))
+        )
+      );
+
+      const items = spineArticles.slice(0, 3);
+      if (!items.length) {
+        if (section) section.style.display = 'none';
+        return;
+      }
+      if (section) section.style.display = 'block';
+      items.forEach(art => grid.appendChild(createMagazineCard(art)));
+    }
+
+    function renderCardioShowcase() {
+      const section = document.getElementById('cardioShowcaseSection');
+      const grid = document.getElementById('cardioCardsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const cardioArticles = articlesData.filter(art =>
+        art &&
+        art.status !== 'trash' && art.status !== 'draft' &&
+        (
+          art.pillarId === 2 || art.pillarId === '2' ||
+          (art.categoryName && art.categoryName.includes('قلب')) ||
+          (art.tag && art.tag.includes('قلب')) ||
+          (art.tag && art.tag.includes('دیابت')) ||
+          (art.tag && art.tag.includes('فشار خون')) ||
+          (art.slug && (art.slug.includes('cardio') || art.slug.includes('diabetes') || art.slug.includes('hypertension') || art.slug.includes('angioplasty') || art.slug.includes('ozempic')))
+        )
+      );
+
+      const items = cardioArticles.slice(0, 3);
+      if (!items.length) {
+        if (section) section.style.display = 'none';
+        return;
+      }
+      if (section) section.style.display = 'block';
+      items.forEach(art => grid.appendChild(createMagazineCard(art)));
+    }
+
     function renderPediatricsShowcase() {
       const section = document.getElementById('pediatricsShowcaseSection');
       const grid = document.getElementById('pediatricsCardsGrid');
@@ -6129,15 +6379,13 @@ function escapeHtml(str) {
         )
       );
 
-      if (!pedArticles.length) {
+      const items = pedArticles.slice(0, 3);
+      if (!items.length) {
         if (section) section.style.display = 'none';
         return;
       }
-
       if (section) section.style.display = 'block';
-      pedArticles.forEach(art => {
-        grid.appendChild(createMagazineCard(art));
-      });
+      items.forEach(art => grid.appendChild(createMagazineCard(art)));
     }
 
     function renderPharmaShowcase() {
@@ -6152,94 +6400,22 @@ function escapeHtml(str) {
         (
           art.showInPharma === true ||
           art.show_in_pharma === true ||
-          art.pillarId === 8 ||
+          art.pillarId === 8 || art.pillarId === '8' ||
           (art.categoryName && art.categoryName.includes('دارو')) ||
           (art.tag && art.tag.includes('دارو')) ||
-          (art.slug && (art.slug.includes('pharma') || art.slug.includes('antibiotic') || art.slug.includes('drug') || art.slug.includes('omeprazole')))
+          (art.tag && art.tag.includes('مسکن')) ||
+          (art.slug && (art.slug.includes('pharma') || art.slug.includes('antibiotic') || art.slug.includes('drug') || art.slug.includes('omeprazole') || art.slug.includes('nsaid')))
         )
       );
 
-      if (!pharmaArticles.length) {
+      const items = pharmaArticles.slice(0, 3);
+      if (!items.length) {
         if (section) section.style.display = 'none';
         return;
       }
-
       if (section) section.style.display = 'block';
-      pharmaArticles.forEach(art => {
-        grid.appendChild(createMagazineCard(art));
-      });
+      items.forEach(art => grid.appendChild(createMagazineCard(art)));
     }
-
-    function renderEditorialCards() {
-      const section = document.getElementById('editorialArticlesSection');
-      const grid = document.getElementById('editorialCardsGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-
-      const generalArticles = articlesData.filter(art =>
-        art &&
-        art.status !== 'trash' && art.status !== 'draft' &&
-        !String(art.id).startsWith('newsletter-') &&
-        !String(art.id).startsWith('issue-') &&
-        art.categoryName !== 'خبرنامه و ویژه‌نامه‌های سلامت'
-      );
-
-      // ۵ مقاله اول در هیروسکشن بالا نمایش داده می‌شوند؛ مقالات بعدی در این بخش قرار می‌گیرند
-      const remainingArticles = generalArticles.length > 5 ? generalArticles.slice(5) : [];
-
-      if (!remainingArticles.length) {
-        if (section) section.style.display = 'none';
-        grid.innerHTML = '';
-        return;
-      }
-
-      if (section) section.style.display = 'block';
-
-      remainingArticles.forEach(art => {
-        const card = document.createElement('a');
-        card.href = `/mag/${encodeURIComponent(art.slug || art.id)}`;
-        card.className = 'magazine-article-card';
-        card.style.textDecoration = 'none';
-        card.style.color = 'inherit';
-        card.onclick = (e) => { e.preventDefault(); openArticleReader(art.id); };
-
-        const artIcon = medicalIcons[art.categoryIcon] || medicalIcons['stethoscope'];
-
-        card.innerHTML = `
-          <div class="card-thumb-wrap">
-            <img src="${art.image}" alt="${art.imageAlt || art.title}" loading="lazy" onerror="this.onerror=null; this.src='/mag/uploads/2026/10/11_1792233621_b823deb3.webp'">
-            <span class="thumb-tag-badge">
-              ${artIcon}
-              <span>${art.tag || 'مقاله بالینی'}</span>
-            </span>
-            <span class="thumb-readtime-badge">
-              ${medicalIcons['clock']}
-              <span>${art.readTime}</span>
-            </span>
-          </div>
-
-          <div class="article-card-body">
-            <div>
-              <p class="mag-title">${art.title}</p>
-              <p class="mag-summary">${art.summary}</p>
-            </div>
-            <div class="mag-author-footer">
-              <span style="display:flex; align-items:center; gap:8px;">
-                <img src="${art.author.avatar}" class="doctor-avatar-circle" alt="${art.author.name}">
-                <span>${art.author.name}</span>
-              </span>
-              <span style="color:var(--color-primary); font-weight:700; display:inline-flex; align-items:center; gap:4px;">
-                مطالعه کامل
-                ${medicalIcons['arrow_left']}
-              </span>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    // رندر محتوای مگامنو جامع (طراحی مدرن شیشه‌ای 3x3 بدون نیاز به اسکرول)
     function renderMegaMenuContent() {
       const grid = document.getElementById('megaModalGrid');
       if (!grid) return;

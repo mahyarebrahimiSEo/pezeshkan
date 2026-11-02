@@ -11115,9 +11115,12 @@ main .product-module-grid li:hover > svg {
 .service-card-desc {
   font-size: 14.5px;
   line-height: 1.75;
-  color: rgba(203, 213, 225, 0.88) !important;
+  color: #334155 !important;
   max-width: 680px;
   margin-bottom: 18px;
+}
+[data-theme="dark"] .service-card-desc {
+  color: rgba(226, 232, 240, 0.85) !important;
 }
 
 .service-tags-row {
