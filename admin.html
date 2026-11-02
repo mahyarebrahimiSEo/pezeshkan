@@ -3921,6 +3921,32 @@
                   <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">برچسب موضوعی (Tag):</label>
                   <input type="text" id="editTag" class="form-control" placeholder="مثال: ستون فقرات، ارتوپدی...">
                 </div>
+
+                <!-- ویترین اختصاصی صفحه اصلی مجله سلامت -->
+                <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-subtle);">
+                  <label style="font-size: 12px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                    <svg class="icon-svg" style="width: 14px; height: 14px; color: var(--color-primary);" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M3 9h18M9 21V9"/></svg>
+                    <span>نمایش در ویترین صفحه اصلی مجله:</span>
+                  </label>
+
+                  <!-- چک‌باکس بخش کودکان -->
+                  <label class="custom-checkbox-row" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: rgba(236, 72, 153, 0.05); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 8px; margin-bottom: 8px; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--text-primary);">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #EC4899; flex-shrink: 0;"></span>
+                      <span>نمایش در بخش درباره کودکان</span>
+                    </span>
+                    <input type="checkbox" id="editShowInPediatrics" style="width: 17px; height: 17px; cursor: pointer; accent-color: #EC4899;">
+                  </label>
+
+                  <!-- چک‌باکس بخش داروها -->
+                  <label class="custom-checkbox-row" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: rgba(0, 229, 153, 0.05); border: 1px solid rgba(0, 229, 153, 0.2); border-radius: 8px; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--text-primary);">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #00E599; flex-shrink: 0;"></span>
+                      <span>نمایش در بخش درباره داروها</span>
+                    </span>
+                    <input type="checkbox" id="editShowInPharma" style="width: 17px; height: 17px; cursor: pointer; accent-color: #00E599;">
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -9181,6 +9207,8 @@ function onEditorContentChanged() {
       canvas.innerHTML = '<p dir="rtl"><br></p>';
       enforceRtlOnEditorNodes();
 
+      const pedCheck = document.getElementById('editShowInPediatrics'); if (pedCheck) pedCheck.checked = false;
+      const pharmaCheck = document.getElementById('editShowInPharma'); if (pharmaCheck) pharmaCheck.checked = false;
       document.getElementById('editHeroImageUrl').value = '';
       document.getElementById('editHeroImageAlt').value = '';
       document.getElementById('heroImageEl').style.display = 'none';
@@ -9255,6 +9283,14 @@ function onEditorContentChanged() {
       }
       if (art.doctorId) document.getElementById('editDoctor').value = art.doctorId;
       document.getElementById('editTag').value = art.tag || '';
+      const pedCheckEl = document.getElementById('editShowInPediatrics');
+      if (pedCheckEl) {
+        pedCheckEl.checked = !!(art.showInPediatrics || art.show_in_pediatrics || (art.tag && art.tag.includes('کودک')) || (art.title && art.title.includes('کودک')));
+      }
+      const pharmaCheckEl = document.getElementById('editShowInPharma');
+      if (pharmaCheckEl) {
+        pharmaCheckEl.checked = !!(art.showInPharma || art.show_in_pharma || art.pillarId === 8 || (art.categoryName && art.categoryName.includes('دارو')) || (art.tag && art.tag.includes('دارو')));
+      }
 
       // Hero Image
       const heroUrl = art.image || '';
@@ -9460,6 +9496,10 @@ function onEditorContentChanged() {
         lastReviewed: 'امروز',
         tag: tag,
         tagClass: 'tag-blue',
+        showInPediatrics: !!document.getElementById('editShowInPediatrics')?.checked,
+        show_in_pediatrics: !!document.getElementById('editShowInPediatrics')?.checked,
+        showInPharma: !!document.getElementById('editShowInPharma')?.checked,
+        show_in_pharma: !!document.getElementById('editShowInPharma')?.checked,
         status: targetStatus,
         seoScore: (typeof currentRankMathScore !== "undefined" ? currentRankMathScore : 0), isNoindex: currentArticleIsNoindex,
         robots: currentArticleIsNoindex ? 'noindex, follow' : 'index, follow',

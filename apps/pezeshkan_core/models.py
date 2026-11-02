@@ -136,6 +136,8 @@ class Article(models.Model):
     is_noindex = models.BooleanField(default=False, verbose_name="نو ایندکس (Noindex)")
     robots = models.CharField(max_length=100, default="index, follow", verbose_name="متاتگ ربات‌ها")
     seo_score = models.IntegerField(default=0, verbose_name="امتیاز سئو رنک مث")
+    show_in_pediatrics = models.BooleanField(default=False, verbose_name="نمایش در بخش کودکان صفحه اصلی")
+    show_in_pharma = models.BooleanField(default=False, verbose_name="نمایش در بخش داروها صفحه اصلی")
     last_modified = models.DateTimeField(auto_now=True)
 
     class Meta:
