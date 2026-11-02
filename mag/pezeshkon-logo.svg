@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="35 15 170 145" fill="none">
   <defs>
     <linearGradient id="pzk-metal" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#E2E8F0"/>
@@ -36,9 +36,4 @@
   <!-- Central Power Bar / Medical Coat Collar V-Neck -->
   <path d="M 106 84 L 120 108 L 134 84 L 130 148 C 130 153 110 153 110 148 Z" fill="url(#pzk-metal)"/>
   <rect x="116" y="88" width="8" height="58" rx="4" fill="url(#pzk-green)" filter="url(#pzk-glow)"/>
-
-  <!-- Wordmark: PEZESHK-ON -->
-  <text x="120" y="232" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="26" letter-spacing="2" fill="currentColor">
-    PEZESHK-<tspan fill="#10B981">O</tspan>N
-  </text>
 </svg>

@@ -120,4 +120,12 @@ class RedirectAndSecurityMiddleware(MiddlewareMixin):
         response['Cache-Control'] = 'no-cache, no-store, must-revalidate, max-age=0'
         response['Pragma'] = 'no-cache'
         response['Expires'] = '0'
+
+        # Intercept any leaked Django technical 404 debug screen and replace with clean Pezeshkan 404
+        if response.status_code == 404:
+            content = getattr(response, 'content', b'')
+            if b'Using the URLconf defined in' in content or b'Page not found (404)' in content:
+                from apps.pezeshkan_core.views import custom_404_view
+                return custom_404_view(request)
+
         return response

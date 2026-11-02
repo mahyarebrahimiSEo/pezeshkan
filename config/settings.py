@@ -29,7 +29,13 @@ if ENV_PATH.exists():
 # 2. Security & Environment
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "development").lower()
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-pezeshkan-2026-medical-hardened-key-99x")
-DEBUG = os.environ.get("DEBUG", "").lower() in ("true", "1") or ENVIRONMENT != "production"
+debug_env = os.environ.get("DEBUG", "").strip().lower()
+if debug_env in ("false", "0", "no", "off"):
+    DEBUG = False
+elif debug_env in ("true", "1", "yes", "on"):
+    DEBUG = True
+else:
+    DEBUG = ENVIRONMENT != "production"
 
 ALLOWED_HOSTS_RAW = os.environ.get("ALLOWED_HOSTS", "*")
 ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS_RAW.split(",") if h.strip()]

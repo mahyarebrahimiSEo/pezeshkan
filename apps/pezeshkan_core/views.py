@@ -341,10 +341,13 @@ def portal_page(request, page_name="index", path=None, **kwargs):
         return index_page(request)
     elif clean in PORTAL_PAGE_NAMES:
         target = settings.BASE_DIR / 'portal' / PORTAL_PAGE_NAMES[clean]
+        status = 404 if clean in ("404", "404.html") else 200
+        return serve_static_file(target, status=status)
     else:
         target = settings.BASE_DIR / 'portal' / f"{clean}.html"
         if not target.exists():
             target = settings.BASE_DIR / 'portal' / '404.html'
+            return serve_static_file(target, status=404)
     return serve_static_file(target)
 
 
@@ -442,6 +445,53 @@ def appointments_page(request):
     """Serves the public patient appointment booking and tracking portal."""
     target = settings.BASE_DIR / 'portal' / 'appointments.html'
     return serve_static_file(target)
+
+
+def custom_404_view(request, exception=None, unmatched_path=""):
+    """
+    Universal 404 handler for Pezeshkan Medical Platform.
+    Handles Persian paths, URL-encoded paths, API requests, magazine routes, and portal routes cleanly.
+    Guarantees no internal Django debug yellow screen is ever displayed.
+    """
+    import urllib.parse
+    req_path = request.path or ""
+
+    # 1. API routes -> JSON 404
+    if req_path.startswith('/api/') or req_path == '/api':
+        return JsonResponse({
+            "success": False,
+            "error": "مسیر درخواستی در API یافت نشد (Not Found)",
+            "path": req_path,
+            "status": 404
+        }, status=404)
+
+    # 2. Magazine routes -> Magazine 404
+    if req_path.startswith('/mag/') or req_path == '/mag':
+        mag_404 = settings.BASE_DIR / 'mag' / '404.html'
+        if mag_404.exists():
+            return serve_static_file(mag_404, status=404)
+
+    # 3. All other paths (Portal, English, Persian, root) -> Portal 404
+    portal_404 = settings.BASE_DIR / 'portal' / '404.html'
+    if portal_404.exists():
+        return serve_static_file(portal_404, status=404)
+
+    # Fallback if 404.html is missing
+    return HttpResponseNotFound("<h1>404 - صفحه مورد نظر پیدا نشد</h1>", content_type="text/html; charset=utf-8")
+
+
+def custom_500_view(request):
+    """Universal 500 error handler."""
+    if request.path.startswith('/api/'):
+        return JsonResponse({
+            "success": False,
+            "error": "خطای داخلی سرور (Internal Server Error)",
+            "status": 500
+        }, status=500)
+    portal_404 = settings.BASE_DIR / 'portal' / '404.html'
+    if portal_404.exists():
+        return serve_static_file(portal_404, status=500)
+    return HttpResponse("<h1>500 - خطای داخلی سرور</h1>", status=500, content_type="text/html; charset=utf-8")
 
 
 # ==============================================================================

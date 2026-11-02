@@ -7712,17 +7712,17 @@ body.intro-device-locked {
 }
 
 .footer-brand-emblem {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #0B111E 0%, #152238 100%);
-  border: 1.5px solid rgba(6, 182, 212, 0.38);
-  padding: 4px;
+  width: 42px;
+  height: 42px;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.16);
+  box-shadow: none !important;
 }
 
 .footer-brand-emblem img,

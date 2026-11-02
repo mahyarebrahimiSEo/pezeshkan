@@ -7229,10 +7229,7 @@
       const canvasEl = activeCanvasForFigure;
       currentlySelectedFigure.remove();
       deselectEditorImage();
-
-       else {
-        onEditorContentChanged();
-      }
+      onEditorContentChanged();
       showToast('تصویر با موفقیت از ویرایشگر حذف گردید');
     }
 
@@ -7243,9 +7240,7 @@
         currentlySelectedFigure.classList.add(alignClass);
       }
       updateEditorImageToolbarPosition();
-       else {
-        onEditorContentChanged();
-      }
+      onEditorContentChanged();
       showToast('چینش تصویر با موفقیت تنظیم شد');
     }
 
@@ -7339,11 +7334,8 @@
 
       closeImageAltEditModal();
       updateEditorImageToolbarPosition();
-
-       else {
-        onEditorContentChanged();
-        runLiveSeoAudit();
-      }
+      onEditorContentChanged();
+      runLiveSeoAudit();
       showToast('متن جایگزین و توضیح تصویر با موفقیت ذخیره گردید');
     }
 
@@ -7427,9 +7419,7 @@
                 targetBlock.parentElement.insertBefore(window.__draggedEditorFigure, targetBlock);
               }
               selectEditorFigure(window.__draggedEditorFigure, c);
-               else {
-                onEditorContentChanged();
-              }
+              onEditorContentChanged();
               showToast('تصویر به موقعیت جدید منتقل شد');
             }
           }
@@ -7734,11 +7724,8 @@
       }
 
       closeEditorLinkModal();
-
-       else {
-        enforceRtlOnEditorNodes();
-        onEditorContentChanged();
-      }
+      enforceRtlOnEditorNodes();
+      onEditorContentChanged();
     }
 
     function applyEditorUnlink() {
@@ -7771,11 +7758,8 @@
       }
 
       closeEditorLinkModal();
-
-       else {
-        enforceRtlOnEditorNodes();
-        onEditorContentChanged();
-      }
+      enforceRtlOnEditorNodes();
+      onEditorContentChanged();
     }
 
     function saveEditorSelection() {
