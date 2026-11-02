@@ -12430,6 +12430,28 @@ main .product-module-grid li:hover > svg {
   color: #10B981;
 }
 
+.google-feature-cross {
+  width: 15px;
+  height: 15px;
+  color: #E11D48;
+  flex-shrink: 0;
+  margin-top: 3.5px;
+}
+
+[data-theme="dark"] .google-feature-cross {
+  color: #FB7185;
+}
+
+.google-feature-item.unavailable {
+  color: var(--text-muted);
+  opacity: 0.68;
+  transition: opacity 0.2s ease;
+}
+
+.google-feature-item.unavailable:hover {
+  opacity: 0.88;
+}
+
 /* Plan Button */
 .google-plan-btn {
   display: inline-flex;
