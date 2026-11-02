@@ -1178,59 +1178,64 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       z-index: 950;
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
       overflow: visible;
+      padding: 6px 0;
     }
     .category-nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 16px;
       position: relative;
     }
 
     /* Horizontal Scroll Area with Arrows */
     .category-scroll-container {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      flex: 1;
-      overflow: hidden;
+      gap: 8px;
+      overflow: visible;
       position: relative;
+      flex: 0 0 auto;
     }
     .nav-scroll-btn {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: #FFFFFF;
       border: 1px solid var(--border-color);
       color: var(--color-primary);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
       z-index: 10;
       font-family: var(--font-main);
+      padding: 0;
+      margin: 0 2px;
     }
     .nav-scroll-btn:hover {
       background: var(--color-primary);
       color: #FFFFFF;
       border-color: var(--color-primary);
-      transform: scale(1.06);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.28);
+    }
+    .nav-scroll-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 102, 255, 0.18);
     }
 
     .category-pills-list {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      overflow: hidden !important;
-      scrollbar-width: none !important;
-      -ms-overflow-style: none !important;
-      padding: 6px 4px;
+      overflow: visible;
+      padding: 2px 0;
       margin: 0;
-      flex: 1;
-      min-height: 44px;
+      min-height: 42px;
     }
     .category-pills-list::-webkit-scrollbar {
       display: none !important;
@@ -1541,77 +1546,128 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       }
     }
     .hero-secondary-card {
-      background: #FFFFFF;
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--radius-xl);
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
+      min-height: 212px;
+      padding: 18px 18px;
       display: flex;
       flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
       box-shadow: var(--shadow-sm);
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      isolation: isolate;
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+    .hero-secondary-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0.6) 45%, rgba(15, 23, 42, 0.94) 100%);
+      z-index: 1;
+      transition: background 0.3s ease;
     }
     .hero-secondary-card:hover {
-      border-color: var(--color-primary);
-      box-shadow: var(--shadow-card-hover);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      border-color: rgba(0, 102, 255, 0.5);
+      box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.28);
     }
-    .secondary-img-wrap {
-      height: 120px;
-      width: 100%;
-      overflow: hidden;
+    .hero-secondary-card:hover::before {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.06) 0%, rgba(15, 23, 42, 0.52) 40%, rgba(15, 23, 42, 0.96) 100%);
+    }
+    .hero-secondary-content {
       position: relative;
-      background: #E2E8F0;
+      z-index: 2;
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
     }
-    .secondary-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.35s ease;
-    }
-    .hero-secondary-card:hover .secondary-img-wrap img {
-      transform: scale(1.06);
-    }
-    .secondary-tag {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      padding: 3px 9px;
-      border-radius: var(--radius-full);
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--color-primary);
+    .secondary-tag-badge {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      white-space: nowrap;
-      border: 1px solid rgba(0, 115, 255, 0.18);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      z-index: 2;
+      background: rgba(0, 102, 255, 0.9);
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      width: fit-content;
+      transition: all 0.25s ease;
     }
-    .secondary-card-body {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      justify-content: space-between;
+    .hero-secondary-card:hover .secondary-tag-badge {
+      background: #0066FF;
+      transform: translateY(-1px);
+    }
+    .secondary-tag-badge svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
     }
     .secondary-title-text {
-      font-size: 13.5px;
+      font-size: 14.5px;
       font-weight: 800;
-      color: var(--text-heading);
-      line-height: 1.6;
+      line-height: 1.55;
+      color: #FFFFFF;
       margin: 0 0 8px 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
-    .secondary-meta-text {
-      font-size: 11.5px;
-      color: var(--text-secondary);
+    .secondary-meta-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      font-size: 11.5px;
+      color: #CBD5E1;
+      flex-wrap: wrap;
+    }
+    .secondary-author-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #E2E8F0;
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .secondary-author-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(0, 102, 255, 0.3);
+      color: #60A5FA;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .secondary-author-icon svg {
+      width: 11px;
+      height: 11px;
+    }
+    .secondary-time-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #94A3B8;
+    }
+    .secondary-time-capsule svg {
+      width: 12px;
+      height: 12px;
     }
 
     /* ==========================================================================
@@ -1639,10 +1695,27 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       }
     }
     [data-theme="dark"] .clinical-trust-strip {
-      background: rgba(13, 21, 39, 0.72) !important;
-      border-color: rgba(56, 189, 248, 0.22) !important;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.30) !important;
-      box-shadow: 0 18px 44px -10px rgba(0, 0, 0, 0.65), 0 0 35px rgba(0, 229, 255, 0.06) !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      padding: 12px 4px !important;
+      margin-bottom: 40px !important;
+    }
+    [data-theme="dark"] .trust-strip-item {
+      padding: 8px 18px;
+    }
+    @media (min-width: 961px) {
+      [data-theme="dark"] .trust-strip-item:not(:last-child) {
+        border-inline-end: 1px solid rgba(255, 255, 255, 0.08);
+      }
+    }
+    @media (max-width: 960px) {
+      [data-theme="dark"] .trust-strip-item:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 16px;
+      }
     }
     .trust-strip-item {
       display: flex;
@@ -1893,60 +1966,6 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
     /* ==========================================================================
        7. کارت‌های مقالات دارای تصاویر شاخص بالینی (Editorial Cards with Images)
        ========================================================================== */
-    .specialty-section-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 14px;
-      border-radius: 9999px;
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      backdrop-filter: blur(12px);
-      letter-spacing: -0.01em;
-    }
-    .badge-editorial {
-      background: rgba(0, 102, 255, 0.10);
-      color: #0066FF;
-      border: 1px solid rgba(0, 102, 255, 0.22);
-    }
-    .badge-spine {
-      background: rgba(2, 132, 199, 0.10);
-      color: #0284C7;
-      border: 1px solid rgba(2, 132, 199, 0.24);
-    }
-    .badge-cardio {
-      background: rgba(225, 29, 72, 0.08);
-      color: #E11D48;
-      border: 1px solid rgba(225, 29, 72, 0.22);
-    }
-    .badge-pediatrics {
-      background: rgba(0, 102, 255, 0.10);
-      color: #0066FF;
-      border: 1px solid rgba(0, 102, 255, 0.22);
-    }
-    .badge-pharma {
-      background: rgba(5, 150, 105, 0.10);
-      color: #059669;
-      border: 1px solid rgba(5, 150, 105, 0.24);
-    }
-    [data-theme="dark"] .badge-editorial,
-    [data-theme="dark"] .badge-spine,
-    [data-theme="dark"] .badge-pediatrics {
-      background: rgba(56, 189, 248, 0.12);
-      color: #38BDF8;
-      border-color: rgba(56, 189, 248, 0.28);
-    }
-    [data-theme="dark"] .badge-cardio {
-      background: rgba(244, 63, 94, 0.12);
-      color: #F43F5E;
-      border-color: rgba(244, 63, 94, 0.28);
-    }
-    [data-theme="dark"] .badge-pharma {
-      background: rgba(16, 185, 129, 0.12);
-      color: #10B981;
-      border-color: rgba(16, 185, 129, 0.28);
-    }
 
     .section-view-all-link {
       display: inline-flex;
@@ -2153,15 +2172,44 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
       padding-top: 10px;
       margin-top: 4px;
       font-size: 11.5px;
-      color: #94A3B8 !important;
+      color: #64748B;
     }
     .mag-author-footer span[style*="var(--color-primary)"] {
+      color: var(--color-primary) !important;
+      font-weight: 800;
+    }
+    [data-theme="dark"] .mag-author-footer {
+      border-top-color: rgba(255, 255, 255, 0.12) !important;
+      color: #94A3B8 !important;
+    }
+    [data-theme="dark"] .mag-author-footer span[style*="var(--color-primary)"] {
       color: #38BDF8 !important;
       font-weight: 800;
+    }
+    .card-author-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(0, 102, 255, 0.1);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 102, 255, 0.18);
+    }
+    .card-author-icon svg {
+      width: 11px;
+      height: 11px;
+    }
+    [data-theme="dark"] .card-author-icon {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.3);
     }
     .doctor-avatar-circle {
       width: 28px;
@@ -3058,59 +3106,22 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
         gap: 14px;
       }
       .hero-secondary-card {
-        flex-direction: column;
-        align-items: stretch;
-        min-height: auto;
+        min-height: 200px;
+        padding: 18px 16px;
         border-radius: var(--radius-lg);
-        overflow: hidden;
-      }
-      .secondary-img-wrap {
-        width: 100%;
-        height: 185px;
-        min-height: 185px;
-        flex-shrink: 0;
-        position: relative;
-        overflow: hidden;
-      }
-      .secondary-img-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 25%;
-        display: block;
-      }
-      .secondary-tag {
-        top: 10px;
-        right: 10px;
-        padding: 4px 10px;
-        font-size: 11px;
-        font-weight: 700;
-        border-radius: var(--radius-full);
-        white-space: nowrap;
-        max-width: 85%;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        z-index: 2;
-        pointer-events: none;
-      }
-      .secondary-card-body {
-        padding: 14px 16px;
-        justify-content: flex-start;
       }
       .secondary-title-text {
-        font-size: 14px;
-        line-height: 1.6;
+        font-size: 14.5px;
+        line-height: 1.55;
         margin-bottom: 8px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
-      .secondary-meta-text {
-        font-size: 11.5px;
+      .secondary-meta-row {
+        font-size: 11px;
+        gap: 6px 10px;
       }
 
       /* Trust strip */
@@ -3459,10 +3470,9 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       .hero-title-text {
         font-size: 16.5px;
       }
-      .secondary-img-wrap {
-        width: 100%;
-        height: 170px;
-        min-height: 170px;
+      .hero-secondary-card {
+        min-height: 185px;
+        padding: 16px 14px;
       }
       .secondary-title-text {
         font-size: 13.5px;
@@ -4841,7 +4851,6 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
     [data-theme="dark"] .magazine-article-card,
     [data-theme="dark"] .category-hub-card,
     [data-theme="dark"] .editorial-card,
-    [data-theme="dark"] .hero-secondary-card,
     [data-theme="dark"] .category-detail-header-card,
     [data-theme="dark"] .reader-sidebar,
     [data-theme="dark"] .reader-article-body,
@@ -4858,9 +4867,21 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       border-color: rgba(148, 163, 184, 0.18) !important;
       box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.45) !important;
     }
-    [data-theme="dark"] .dept-card:hover,
-    [data-theme="dark"] .magazine-article-card:hover,
+    [data-theme="dark"] .hero-secondary-card {
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5) !important;
+    }
     [data-theme="dark"] .hero-secondary-card:hover {
+      border-color: rgba(56, 189, 248, 0.5) !important;
+      box-shadow: 0 16px 36px -8px rgba(6, 182, 212, 0.28) !important;
+    }
+    [data-theme="dark"] .secondary-tag-badge {
+      background: rgba(2, 132, 199, 0.9) !important;
+      border-color: rgba(56, 189, 248, 0.35) !important;
+      color: #F8FAFC !important;
+    }
+    [data-theme="dark"] .dept-card:hover,
+    [data-theme="dark"] .magazine-article-card:hover {
       border-color: rgba(34, 211, 238, 0.48) !important;
       box-shadow: 0 16px 36px -8px rgba(6, 182, 212, 0.22) !important;
     }
@@ -4924,11 +4945,17 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       border-color: var(--border-color) !important;
     }
     [data-theme="dark"] .btn-subtle-outline:hover,
-    [data-theme="dark"] .nav-scroll-btn:hover,
     [data-theme="dark"] .subcat-pill:hover {
       background: rgba(34, 211, 238, 0.15) !important;
       border-color: #22D3EE !important;
       color: #22D3EE !important;
+    }
+    [data-theme="dark"] .nav-scroll-btn:hover {
+      background: rgba(34, 211, 238, 0.2) !important;
+      border-color: #22D3EE !important;
+      color: #22D3EE !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(34, 211, 238, 0.25) !important;
     }
     [data-theme="dark"] .category-pills-list::-webkit-scrollbar-track {
       background: #0F172A !important;
@@ -5405,11 +5432,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       <section id="editorialArticlesSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
         <div class="section-head-bar">
           <div class="section-title-wrap">
-            <span class="specialty-section-badge badge-editorial">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
-              <span>تازه‌های تحریریه بالینی</span>
-            </span>
-            <h2 style="margin-top: 6px;">
+            <h2>
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
               <span>تازه‌های سلامت و مقالات برگزیده</span>
             </h2>
@@ -5427,12 +5450,8 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       <section id="spineShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
         <div class="section-head-bar">
           <div class="section-title-wrap">
-            <span class="specialty-section-badge badge-spine">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
-              <span>کلینیک ستون فقرات و طب فیزیکی</span>
-            </span>
-            <h2 style="margin-top: 6px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
+            <h2>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><rect x="8" y="4" width="8" height="2.8" rx="1.4"/><rect x="6.5" y="8.8" width="11" height="2.8" rx="1.4"/><rect x="6.5" y="13.6" width="11" height="2.8" rx="1.4"/><rect x="8" y="18.4" width="8" height="2.8" rx="1.4"/></svg>
               <span>راهنماهای بالینی ستون فقرات، درد و توانبخشی</span>
             </h2>
             <p>تشخیص و درمان‌های غیرتهاجمی دیسک کمر، آرتروز، نوار عصب و پروتکل‌های توانبخشی</p>
@@ -5449,11 +5468,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       <section id="cardioShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
         <div class="section-head-bar">
           <div class="section-title-wrap">
-            <span class="specialty-section-badge badge-cardio">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27"/></svg>
-              <span>مرکز قلب، عروق و دیابت</span>
-            </span>
-            <h2 style="margin-top: 6px;">
+            <h2>
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E11D48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27"/></svg>
               <span>راهنماهای جامع سلامت قلب، عروق و کنترل دیابت</span>
             </h2>
@@ -5471,11 +5486,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       <section id="pediatricsShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
         <div class="section-head-bar">
           <div class="section-title-wrap">
-            <span class="specialty-section-badge badge-pediatrics">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
-              <span>ویترین سلامت، رشد و مراقبت کودکان</span>
-            </span>
-            <h2 style="margin-top: 6px;">
+            <h2>
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 11l2 2 4-4"/></svg>
               <span>راهنماهای بالینی سلامت و بیماری‌های کودکان</span>
             </h2>
@@ -5493,12 +5504,8 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       <section id="pharmaShowcaseSection" class="specialty-showcase-section" style="margin-bottom: 56px;">
         <div class="section-head-bar">
           <div class="section-title-wrap">
-            <span class="specialty-section-badge badge-pharma">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5l7 7"/></svg>
-              <span>دانشنامه و اطلاعات دارویی بالینی</span>
-            </span>
-            <h2 style="margin-top: 6px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5l7 7"/></svg>
+            <h2>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="5"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="12" y1="6" x2="12" y2="8.5"/><line x1="10.7" y1="7.25" x2="13.3" y2="7.25"/></svg>
               <span>راهنمای مصرف اصولی داروها و هشدارهای دارویی</span>
             </h2>
             <p>طریقه صحیح مصرف، عوارض جانبی، تداخلات دارویی و غذایی خطرناک و راهنماهای فارماکولوژی بیمارستانی</p>
@@ -5524,6 +5531,9 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 19l-7-7l7-7m7 7H5"/></svg>
         </a>
       </section>
+    </div>
+
+    <!-- نمای ۲: جزییات دپارتمان تخصصی -->
     <div id="viewCategoryArea" style="display: none; padding-bottom: 60px;">
       <div style="margin-bottom: 24px;">
         <button class="btn-ui btn-subtle-outline" onclick="showMainHub()">
@@ -5749,7 +5759,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
           <h3 class="footer-col-title">دسترسی و خدمات</h4>
           <ul class="footer-nav-list">
             <li><button type="button" onclick="showMainHub()"><span class="nav-bullet">›</span> صفحه اصلی مجله سلامت</button></li>
-            <li><button type="button" onclick="openBookingDrawer()"><span class="nav-bullet">›</span> رزرو نوبت پزشک متخصص</button></li>
+            <li><a href="/appointments"><span class="nav-bullet">›</span> رزرو نوبت پزشک متخصص</a></li>
             <li><button type="button" onclick="showCategoryDetail(4)"><span class="nav-bullet">›</span> راهنمای علائم و تریاژ اورژانس</button></li>
             <li><a href="/"><span class="nav-bullet">›</span> بازگشت به پلتفرم اصلی پزشکآن ↗</a></li>
           </ul>
@@ -5807,7 +5817,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
   <script src="/lenis.min.js"></script>
   <script>
     // دیکشنری آیکون‌های برداری پزشکی معتبر
-    const medicalIcons = {"hospital": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4\"/><path d=\"M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2\"/><path d=\"M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16\"/></g></svg>", "spine": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5a.5.5 0 0 1-.5-.5a2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z\"/></svg>", "maternity": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5m1-4h.01\"/><path d=\"M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6a9 9 0 0 1-17.6 0a2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1m-3 5h.01\"/></g></svg>", "heart": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676a.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\"/><path d=\"M3.22 13H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27\"/></g></svg>", "lab": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M6 18h8M3 22h18m-7 0a7 7 0 1 0 0-14h-1m-4 6h2m-2-2a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Zm3-6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\"/></svg>", "emergency": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M7 18v-6a5 5 0 1 1 10 0v6M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2zm16-9h1m-3.5-7.5L18 5M2 12h1m9-10v1M4.929 4.929l.707.707M12 12v6\"/></svg>", "surgery": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"6\" cy=\"6\" r=\"3\"/><path d=\"M8.12 8.12L12 12m8-8L8.12 15.88\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M14.8 14.8L20 20\"/></g></svg>", "skin": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4m2-2h-4\"/><circle cx=\"4\" cy=\"20\" r=\"2\"/></g></svg>", "digestive": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 48 48\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M22.433 7.806c.02.562.125.893.293 1.092c.245.29.49.393.78.419c.339.03.77-.047 1.341-.225a21 21 0 0 0 .971-.336c.276-.1.569-.207.861-.303c.645-.213 1.383-.412 2.13-.412c4.803 0 7.652 3.75 9.528 7.097c2.304 4.11 2.207 9.241-.247 13.264c-1.614 2.646-3.677 4.938-6.805 6.154c-4.537 1.765-9.544 1.082-13.67-.955c-.918-.454-1.997.244-1.997 1.132V41h-2v-6.267c0-2.551 2.8-3.954 4.883-2.926c3.742 1.848 8.157 2.403 12.059.885c2.567-.998 4.334-2.892 5.823-5.332c2.077-3.406 2.16-7.765.21-11.244c-1.853-3.305-4.191-6.075-7.783-6.075c-.42 0-.91.115-1.504.311c-.263.087-.528.183-.808.284l-.094.035c-.309.111-.635.228-.961.33c-.638.199-1.374.373-2.113.308c-.789-.07-1.531-.407-2.134-1.123c-.605-.718-.736-1.606-.761-2.31c-.013-.361.002-.72.017-1.034l.007-.14c.013-.267.024-.49.024-.697l2-.01c0 .267-.014.554-.027.816l-.006.128c-.015.31-.026.596-.017.867m-8.575-1.3V6h2v.373c-.002 2.728-.004 5.028 1.267 7.17c.884 1.49 2.192 2.534 3.68 3.722l.663.531c1.802 1.458 2.19 3.437 1.574 5.17c-.59 1.666-2.08 3.045-3.912 3.57c-.985.281-1.92.49-2.766.679l-.58.13c-1.012.23-1.871.45-2.634.766c-1.44.595-2.616 1.562-3.559 3.873A8 8 0 0 0 9 34.994V41H7v-6.006c0-1.29.251-2.569.74-3.765c1.135-2.783 2.69-4.157 4.645-4.966c.933-.386 1.937-.636 2.954-.868l.611-.137a45 45 0 0 0 2.63-.645c1.247-.357 2.215-1.294 2.578-2.316c.338-.954.178-2.035-.948-2.946q-.308-.248-.63-.503c-1.467-1.166-3.09-2.454-4.175-4.284c-1.561-2.631-1.554-5.454-1.547-8.059\" clip-rule=\"evenodd\"/></svg>", "pharma": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"7\" cy=\"7\" r=\"5\"/><circle cx=\"17\" cy=\"17\" r=\"5\"/><path d=\"M12 17h10M3.46 10.54l7.08-7.08\"/></g></svg>", "stethoscope": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\"/><path d=\"M8 15a6 6 0 0 0 12 0v-3\"/><circle cx=\"20\" cy=\"10\" r=\"2\"/></g></svg>", "syringe": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m18 2l4 4m-5 1l3-3m-1 5L8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5m-6 6l4 4m-8 4l-3 3M14 4l6 6\"/></svg>", "dna": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m10 16l1.5 1.5M14 8l-1.5-1.5M15 2c-1.798 1.998-2.518 3.995-2.807 5.993M16.5 10.5l1 1M17 6l-2.891-2.891M2 15c6.667-6 13.333 0 20-6m-2 0l.891.891M3.109 14.109L4 15m2.5-2.5l1 1M7 18l2.891 2.891M9 22c1.798-1.998 2.518-3.995 2.807-5.993\"/></svg>", "shield_check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\"/><path d=\"m9 12l2 2l4-4\"/></g></svg>", "scan": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M3 7V5a2 2 0 0 1 2-2h2m10 0h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2m4-5h10\"/></svg>", "chevron_down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m6 9l6 6l6-6\"/></svg>", "search": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"m21 21l-4.34-4.34\"/><circle cx=\"11\" cy=\"11\" r=\"8\"/></g></svg>", "calendar": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M8 2v3m8-3v3\"/><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M3 9h18\"/></g></svg>", "clock": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></g></svg>", "arrow_left": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m12 19l-7-7l7-7m7 7H5\"/></svg>", "close": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M18 6L6 18M6 6l12 12\"/></svg>"};
+    const medicalIcons = {"hospital": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M12 7v4m2 10v-3a2 2 0 0 0-4 0v3m4-12h-4\"/><path d=\"M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2\"/><path d=\"M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16\"/></g></svg>", "spine": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M12 2v20\"/><rect x=\"8\" y=\"4\" width=\"8\" height=\"2.8\" rx=\"1.4\"/><rect x=\"6.5\" y=\"8.8\" width=\"11\" height=\"2.8\" rx=\"1.4\"/><rect x=\"6.5\" y=\"13.6\" width=\"11\" height=\"2.8\" rx=\"1.4\"/><rect x=\"8\" y=\"18.4\" width=\"8\" height=\"2.8\" rx=\"1.4\"/></g></svg>", "maternity": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5m1-4h.01\"/><path d=\"M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6a9 9 0 0 1-17.6 0a2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1m-3 5h.01\"/></g></svg>", "heart": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676a.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\"/><path d=\"M3.22 13H9.5l.5-1l2 4.5l2-7l1.5 3.5h5.27\"/></g></svg>", "lab": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M6 18h8M3 22h18m-7 0a7 7 0 1 0 0-14h-1m-4 6h2m-2-2a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Zm3-6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\"/></svg>", "emergency": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M7 18v-6a5 5 0 1 1 10 0v6M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2zm16-9h1m-3.5-7.5L18 5M2 12h1m9-10v1M4.929 4.929l.707.707M12 12v6\"/></svg>", "surgery": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"6\" cy=\"6\" r=\"3\"/><path d=\"M8.12 8.12L12 12m8-8L8.12 15.88\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M14.8 14.8L20 20\"/></g></svg>", "skin": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4m2-2h-4\"/><circle cx=\"4\" cy=\"20\" r=\"2\"/></g></svg>", "digestive": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 48 48\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M22.433 7.806c.02.562.125.893.293 1.092c.245.29.49.393.78.419c.339.03.77-.047 1.341-.225a21 21 0 0 0 .971-.336c.276-.1.569-.207.861-.303c.645-.213 1.383-.412 2.13-.412c4.803 0 7.652 3.75 9.528 7.097c2.304 4.11 2.207 9.241-.247 13.264c-1.614 2.646-3.677 4.938-6.805 6.154c-4.537 1.765-9.544 1.082-13.67-.955c-.918-.454-1.997.244-1.997 1.132V41h-2v-6.267c0-2.551 2.8-3.954 4.883-2.926c3.742 1.848 8.157 2.403 12.059.885c2.567-.998 4.334-2.892 5.823-5.332c2.077-3.406 2.16-7.765.21-11.244c-1.853-3.305-4.191-6.075-7.783-6.075c-.42 0-.91.115-1.504.311c-.263.087-.528.183-.808.284l-.094.035c-.309.111-.635.228-.961.33c-.638.199-1.374.373-2.113.308c-.789-.07-1.531-.407-2.134-1.123c-.605-.718-.736-1.606-.761-2.31c-.013-.361.002-.72.017-1.034l.007-.14c.013-.267.024-.49.024-.697l2-.01c0 .267-.014.554-.027.816l-.006.128c-.015.31-.026.596-.017.867m-8.575-1.3V6h2v.373c-.002 2.728-.004 5.028 1.267 7.17c.884 1.49 2.192 2.534 3.68 3.722l.663.531c1.802 1.458 2.19 3.437 1.574 5.17c-.59 1.666-2.08 3.045-3.912 3.57c-.985.281-1.92.49-2.766.679l-.58.13c-1.012.23-1.871.45-2.634.766c-1.44.595-2.616 1.562-3.559 3.873A8 8 0 0 0 9 34.994V41H7v-6.006c0-1.29.251-2.569.74-3.765c1.135-2.783 2.69-4.157 4.645-4.966c.933-.386 1.937-.636 2.954-.868l.611-.137a45 45 0 0 0 2.63-.645c1.247-.357 2.215-1.294 2.578-2.316c.338-.954.178-2.035-.948-2.946q-.308-.248-.63-.503c-1.467-1.166-3.09-2.454-4.175-4.284c-1.561-2.631-1.554-5.454-1.547-8.059\" clip-rule=\"evenodd\"/></svg>", "pharma": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"5\"/><line x1=\"7\" y1=\"12\" x2=\"17\" y2=\"12\"/><line x1=\"12\" y1=\"6\" x2=\"12\" y2=\"8.5\"/><line x1=\"10.7\" y1=\"7.25\" x2=\"13.3\" y2=\"7.25\"/></g></svg>", "stethoscope": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\"/><path d=\"M8 15a6 6 0 0 0 12 0v-3\"/><circle cx=\"20\" cy=\"10\" r=\"2\"/></g></svg>", "syringe": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m18 2l4 4m-5 1l3-3m-1 5L8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5m-6 6l4 4m-8 4l-3 3M14 4l6 6\"/></svg>", "dna": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m10 16l1.5 1.5M14 8l-1.5-1.5M15 2c-1.798 1.998-2.518 3.995-2.807 5.993M16.5 10.5l1 1M17 6l-2.891-2.891M2 15c6.667-6 13.333 0 20-6m-2 0l.891.891M3.109 14.109L4 15m2.5-2.5l1 1M7 18l2.891 2.891M9 22c1.798-1.998 2.518-3.995 2.807-5.993\"/></svg>", "shield_check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\"/><path d=\"m9 12l2 2l4-4\"/></g></svg>", "scan": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M3 7V5a2 2 0 0 1 2-2h2m10 0h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2m4-5h10\"/></svg>", "chevron_down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m6 9l6 6l6-6\"/></svg>", "search": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"m21 21l-4.34-4.34\"/><circle cx=\"11\" cy=\"11\" r=\"8\"/></g></svg>", "calendar": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M8 2v3m8-3v3\"/><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M3 9h18\"/></g></svg>", "clock": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></g></svg>", "arrow_left": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m12 19l-7-7l7-7m7 7H5\"/></svg>", "close": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M18 6L6 18M6 6l12 12\"/></svg>"};
 
     // اطلاعات دسته‌بندی‌ها و تمام زیردسته‌ها
     const categoriesData = [{"id": 0, "name": "درد، ستون فقرات و توانبخشی", "iconKey": "spine", "dept": "کلینیک طب فیزیکی، توانبخشی و نوار عصب بیمارستان", "desc": "تشخیص و درمان‌های غیرتهاجمی دیسک کمر، آرتروز، فیزیوتراپی پیشرفته و بازآموزی حرکتی بیماران", "chips": ["تکارتراپی RF", "شاک‌ویوتراپی", "لیزر پرتوان", "سوزن خشک (Dry Needling)", "تزریق PRP و اوزون", "نوار عصب EMG/NCV", "کفی طبی ۳ بعدی"], "subcategories": [{"title": "خدمات تشخیصی (الکترودیاگنوزیس و سونوگرافی)", "desc": "تشخیص درگیری ریشه عصب سیاتیک، دیسکوپاتی، سندرم تونل کارپال و پلی‌نوروپاتی دیابتی"}, {"title": "مداخلات درمانی کم‌تهاجمی و تزریقات پزشک", "desc": "پلاسمای غنی از پلاکت برای درمان آرتروز زانو، پارگی تاندون روتاتور کاف و خار پاشنه"}, {"title": "درمان‌های دستی و سوزنی", "desc": "استفاده از سوزن‌های ظریف بدون دارو برای باز کردن اسپاسم‌های عمیق عضلانی"}, {"title": "مدالیته‌های پیشرفته فیزیکی و فیزیوتراپی", "desc": "امواج صوتی پرانرژی برای درمان خار پاشنه، تاندونیت کلسیفیه و تنیس البو"}, {"title": "برنامه‌های جامع توانبخشی و بازتوانی", "desc": "پروتکل راه رفتن و تمرینات کششی پس از جراحی پروتز مفصل"}, {"title": "تجویز ارتز، بریس و کفی طبی اختصاصی", "desc": "اصلاح صافی کف پا، خار پاشنه و کوتاهی اندام بر اساس اسکن کامپیوتری"}]}, {"id": 1, "name": "سلامت زنان، بارداری و زایمان", "iconKey": "maternity", "dept": "بلوک زایمان، درمانگاه زنان و مرکز ناباروری IVF بیمارستان", "desc": "تقویم هفته به هفته بارداری، زایمان بدون درد، جراحی‌های زیبایی زنان و تکنیک‌های پیشرفته IVF", "chips": ["تقویم هفته به هفته", "زایمان طبیعی و سزارین", "لابیاپلاستی با لیزر", "واژینوپلاستی", "تنبلی تخمدان PCOS", "پاپ اسمیر و HPV", "مرکز ناباروری IVF"], "subcategories": [{"title": "مراقبت‌های دوران بارداری و زایمان", "desc": "بررسی سلامت مادر، آزمایش‌های هورمونی و ژنتیک قبل از بارداری"}, {"title": "طب مادر، جنین و نوزادان (پریناتولوژی)", "desc": "سونوگرافی تشکیل قلب، غربالگری مرحله اول و دوم و کالر داپلر جفت"}, {"title": "جراحی‌ها و خدمات زیبایی زنان", "desc": "کوچک کردن و قرینه‌سازی لبه‌های واژن بدون درد و بیهوشی"}, {"title": "بیماری‌ها و مشکلات بالینی زنان", "desc": "غربالگری سرطان دهانه رحم و تشخیص ژنوتیپ‌های پرخطر ویروس زگیل"}, {"title": "جراحی‌های درمانی زنان و لاپاراسکوپی", "desc": "جراحی برداشتن رحم در خونریزی غیرقابل کنترل و تومورها"}, {"title": "خدمات درمان ناباروری و لقاح IVF", "desc": "بررسی باز بودن لوله‌ها، آزمایش اسپرموگرام و ذخیره تخمدان AMH"}]}, {"id": 2, "name": "قلب، عروق، دیابت و غدد", "iconKey": "heart", "dept": "بخش کت‌لب آنژیوگرافی، کلینیک قلب و کلینیک غدد و دیابت", "desc": "مدیریت دیابت، داروهای اوزمپیک، تیروئید، نوار قلب، اکو، آنژیوگرافی، استنت‌گذاری و آریتمی", "chips": ["دیابت و اوزمپیک", "کم‌کاری و ندول تیروئید", "اکوکاردیوگرافی داپلر", "تست ورزش و هولتر", "آنژیوگرافی و استنت", "باتری قلب پیس‌میکر"], "subcategories": [{"title": "فوق تخصص غدد درون‌ریز، دیابت و متابولیسم", "desc": "تنظیم انسولین، داروهای نوین اوزمپیک، سنسور CGM و کنترل قند"}, {"title": "خدمات تشخیصی غیرتهاجمی قلب در کلینیک", "desc": "بررسی ریتم، سلامت دریچه‌های قلب و درصد کسر پمپاژ (EF)"}, {"title": "خدمات اینترونشنال و کت‌لب بیمارستان", "desc": "تصویربرداری رنگی دقیق از تنگی‌ها و گرفتگی‌های عروق قلب"}, {"title": "مدیریت آریتمی‌ها و الکتروفیزیولوژی قلب", "desc": "نقشه‌برداری برق قلب و سوزاندن مسیرهای ایجادکننده تپش شدید"}, {"title": "مدیریت بیماری‌های مزمن و توانبخشی قلب", "desc": "تنظیم داروهای تخصصی نارسایی و پیشگیری از سکته قلبی"}]}, {"id": 3, "name": "چکاپ، تفسیر آزمایش‌ها و تصویربرداری", "iconKey": "lab", "dept": "آزمایشگاه پاتوبیولوژی شبانه‌روزی و مرکز تصویربرداری پزشکی", "desc": "تفسیر آنلاین آزمایش‌های خون، هورمون، ژنتیک NIPT، سونوگرافی داپلر، ام‌آر‌آی و PET-CT", "chips": ["تفسیر آزمایش خون CBC", "ام‌آر‌آی مغز و ستون فقرات", "سونوگرافی غربالگری آنومالی", "سی‌تی اسکن و سی‌تی آنژیو", "عکس رنگی رحم HSG", "پت اسکن PET-CT"], "subcategories": [{"title": "آزمایشگاه پاتوبیولوژی، بیوشیمی و هورمون", "desc": "بررسی FBS، A1C، کراتینین، اوره، SGOT، SGPT و چربی‌های خون"}, {"title": "ژنتیک پزشکی، مولکولی و سیتولوژی", "desc": "شناسایی سویه‌های پرخطر ۱۶ و ۱۸ و سویه‌های کم‌خطر ویروس زگیل"}, {"title": "سونوگرافی و کالر داپلر تخصصی", "desc": "بررسی سنگ کلیه، کبد چرب، کیسه صفرا و مثانه"}, {"title": "ام‌آر‌آی (MRI) و سی‌تی اسکن پیشرفته", "desc": "تصویربرداری وضوح بالا از فتق دیسک، ام‌اس، سکته و تومورها"}, {"title": "تصویربرداری تخصصی زنان، رادیوگرافی و تراکم استخوان", "desc": "عکس‌برداری با دوز پایین اشعه برای کشف توده‌های ریز پستان"}, {"title": "پزشکی هسته‌ای و رادیولوژی مداخله‌ای", "desc": "بررسی خون‌رسانی عضله قلب، متاستاز استخوان و عملکرد تیروئید"}]}, {"id": 4, "name": "راهنمای علائم و تریاژ اورژانس", "iconKey": "emergency", "dept": "تریاژ اورژانس شبانه‌روزی، پذیرش حاد و بخش مراقبت‌های ویژه", "desc": "راهنمای علائم هشداردهنده (Red Flags)، سیستم تریاژ ESI و پنجره طلایی نجات جان بیمار", "chips": ["درد قفسه سینه", "زمان طلایی سکته مغزی FAST", "تنگی نفس حاد و آسم", "تروما و تصادفات", "مسمومیت دارویی", "سیستم تریاژ سطح ۱ تا ۵"], "subcategories": [{"title": "سیستم تریاژ ESI و اولویت‌بندی اورژانس", "desc": "راهنمای اولویت‌بندی از احیای فوری و اورژانس تا درمانگاه سرپایی"}, {"title": "اورژانس‌های قلبی، عروقی و فشار خون", "desc": "اقدامات طلایی اولیه، مصرف آسپرین و اعزام فوری با آمبولانس ۱۱۵"}, {"title": "اورژانس‌های مغز، اعصاب و سکته", "desc": "افتادگی صورت، ضعف دست، اختلال گفتار و تزریق ترومبولیتیک TPA"}, {"title": "اورژانس‌های تنفسی، تروما و تصادفات", "desc": "درد قفسه سینه با تنفس عمیق، سرفه خونی و افت شدید اکسیژن خون"}, {"title": "مسمومیت‌ها، سم‌شناسی و پروسیجرهای بالین", "desc": "شستشوی معده، آنتی‌دوت‌ها، مونوکسید کربن، مارگزیدگی و عقرب‌زدگی"}]}, {"id": 5, "name": "جراحی‌های چاقی و لاپاراسکوپی", "iconKey": "surgery", "dept": "دپارتمان جراحی جنرال، کلینیک چاقی و اتاق عمل بیمارستان", "desc": "اسلیو معده، بای‌پس کلاسیک و مینی، ترمیم فتق با مش، لاپاراسکوپی صفرا، جراحی پستان و تیروئید", "chips": ["اسلیو معده لاپاراسکوپی", "بای‌پس کلاسیک و مینی", "کیسه صفرا (کوله سیستکتومی)", "فتق کشاله ران با مش", "لامپکتومی و ماستکتومی", "جراحی تیروئید"], "subcategories": [{"title": "جراحی‌های چاقی و متابولیک (لاپاراسکوپی)", "desc": "کوچک کردن حجم معده به شکل لوله با کاهش ۷۰ درصدی وزن اضافه"}, {"title": "جراحی‌های دستگاه گوارش و کیسه صفرا", "desc": "برداشتن کیسه صفرا به دلیل سنگ یا پولیپ بدون برش بزرگ شکمی"}, {"title": "جراحی‌های انواع فتق با مش‌گذاری لاپاراسکوپیک", "desc": "ترمیم بیرون‌زدگی احشا با توری مش به روش لاپاراسکوپیک بسته"}, {"title": "جراحی‌های پستان و غدد درون‌ریز", "desc": "خارج کردن توده‌های خوش‌خیم سینه با حداقل اسکار جراحی"}, {"title": "جراحی‌های سرپایی بافت نرم و پوست", "desc": "جراحی سرپایی توده‌های زیرپوستی با بی‌حسی موضعی در کلینیک"}]}, {"id": 6, "name": "پوست، مو و زیبایی", "iconKey": "skin", "dept": "مرکز تخصصی پوست، لیزر درمانی و اتاق عمل کاشت مو", "desc": "تزریق بوتاکس، فیلر لب روسی، هایفوتراپی، لیزر موهای زائد الکس، سابسیژن و کاشت موی Micro-FIT", "chips": ["تزریق بوتاکس و میگرن", "فیلر لب و کانتورینگ", "مزوژل پروفایلو و چربی", "هایفوتراپی و RF", "لیزر CO2 فرکشنال", "کاشت موی طبیعی FIT", "بلفاروپلاستی"], "subcategories": [{"title": "خدمات زیبایی و تزریقات پزشک متخصص", "desc": "رفع چین و چروک پیشانی، خط اخم، درمان میگرن و بوتاکس ماس‌تر فک"}, {"title": "خدمات پیشرفته دستگاهی و لیزر", "desc": "حذف دائمی موهای زائد با طول موج‌های متناسب با تایپ پوستی"}, {"title": "مراقبت‌های بالینی و پاکسازی پوست (فیشیال)", "desc": "پاکسازی عمقی منافذ، لایه‌برداری، تخلیه کومدون و آبرسانی پوست"}, {"title": "بیماری‌های پوست، مو و ناخن (درماتولوژی)", "desc": "بررسی هورمونی، داروهای ماینوکسیدیل و فیناستراید و مزوتراپی"}, {"title": "کاشت موی طبیعی و جراحی پلک (بلفاروپلاستی)", "desc": "پیوند مو با حداکثر تراکم، خط رویش طبیعی بدون بیهوشی و جراحی"}]}, {"id": 7, "name": "گوارش، کبد و نشیمنگاه (پروکتولوژی)", "iconKey": "digestive", "dept": "کلینیک کولورکتال و لیزر نشیمنگاه، مرکز آندوسکوپی و کبد", "desc": "لیزر هموروئید، شقاق، فیستول، کیست مویی، آندوسکوپی با بیهوشی، کولونوسکوپی و درمان کبد چرب", "chips": ["لیزر هموروئید (بواسیر)", "درمان شقاق با لیزر و بوتاکس", "فیستول مقعدی", "کیست مویی پایین کمر", "کولونوسکوپی غربالگری", "کبد چرب گرید ۱ تا ۳"], "subcategories": [{"title": "پروسیجرهای آندوسکوپی و تشخیصی-درمانی", "desc": "مشاهده مستقیم مری، معده و اثنی‌عشر جهت کشف زخم و هلیکوباکتر"}, {"title": "بیماری‌های مری، معده و روده (داخلی)", "desc": "سوزش سر دل، سرفه ناشی از اسید و تغییرات پیش‌سرطانی مخاط"}, {"title": "بیماری‌های کبد، مجاری صفراوی و پانکراس", "desc": "اصلاح سبک زندگی، داروهای نوین و پیشگیری از پیشرفت به سمت سیروز"}, {"title": "پروکتولوژی و جراحی‌های لیزری نشیمنگاه", "desc": "درمان سرپایی با لیزر دیود پرتوان بدون بیهوشی، بخیه و خونریزی"}]}, {"id": 8, "name": "دانشنامه و اطلاعات دارویی", "iconKey": "pharma", "dept": "سامانه اطلاعات و مشاوره دارویی آنلاین بیمارستان پزشکآن", "desc": "دایرکتوری جامع داروها بر اساس طبقه‌بندی درمانی: مسکن‌ها، داروهای گوارش، قلب، اعصاب، دیابت و آنتی‌بیوتیک‌ها", "chips": ["مسکن‌ها و NSAID", "امپرازول و ضداسید معده", "داروهای فشار خون و استاتین", "ضدافسردگی SSRI", "آنتی‌بیوتیک‌ها", "متفورمین و اوزمپیک"], "subcategories": [{"title": "مسکن‌ها، داروهای ضددرد و ضدالتهاب", "desc": "ایبوپروفن، ناپروکسن، دیکلوفناک، سلکوکسیب و خطرات گوارشی آن‌ها"}, {"title": "داروهای گوارشی و ترشح اسید معده", "desc": "نحوه مصرف ناشتا، عوارض بلندمدت و تفاوت فاموتیدین با مهارکننده‌ها"}, {"title": "داروهای قلب، عروق و فشار خون", "desc": "متوپرولول، پروپرانولول، لوزارتان، انالاپریل و آملودیپین"}, {"title": "داروهای اعصاب، روان‌پزشکی و میگرن", "desc": "عوارض اولیه، زمان اثربخشی، سندرم قطع ناگهانی و تنظیم دوز"}, {"title": "آنتی‌بیوتیک‌ها و داروهای ضدمیکروبی", "desc": "آموکسی‌سیلین، سفیکسیم، آزیترومایسین، سیپروفلوکساسین و تکمیل دوره درمان"}, {"title": "داروهای غدد، هورمونی و دیابت", "desc": "سماگلوتاید، انسولین‌های قلمی لانتوس و نوورپید و افت قند خون"}, {"title": "داروهای تنفسی، پوستی و بیولوژیک", "desc": "اسپری سالبوتامول، سیمبیکورت، سیتریزین، لوراتادین و شربت سرفه"}]}];
@@ -5924,7 +5934,7 @@ function escapeHtml(str) {
             <p class="hero-desc-text">${mainArt.summary}</p>
             <div class="hero-meta-row">
               <span style="display:flex; align-items:center; gap:6px;">
-                <span style="width:20px; height:20px; border-radius:50%; background:rgba(0,115,255,0.2); color:#60A5FA; display:flex; align-items:center; justify-content:center; font-size:11px;"><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
+                <span style="width:20px; height:20px; border-radius:50%; background:rgba(0,115,255,0.2); color:#60A5FA; display:flex; align-items:center; justify-content:center; font-size:11px;"><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><polyline points='16 11 18 13 22 9'/></svg></span>
                 ${(mainArt.author && mainArt.author.name) || 'تیم متخصص محتوا نویس پزشکآن'}
               </span>
               <span>•</span>
@@ -5946,21 +5956,28 @@ function escapeHtml(str) {
         secondaryArts.forEach(sec => {
           const secSlug = sec.slug || sec.id;
           const secIcon = medicalIcons[sec.categoryIcon] || medicalIcons['stethoscope'];
+          const authorName = (sec.author && sec.author.name) || 'تیم متخصص محتوا نویس پزشکآن';
+          const readTime = sec.readTime || '۵ دقیقه مطالعه';
           html += `
-            <a href="/mag/${encodeURIComponent(secSlug)}" class="hero-secondary-card" style="text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('${sec.id}');">
-              <div class="secondary-img-wrap">
-                <img src="${sec.image}" alt="${sec.imageAlt || sec.title}" loading="lazy">
-                <span class="secondary-tag">
+            <a href="/mag/${encodeURIComponent(secSlug)}" class="hero-secondary-card" style="background-image: url('${sec.image}'); text-decoration: none; color: inherit;" onclick="event.preventDefault(); openArticleReader('${sec.id}');">
+              <div class="hero-secondary-content">
+                <span class="secondary-tag-badge">
                   ${secIcon}
                   <span>${sec.tag || 'مقاله علمی'}</span>
                 </span>
-              </div>
-              <div class="secondary-card-body">
                 <p class="secondary-title-text">${sec.title}</p>
-                <div class="secondary-meta-text">
-                  <span>${(sec.author && sec.author.name) || 'تیم متخصص محتوا نویس پزشکآن'}</span>
+                <div class="secondary-meta-row">
+                  <span class="secondary-author-capsule">
+                    <span class="secondary-author-icon">
+                      <svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><polyline points='16 11 18 13 22 9'/></svg>
+                    </span>
+                    <span>${authorName}</span>
+                  </span>
                   <span>•</span>
-                  <span>${sec.readTime || '۵ دقیقه مطالعه'}</span>
+                  <span class="secondary-time-capsule">
+                    ${medicalIcons['clock']}
+                    <span>${readTime}</span>
+                  </span>
                 </div>
               </div>
             </a>
@@ -6267,8 +6284,10 @@ function escapeHtml(str) {
             <p class="mag-summary">${art.summary || ''}</p>
           </div>
           <div class="mag-author-footer">
-            <span style="display:flex; align-items:center; gap:8px;">
-              <img src="${authorAvatar}" class="doctor-avatar-circle" alt="${authorName}">
+            <span style="display:flex; align-items:center; gap:6px;">
+              <span class="card-author-icon">
+                <svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><polyline points='16 11 18 13 22 9'/></svg>
+              </span>
               <span>${authorName}</span>
             </span>
             <span style="color:var(--color-primary); font-weight:700; display:inline-flex; align-items:center; gap:4px;">
@@ -6492,6 +6511,7 @@ function renderEditorialCards() {
     // به‌روزرسانی نوار زیردسته‌های پویا
     function updateSubcategoryStrip(catIdx) {
       const strip = document.getElementById('subcategoryStrip');
+      if (!strip) return;
       const label = document.getElementById('subcatStripLabel');
       const scroll = document.getElementById('subcatChipsScroll');
 
@@ -6520,6 +6540,64 @@ function renderEditorialCards() {
       strip.style.display = 'block';
     }
 
+    // تولید لینک هوشمند نوبت‌دهی دپارتمان به صفحه لیست پزشکان سایت اصلی
+    function getDeptAppointmentsUrl(cat) {
+      if (!cat) return '/appointments';
+      const mapById = {
+        0: 'مغز و اعصاب',       // درد، ستون فقرات و توانبخشی
+        1: 'زنان',              // سلامت زنان، بارداری و زایمان
+        2: 'قلب',               // قلب، عروق، دیابت و غدد
+        3: 'آزمایشگاه',         // پایش جامع آزمایشگاه
+        4: 'اورژانس',           // اورژانس بالینی
+        5: 'جراحی',             // جراحی‌های لاغری و متابولیک
+        6: 'پوست',              // پوست، مو و زیبایی
+        7: 'گوارش',             // دستگاه گوارش و کبد
+        8: 'داروسازی'           // داروشناسی
+      };
+      const mapByIcon = {
+        'spine': 'مغز و اعصاب',
+        'heart': 'قلب',
+        'maternity': 'زنان',
+        'pediatrics': 'کودکان',
+        'pharma': 'داروسازی',
+        'skin': 'پوست',
+        'digestive': 'گوارش',
+        'surgery': 'جراحی',
+        'emergency': 'اورژانس',
+        'lab': 'آزمایشگاه'
+      };
+
+      let specialty = '';
+      if (cat.id !== undefined && mapById[cat.id]) {
+        specialty = mapById[cat.id];
+      } else if (cat.iconKey && mapByIcon[cat.iconKey]) {
+        specialty = mapByIcon[cat.iconKey];
+      } else if (cat.name) {
+        const name = cat.name;
+        if (name.includes('ستون فقرات') || name.includes('درد') || name.includes('توانبخشی')) specialty = 'مغز و اعصاب';
+        else if (name.includes('قلب') || name.includes('عروق') || name.includes('دیابت') || name.includes('غدد')) specialty = 'قلب';
+        else if (name.includes('زنان') || name.includes('بارداری') || name.includes('زایمان')) specialty = 'زنان';
+        else if (name.includes('کودک') || name.includes('اطفال') || name.includes('نوزاد')) specialty = 'کودکان';
+        else if (name.includes('پوست') || name.includes('مو') || name.includes('زیبایی')) specialty = 'پوست';
+        else if (name.includes('گوارش') || name.includes('کبد')) specialty = 'گوارش';
+        else if (name.includes('دارو')) specialty = 'داروسازی';
+        else if (name.includes('جراحی') || name.includes('لاغری')) specialty = 'جراحی';
+        else if (name.includes('اورژانس') || name.includes('تروما')) specialty = 'اورژانس';
+        else if (name.includes('آزمایشگاه') || name.includes('پاتولوژی')) specialty = 'آزمایشگاه';
+        else specialty = name;
+      }
+      const deptName = cat.name || cat.dept || '';
+      return `/appointments?specialty=${encodeURIComponent(specialty || deptName)}&dept=${encodeURIComponent(deptName)}`;
+    }
+
+    function getArticleAppointmentsUrl(art) {
+      if (!art) return '/appointments';
+      if (art.authorDoctorId || art.authorId) {
+        return `/appointments?doctor=${encodeURIComponent(art.authorDoctorId || art.authorId)}&dept=${encodeURIComponent(art.categoryName || '')}`;
+      }
+      return getDeptAppointmentsUrl({ name: art.categoryName || '' });
+    }
+
     // نمایش صفحه جزییات دپارتمان
     function showCategoryDetail(idx, pushState = true) {
       const cat = categoriesData[idx];
@@ -6528,16 +6606,11 @@ function renderEditorialCards() {
       if (window.lenis) { window.lenis.scrollTo(0, { duration: 1.1 }); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
       const hubEl = document.getElementById('viewHubMain');
-      if (hubEl) {
-        if (!window._cachedHubContent && hubEl.innerHTML.trim().length > 100) {
-          window._cachedHubContent = hubEl.innerHTML;
-        }
-        hubEl.innerHTML = '';
-        hubEl.style.display = 'none';
-      }
+      if (hubEl) hubEl.style.display = 'none';
       const readerEl = document.getElementById('viewArticleReaderArea');
       if (readerEl) readerEl.style.display = 'none';
-      document.getElementById('viewCategoryArea').style.display = 'block';
+      const catArea = document.getElementById('viewCategoryArea');
+      if (catArea) catArea.style.display = 'block';
 
       if (pushState && window.history && window.history.pushState) {
         const catSlug = idx;
@@ -6584,10 +6657,10 @@ function renderEditorialCards() {
             <h2 style="font-size:14px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">موضوعات پرتکرار و کلیدواژه‌های جستجو:</h2>
             <div class="dept-chips-list">${chipsHtml}</div>
           </div>
-          <button class="btn-ui btn-primary-gradient" onclick="openBookingDrawer()">
+          <a href="${getDeptAppointmentsUrl(cat)}" class="btn-ui btn-primary-gradient" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;" title="دریافت نوبت از متخصصان این دپارتمان">
             ${medicalIcons['calendar']}
             <span>دریافت نوبت از متخصصان این دپارتمان</span>
-          </button>
+          </a>
         </div>
 
         <div class="section-head-bar">
@@ -6631,7 +6704,12 @@ function renderEditorialCards() {
             <p class="mag-title">${art.title}</p>
             <p class="mag-summary">${art.summary}</p>
             <div class="mag-author-footer">
-              <span>${art.author.name}</span>
+              <span style="display:flex; align-items:center; gap:6px;">
+                <span class="card-author-icon">
+                  <svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><polyline points='16 11 18 13 22 9'/></svg>
+                </span>
+                <span>${(art.author && art.author.name) || 'تیم متخصص محتوا نویس پزشکآن'}</span>
+              </span>
               <span style="color:var(--color-primary); font-weight:700; display:inline-flex; align-items:center; gap:4px;">
                 مطالعه مقاله
                 ${medicalIcons['arrow_left']}
@@ -6713,16 +6791,11 @@ function renderEditorialCards() {
       if (window.lenis) { window.lenis.scrollTo(0, { duration: 1.1 }); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
       const hubEl = document.getElementById('viewHubMain');
-      if (hubEl) {
-        if (!window._cachedHubContent && hubEl.innerHTML.trim().length > 100) {
-          window._cachedHubContent = hubEl.innerHTML;
-        }
-        hubEl.innerHTML = '';
-        hubEl.style.display = 'none';
-      }
+      if (hubEl) hubEl.style.display = 'none';
       const catEl = document.getElementById('viewCategoryArea');
       if (catEl) catEl.style.display = 'none';
-      document.getElementById('viewArticleReaderArea').style.display = 'block';
+      const readerArea = document.getElementById('viewArticleReaderArea');
+      if (readerArea) readerArea.style.display = 'block';
 
       const canonicalSlug = art.slug || art.id;
       const targetUrl = `/mag/${encodeURIComponent(canonicalSlug)}`;
@@ -6791,7 +6864,7 @@ function renderEditorialCards() {
               <span style="font-size:12px; color:var(--text-secondary);">آخرین بازبینی علمی: ${art.lastReviewed}</span>
             </div>
             <div style="font-size:12px; color:var(--color-primary); font-weight:700; display:flex; align-items:center; gap:6px;">
-              <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg> نویسنده:</span>
+              <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><polyline points='16 11 18 13 22 9'/></svg> نویسنده:</span>
               <span>تیم متخصص محتوا نویس پزشکآن</span>
             </div>
           </div>
@@ -6860,10 +6933,10 @@ function renderEditorialCards() {
               <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</p>
               <p style="font-size:12.5px; color:var(--text-secondary);">می‌توانید مستقیماً آزمایش‌ها و گزارش‌های تصویربرداری خود را جهت ارزیابی به پزشکان متخصص پزشکآن ارسال فرمایید.</p>
             </div>
-            <button class="btn-ui btn-primary-gradient" onclick="openBookingDrawer()">
+            <a href="${getArticleAppointmentsUrl(art)}" class="btn-ui btn-primary-gradient" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;" title="رزرو ویزیت آنلاین یا حضوری">
               ${medicalIcons['calendar']}
               <span>رزرو ویزیت آنلاین یا حضوری</span>
-            </button>
+            </a>
           </div>
         </article>
 
@@ -6874,7 +6947,7 @@ function renderEditorialCards() {
           <!-- باکس نویسنده و تاییدیه علمی در ستون کناری -->
           <div class="author-verification-sidebar-card" style="border-top:1px solid var(--border-color); padding-top:16px;">
             <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-              <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
+              <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><polyline points='16 11 18 13 22 9'/></svg></span>
               <span>نویسنده و هیئت تحریریه بالینی</span>
             </div>
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
@@ -6917,15 +6990,7 @@ function renderEditorialCards() {
       if (readerEl) readerEl.style.display = 'none';
 
       const hubEl = document.getElementById('viewHubMain');
-      if (hubEl) {
-        if (window._cachedHubContent && hubEl.innerHTML.trim().length === 0) {
-          hubEl.innerHTML = window._cachedHubContent;
-        } else if (!window._cachedHubContent && hubEl.innerHTML.trim().length === 0) {
-          window.location.href = '/mag';
-          return;
-        }
-        hubEl.style.display = 'block';
-      }
+      if (hubEl) hubEl.style.display = 'block';
       updateSubcategoryStrip(null);
 
       if (pushState && window.history && window.history.pushState) {
@@ -7042,7 +7107,7 @@ function renderEditorialCards() {
       articlesData.forEach(art => {
         if (!art.id.startsWith('newsletter-') && !art.id.startsWith('issue-') && art.categoryName !== 'خبرنامه و ویژه‌نامه‌های سلامت') {
           if (art.title.toLowerCase().includes(q) || art.summary.toLowerCase().includes(q)) {
-            matchedArticles.push({ title: art.title, sub: `<svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg> تیم متخصص محتوا نویس پزشکآن (${art.tag})`, act: () => { closeSearchPalette(); openArticleReader(art.id); } });
+            matchedArticles.push({ title: art.title, sub: `<svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><polyline points='16 11 18 13 22 9'/></svg> تیم متخصص محتوا نویس پزشکآن (${art.tag})`, act: () => { closeSearchPalette(); openArticleReader(art.id); } });
           }
         }
       });

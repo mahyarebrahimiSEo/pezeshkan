@@ -386,13 +386,18 @@
 
           <div class="appointments-specialty-pills" id="aptFilterPills" role="tablist" aria-label="فیلتر تخصص پزشکان">
             <button type="button" class="apt-filter-pill active" data-filter="all" onclick="setAptFilter('all')">همه پزشکان متخصص</button>
-            <button type="button" class="apt-filter-pill" data-filter="ویزیت حضوری" onclick="setAptFilter('ویزیت حضوری')">ویزیت حضوری مطب</button>
-            <button type="button" class="apt-filter-pill" data-filter="مشاوره" onclick="setAptFilter('مشاوره')">مشاوره آنلاین</button>
             <button type="button" class="apt-filter-pill" data-filter="مغز و اعصاب" onclick="setAptFilter('مغز و اعصاب')">مغز، اعصاب و ستون فقرات</button>
+            <button type="button" class="apt-filter-pill" data-filter="قلب" onclick="setAptFilter('قلب')">قلب، عروق و دیابت</button>
+            <button type="button" class="apt-filter-pill" data-filter="زنان" onclick="setAptFilter('زنان')">زنان، زایمان و مادر</button>
+            <button type="button" class="apt-filter-pill" data-filter="کودکان" onclick="setAptFilter('کودکان')">کودکان و نوزادان</button>
+            <button type="button" class="apt-filter-pill" data-filter="توانبخشی" onclick="setAptFilter('توانبخشی')">طب فیزیکی و توانبخشی</button>
             <button type="button" class="apt-filter-pill" data-filter="گوارش" onclick="setAptFilter('گوارش')">داخلی، گوارش و کبد</button>
             <button type="button" class="apt-filter-pill" data-filter="پوست" onclick="setAptFilter('پوست')">پوست، مو و زیبایی</button>
-            <button type="button" class="apt-filter-pill" data-filter="قلب" onclick="setAptFilter('قلب')">قلب و عروق</button>
+            <button type="button" class="apt-filter-pill" data-filter="جراحی" onclick="setAptFilter('جراحی')">جراحی و لاغری</button>
+            <button type="button" class="apt-filter-pill" data-filter="داروسازی" onclick="setAptFilter('داروسازی')">مشاوره دارویی</button>
             <button type="button" class="apt-filter-pill" data-filter="روانپزشک" onclick="setAptFilter('روانپزشک')">اعصاب و روان</button>
+            <button type="button" class="apt-filter-pill" data-filter="ویزیت حضوری" onclick="setAptFilter('ویزیت حضوری')">ویزیت حضوری مطب</button>
+            <button type="button" class="apt-filter-pill" data-filter="مشاوره" onclick="setAptFilter('مشاوره')">مشاوره آنلاین</button>
           </div>
         </div>
 
@@ -425,6 +430,9 @@
             </a>
           </div>
         </div>
+
+        <!-- Active Specialty / Department Filter Notice Banner -->
+        <div id="aptActiveFilterNotice" class="apt-active-filter-banner" style="display:none;" role="status" aria-live="polite"></div>
 
         <!-- Doctors Directory Grid -->
         <div id="appointmentsDoctorsGrid" class="doctors-directory-grid">
@@ -694,6 +702,86 @@
         phone: "۰۲۱-۲۲۸۸۹۹۱۱",
         timeSlots: ["۱۵:۳۰", "۱۶:۰۰", "۱۶:۳۰", "۱۷:۰۰", "۱۷:۳۰", "۱۸:۰۰", "۱۸:۳۰", "۱۹:۰۰", "۱۹:۳۰"],
         services: ["ویزیت حضوری و اکو", "مشاوره فوری نوار قلب", "تنظیم داروهای فشارخون"]
+      },
+      {
+        id: "dr-tavakoli",
+        name: "دکتر سارا توکلی",
+        title: "فوق تخصص پریناتولوژی و جراح زنان و زایمان",
+        mcNumber: "۹۸۳۴۱",
+        dept: "مرکز جامع سلامت مادر و جنین بیمارستان",
+        rating: "۵.۰",
+        reviewsCount: 240,
+        avatar: "/mag/uploads/doctors/dr-tavakoli.webp",
+        available: "فردا - ساعت ۱۰:۰۰",
+        workHours: "یکشنبه تا پنجشنبه - ۰۹:۰۰ الی ۱۴:۰۰",
+        address: "تهران، خیابان شریعتی، بالاتر از پل رومی، مرکز جامع سلامت مادر و جنین، طبقه ۲",
+        phone: "۰۲۱-۲۲۰۰۳۳۱۱",
+        timeSlots: ["۰۹:۳۰", "۱۰:۰۰", "۱۰:۳۰", "۱۱:۰۰", "۱۱:۳۰", "۱۲:۰۰", "۱۲:۳۰", "۱۳:۰۰"],
+        services: ["ویزیت حضوری", "مشاوره آنلاین تصویری", "تفسیر سونوگرافی آنومالی"]
+      },
+      {
+        id: "dr-bahrami",
+        name: "دکتر ماندانا بهرامی",
+        title: "متخصص بیماری‌های کودکان و نوزادان (اطفال)",
+        mcNumber: "۱۰۸۷۱۵",
+        dept: "دپارتمان تخصصی سلامت، رشد و مراقبت کودکان",
+        rating: "۴.۹",
+        reviewsCount: 385,
+        avatar: "/mag/uploads/doctors/dr-bahrami.webp",
+        available: "امروز - ساعت ۱۶:۳۰",
+        workHours: "شنبه تا چهارشنبه - ۱۵:۳۰ الی ۲۰:۰۰",
+        address: "تهران، میدان ونک، ابتدای خیابان ملاصدرا، ساختمان پزشکان بوعلی، طبقه ۳",
+        phone: "۰۲۱-۸۸۷۷۶۶۵۵",
+        timeSlots: ["۱۶:۰۰", "۱۶:۳۰", "۱۷:۰۰", "۱۷:۳۰", "۱۸:۰۰", "۱۸:۳۰"],
+        services: ["ویزیت حضوری", "مشاوره رشد و تغذیه", "پایش دوره‌ای نوزاد"]
+      },
+      {
+        id: "dr-yousefi",
+        name: "دکتر ناصح یوسفی",
+        title: "متخصص طب فیزیکی، توانبخشی و الکترودیاگنوزیس",
+        mcNumber: "۱۱۹۴۳۲",
+        dept: "کلینیک تخصصی طب فیزیکی و توانبخشی",
+        rating: "۴.۹",
+        reviewsCount: 310,
+        avatar: "/mag/uploads/doctors/dr-yousefi.webp",
+        available: "امروز - ساعت ۱۷:۰۰",
+        workHours: "شنبه تا چهارشنبه - ۱۶:۰۰ الی ۲۱:۰۰",
+        address: "تهران، خیابان مطهری، خیابان فجر، ساختمان پزشکان سنایی، واحد ۸",
+        phone: "۰۲۱-۸۸۳۱۴۲۱۰",
+        timeSlots: ["۱۶:۳۰", "۱۷:۰۰", "۱۷:۳۰", "۱۸:۰۰", "۱۸:۳۰", "۱۹:۰۰"],
+        services: ["ویزیت حضوری", "نوار عصب و عضله EMG/NCV", "تزریق پی‌آر‌پی و اوزون"]
+      },
+      {
+        id: "dr-mohammadi",
+        name: "دکتر الهام محمدی",
+        title: "فلوشیپ فوق‌تخصصی لاپاراسکوپی و جراحی چاقی",
+        mcNumber: "۱۰۱۵۸۰",
+        dept: "دپارتمان جراحی‌های متابولیک و لاغری",
+        rating: "۴.۹",
+        reviewsCount: 420,
+        avatar: "/mag/uploads/doctors/dr-mohammadi.webp",
+        available: "فردا - ساعت ۱۱:۰۰",
+        workHours: "یکشنبه و سه‌شنبه - ۱۰:۰۰ الی ۱۵:۰۰",
+        address: "تهران، شهرک غرب، بلوار دادمان، مجتمع پزشکی بهاران، طبقه ۴",
+        phone: "۰۲۱-۸۸۳۷۲۱۵۰",
+        timeSlots: ["۱۰:۳۰", "۱۱:۰۰", "۱۱:۳۰", "۱۲:۰۰", "۱۲:۳۰", "۱۳:۰۰"],
+        services: ["ویزیت حضوری", "مشاوره اسلیو و بای‌پس", "ارزیابی شاخص BMI"]
+      },
+      {
+        id: "dr-parsa-sina",
+        name: "دکتر سینا پارسا",
+        title: "دکترای داروسازی بالینی و مشاور تداخلات دارویی",
+        mcNumber: "۱۴۵۲۰",
+        dept: "سامانه پایش نسخه و مشاوره اطلاعات دارویی",
+        rating: "۵.۰",
+        reviewsCount: 195,
+        avatar: "/mag/uploads/doctors/dr-parsa-sina.webp",
+        available: "امروز - ساعت ۱۸:۰۰",
+        workHours: "همه‌روزه - ۱۶:۰۰ الی ۲۲:۰۰",
+        address: "تهران، کلینیک جامع سلامت و مرکز مشاوره دارویی پزشکآن",
+        phone: "۰۲۱-۸۸۸۸۴۴۴۴",
+        timeSlots: ["۱۶:۳۰", "۱۷:۰۰", "۱۷:۳۰", "۱۸:۰۰", "۱۸:۳۰", "۱۹:۰۰", "۱۹:۳۰", "۲۰:۰۰"],
+        services: ["مشاوره آنلاین دارویی", "بررسی تداخلات دارویی", "تنظیم رژیم دارویی سالمندان"]
       }
     ];
 
@@ -701,12 +789,67 @@
     let currentAptFilter = 'all';
     let selectedSlotByDoc = {};
 
+    const SPECIALTY_GROUPS = {
+      'مغز و اعصاب': ['مغز', 'اعصاب', 'ستون فقرات', 'دیسک', 'نورولوژی', 'نوروسرجری'],
+      'ستون فقرات': ['ستون فقرات', 'دیسک', 'مغز', 'اعصاب', 'طب فیزیکی', 'توانبخشی', 'کمر'],
+      'توانبخشی': ['توانبخشی', 'طب فیزیکی', 'الکترودیاگنوزیس', 'فیزیوتراپی', 'ستون فقرات', 'درد'],
+      'قلب': ['قلب', 'عروق', 'آنژیوپلاستی', 'فشار خون', 'اکو', 'هولتر', 'دیابت', 'غدد', 'متابولیسم'],
+      'زنان': ['زنان', 'زایمان', 'مادر', 'جنین', 'پریناتولوژی', 'بارداری', 'نازایی', 'ivf'],
+      'کودکان': ['کودک', 'کودکان', 'نوزاد', 'نوزادان', 'اطفال', 'رشد'],
+      'گوارش': ['گوارش', 'کبد', 'معده', 'روده', 'کولونوسکوپی', 'آندوسکوپی'],
+      'پوست': ['پوست', 'مو', 'زیبایی', 'لیزر', 'درماتولوژی'],
+      'جراحی': ['جراحی', 'لاغری', 'لاپاراسکوپی', 'چاقی', 'متابولیک'],
+      'داروسازی': ['دارو', 'داروسازی', 'داروشناسی', 'نسخه', 'تداخلات دارویی'],
+      'آزمایشگاه': ['آزمایشگاه', 'پاتولوژی', 'ژنتیک', 'پاتوبیولوژی'],
+      'اورژانس': ['اورژانس', 'تروما', 'احیا', 'تریاژ'],
+      'روانپزشک': ['روانپزشک', 'اعصاب و روان', 'سلامت روان', 'خواب', 'روانشناس']
+    };
+
     function escAptHtml(str) {
       return String(str || '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+    }
+
+    function docMatchesFilter(doc, filter) {
+      if (!filter || filter === 'all') return true;
+
+      const hay = [
+        doc.name,
+        doc.title,
+        doc.dept,
+        doc.address,
+        doc.mcNumber,
+        ...(Array.isArray(doc.services) ? doc.services : [])
+      ].join(' ').toLowerCase();
+
+      // فیلترهای نوع ویزیت
+      if (filter === 'ویزیت حضوری') {
+        return hay.includes('حضوری') || !hay.includes('صرفاً آنلاین');
+      }
+      if (filter === 'مشاوره') {
+        return hay.includes('مشاوره') || hay.includes('آنلاین') || hay.includes('تصویری');
+      }
+
+      // مطابقت مستقیم
+      if (hay.includes(filter.toLowerCase())) return true;
+
+      // بررسی توکن‌های گروه تخصصی
+      const tokens = SPECIALTY_GROUPS[filter] || [];
+      for (const token of tokens) {
+        if (hay.includes(token.toLowerCase())) return true;
+      }
+
+      // بررسی معکوس در صورت وجود نام دپارتمان کامل
+      for (const [key, tokenList] of Object.entries(SPECIALTY_GROUPS)) {
+        if (filter.includes(key) || tokenList.some(t => filter.includes(t))) {
+          if (tokenList.some(t => hay.includes(t.toLowerCase()))) return true;
+        }
+      }
+
+      return false;
     }
 
     async function loadClinicDoctors() {
@@ -736,14 +879,117 @@
       }
 
       renderClinicDoctors();
+      applyUrlParameters();
     }
 
-    function setAptFilter(filterVal) {
+    function setAptFilter(filterVal, options = {}) {
       currentAptFilter = filterVal;
+
+      let matchedPill = null;
       document.querySelectorAll('#aptFilterPills .apt-filter-pill').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-filter') === filterVal);
+        const btnFilter = btn.getAttribute('data-filter');
+        const isMatch = (btnFilter === filterVal) ||
+          (filterVal !== 'all' && (btnFilter.includes(filterVal) || filterVal.includes(btnFilter)));
+        btn.classList.toggle('active', isMatch);
+        if (isMatch && !matchedPill) matchedPill = btn;
       });
+
       renderClinicDoctors();
+
+      const label = options.label || (matchedPill ? matchedPill.textContent.trim() : filterVal);
+      if (filterVal !== 'all') {
+        showActiveFilterBanner(label);
+      } else {
+        hideActiveFilterBanner();
+      }
+
+      if (options.smoothScroll) {
+        scrollToDoctorsSection();
+      }
+    }
+
+    function showActiveFilterBanner(label) {
+      const banner = document.getElementById('aptActiveFilterNotice');
+      if (!banner) return;
+      banner.innerHTML = `
+        <div class="apt-filter-notice-content">
+          <div class="apt-filter-notice-badge">
+            <svg style="width:15px;height:15px;color:var(--brand-primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>فیلتر خودکار دپارتمان:</span>
+          </div>
+          <div class="apt-filter-notice-title">
+            نمایش پزشکان متخصص <strong>«${escAptHtml(label)}»</strong>
+          </div>
+        </div>
+        <button type="button" class="apt-clear-filter-btn" onclick="clearAptSpecialtyFilter()">
+          <svg style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <span>مشاهده همه پزشکان</span>
+        </button>
+      `;
+      banner.style.display = 'flex';
+    }
+
+    function hideActiveFilterBanner() {
+      const banner = document.getElementById('aptActiveFilterNotice');
+      if (banner) banner.style.display = 'none';
+    }
+
+    function clearAptSpecialtyFilter() {
+      const searchInput = document.getElementById('aptSearchInput');
+      if (searchInput) searchInput.value = '';
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+      setAptFilter('all');
+    }
+
+    function scrollToDoctorsSection() {
+      setTimeout(() => {
+        const el = document.getElementById('aptActiveFilterNotice') || document.querySelector('.appointments-search-bar') || document.getElementById('appointmentsDoctorsGrid');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 150);
+    }
+
+    function applyUrlParameters() {
+      const params = new URLSearchParams(window.location.search);
+      const specialty = params.get('specialty') || params.get('dept') || params.get('cat') || params.get('category');
+      const doctor = params.get('doctor') || params.get('doc');
+      const q = params.get('q') || params.get('search');
+
+      if (doctor) {
+        const matchedDoc = CLINIC_DOCTORS.find(d => d.id === doctor || (d.name && d.name.includes(doctor)));
+        if (matchedDoc) {
+          const searchInput = document.getElementById('aptSearchInput');
+          if (searchInput) searchInput.value = matchedDoc.name;
+          renderClinicDoctors();
+          showActiveFilterBanner(`نوبت‌دهی آنلاین: ${matchedDoc.name} (${matchedDoc.title || matchedDoc.dept})`);
+          scrollToDoctorsSection();
+          return;
+        }
+      }
+
+      if (q) {
+        const searchInput = document.getElementById('aptSearchInput');
+        if (searchInput) searchInput.value = q;
+      }
+
+      if (specialty) {
+        let resolvedFilter = 'all';
+        for (const [key, tokens] of Object.entries(SPECIALTY_GROUPS)) {
+          if (key === specialty || specialty.includes(key) || tokens.some(t => specialty.includes(t))) {
+            resolvedFilter = key;
+            break;
+          }
+        }
+        if (resolvedFilter === 'all') {
+          resolvedFilter = specialty;
+        }
+        const deptParam = params.get('dept');
+        const displayLabel = deptParam || specialty;
+        setAptFilter(resolvedFilter, { label: displayLabel, smoothScroll: true });
+      }
     }
 
     function onAptSearchChange() {
@@ -777,7 +1023,7 @@
           ...(Array.isArray(doc.services) ? doc.services : [])
         ].join(' ').toLowerCase();
 
-        if (currentAptFilter !== 'all' && !hay.includes(currentAptFilter.toLowerCase())) {
+        if (!docMatchesFilter(doc, currentAptFilter)) {
           return false;
         }
         if (q && !hay.includes(q)) {
@@ -866,7 +1112,7 @@
                   <span>انتخاب ساعت نوبت مطب:</span>
                   <span class="dbc-slots-avail">
                     <span class="status-pulse-dot" style="width:7px;height:7px;"></span>
-                    <span>اولین نوبت خالی: ${escAptHtml(doc.available || ('امروز ساعت ' + slots[0]))}</span>
+                    <span>اولین نوبت خالی: ${escAptHtml((typeof doc.available === 'string' && doc.available !== 'true') ? doc.available : ('امروز ساعت ' + slots[0]))}</span>
                   </span>
                 </div>
                 <div class="dbc-slots-grid">
@@ -1004,7 +1250,10 @@
       document.getElementById('clinicBookingSuccess').style.display = 'block';
     }
 
-    document.addEventListener('DOMContentLoaded', loadClinicDoctors);
+    document.addEventListener('DOMContentLoaded', () => {
+      loadClinicDoctors();
+      applyUrlParameters();
+    });
   </script>
 </body>
 </html>
