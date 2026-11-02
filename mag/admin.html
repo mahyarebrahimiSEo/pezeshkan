@@ -9211,6 +9211,55 @@ function onEditorContentChanged() {
     // ==========================================================================
     // 7. نگارش و ویرایش مقالات (Post Editor Operations)
     // ==========================================================================
+    let currentArticleIsNoindex = false;
+
+    function setArticleRobotsIndex(isNoindex) {
+      currentArticleIsNoindex = Boolean(isNoindex);
+      const btnIndex = document.getElementById('btnSetIndex');
+      const btnNoindex = document.getElementById('btnSetNoindex');
+      const badge = document.getElementById('articleRobotsBadge');
+
+      if (btnIndex && btnNoindex) {
+        if (currentArticleIsNoindex) {
+          btnNoindex.className = 'btn btn-primary';
+          btnNoindex.style.background = 'rgba(239, 68, 68, 0.2)';
+          btnNoindex.style.color = '#EF4444';
+          btnNoindex.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+
+          btnIndex.className = 'btn btn-secondary';
+          btnIndex.style.background = '';
+          btnIndex.style.color = '';
+          btnIndex.style.borderColor = '';
+        } else {
+          btnIndex.className = 'btn btn-primary';
+          btnIndex.style.background = '';
+          btnIndex.style.color = '';
+          btnIndex.style.borderColor = '';
+
+          btnNoindex.className = 'btn btn-secondary';
+          btnNoindex.style.background = '';
+          btnNoindex.style.color = '';
+          btnNoindex.style.borderColor = '';
+        }
+      }
+
+      if (badge) {
+        if (currentArticleIsNoindex) {
+          badge.className = 'inlink-badge inlink-danger';
+          badge.style.color = '#EF4444';
+          badge.textContent = 'نو ایندکس (Noindex)';
+        } else {
+          badge.className = 'inlink-badge inlink-active';
+          badge.style.color = '#10B981';
+          badge.textContent = 'ایندکس (Index)';
+        }
+      }
+
+      if (typeof runLiveSeoAudit === 'function') {
+        runLiveSeoAudit();
+      }
+    }
+
     function createNewPost() {
       currentEditingArticleId = null;
       document.getElementById('editorMainHeading').textContent = 'نگارش مقاله جدید در مجله سلامت';
