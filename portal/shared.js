@@ -2807,7 +2807,7 @@ document.addEventListener('click', (e) => {
           html += `
             <a href="/mag/${slug}" class="pez-mag-cover-card" title="${title}">
               <div class="mag-cover-img-wrap" aria-hidden="true">
-                <img src="${img}" alt="${alt}" loading="lazy" decoding="async" class="mag-cover-bg-img" />
+                <img src="${img}" alt="${alt}" loading="lazy" decoding="async" class="mag-cover-bg-img" onerror="this.onerror=null; this.src='/mag/uploads/2026/10/11_1792233621_b823deb3.webp'" />
               </div>
               <div class="mag-cover-scrim" aria-hidden="true"></div>
               <div class="mag-cover-top-row">
