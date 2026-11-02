@@ -2000,24 +2000,24 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
     .editorial-cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 50px;
+      gap: 22px;
+      margin-bottom: 44px;
     }
     .magazine-article-card {
       position: relative;
       background: #0B111E;
-      border: 1px solid rgba(0, 102, 255, 0.24);
-      border-radius: 24px;
+      border: 1px solid rgba(0, 102, 255, 0.22);
+      border-radius: 20px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 420px;
-      min-height: 400px;
+      height: 350px;
+      min-height: 330px;
       box-shadow: 
         0 0 0 1px rgba(0, 102, 255, 0.08),
-        0 16px 38px -10px rgba(15, 23, 42, 0.16),
-        0 4px 12px rgba(15, 23, 42, 0.06);
+        0 12px 28px -8px rgba(15, 23, 42, 0.16),
+        0 4px 10px rgba(15, 23, 42, 0.05);
       cursor: pointer;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
       isolation: isolate;
@@ -2028,9 +2028,9 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       border-color: rgba(0, 229, 255, 0.55);
       box-shadow: 
         0 0 0 1.5px rgba(0, 229, 255, 0.45),
-        0 24px 56px -10px rgba(0, 102, 255, 0.28),
-        0 0 28px rgba(0, 229, 255, 0.20);
-      transform: translateY(-6px);
+        0 20px 44px -8px rgba(0, 102, 255, 0.26),
+        0 0 24px rgba(0, 229, 255, 0.18);
+      transform: translateY(-4px);
     }
     .card-thumb-wrap {
       position: absolute;
@@ -2051,7 +2051,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       display: block;
     }
     .magazine-article-card:hover .card-thumb-wrap img {
-      transform: scale(1.08);
+      transform: scale(1.06);
     }
     .card-thumb-wrap::after {
       content: "";
@@ -2059,10 +2059,10 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(11, 19, 37, 0.45) 0%,
-        rgba(11, 19, 37, 0.10) 30%,
-        rgba(8, 13, 26, 0.60) 60%,
-        rgba(8, 13, 26, 0.95) 100%
+        rgba(11, 19, 37, 0.40) 0%,
+        rgba(11, 19, 37, 0.08) 26%,
+        rgba(8, 13, 26, 0.62) 58%,
+        rgba(8, 13, 26, 0.96) 100%
       );
       pointer-events: none;
       z-index: 2;
@@ -2071,43 +2071,47 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
     .magazine-article-card:hover .card-thumb-wrap::after {
       background: linear-gradient(
         180deg,
-        rgba(11, 19, 37, 0.50) 0%,
-        rgba(11, 19, 37, 0.15) 28%,
-        rgba(8, 13, 26, 0.65) 58%,
+        rgba(11, 19, 37, 0.46) 0%,
+        rgba(11, 19, 37, 0.12) 25%,
+        rgba(8, 13, 26, 0.66) 56%,
         rgba(8, 13, 26, 0.98) 100%
       );
     }
     .thumb-tag-badge {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 13px;
+      right: 13px;
       background: rgba(11, 19, 37, 0.72);
       backdrop-filter: blur(14px) saturate(190%);
       -webkit-backdrop-filter: blur(14px) saturate(190%);
       border: 1px solid rgba(56, 189, 248, 0.38);
       color: #38BDF8 !important;
-      padding: 5px 12px;
+      padding: 4px 10px;
       border-radius: var(--radius-full);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       z-index: 3;
+    }
+    .thumb-tag-badge svg {
+      width: 12px;
+      height: 12px;
     }
     .thumb-readtime-badge {
       position: absolute;
-      top: 16px;
-      left: 16px;
+      top: 13px;
+      left: 13px;
       background: rgba(11, 19, 37, 0.65);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.20);
       color: #F1F5F9 !important;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: var(--radius-full);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       display: flex;
@@ -2115,38 +2119,42 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       gap: 4px;
       z-index: 3;
     }
+    .thumb-readtime-badge svg {
+      width: 11px;
+      height: 11px;
+    }
     .article-card-body {
       position: relative;
       z-index: 3;
-      margin: 12px;
-      padding: 18px 18px 16px;
-      border-radius: 18px;
-      background: rgba(11, 19, 37, 0.78);
+      margin: 10px;
+      padding: 13px 15px 11px;
+      border-radius: 15px;
+      background: rgba(11, 19, 37, 0.80);
       backdrop-filter: blur(20px) saturate(190%) contrast(105%);
       -webkit-backdrop-filter: blur(20px) saturate(190%) contrast(105%);
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-top: 1.5px solid rgba(255, 255, 255, 0.35);
       box-shadow: 
-        0 16px 36px -4px rgba(0, 0, 0, 0.55),
+        0 14px 30px -4px rgba(0, 0, 0, 0.55),
         inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       margin-top: auto;
       transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .magazine-article-card:hover .article-card-body {
-      background: rgba(13, 21, 39, 0.88);
+      background: rgba(13, 21, 39, 0.90);
       border-color: rgba(56, 189, 248, 0.45);
       box-shadow: 
-        0 20px 42px -4px rgba(0, 0, 0, 0.65),
+        0 18px 36px -4px rgba(0, 0, 0, 0.65),
         inset 0 1px 1.5px rgba(255, 255, 255, 0.35);
     }
     .mag-title {
-      font-size: 15.5px;
+      font-size: 14px;
       font-weight: 800;
       color: #FFFFFF !important;
-      line-height: 1.5;
+      line-height: 1.48;
       margin: 0;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
       display: -webkit-box;
@@ -2159,9 +2167,9 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       color: #38BDF8 !important;
     }
     .mag-summary {
-      font-size: 12px;
+      font-size: 11.5px;
       color: #CBD5E1 !important;
-      line-height: 1.65;
+      line-height: 1.58;
       margin: 0;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -2173,9 +2181,9 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid rgba(0, 0, 0, 0.08);
-      padding-top: 10px;
-      margin-top: 4px;
-      font-size: 11.5px;
+      padding-top: 8px;
+      margin-top: 3px;
+      font-size: 11px;
       color: #64748B;
     }
     .mag-author-footer span[style*="var(--color-primary)"] {
@@ -2191,8 +2199,8 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       font-weight: 800;
     }
     .card-author-icon {
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       border-radius: 50%;
       background: rgba(0, 102, 255, 0.1);
       color: var(--color-primary);
@@ -2203,8 +2211,8 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       border: 1px solid rgba(0, 102, 255, 0.18);
     }
     .card-author-icon svg {
-      width: 11px;
-      height: 11px;
+      width: 10.5px;
+      height: 10.5px;
     }
     [data-theme="dark"] .card-author-icon {
       background: rgba(56, 189, 248, 0.15);
@@ -3232,14 +3240,14 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
         max-width: calc(100% - 28px) !important;
         scroll-snap-align: center !important;
         scroll-snap-stop: always !important;
-        height: 420px !important;
-        min-height: 400px !important;
-        border-radius: 22px !important;
+        height: 350px !important;
+        min-height: 330px !important;
+        border-radius: 18px !important;
       }
       .magazine-article-card {
-        height: 380px;
-        min-height: 360px;
-        border-radius: 20px;
+        height: 350px;
+        min-height: 330px;
+        border-radius: 18px;
       }
       .card-thumb-wrap {
         position: absolute;
@@ -3248,17 +3256,17 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
         height: 100%;
       }
       .article-card-body {
-        margin: 10px;
-        padding: 14px 14px 12px;
-        border-radius: 16px;
+        margin: 8px;
+        padding: 12px 13px 10px;
+        border-radius: 14px;
       }
       .mag-title {
-        font-size: 14.5px;
-        line-height: 1.5;
+        font-size: 13.5px;
+        line-height: 1.45;
       }
       .mag-summary {
-        font-size: 11.5px;
-        line-height: 1.6;
+        font-size: 11px;
+        line-height: 1.55;
       }
 
       /* Category Detail View */
