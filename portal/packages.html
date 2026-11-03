@@ -397,6 +397,17 @@
             </button>
           </div>
         </div>
+
+        <!-- Annual / Monthly Billing Switcher -->
+        <div class="wizard-billing-toggle-wrap" style="margin-top: 20px; margin-bottom: 24px;">
+          <button type="button" id="pkgBillingAnnualBtn" class="wizard-billing-pill active" onclick="switchPackageCycle('annual')">
+            <span>پرداخت سالانه</span>
+            <span class="wizard-billing-discount">۱۷٪ صرفه‌جویی ویژه</span>
+          </button>
+          <button type="button" id="pkgBillingMonthlyBtn" class="wizard-billing-pill" onclick="switchPackageCycle('monthly')">
+            <span>پرداخت ماهانه</span>
+          </button>
+        </div>
       </div>
 
       <!-- Google Cloud / Workspace Style Pricing Grid -->
@@ -429,7 +440,7 @@
 
           <!-- Crossed-out price & Free launch pricing -->
           <div class="plan-price-strike-wrap">
-            <span class="plan-price-strike">۵,۰۰۰,۰۰۰ تومان</span>
+            <span class="plan-price-strike">۴۵,۰۰۰,۰۰۰ تومان</span>
             <span class="plan-strike-badge">۱۰۰٪ تخفیف دوره آزمایشی</span>
           </div>
 
@@ -438,7 +449,7 @@
             <span class="price-curr">تومان</span>
             <span class="price-badge-free">۳ ماه نخست رایگان</span>
           </div>
-          <div class="plan-price-subnote">تعرفه پس از ۳ ماه رایگان: ۵ میلیون تومان ماهانه · بدون تعهد یا جریمه لغو</div>
+          <div class="plan-price-subnote" id="pkgSubnoteStarter">تعرفه پس از ۳ ماه رایگان: ۳۹ میلیون تومان سالانه (معادل ۳,۸۰۲,۵۰۰ تومان ماهانه) · بدون تعهد یا جریمه لغو</div>
 
           <ul class="google-features-list">
             <li class="google-feature-item">
@@ -529,7 +540,7 @@
 
           <!-- Crossed-out price & Free launch pricing -->
           <div class="plan-price-strike-wrap">
-            <span class="plan-price-strike">۸,۵۰۰,۰۰۰ تومان</span>
+            <span class="plan-price-strike">۸۰,۰۰۰,۰۰۰ تومان</span>
             <span class="plan-strike-badge">۱۰۰٪ تخفیف دوره پایلوت</span>
           </div>
 
@@ -538,7 +549,7 @@
             <span class="price-curr">تومان</span>
             <span class="price-badge-free promo-glow">۳ ماه نخست رایگان</span>
           </div>
-          <div class="plan-price-subnote">تعرفه پس از ۳ ماه رایگان: ۸.۵ میلیون تومان ماهانه · پکیج طلایی استقرار</div>
+          <div class="plan-price-subnote" id="pkgSubnotePro">تعرفه پس از ۳ ماه رایگان: ۶۹ میلیون تومان سالانه (معادل ۶,۷۲۷,۵۰۰ تومان ماهانه) · پکیج طلایی استقرار</div>
 
           <ul class="google-features-list">
             <li class="google-feature-item">
@@ -622,7 +633,7 @@
 
           <!-- Crossed-out price & Free launch pricing -->
           <div class="plan-price-strike-wrap">
-            <span class="plan-price-strike">۱۵,۰۰۰,۰۰۰ تومان</span>
+            <span class="plan-price-strike">۱۱۵,۰۰۰,۰۰۰ تومان</span>
             <span class="plan-strike-badge">پایلوت رایگان سازمانی</span>
           </div>
 
@@ -631,7 +642,7 @@
             <span class="price-curr">تومان</span>
             <span class="price-badge-free">۳ ماه پایلوت رایگان</span>
           </div>
-          <div class="plan-price-subnote">تعرفه پس از دوره پایلوت: سفارشی بر اساس تعداد یونیت و پزشکان مرکز</div>
+          <div class="plan-price-subnote" id="pkgSubnoteEnterprise">تعرفه پس از دوره پایلوت: ۹۹ میلیون تومان سالانه (معادل ۹,۶۵۲,۵۰۰ تومان ماهانه) · مراکز تا ۵ پزشک</div>
 
           <ul class="google-features-list">
             <li class="google-feature-item">
@@ -728,7 +739,7 @@
             </button>
             <div class="google-faq-body">
               <div class="google-faq-content">
-                خیر، هیچ‌گونه الزام یا جریمه‌ای وجود ندارد. در صورت رضایت از عملکرد سیستم، تمدید اشتراک با تعرفه منصفانه (از ۵ میلیون تومان ماهانه) انجام می‌شود و در غیر این صورت، خروجی استاندارد و رمزنگاری‌شده از کلیه پرونده‌های بیماران به شما تقدیم خواهد شد.
+                خیر، هیچ‌گونه الزام یا جریمه‌ای وجود ندارد. در صورت رضایت از عملکرد سیستم، تمدید اشتراک با تعرفه شفاف (از ۳۹ میلیون تومان سالانه، معادل ۳,۸۰۲,۵۰۰ تومان در ماه با ۱۷٪ تخفیف) انجام می‌شود و در غیر این صورت، خروجی استاندارد و رمزنگاری‌شده از کلیه پرونده‌های بیماران به شما تقدیم خواهد شد.
               </div>
             </div>
           </div>
@@ -883,6 +894,28 @@
         if (cardStarter) cardStarter.style.opacity = '0.7';
         if (cardPro) cardPro.style.opacity = '1';
         if (cardEnterprise) cardEnterprise.style.opacity = '1';
+      }
+    }
+
+    function switchPackageCycle(cycle) {
+      const btnAnn = document.getElementById('pkgBillingAnnualBtn');
+      const btnMon = document.getElementById('pkgBillingMonthlyBtn');
+      const subSt = document.getElementById('pkgSubnoteStarter');
+      const subPr = document.getElementById('pkgSubnotePro');
+      const subEn = document.getElementById('pkgSubnoteEnterprise');
+
+      if (cycle === 'annual') {
+        if (btnAnn) btnAnn.classList.add('active');
+        if (btnMon) btnMon.classList.remove('active');
+        if (subSt) subSt.textContent = 'تعرفه پس از ۳ ماه رایگان: ۳۹ میلیون تومان سالانه (معادل ۳,۸۰۲,۵۰۰ تومان ماهانه) · بدون تعهد یا جریمه لغو';
+        if (subPr) subPr.textContent = 'تعرفه پس از ۳ ماه رایگان: ۶۹ میلیون تومان سالانه (معادل ۶,۷۲۷,۵۰۰ تومان ماهانه) · پکیج طلایی استقرار';
+        if (subEn) subEn.textContent = 'تعرفه پس از دوره پایلوت: ۹۹ میلیون تومان سالانه (معادل ۹,۶۵۲,۵۰۰ تومان ماهانه) · مراکز تا ۵ پزشک';
+      } else {
+        if (btnAnn) btnAnn.classList.remove('active');
+        if (btnMon) btnMon.classList.add('active');
+        if (subSt) subSt.textContent = 'تعرفه ماهانه: ۳,۸۰۲,۵۰۰ تومان در ماه (پرداخت ماهانه بدون قرارداد سالانه)';
+        if (subPr) subPr.textContent = 'تعرفه ماهانه: ۶,۷۲۷,۵۰۰ تومان در ماه (پرداخت ماهانه بدون قرارداد سالانه)';
+        if (subEn) subEn.textContent = 'تعرفه ماهانه: ۹,۶۵۲,۵۰۰ تومان در ماه (پرداخت ماهانه بدون قرارداد سالانه)';
       }
     }
   </script>

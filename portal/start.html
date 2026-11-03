@@ -429,7 +429,7 @@
           <div class="wizard-nav-actions" style="justify-content:flex-end;">
             <button type="button" class="wizard-btn-submit" onclick="nextWizardStep(2)">
               <span>ادامه مرحله بعد</span>
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
           </div>
         </div>
@@ -461,46 +461,275 @@
           </div>
 
           <div class="wizard-nav-actions">
-            <button type="button" class="wizard-btn-back" onclick="nextWizardStep(1)">← مرحله قبل</button>
+            <button type="button" class="wizard-btn-back" onclick="nextWizardStep(1)">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:14px;height:14px;"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>مرحله قبل</span>
+            </button>
             <button type="button" class="wizard-btn-submit" onclick="nextWizardStep(3)">
               <span>ادامه مرحله بعد</span>
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
           </div>
         </div>
 
-        <!-- Step 3: Main Challenge -->
+        <!-- Step 3: Plan Selection & Clinical CRM Modules -->
         <div id="wizardStep3" class="wizard-step" style="display:none;">
           <div class="wizard-step-header">
-            <span class="wizard-step-badge">گام ۳ از ۴: هدف اصلی شما</span>
+            <span class="wizard-step-badge">گام ۳ از ۴: انتخاب پلن و قابلیت‌های CRM</span>
             <span class="wizard-step-percent">۷۵٪</span>
           </div>
-          <h3 class="wizard-step-title">بزرگترین دغدغه‌ای که مایلید با پزشکآن حل شود چیست؟</h3>
-          
-          <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
-            <label class="wizard-option-card">
-              <input type="checkbox" name="challenges" value="قلم نوری و تسریع ثبت پرونده" checked>
-              <span>نیاز به قلم نوری و سرعت بخشیدن به نگارش شرح‌حال</span>
+          <h3 class="wizard-step-title">پلن مدنظر و قابلیت‌های کلینیکال مورد نیاز خود را تعیین فرمایید</h3>
+
+          <!-- Preselected Plan Banner (Active when navigating from Packages with ?plan=...) -->
+          <div id="wizardPreselectedBanner" class="wizard-preselected-banner" style="display:none;">
+            <div class="wizard-preselected-icon">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="wizard-preselected-text">
+              <strong>پلن انتخابی شما: <span id="preselectedPlanName">طرح جامع حرفه‌ای (Pro)</span></strong>
+              <span>ماژول‌های کلینیکال و CRM متناسب با این پلن به‌صورت خودکار برگزیده شدند؛ در صورت تمایل می‌توانید آن را ویرایش نمایید.</span>
+            </div>
+          </div>
+
+          <!-- Billing Cycle Segmented Capsule Toggle -->
+          <div class="wizard-billing-toggle-wrap">
+            <button type="button" id="wizardBillingAnnualBtn" class="wizard-billing-pill active" onclick="switchBillingCycle('annual')">
+              <span>پرداخت سالانه</span>
+              <span class="wizard-billing-discount">۱۷٪ تخفیف ویژه</span>
+            </button>
+            <button type="button" id="wizardBillingMonthlyBtn" class="wizard-billing-pill" onclick="switchBillingCycle('monthly')">
+              <span>پرداخت ماهانه</span>
+            </button>
+          </div>
+
+          <!-- 3-Tier Plan Grid -->
+          <div class="wizard-plan-grid">
+            <!-- 1. Starter Plan Card -->
+            <label class="wizard-plan-card" id="planCardStarter" onclick="selectPlan('starter')">
+              <input type="radio" name="selectedPlanRadio" value="starter" class="wizard-plan-radio">
+              <div class="wizard-plan-head">
+                <span class="wizard-plan-target">مطب انفرادی و تک‌پزشک</span>
+                <h4 class="wizard-plan-name">طرح پایه (Starter)</h4>
+              </div>
+              <div class="wizard-plan-price-wrap">
+                <div class="wizard-plan-price-amount" id="priceValStarter">۳۹,۰۰۰,۰۰۰</div>
+                <div class="wizard-plan-price-unit">تومان <span id="priceCycleStarter">سالانه</span></div>
+              </div>
+              <div class="wizard-plan-calc-note" id="priceSubStarter">معادل ۳,۸۰۲,۵۰۰ تومان در ماه</div>
+              <p class="wizard-plan-desc">مناسب مطب‌های انفرادی جهت نوبت‌دهی آنلاین، پرونده الکترونیک سلامت و اتصال مستقیم کارتخوان بانکی.</p>
             </label>
-            <label class="wizard-option-card">
-              <input type="checkbox" name="challenges" value="اتصال کارتخوان و انضباط منشی" checked>
-              <span>اتصال کارتخوان به سیستم و نظم بخشیدن به پذیرش و صندوق مطب</span>
+
+            <!-- 2. Pro Plan Card (Popular) -->
+            <label class="wizard-plan-card selected popular-plan" id="planCardPro" onclick="selectPlan('pro')">
+              <span class="wizard-popular-badge">پیشنهاد ویژه و پرطرفدار</span>
+              <input type="radio" name="selectedPlanRadio" value="pro" class="wizard-plan-radio" checked>
+              <div class="wizard-plan-head">
+                <span class="wizard-plan-target">مطب پرمراجعه و کلینیک</span>
+                <h4 class="wizard-plan-name">طرح جامع و حرفه‌ای (Pro)</h4>
+              </div>
+              <div class="wizard-plan-price-wrap">
+                <div class="wizard-plan-price-amount" id="priceValPro">۶۹,۰۰۰,۰۰۰</div>
+                <div class="wizard-plan-price-unit">تومان <span id="priceCyclePro">سالانه</span></div>
+              </div>
+              <div class="wizard-plan-calc-note" id="priceSubPro">معادل ۶,۷۲۷,۵۰۰ تومان در ماه</div>
+              <p class="wizard-plan-desc">شامل قلم نوری، رضایت‌نامه تبلتی بدون کاغذ، اتوماسیون کامل SMS و حسابداری تسهیم لحظه‌ای سهم پزشک.</p>
             </label>
-            <label class="wizard-option-card">
-              <input type="checkbox" name="challenges" value="کاهش لغو نوبت No-Show">
-              <span>کاهش لغو نوبت‌ها (No-Show) و ساماندهی پیامک‌های نوبت‌دهی</span>
-            </label>
-            <label class="wizard-option-card">
-              <input type="checkbox" name="challenges" value="نسخه الکترونیک بدون قطعی">
-              <span>نسخه الکترونیک بیمه تامین اجتماعی بدون قطعی</span>
+
+            <!-- 3. Enterprise Plan Card -->
+            <label class="wizard-plan-card" id="planCardEnterprise" onclick="selectPlan('enterprise')">
+              <input type="radio" name="selectedPlanRadio" value="enterprise" class="wizard-plan-radio">
+              <div class="wizard-plan-head">
+                <span class="wizard-plan-target">درمانگاه، مراکز و بیمارستان</span>
+                <h4 class="wizard-plan-name">پیشرفته سازمانی (Enterprise)</h4>
+              </div>
+              <div class="wizard-plan-price-wrap">
+                <div class="wizard-plan-price-amount" id="priceValEnterprise">۹۹,۰۰۰,۰۰۰</div>
+                <div class="wizard-plan-price-unit">تومان <span id="priceCycleEnterprise">سالانه</span></div>
+              </div>
+              <div class="wizard-plan-calc-note" id="priceSubEnterprise">معادل ۹,۶۵۲,۵۰۰ تومان در ماه</div>
+              <p class="wizard-plan-desc">نامحدود پزشک و منشی، تریاژ بالینی، هوش مصنوعی خلاصه پرونده، سرور ابری ایزوله و پشتیبانی VIP ۲۴ ساعته.</p>
             </label>
           </div>
 
+          <!-- CRM Capabilities Selection Box -->
+          <div class="wizard-crm-box">
+            <div class="wizard-crm-title-row">
+              <div class="wizard-crm-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div>
+                <h4 class="wizard-crm-title">قابلیت‌های بالینی و ماژول‌های CRM فعال در این پلن</h4>
+                <p class="wizard-crm-sub">با انتخاب پلن، ماژول‌های متناسب به‌طور خودکار گزینش می‌شوند؛ همچنین می‌توانید موارد دلخواه خود را تیک بزنید:</p>
+              </div>
+            </div>
+
+            <div class="wizard-crm-grid" id="wizardCrmGrid">
+              <!-- Module 1: Appointments -->
+              <label class="wizard-crm-item active" data-tiers="starter,pro,enterprise">
+                <input type="checkbox" name="challenges" value="نوبت‌دهی ضد تداخل و تقویم هوشمند نوبت‌ها" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>نوبت‌دهی آنلاین و تریاژ ضدتداخل</strong>
+                    <span class="wizard-tier-badge tier-starter">پلن پایه و بالاتر</span>
+                  </div>
+                  <span>رزرو ضدتداخل نوبت، یادآور پیامکی منشی و مدیریت لغو نوبت (No-Show)</span>
+                </div>
+              </label>
+
+              <!-- Module 2: Queue Routing -->
+              <label class="wizard-crm-item active" data-tiers="starter,pro,enterprise">
+                <input type="checkbox" name="challenges" value="مدیریت صف مراجعان و ارسال لوکیشن نشان و بلد" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>مدیریت صف و مسیریابی هوشمند مراجعان</strong>
+                    <span class="wizard-tier-badge tier-starter">پلن پایه و بالاتر</span>
+                  </div>
+                  <span>ارجاع لحظه‌ای از پذیرش به اتاق معاینه و ارسال لوکیشن مطب روی نشان و بلد</span>
+                </div>
+              </label>
+
+              <!-- Module 3: EMR Core -->
+              <label class="wizard-crm-item active" data-tiers="starter,pro,enterprise">
+                <input type="checkbox" name="challenges" value="پرونده الکترونیک سلامت EMR نامحدود" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>پرونده الکترونیک سلامت (EMR)</strong>
+                    <span class="wizard-tier-badge tier-starter">پلن پایه و بالاتر</span>
+                  </div>
+                  <span>ثبت نامحدود شرح‌حال، سوابق درمان، داروها و نسخه الکترونیک تامین اجتماعی</span>
+                </div>
+              </label>
+
+              <!-- Module 4: POS Sync -->
+              <label class="wizard-crm-item active" data-tiers="starter,pro,enterprise">
+                <input type="checkbox" name="challenges" value="اتصال مستقیم دستگاه پوز بانکی به پرونده" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>اتصال مستقیم دستگاه کارتخوان (POS)</strong>
+                    <span class="wizard-tier-badge tier-starter">پلن پایه و بالاتر</span>
+                  </div>
+                  <span>ارسال خودکار مبلغ ویزیت به پوز و صفر شدن خطای دستی تایپ منشی</span>
+                </div>
+              </label>
+
+              <!-- Module 5: Optical Stylus -->
+              <label class="wizard-crm-item active" data-tiers="pro,enterprise">
+                <input type="checkbox" name="challenges" value="قلم نوری دیجیتال و ثبت سریع شرح‌حال" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>قلم نوری دیجیتال و شرح‌حال بدون کیبورد</strong>
+                    <span class="wizard-tier-badge tier-pro">پلن حرفه‌ای و سازمانی</span>
+                  </div>
+                  <span>نگارش یادداشت‌های بالینی با قلم نوری روی تبلت و تسریع ثبت ویزیت تا ۳ دقیقه</span>
+                </div>
+              </label>
+
+              <!-- Module 6: Tablet Consent -->
+              <label class="wizard-crm-item active" data-tiers="pro,enterprise">
+                <input type="checkbox" name="challenges" value="رضایت‌نامه دیجیتال تبلتی بدون کاغذ" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>رضایت‌نامه تبلتی و بایگانی بدون کاغذ</strong>
+                    <span class="wizard-tier-badge tier-pro">پلن حرفه‌ای و سازمانی</span>
+                  </div>
+                  <span>اخذ امضای الکترونیک بیمار روی تبلت قبل از اقدامات بالینی و آرشیو ایمن ابری</span>
+                </div>
+              </label>
+
+              <!-- Module 7: Physio & Ortho -->
+              <label class="wizard-crm-item active" data-tiers="pro,enterprise">
+                <input type="checkbox" name="challenges" value="ماژول تخصصی فیزیوتراپی و ارتوپدی و نقشه اندام" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>ماژول تخصصی فیزیوتراپی و ارتوپدی</strong>
+                    <span class="wizard-tier-badge tier-pro">پلن حرفه‌ای و سازمانی</span>
+                  </div>
+                  <span>نقشه بصری اندام بدن، کنترل دوره جلسات درمانی و ثبت تست‌های EMG/NCV</span>
+                </div>
+              </label>
+
+              <!-- Module 8: Smart SMS CRM -->
+              <label class="wizard-crm-item active" data-tiers="pro,enterprise">
+                <input type="checkbox" name="challenges" value="اتوماسیون پیامکی CRM و باشگاه وفاداری بیماران" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>اتوماسیون پیامکی CRM و باشگاه بیماران</strong>
+                    <span class="wizard-tier-badge tier-pro">پلن حرفه‌ای و سازمانی</span>
+                  </div>
+                  <span>خطوط خدماتی ۱۰۰٪ تحویل، پیامک یادآور، تبریک تولد و بازگردانی مراجعان قبلی</span>
+                </div>
+              </label>
+
+              <!-- Module 9: Care Instructions SMS -->
+              <label class="wizard-crm-item active" data-tiers="pro,enterprise">
+                <input type="checkbox" name="challenges" value="ارسال پیامک مراقبت‌های بعد از عمل و دستورات دارویی" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>پیامک مراقبت‌های بعد از عمل و دستورات دارویی</strong>
+                    <span class="wizard-tier-badge tier-pro">پلن حرفه‌ای و سازمانی</span>
+                  </div>
+                  <span>ارسال خودکار توصیه‌های مراقبتی، رژیم غذایی و هشدارهای دوره نقاهت به موبایل بیمار</span>
+                </div>
+              </label>
+
+              <!-- Module 10: Split Accounting -->
+              <label class="wizard-crm-item active" data-tiers="pro,enterprise">
+                <input type="checkbox" name="challenges" value="حسابداری تسهیم سهم پزشک و مطب و تسویه فوری صندوق" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>حسابداری تسهیم و تفکیک درصد پزشک و کلینیک</strong>
+                    <span class="wizard-tier-badge tier-pro">پلن حرفه‌ای و سازمانی</span>
+                  </div>
+                  <span>محاسبه خودکار سهم پزشک، مواد مصرفی و تسویه فوری صندوق بدون مغایرت</span>
+                </div>
+              </label>
+
+              <!-- Module 11: Nightly Report -->
+              <label class="wizard-crm-item active" data-tiers="pro,enterprise">
+                <input type="checkbox" name="challenges" value="گزارش پیامکی شبانه عملکرد و مالی کلینیک به مدیر" checked>
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>گزارش‌گیری شبانه مالی و عملکرد کلینیک به مدیر</strong>
+                    <span class="wizard-tier-badge tier-pro">پلن حرفه‌ای و سازمانی</span>
+                  </div>
+                  <span>ارسال پیامک خلاصه درآمد روز، تعداد ویزیت‌ها و وضعیت صندوق هر شب راس ساعت ۲۲</span>
+                </div>
+              </label>
+
+              <!-- Module 12: Clinical Triage -->
+              <label class="wizard-crm-item" data-tiers="enterprise">
+                <input type="checkbox" name="challenges" value="تریاژ بالینی پیشرفته و هوش مصنوعی خلاصه پرونده">
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>تریاژ بالینی پیشرفته و هوش مصنوعی پرونده</strong>
+                    <span class="wizard-tier-badge tier-enterprise">پلن سازمانی</span>
+                  </div>
+                  <span>تفکیک اورژانسی مراجعان و هوش مصنوعی خلاصه‌ساز سیر درمان و سوابق دارویی</span>
+                </div>
+              </label>
+
+              <!-- Module 13: Dedicated Cloud & 24/7 -->
+              <label class="wizard-crm-item" data-tiers="enterprise">
+                <input type="checkbox" name="challenges" value="سرور ابری ایزوله اختصاصی و پشتیبانی VIP ۲۴ ساعته">
+                <div class="wizard-crm-item-info">
+                  <div class="wizard-crm-item-top">
+                    <strong>سرور ابری اختصاصی و پشتیبانی VIP ۲۴/۷</strong>
+                    <span class="wizard-tier-badge tier-enterprise">پلن سازمانی</span>
+                  </div>
+                  <span>دیتابیس ایزوله، اتصال به HIS و PACS تصویربرداری و استقرار تیم پشتیبان فنی</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
           <div class="wizard-nav-actions">
-            <button type="button" class="wizard-btn-back" onclick="nextWizardStep(2)">← مرحله قبل</button>
+            <button type="button" class="wizard-btn-back" onclick="nextWizardStep(2)">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:14px;height:14px;"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>مرحله قبل</span>
+            </button>
             <button type="button" class="wizard-btn-submit" onclick="nextWizardStep(4)">
-              <span>تکمیل اطلاعات پزشک</span>
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>تکمیل مشخصات پزشک</span>
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
           </div>
         </div>
@@ -529,10 +758,13 @@
           </div>
 
           <div class="wizard-nav-actions">
-            <button type="button" class="wizard-btn-back" onclick="nextWizardStep(3)">مرحله قبل</button>
+            <button type="button" class="wizard-btn-back" onclick="nextWizardStep(3)">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:14px;height:14px;"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>مرحله قبل</span>
+            </button>
             <button type="button" class="wizard-btn-submit" onclick="submitWizard()">
               <span>ثبت و دریافت مشاوره تخصصی رایگان</span>
-              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
           </div>
         </div>
@@ -571,9 +803,132 @@
   </section>
 
   <script>
-    // Extract plan from query parameters
+    // State management for Wizard
     const urlParams = new URLSearchParams(window.location.search);
-    const chosenPlan = urlParams.get('plan') || '';
+    const initialUrlPlan = (urlParams.get('plan') || '').toLowerCase();
+
+    let activePlan = ['starter', 'pro', 'enterprise'].includes(initialUrlPlan) ? initialUrlPlan : 'pro';
+    let activeBillingCycle = 'annual';
+
+    const planDisplayNames = {
+      starter: 'طرح پایه مطب (Starter)',
+      pro: 'طرح جامع و حرفه‌ای (Pro)',
+      enterprise: 'سازمانی و مراکز درمانی (Enterprise)'
+    };
+
+    const planPrices = {
+      annual: {
+        starter: { amount: '۳۹,۰۰۰,۰۰۰', cycle: 'سالانه', subnote: 'معادل ۳,۸۰۲,۵۰۰ تومان در ماه (۱۷٪ تخفیف)' },
+        pro: { amount: '۶۹,۰۰۰,۰۰۰', cycle: 'سالانه', subnote: 'معادل ۶,۷۲۷,۵۰۰ تومان در ماه (۱۷٪ تخفیف)' },
+        enterprise: { amount: '۹۹,۰۰۰,۰۰۰', cycle: 'سالانه', subnote: 'معادل ۹,۶۵۲,۵۰۰ تومان در ماه (۱۷٪ تخفیف)' }
+      },
+      monthly: {
+        starter: { amount: '۳,۸۰۲,۵۰۰', cycle: 'ماهانه', subnote: 'پرداخت ماهانه بدون قرارداد سالانه' },
+        pro: { amount: '۶,۷۲۷,۵۰۰', cycle: 'ماهانه', subnote: 'پرداخت ماهانه بدون قرارداد سالانه' },
+        enterprise: { amount: '۹,۶۵۲,۵۰۰', cycle: 'ماهانه', subnote: 'پرداخت ماهانه بدون قرارداد سالانه' }
+      }
+    };
+
+    function switchBillingCycle(cycle) {
+      activeBillingCycle = cycle;
+      const annualBtn = document.getElementById('wizardBillingAnnualBtn');
+      const monthlyBtn = document.getElementById('wizardBillingMonthlyBtn');
+      if (!annualBtn || !monthlyBtn) return;
+
+      if (cycle === 'annual') {
+        annualBtn.classList.add('active');
+        monthlyBtn.classList.remove('active');
+      } else {
+        annualBtn.classList.remove('active');
+        monthlyBtn.classList.add('active');
+      }
+
+      ['starter', 'pro', 'enterprise'].forEach(pk => {
+        const pData = planPrices[cycle][pk];
+        const cap = pk.charAt(0).toUpperCase() + pk.slice(1);
+        const elAmt = document.getElementById('priceVal' + cap);
+        const elCyc = document.getElementById('priceCycle' + cap);
+        const elSub = document.getElementById('priceSub' + cap);
+        if (elAmt) elAmt.textContent = pData.amount;
+        if (elCyc) elCyc.textContent = pData.cycle;
+        if (elSub) elSub.textContent = pData.subnote;
+      });
+    }
+
+    function selectPlan(planKey, isFromUrl = false) {
+      activePlan = planKey;
+
+      // Update Radio Inputs and Card selected class
+      ['starter', 'pro', 'enterprise'].forEach(pk => {
+        const cap = pk.charAt(0).toUpperCase() + pk.slice(1);
+        const card = document.getElementById('planCard' + cap);
+        const radio = document.querySelector('input[name="selectedPlanRadio"][value="' + pk + '"]');
+        if (card) {
+          if (pk === planKey) {
+            card.classList.add('selected');
+            if (radio) radio.checked = true;
+          } else {
+            card.classList.remove('selected');
+            if (radio) radio.checked = false;
+          }
+        }
+      });
+
+      // Update CRM capabilities checklist based on chosen plan
+      const items = document.querySelectorAll('#wizardCrmGrid .wizard-crm-item');
+      items.forEach(item => {
+        const tiers = (item.getAttribute('data-tiers') || '').split(',');
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        if (!checkbox) return;
+
+        let shouldCheck = false;
+        if (planKey === 'enterprise') {
+          shouldCheck = true;
+        } else if (planKey === 'pro') {
+          shouldCheck = tiers.includes('starter') || tiers.includes('pro');
+        } else if (planKey === 'starter') {
+          shouldCheck = tiers.includes('starter');
+        }
+
+        checkbox.checked = shouldCheck;
+        if (shouldCheck) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    // Toggle active class on individual CRM item change
+    document.addEventListener('DOMContentLoaded', () => {
+      const crmItems = document.querySelectorAll('#wizardCrmGrid .wizard-crm-item');
+      crmItems.forEach(item => {
+        const cb = item.querySelector('input[type="checkbox"]');
+        if (cb) {
+          cb.addEventListener('change', () => {
+            if (cb.checked) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+        }
+      });
+
+      // Check URL plan param (Flow A vs Flow B)
+      if (initialUrlPlan && planDisplayNames[initialUrlPlan]) {
+        const banner = document.getElementById('wizardPreselectedBanner');
+        const planNameEl = document.getElementById('preselectedPlanName');
+        if (banner && planNameEl) {
+          planNameEl.textContent = planDisplayNames[initialUrlPlan];
+          banner.style.display = 'flex';
+        }
+        selectPlan(initialUrlPlan, true);
+      } else {
+        // Default to Pro plan (Flow B)
+        selectPlan('pro', false);
+      }
+    });
 
     function nextWizardStep(stepNum) {
       for (let i = 1; i <= 4; i++) {
@@ -589,6 +944,8 @@
       const pctFaMap = { 1: '۲۵٪', 2: '۵۰٪', 3: '۷۵٪', 4: '۱۰۰٪' };
       if (pBar) pBar.style.width = pctMap[stepNum] || '25%';
       if (pPercent) pPercent.innerText = pctFaMap[stepNum] || '۲۵٪';
+
+      window.scrollTo({ top: 120, behavior: 'smooth' });
     }
 
     async function submitWizard() {
@@ -611,6 +968,8 @@
 
       const clinicAddress = (document.getElementById('docAddress') ? document.getElementById('docAddress').value : '').trim();
 
+      const finalChosenPlan = `${planDisplayNames[activePlan] || activePlan} (${activeBillingCycle === 'annual' ? 'پرداخت سالانه' : 'پرداخت ماهانه'})`;
+
       const payload = {
         doctorName: name,
         mobile: phone,
@@ -618,7 +977,7 @@
         patientsVolume: patientsVolume,
         challenges: challenges,
         clinicAddress: clinicAddress,
-        chosenPlan: chosenPlan
+        chosenPlan: finalChosenPlan
       };
 
       try {
@@ -643,6 +1002,7 @@
       const pBar = document.getElementById('wizardProgressBar');
       if (pBar) pBar.style.width = '100%';
       document.getElementById('wizardStepSuccess').style.display = 'block';
+      window.scrollTo({ top: 120, behavior: 'smooth' });
     }
   </script>
 

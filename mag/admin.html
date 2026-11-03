@@ -7725,7 +7725,7 @@ function render_pezeshkan_newsletters_feed($atts) {
             </td>
             <td><span class="status-pill">${pillarName}</span></td>
             <td>${(art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه')
-              ? `<span style="display:inline-flex; align-items:center; gap:6px; color:#10B981; font-weight:700; font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>${((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || art.author?.name || 'نویسنده خبرنامه')}<span style="font-size:9.5px; background:rgba(16,185,129,0.12); color:#10B981; padding:1px 5px; border-radius:3px; margin-right:4px;">خبرنامه</span></span>`
+              ? `<span style="display:inline-flex; align-items:center; gap:6px; color:#10B981; font-weight:700; font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>${((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || (typeof art.author === 'object' ? art.author?.name : art.author) || 'نویسنده خبرنامه')}<span style="font-size:9.5px; background:rgba(16,185,129,0.12); color:#10B981; padding:1px 5px; border-radius:3px; margin-right:4px;">خبرنامه</span></span>`
               : `<span style="display:inline-flex; align-items:center; gap:6px; color:var(--text-secondary); font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#3B82F6;"></span>تیم پزشکان</span>`
             }</td>
             <td><span class="seo-score-badge">۹۴٪ عالی</span></td>
@@ -7792,7 +7792,7 @@ function render_pezeshkan_newsletters_feed($atts) {
             </td>
             <td><span class="status-pill">${pillarName}</span></td>
             <td>${(art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه')
-              ? `<span style="display:inline-flex; align-items:center; gap:6px; color:#10B981; font-weight:700; font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>${((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || art.author?.name || 'نویسنده خبرنامه')}<span style="font-size:9.5px; background:rgba(16,185,129,0.12); color:#10B981; padding:1px 5px; border-radius:3px; margin-right:4px;">خبرنامه</span></span>`
+              ? `<span style="display:inline-flex; align-items:center; gap:6px; color:#10B981; font-weight:700; font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>${((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || (typeof art.author === 'object' ? art.author?.name : art.author) || 'نویسنده خبرنامه')}<span style="font-size:9.5px; background:rgba(16,185,129,0.12); color:#10B981; padding:1px 5px; border-radius:3px; margin-right:4px;">خبرنامه</span></span>`
               : `<span style="display:inline-flex; align-items:center; gap:6px; color:var(--text-secondary); font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#3B82F6;"></span>تیم پزشکان</span>`
             }</td>
             <td>${renderPostRankMathCell(art)}</td>
