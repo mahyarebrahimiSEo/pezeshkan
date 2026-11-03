@@ -3991,19 +3991,40 @@
                   <select id="editPillar" class="form-control" onchange="onEditorPillarChange()"></select>
                 </div>
 
-                <div id="editorDoctorWrapper">
-                  <label id="editorDoctorLabel" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                    <span>نویسنده و پزشک مطلب:</span>
-                    <span id="editorDoctorBadge" style="display:none; font-size:10px; color:#10B981; font-weight:800; background:rgba(16,185,129,0.12); padding:2px 7px; border-radius:4px; border:1px solid rgba(16,185,129,0.25);">ویژه خبرنامه</span>
-                  </label>
-                  <select id="editDoctor" class="form-control" onchange="onEditorDoctorChange()"></select>
-                  <div id="doctorPreviewCard" style="display: none; margin-top: 8px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 10px; align-items: center; gap: 10px;">
-                    <img id="doctorPreviewAvatar" src="/mag/uploads/doctors/dr-radmanesh.webp" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(16, 185, 129, 0.4);" onerror="this.src='/mag/uploads/doctors/dr-radmanesh.webp'">
-                    <div>
-                      <div id="doctorPreviewName" style="font-size: 12px; font-weight: 700; color: var(--text-primary);">دکتر مهران رادمنش</div>
-                      <div id="doctorPreviewTitle" style="font-size: 10.5px; color: var(--text-muted);">متخصص جراحی مغز، اعصاب و ستون فقرات</div>
+                <div id="editorDoctorWrapper" style="margin-top: 14px;">
+                  <!-- حالت مقالات عمومی: نویسنده روی تیم پزشکان قفل است -->
+                  <div id="generalAuthorCard" style="background: rgba(0, 115, 255, 0.05); border: 1px solid rgba(0, 115, 255, 0.2); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #0073FF, #00C48C); display: flex; align-items: center; justify-content: center; color: #ffffff; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0, 115, 255, 0.25);">
+                      <svg class="icon-svg" style="width: 18px; height: 18px;" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
+                        <span style="font-size: 12.5px; font-weight: 800; color: var(--text-primary);">تیم پزشکان</span>
+                        <span style="font-size: 10px; color: #3B82F6; font-weight: 700; background: rgba(59, 130, 246, 0.12); padding: 1px 6px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.25);">نویسنده مقالات سایت</span>
+                      </div>
+                      <div style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">شورای علمی و تحریریه بالینی مجله سلامت پزشکآن</div>
                     </div>
                   </div>
+
+                  <!-- حالت ویژه خبرنامه: انتخاب اختصاصی پزشک نویسنده خبرنامه -->
+                  <div id="newsletterAuthorSection" style="display: none;">
+                    <label id="editorDoctorLabel" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                      <span style="display:flex; align-items:center; gap:6px;">
+                        <svg class="icon-svg" style="width:14px; height:14px; color:#10B981;" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 6l-6 4l-2-2"/><path d="M18 4h4v4"/></svg>
+                        <span>نویسنده مخصوص خبرنامه:</span>
+                      </span>
+                      <span id="editorDoctorBadge" style="font-size:10px; color:#10B981; font-weight:800; background:rgba(16,185,129,0.12); padding:2px 7px; border-radius:4px; border:1px solid rgba(16,185,129,0.25);">پزشکان خبرنامه</span>
+                    </label>
+                    <select id="editDoctor" class="form-control" onchange="onEditorDoctorChange()"></select>
+                    <div id="doctorPreviewCard" style="display: none; margin-top: 8px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 8px 10px; align-items: center; gap: 10px;">
+                      <img id="doctorPreviewAvatar" src="/mag/uploads/doctors/dr-radmanesh.webp" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(16, 185, 129, 0.4);" onerror="this.src='/mag/uploads/doctors/dr-radmanesh.webp'">
+                      <div>
+                        <div id="doctorPreviewName" style="font-size: 12px; font-weight: 700; color: var(--text-primary);">دکتر کامران بهرامی</div>
+                        <div id="doctorPreviewTitle" style="font-size: 10.5px; color: var(--text-muted);">متخصص جراحی مغز و ستون فقرات</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 </div>
 
                 <div>
@@ -6942,39 +6963,30 @@
     function onEditorPillarChange() {
       const pillarId = document.getElementById('editPillar')?.value;
       const isNewsletter = String(pillarId) === '9';
-      const badge = document.getElementById('editorDoctorBadge');
+      const generalCard = document.getElementById('generalAuthorCard');
+      const newsletterSec = document.getElementById('newsletterAuthorSection');
       const docSel = document.getElementById('editDoctor');
-      const label = document.getElementById('editorDoctorLabel');
 
-      if (badge) badge.style.display = isNewsletter ? 'inline-block' : 'none';
-      if (label) {
-        const textSpan = label.querySelector('span');
-        if (textSpan) textSpan.textContent = isNewsletter ? 'پزشک نویسنده خبرنامه (پزشکان خبرنامه):' : 'نویسنده و پزشک مطلب:';
-      }
-
-      if (docSel) {
-        const currentVal = docSel.value;
-        if (isNewsletter) {
+      if (isNewsletter) {
+        if (generalCard) generalCard.style.display = 'none';
+        if (newsletterSec) newsletterSec.style.display = 'block';
+        if (docSel) {
+          const currentVal = docSel.value;
           // Exclusively populate from NEWSLETTER_DOCTORS
           docSel.innerHTML = (typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS : []).map(d =>
-            `<option value="${d.id}">${d.name} — ${d.title} (نظام: ${d.mcNumber || d.mc || 'معتبر'})</option>`
+            `<option value="${d.id}">${d.name} — ${d.title} (نظام: ${d.mcNumber || d.mc || 'معتبر'})`
           ).join('');
           if (NEWSLETTER_DOCTORS.some(d => d.id === currentVal)) {
             docSel.value = currentVal;
           } else if (NEWSLETTER_DOCTORS.length > 0) {
             docSel.value = NEWSLETTER_DOCTORS[0].id;
           }
-        } else {
-          // General article author
-          docSel.innerHTML = `<option value="content-team" selected>تیم محتوای پزشکآن (نویسنده عمومی مقالات)</option>` +
-            (typeof DOCTORS !== 'undefined' ? DOCTORS : []).map(d =>
-              `<option value="${d.id}">${d.name} — ${d.title} (نظام: ${d.mcNumber || d.mc || 'معتبر'})</option>`
-            ).join('');
-          if (currentVal && (currentVal === 'content-team' || DOCTORS.some(d => d.id === currentVal))) {
-            docSel.value = currentVal;
-          } else {
-            docSel.value = 'content-team';
-          }
+        }
+      } else {
+        if (generalCard) generalCard.style.display = 'flex';
+        if (newsletterSec) newsletterSec.style.display = 'none';
+        if (docSel) {
+          docSel.value = 'content-team';
         }
       }
 
@@ -6985,27 +6997,27 @@
     function onEditorDoctorChange() {
       const pillarId = document.getElementById('editPillar')?.value;
       const isNewsletter = String(pillarId) === '9';
-      const docId = document.getElementById('editDoctor')?.value || 'content-team';
       const previewCard = document.getElementById('doctorPreviewCard');
       const previewAvatar = document.getElementById('doctorPreviewAvatar');
       const previewName = document.getElementById('doctorPreviewName');
       const previewTitle = document.getElementById('doctorPreviewTitle');
 
-      let found = null;
-      if (isNewsletter && typeof NEWSLETTER_DOCTORS !== 'undefined') {
-        found = NEWSLETTER_DOCTORS.find(d => d.id === docId);
-      } else if (typeof DOCTORS !== 'undefined') {
-        found = DOCTORS.find(d => d.id === docId);
+      if (!isNewsletter) {
+        if (previewCard) previewCard.style.display = 'none';
+        return;
       }
+
+      const docId = document.getElementById('editDoctor')?.value;
+      const found = (typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS : []).find(d => d.id === docId);
 
       if (found && previewCard) {
         previewCard.style.display = 'flex';
         if (previewAvatar) previewAvatar.src = found.avatar || '/mag/uploads/doctors/dr-radmanesh.webp';
         if (previewName) previewName.textContent = found.name;
         if (previewTitle) previewTitle.textContent = `${found.title} (نظام پزشکی: ${found.mcNumber || found.mc || 'معتبر'})`;
-        return;
+      } else if (previewCard) {
+        previewCard.style.display = 'none';
       }
-      if (previewCard) previewCard.style.display = 'none';
     }
 
     // ==========================================
@@ -7249,7 +7261,10 @@
               <span style="font-size: 11px; color: var(--text-muted);">${art.slug || ''}</span>
             </td>
             <td><span class="status-pill">${pillarName}</span></td>
-            <td><span style="display:inline-flex; align-items:center; gap:6px; color:var(--text-secondary); font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:${art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه' ? '#10B981' : '#3B82F6'};"></span>${(art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه') ? ((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || art.author?.name || 'پزشک خبرنامه') : ((art.author && art.author.name && art.author.name !== 'تیم محتوای پزشکآن') ? art.author.name : (doctor ? doctor.name : 'تیم محتوا'))}</span></td>
+            <td>${(art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه')
+              ? `<span style="display:inline-flex; align-items:center; gap:6px; color:#10B981; font-weight:700; font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>${((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || art.author?.name || 'نویسنده خبرنامه')}<span style="font-size:9.5px; background:rgba(16,185,129,0.12); color:#10B981; padding:1px 5px; border-radius:3px; margin-right:4px;">خبرنامه</span></span>`
+              : `<span style="display:inline-flex; align-items:center; gap:6px; color:var(--text-secondary); font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#3B82F6;"></span>تیم پزشکان</span>`
+            }</td>
             <td><span class="seo-score-badge">۹۴٪ عالی</span></td>
             <td>
               <button type="button" class="table-btn-action" onclick="loadArticleForEditing('${art.id}')">ویرایش</button>
@@ -7313,7 +7328,10 @@
               <span style="font-size: 11px; color: var(--text-muted); direction: ltr; display: inline-block;">/${art.slug || ''}</span>
             </td>
             <td><span class="status-pill">${pillarName}</span></td>
-            <td><span style="display:inline-flex; align-items:center; gap:6px; color:var(--text-secondary); font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:${art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه' ? '#10B981' : '#3B82F6'};"></span>${(art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه') ? ((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || art.author?.name || 'پزشک خبرنامه') : ((art.author && art.author.name && art.author.name !== 'تیم محتوای پزشکآن') ? art.author.name : (doctor ? doctor.name : 'تیم محتوا'))}</span></td>
+            <td>${(art.pillarId === 9 || art.pillarId === '9' || art.categoryName === 'خبرنامه')
+              ? `<span style="display:inline-flex; align-items:center; gap:6px; color:#10B981; font-weight:700; font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>${((typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS.find(d => d.id === art.doctorId)?.name : null) || art.author?.name || 'نویسنده خبرنامه')}<span style="font-size:9.5px; background:rgba(16,185,129,0.12); color:#10B981; padding:1px 5px; border-radius:3px; margin-right:4px;">خبرنامه</span></span>`
+              : `<span style="display:inline-flex; align-items:center; gap:6px; color:var(--text-secondary); font-size:12px;"><span style="width:6px; height:6px; border-radius:50%; background:#3B82F6;"></span>تیم پزشکان</span>`
+            }</td>
             <td>${renderPostRankMathCell(art)}</td>
             <td><span class="tbtn-pill ${statusClass}" style="font-size: 11px; height: 24px; padding: 0 8px;">${statusLabel}</span></td>
             <td>
@@ -9699,7 +9717,16 @@ function onEditorContentChanged() {
         const found = PILLARS.find(p => p.slug === art.pillarSlug);
         if (found) document.getElementById('editPillar').value = String(found.id);
       }
-      if (art.doctorId) document.getElementById('editDoctor').value = art.doctorId;
+      if (String(art.pillarId) === '9' && art.doctorId) {
+        const docSel = document.getElementById('editDoctor');
+        if (docSel) {
+          docSel.value = art.doctorId;
+          onEditorDoctorChange();
+        }
+      } else {
+        const docSel = document.getElementById('editDoctor');
+        if (docSel) docSel.value = 'content-team';
+      }
       if (typeof onEditorPillarChange === 'function') onEditorPillarChange();
       document.getElementById('editTag').value = art.tag || '';
       const pedCheckEl = document.getElementById('editShowInPediatrics');
@@ -9906,29 +9933,30 @@ function onEditorContentChanged() {
         categoryIcon: selectedPillar.icon || 'stethoscope',
         doctorId: doctorId,
         author: (String(pillarId) === '9' || (selectedPillar && selectedPillar.name === 'خبرنامه')) ? (function() {
-          const nDoc = (typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS : []).find(d => d.id === doctorId) || (typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS[0] : null);
+          const pickedDocId = document.getElementById('editDoctor')?.value;
+          const nDoc = (typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS : []).find(d => d.id === pickedDocId) || (typeof NEWSLETTER_DOCTORS !== 'undefined' ? NEWSLETTER_DOCTORS[0] : null);
           return nDoc ? {
             name: nDoc.name,
             title: nDoc.title,
             mc: nDoc.mcNumber || nDoc.mc || 'معتبر',
             mcNumber: nDoc.mcNumber || nDoc.mc || 'معتبر',
+            dept: nDoc.dept || 'خبرنامه تخصصی',
+            role: nDoc.role || 'دبیر علمی خبرنامه',
             avatar: nDoc.avatar || '/mag/uploads/doctors/dr-radmanesh.webp'
           } : {
             name: 'پزشک خبرنامه',
             title: 'عضو هیئت علمی خبرنامه',
             mc: 'معتبر',
+            mcNumber: 'معتبر',
             avatar: '/pezeshkon-logo.svg'
           };
-        })() : (selectedDoctor && doctorId !== 'content-team') ? {
-          name: selectedDoctor.name,
-          title: selectedDoctor.title,
-          mc: selectedDoctor.mcNumber || selectedDoctor.mc || 'پزشک متخصص',
-          mcNumber: selectedDoctor.mcNumber || selectedDoctor.mc || 'پزشک متخصص',
-          avatar: selectedDoctor.avatar || '/mag/uploads/doctors/dr-radmanesh.webp'
-        } : {
-          name: 'تیم محتوای پزشکآن',
+        })() : {
+          name: 'تیم پزشکان',
           title: 'تحریریه تخصصی و تولید محتوای بالینی',
           mc: 'پزشکآن',
+          mcNumber: 'پزشکآن',
+          dept: 'تحریریه بالینی',
+          role: 'شورای سردبیری مجله سلامت پزشکآن',
           avatar: '/pezeshkon-logo.svg'
         },
         readTime: document.getElementById('statReadTimeCalc').textContent,
