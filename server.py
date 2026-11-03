@@ -3774,6 +3774,10 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                 pillars = load_json_file(os.path.join(CONTENT_DIR, "pillars.json"), [])
                 return self.send_json(pillars)
 
+            if path in ("/api/newsletter-doctors", "/api/newsletter-doctors/"):
+                ndocs = load_json_file(os.path.join(CONTENT_DIR, "newsletter_doctors.json"), [])
+                return self.send_json(ndocs)
+
             if path == "/api/doctors":
                 doctors = load_json_file(os.path.join(CONTENT_DIR, "doctors.json"), [])
                 return self.send_json(doctors)
