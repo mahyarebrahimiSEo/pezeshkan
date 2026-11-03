@@ -808,6 +808,8 @@ def api_articles(request, slug=None):
             "is_noindex": bool(data.get("isNoindex", False)),
             "robots": data.get("robots", "noindex, follow" if data.get("isNoindex") else "index, follow"),
             "seo_score": int(data.get("seoScore") or 0),
+            "show_in_pediatrics": bool(data.get("showInPediatrics") or data.get("show_in_pediatrics", False)),
+            "show_in_pharma": bool(data.get("showInPharma") or data.get("show_in_pharma", False)),
         }
 
         if article:

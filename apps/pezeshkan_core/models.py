@@ -198,6 +198,10 @@ class Article(models.Model):
             "isNoindex": self.is_noindex,
             "robots": self.robots or ("noindex, follow" if self.is_noindex else "index, follow"),
             "seoScore": self.seo_score,
+            "showInPediatrics": self.show_in_pediatrics,
+            "show_in_pediatrics": self.show_in_pediatrics,
+            "showInPharma": self.show_in_pharma,
+            "show_in_pharma": self.show_in_pharma,
             "lastModified": self.last_modified.isoformat() if self.last_modified else None,
         }
 
