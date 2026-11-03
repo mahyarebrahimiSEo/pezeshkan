@@ -11278,12 +11278,16 @@ main .product-module-grid li:hover > svg {
 .service-card-desc {
   font-size: 14.5px;
   line-height: 1.75;
-  color: #334155 !important;
+  color: rgba(241, 245, 249, 0.92) !important;
   max-width: 680px;
   margin-bottom: 18px;
 }
 [data-theme="dark"] .service-card-desc {
-  color: rgba(226, 232, 240, 0.85) !important;
+  color: rgba(241, 245, 249, 0.95) !important;
+}
+
+.service-scroll-fill-card .service-card-desc {
+  color: rgba(241, 245, 249, 0.92) !important;
 }
 
 .service-tags-row {
@@ -11298,9 +11302,9 @@ main .product-module-grid li:hover > svg {
   gap: 6px;
   font-size: 12px;
   font-weight: 600;
-  color: #94A3B8;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #E2E8F0;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   padding: 3px 10px;
   border-radius: 8px;
 }

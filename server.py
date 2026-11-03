@@ -2607,6 +2607,54 @@ def render_article_ssr(art, template_html):
     image_alt = art.get("imageAlt") or title
     category = art.get("categoryName") or art.get("tag") or "سلامت عمومی"
     category_slug = art.get("pillarId") or "0"
+    is_newsletter = (str(category_slug) == '9' or category == 'خبرنامه' or art.get('pillarId') == 9 or str(art.get('pillarId')) == '9')
+    
+    # Resolve Author Information accurately
+    author_raw = art.get("author")
+    doc_id = art.get("doctorId")
+    matched_doc = None
+    
+    try:
+        from pathlib import Path
+        import json
+        ndocs_file = Path("mag/content/newsletter_doctors.json")
+        if ndocs_file.exists():
+            with open(ndocs_file, "r", encoding="utf-8") as ndf:
+                all_ndocs = json.load(ndf)
+                if isinstance(all_ndocs, list):
+                    for d in all_ndocs:
+                        if doc_id and d.get("id") == doc_id:
+                            matched_doc = d
+                            break
+                        if isinstance(author_raw, str) and d.get("name") == author_raw:
+                            matched_doc = d
+                            break
+    except Exception:
+        pass
+
+    if is_newsletter:
+        if matched_doc:
+            author_name = matched_doc.get("name") or "دکتر کامران بهرامی"
+            author_title = matched_doc.get("title") or "متخصص جراحی مغز، اعصاب و ستون فقرات (سردبیر علمی خبرنامه سلامت)"
+            if matched_doc.get("topic"):
+                author_title += f' — {matched_doc.get("topic")}'
+            author_avatar = matched_doc.get("avatar") or "/mag/uploads/doctors/dr-radmanesh.webp"
+        elif isinstance(author_raw, dict):
+            author_name = author_raw.get("name") or "دکتر کامران بهرامی"
+            author_title = author_raw.get("title") or "متخصص جراحی مغز، اعصاب و ستون فقرات (سردبیر علمی خبرنامه سلامت)"
+            author_avatar = author_raw.get("avatar") or "/mag/uploads/doctors/dr-radmanesh.webp"
+        elif isinstance(author_raw, str) and author_raw.strip() and author_raw.strip() != "تیم پزشکان":
+            author_name = author_raw.strip()
+            author_title = "متخصص و نویسنده هیئت علمی خبرنامه سلامت"
+            author_avatar = "/mag/uploads/doctors/dr-radmanesh.webp"
+        else:
+            author_name = "دکتر کامران بهرامی"
+            author_title = "متخصص جراحی مغز، اعصاب و ستون فقرات (سردبیر علمی خبرنامه سلامت)"
+            author_avatar = "/mag/uploads/doctors/dr-radmanesh.webp"
+    else:
+        author_name = "تیم پزشکان"
+        author_title = "شورای علمی، تدوین بالینی و راستی‌آزمایی شواهد پزشکی اکوسیستم سلامت پزشکآن"
+        author_avatar = "/pezeshkon-logo.svg"
     last_reviewed = art.get("lastReviewed") or art.get("publishDate") or "به‌روزرسانی شده"
     
     # 1. Update Title
@@ -2705,9 +2753,9 @@ def render_article_ssr(art, template_html):
             "inLanguage": "fa-IR",
             "mainEntityOfPage": canonical_url,
             "author": {
-                "@type": "Organization",
-                "name": "تیم متخصص محتوا نویس پزشکآن",
-                "url": "https://pezeshkan.me/about"
+                "@type": "Person" if is_newsletter else "Organization",
+                "name": author_name if is_newsletter else "تیم پزشکان",
+                **({"jobTitle": author_title} if is_newsletter else {"url": "https://pezeshkan.me/about"})
             },
             "publisher": {
                 "@type": "Organization",
@@ -2831,23 +2879,21 @@ def render_article_ssr(art, template_html):
         {citations_html}
 
         <!-- باکس کامل نویسنده و تاییدیه علمی زیر مقاله -->
-        <div class="article-author-verification-box" style="margin-top:32px; background:linear-gradient(135deg, rgba(0, 115, 255, 0.05) 0%, rgba(0, 229, 153, 0.04) 100%); border:1px solid rgba(0, 115, 255, 0.18); border-radius:16px; padding:22px;">
+        <div class="article-author-verification-box" style="margin-top:32px; background:linear-gradient(135deg, {'rgba(16, 185, 129, 0.06)' if is_newsletter else 'rgba(0, 115, 255, 0.05)'} 0%, rgba(0, 229, 153, 0.04) 100%); border:1px solid {'rgba(16, 185, 129, 0.25)' if is_newsletter else 'rgba(0, 115, 255, 0.18)'}; border-radius:16px; padding:22px;">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
             <div style="display:flex; align-items:center; gap:14px;">
               <div style="position:relative; flex-shrink:0;">
-                <div style="width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:24px; box-shadow:0 4px 14px rgba(0,115,255,0.25);">
-                  <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg>
-                </div>
-                <span style="position:absolute; bottom:-2px; left:-2px; background:#00E599; color:#0F172A; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
+                {f'<img src="{author_avatar}" alt="{html.escape(author_name)}" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid #10B981; box-shadow:0 4px 14px rgba(16,185,129,0.25);" onerror="this.src=\'/mag/uploads/doctors/dr-radmanesh.webp\'">' if is_newsletter else f'<div style="width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:24px; box-shadow:0 4px 14px rgba(0,115,255,0.25);"><svg xmlns=\'http://www.w3.org/2000/svg\' width=\'18\' height=\'18\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2.2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' style=\'vertical-align:middle;\'><path d=\'M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\'/><path d=\'M8 15a6 6 0 0 0 12 0v-3\'/><circle cx=\'20\' cy=\'10\' r=\'2\'/></svg></div>'}
+                <span style="position:absolute; bottom:-2px; left:-2px; background:{'#10B981' if is_newsletter else '#00E599'}; color:#0F172A; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
               </div>
               <div>
-                <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:2px;">درباره نویسنده مقاله</div>
-                <h2 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">درباره نویسنده: تیم متخصص محتوا نویس پزشکآن</h2>
-                <span style="font-size:12px; color:var(--text-secondary);">شورای علمی، تدوین بالینی و راستی‌آزمایی شواهد پزشکی اکوسیستم سلامت پزشکآن</span>
+                <div style="font-size:11px; font-weight:800; color:{'#10B981' if is_newsletter else 'var(--color-primary)'}; margin-bottom:2px;">{'پزشک و نویسنده خبرنامه' if is_newsletter else 'درباره نویسنده مقاله'}</div>
+                <h2 style="font-size:16px; font-weight:900; color:var(--text-heading); margin:0;">{f'نویسنده: {html.escape(author_name)}' if is_newsletter else 'درباره نویسنده: تیم پزشکان'}</h2>
+                <span style="font-size:12px; color:var(--text-secondary);">{html.escape(author_title)}</span>
               </div>
             </div>
             <span style="background:rgba(0, 229, 153, 0.12); color:#059669; border:1px solid rgba(0, 229, 153, 0.3); padding:4px 12px; border-radius:20px; font-size:12px; font-weight:800; display:inline-flex; align-items:center; gap:6px;">
-              <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'/><path d='m9 12 2 2 4-4'/></svg> دارای تأییدیه علمی تحریریه
+              <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'/><path d='m9 12 2 2 4-4'/></svg> {'پزشک متخصص و عضو هیئت علمی خبرنامه' if is_newsletter else 'دارای تأییدیه علمی تحریریه'}
             </span>
           </div>
 
@@ -2863,8 +2909,7 @@ def render_article_ssr(art, template_html):
             </div>
           </div>
         </div>
-
-        <div class="reader-cta-card" style="margin-top:24px;">
+                <div class="reader-cta-card" style="margin-top:24px;">
           <div>
             <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">نیاز به بررسی دقیق‌تر پرونده پزشکی خود دارید؟</h3>
             <p style="font-size:12.5px; color:var(--text-secondary);">می‌توانید مستقیماً آزمایش‌ها و گزارش‌های تصویربرداری خود را جهت ارزیابی به پزشکان متخصص پزشکآن ارسال فرمایید.</p>

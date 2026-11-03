@@ -13,7 +13,12 @@
     "categoryName": "خبرنامه",
     "categoryIcon": "newsletter",
     "doctorId": "ndoc-bahrami",
-    "author": "دکتر کامران بهرامی",
+    "author": {
+      "name": "دکتر کامران بهرامی",
+      "title": "متخصص جراحی مغز، اعصاب و ستون فقرات (سردبیر علمی خبرنامه سلامت)",
+      "mc": "۹۲۱۱۴",
+      "avatar": "/mag/uploads/doctors/dr-radmanesh.webp"
+    },
     "readTime": "۱ دقیقه",
     "lastReviewed": "امروز",
     "tag": "مقاله علمی",
@@ -50,7 +55,7 @@
     "show_in_pediatrics": false,
     "showInPharma": false,
     "show_in_pharma": false,
-    "lastModified": "2026-11-03T14:24:40.172908+00:00"
+    "lastModified": "2026-11-03T14:37:39.264361+00:00"
   },
   {
     "id": "art-gabapentin-uses-dosage-side-effects",
