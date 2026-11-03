@@ -6325,134 +6325,391 @@ body.intro-device-locked {
   color: var(--text-secondary);
 }
 
-/* CRM Capabilities Checklist */
-.wizard-crm-box {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(0, 102, 255, 0.18);
-  border-radius: 16px;
-  padding: 18px 16px;
-  margin-bottom: 24px;
-}
-[data-theme="dark"] .wizard-crm-box {
-  background: rgba(15, 23, 42, 0.55);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.wizard-crm-box-header {
+/* ==========================================================================
+   Wizard Step 3: Free 3-Month Trial Banner & Plan Cards Ergonomics
+   ========================================================================== */
+.wizard-trial-banner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(56, 189, 248, 0.12) 100%);
+  border: 1px solid rgba(0, 102, 255, 0.28);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 22px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.08);
 }
-[data-theme="dark"] .wizard-crm-box-header {
-  border-color: rgba(255, 255, 255, 0.08);
+[data-theme="dark"] .wizard-trial-banner {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(2, 132, 199, 0.06) 100%);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
-.wizard-crm-box-title {
-  font-size: 14px;
+.wizard-trial-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0066FF, #38BDF8);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 102, 255, 0.35);
+}
+
+.wizard-trial-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.wizard-trial-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wizard-trial-pill-badge {
+  background: rgba(16, 185, 129, 0.18);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  font-size: 11px;
   font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+[data-theme="dark"] .wizard-trial-pill-badge {
+  background: rgba(16, 185, 129, 0.25);
+  color: #34D399;
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.wizard-trial-title {
+  font-size: 15px;
+  font-weight: 900;
   color: var(--text-pure);
+}
+
+.wizard-trial-desc {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Badge for 3 months free trial inside each card */
+.wizard-plan-trial-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(5, 150, 105, 0.08));
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+[data-theme="dark"] .wizard-plan-trial-pill {
+  background: rgba(16, 185, 129, 0.22);
+  color: #34D399;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.wizard-plan-discount-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0066FF;
+  background: rgba(0, 102, 255, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+  width: fit-content;
+}
+[data-theme="dark"] .wizard-plan-discount-tag {
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.12);
+}
+
+/* CRM Capabilities Accordion (Compact, No Over-scroll) */
+.wizard-crm-accordion {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  border-radius: 18px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+[data-theme="dark"] .wizard-crm-accordion {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.wizard-crm-accordion-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  text-align: right;
+  font-family: inherit;
+  transition: background 0.2s ease;
+}
+.wizard-crm-accordion-toggle:hover {
+  background: rgba(0, 102, 255, 0.04);
+}
+[data-theme="dark"] .wizard-crm-accordion-toggle:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.wizard-crm-accordion-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.wizard-crm-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(0, 102, 255, 0.1);
+  color: #0066FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 102, 255, 0.2);
+}
+[data-theme="dark"] .wizard-crm-icon {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38BDF8;
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.wizard-crm-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wizard-crm-title {
+  font-size: 14.5px;
+  font-weight: 900;
+  color: var(--text-pure);
+  margin: 0;
+}
+
+.wizard-crm-count-badge {
+  background: #0066FF;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+[data-theme="dark"] .wizard-crm-count-badge {
+  background: #38BDF8;
+  color: #080D1A;
+}
+
+.wizard-crm-sub {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  margin: 3px 0 0 0;
+}
+
+.wizard-crm-chevron-wrap {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+}
+
+.wizard-crm-chevron-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.wizard-crm-chevron {
+  width: 18px;
+  height: 18px;
+  color: var(--text-secondary);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wizard-crm-accordion.is-open .wizard-crm-chevron {
+  transform: rotate(180deg);
+}
+
+.wizard-crm-accordion-body {
+  padding: 0 18px 18px;
+  border-top: 1px solid rgba(0, 102, 255, 0.1);
+  margin-top: 4px;
+  padding-top: 16px;
+}
+[data-theme="dark"] .wizard-crm-accordion-body {
+  border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 .wizard-crm-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
 }
 
+/* Read-Only Modern Glass CRM Item */
 .wizard-crm-item {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  transition: all 0.25s ease;
   user-select: none;
+  cursor: default;
 }
 [data-theme="dark"] .wizard-crm-item {
-  background: rgba(15, 23, 42, 0.45);
-  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
-.wizard-crm-item:hover {
-  border-color: rgba(0, 102, 255, 0.3);
-  background: rgba(0, 102, 255, 0.04);
+.wizard-crm-item.active {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.04);
 }
-[data-theme="dark"] .wizard-crm-item:hover {
-  border-color: rgba(56, 189, 248, 0.35);
-  background: rgba(56, 189, 248, 0.06);
-}
-
-.wizard-crm-item.active-item {
-  border-color: rgba(0, 102, 255, 0.4);
-  background: rgba(0, 102, 255, 0.08);
-}
-[data-theme="dark"] .wizard-crm-item.active-item {
-  border-color: rgba(56, 189, 248, 0.45);
-  background: rgba(56, 189, 248, 0.12);
+[data-theme="dark"] .wizard-crm-item.active {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.08);
 }
 
-.wizard-crm-item input[type="checkbox"] {
-  margin-top: 3px;
-  accent-color: #0066FF;
-  width: 16px;
-  height: 16px;
+.wizard-crm-item.disabled {
+  opacity: 0.42;
+  filter: grayscale(75%);
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+[data-theme="dark"] .wizard-crm-item.disabled {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+.wizard-crm-status-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  cursor: pointer;
+  margin-top: 1px;
 }
 
-.wizard-crm-text-wrap {
+.wizard-crm-item.active .wizard-crm-status-icon {
+  background: #10B981;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+}
+.wizard-crm-item.disabled .wizard-crm-status-icon {
+  background: rgba(148, 163, 184, 0.2);
+  color: #94A3B8;
+}
+
+.wizard-crm-status-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.wizard-crm-item-info {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  flex: 1;
 }
 
-.wizard-crm-item-title {
-  font-size: 12px;
-  font-weight: 700;
+.wizard-crm-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.wizard-crm-item-top strong {
+  font-size: 12.5px;
+  font-weight: 800;
   color: var(--text-pure);
-  line-height: 1.45;
 }
 
-.wizard-crm-item-badge {
-  display: inline-block;
+.wizard-crm-item-info span {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.wizard-tier-badge {
   font-size: 9.5px;
   font-weight: 800;
-  padding: 1px 6px;
+  padding: 1px 7px;
   border-radius: 4px;
-  align-self: flex-start;
+  white-space: nowrap;
 }
-.wizard-crm-item-badge.tier-starter {
+.wizard-tier-badge.tier-starter {
   background: rgba(0, 102, 255, 0.12);
   color: #0066FF;
 }
-.wizard-crm-item-badge.tier-pro {
+.wizard-tier-badge.tier-pro {
   background: rgba(16, 185, 129, 0.15);
   color: #10B981;
 }
-.wizard-crm-item-badge.tier-enterprise {
+.wizard-tier-badge.tier-enterprise {
   background: rgba(147, 51, 234, 0.15);
   color: #9333EA;
 }
 
 @media (max-width: 768px) {
+  .wizard-trial-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    gap: 12px;
+  }
   .wizard-plan-grid {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
   }
+  .wizard-crm-accordion-toggle {
+    padding: 14px 14px;
+  }
   .wizard-crm-grid {
     grid-template-columns: 1fr !important;
     gap: 8px !important;
+  }
+  .wizard-crm-accordion-body {
+    padding: 0 12px 14px;
   }
 }
    Descriptive Drawer Auth Cards & Clinical Portal Guide Modal

@@ -187,12 +187,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 8. CORS & CSRF
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = [
+
+DEFAULT_CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
+    'https://pezeshk-on.ir',
+    'https://www.pezeshk-on.ir',
+    'https://app.pezeshk-on.ir',
+    'https://*.pezeshk-on.ir',
 ]
+csrf_env = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+if csrf_env:
+    CSRF_TRUSTED_ORIGINS = [o.strip() for o in csrf_env.split(",") if o.strip()]
+else:
+    CSRF_TRUSTED_ORIGINS = DEFAULT_CSRF_TRUSTED_ORIGINS
+
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
