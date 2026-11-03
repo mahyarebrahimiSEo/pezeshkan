@@ -6708,10 +6708,6 @@ function escapeHtml(str) {
       renderMegaMenuContent();
       renderMobileDrawerCategories();
       populateDoctorSelect();
-      setupReadingProgress();
-      setupGlobalClickListeners();
-      setupClientRouter();
-      loadDynamicArticles();
       if (window._pendingArticleSlug) {
         const target = findArticleBySlugOrId(window._pendingArticleSlug);
         if (target) {
@@ -6732,29 +6728,36 @@ function escapeHtml(str) {
       );
     }
 
+    let _isLoadingDynamicArticles = false;
     async function loadDynamicArticles() {
-      // 1. Instant load from localStorage
+      if (_isLoadingDynamicArticles) return;
+      _isLoadingDynamicArticles = true;
       try {
-        const local = localStorage.getItem('pezeshkan_admin_articles');
-        if (local) {
-          const parsed = JSON.parse(local);
-          if (Array.isArray(parsed)) {
-            applyArticlesData(parsed);
+        // 1. Instant load from localStorage
+        try {
+          const local = localStorage.getItem('pezeshkan_admin_articles');
+          if (local) {
+            const parsed = JSON.parse(local);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              applyArticlesData(parsed);
+            }
           }
-        }
-      } catch(e) {}
+        } catch(e) {}
 
-      // 2. Fetch fresh from server
-      try {
-        const res = await fetch('/api/articles');
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data)) {
-            applyArticlesData(data);
-            try { localStorage.setItem('pezeshkan_admin_articles', JSON.stringify(data)); } catch(e){}
+        // 2. Fetch fresh from server
+        try {
+          const res = await fetch('/api/articles');
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+              applyArticlesData(data);
+              try { localStorage.setItem('pezeshkan_admin_articles', JSON.stringify(data)); } catch(e){}
+            }
           }
-        }
-      } catch(e) {}
+        } catch(e) {}
+      } finally {
+        _isLoadingDynamicArticles = false;
+      }
     }
 
 
