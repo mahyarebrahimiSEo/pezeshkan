@@ -690,17 +690,15 @@ def api_newsletter_doctors(request, doc_id=None):
             save_newsletter_docs(docs)
             return JsonResponse({"success": True, "doctors": docs})
 
+        existing_doc = next((d for d in docs if str(d.get("id")) == str(target_id)), {})
         new_doc = {
             "id": target_id,
-            "name": str(data.get("name", "")).strip(),
-            "title": str(data.get("title", "")).strip(),
-            "mcNumber": str(data.get("mcNumber") or data.get("mc") or "").strip(),
-            "mc": str(data.get("mcNumber") or data.get("mc") or "").strip(),
-            "dept": str(data.get("dept", "")).strip(),
-            "role": str(data.get("role", "")).strip(),
-            "avatar": str(data.get("avatar") or "/mag/uploads/doctors/dr-radmanesh.webp").strip(),
-            "email": str(data.get("email", "")).strip(),
-            "bio": str(data.get("bio", "")).strip(),
+            "name": str(data.get("name") or existing_doc.get("name", "")).strip(),
+            "title": str(data.get("title") or existing_doc.get("title", "")).strip(),
+            "topic": str(data.get("topic") or existing_doc.get("topic", "")).strip(),
+            "day": str(data.get("day") or existing_doc.get("day", "")).strip(),
+            "panel": str(data.get("panel") or existing_doc.get("panel", "")).strip(),
+            "avatar": str(data.get("avatar") or existing_doc.get("avatar", "/mag/uploads/doctors/dr-radmanesh.webp")).strip(),
         }
 
         existing_idx = next((i for i, d in enumerate(docs) if str(d.get("id")) == str(target_id)), -1)
