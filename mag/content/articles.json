@@ -1,5 +1,128 @@
 [
   {
+    "id": "art-newsletter-cardio-salimi-03",
+    "dbId": "newsletter_03",
+    "title": "خبرنامه سلامت قلب و عروق: علائم خاموش گرفتگی عروق کرونر و کنترل اضطراری فشار خون",
+    "slug": "cardio-silent-ischemia-hypertension-newsletter",
+    "summary": "یادداشت بالینی دکتر حمیدرضا سلیمی درباره تفاوت دردهای گوارشی با ایسکمی قلبی، اقدامات اولیه در افزایش ناگهانی فشار خون و مراقبت‌های استنت.",
+    "image": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80",
+    "imageAlt": "تصویر سنجش سلامت قلب و عروق در خبرنامه پزشکی",
+    "pillarId": 9,
+    "pillarSlug": "/mag/newsletter/",
+    "categoryName": "خبرنامه",
+    "categoryIcon": "newsletter",
+    "doctorId": "dr-salimi",
+    "author": {
+      "name": "دکتر حمیدرضا سلیمی",
+      "title": "متخصص قلب و عروق و فلوشیپ آنژیوپلاستی",
+      "mcNumber": "۶۵۲۳۱",
+      "mc": "۶۵۲۳۱",
+      "avatar": "/mag/uploads/doctors/dr-salimi.webp"
+    },
+    "readTime": "۴ دقیقه مطالعه",
+    "lastReviewed": "به‌روزرسانی آبان ۱۴۰۵",
+    "tag": "خبرنامه قلب و عروق",
+    "tagClass": "tag-blue",
+    "status": "publish",
+    "isNewsletter": true,
+    "metaTitle": "خبرنامه پیشگیری از بیماری‌های قلبی | دکتر حمیدرضا سلیمی",
+    "metaDescription": "توصیه‌های فلوشیپ آنژیوپلاستی درباره علائم هشدار قلبی، کنترل فشار خون و داروها.",
+    "focusKeyword": "خبرنامه سلامت قلب",
+    "faqs": [
+      {
+        "q": "آیا احساس سنگینی قفسه سینه هنگام فعالیت نشانه خطر است؟",
+        "a": "بله، هرگونه احساس فشار، سوزش یا سنگینی سینه که با فعالیت تشدید شود نیازمند نوار قلب و بررسی اورژانسی است."
+      }
+    ],
+    "sections": [],
+    "showInPediatrics": false,
+    "show_in_pediatrics": false,
+    "showInPharma": false,
+    "show_in_pharma": false
+  },
+  {
+    "id": "art-newsletter-maternity-tavakoli-02",
+    "dbId": "newsletter_02",
+    "title": "خبرنامه سلامت بارداری: راهنمای مصرف مکمل‌های آهن، ویتامین D و پایش حرکات جنین",
+    "slug": "maternity-fetal-care-supplements-newsletter",
+    "summary": "توصیه‌های بالینی دکتر سارا توکلی پیرامون بهداشت خواب، تغذیه تکمیلی در سه ماهه دوم و سوم و زمان‌بندی سونوگرافی‌های تخصصی غربالگری جنین.",
+    "image": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80",
+    "imageAlt": "تصویر مراقبت‌های مادر و نوزاد در خبرنامه بالینی",
+    "pillarId": 9,
+    "pillarSlug": "/mag/newsletter/",
+    "categoryName": "خبرنامه",
+    "categoryIcon": "newsletter",
+    "doctorId": "dr-tavakoli",
+    "author": {
+      "name": "دکتر سارا توکلی",
+      "title": "فوق تخصص پریناتولوژی و جراح زنان و زایمان",
+      "mcNumber": "۹۸۳۴۱",
+      "mc": "۹۸۳۴۱",
+      "avatar": "/mag/uploads/doctors/dr-tavakoli.webp"
+    },
+    "readTime": "۵ دقیقه مطالعه",
+    "lastReviewed": "به‌روزرسانی آبان ۱۴۰۵",
+    "tag": "خبرنامه زنان و زایمان",
+    "tagClass": "tag-blue",
+    "status": "publish",
+    "isNewsletter": true,
+    "metaTitle": "خبرنامه مراقبت‌های بارداری و جنین | دکتر سارا توکلی",
+    "metaDescription": "توصیه‌های فوق تخصصی پریناتولوژی درباره مکمل‌های بارداری، تغذیه مادر و پایش سلامت جنین.",
+    "focusKeyword": "خبرنامه بارداری",
+    "faqs": [
+      {
+        "q": "بهترین زمان مصرف قرص آهن در دوران بارداری چه موقع است؟",
+        "a": "ترجیحاً شب‌ها قبل از خواب یا با معده خالی به همراه ویتامین C (مانند آب پرتقال) جهت جذب حداکثری و کاهش تهوع."
+      }
+    ],
+    "sections": [],
+    "showInPediatrics": false,
+    "show_in_pediatrics": false,
+    "showInPharma": false,
+    "show_in_pharma": false
+  },
+  {
+    "id": "art-newsletter-spine-radmanesh-01",
+    "dbId": "newsletter_01",
+    "title": "خبرنامه تخصصی ستون فقرات: ۵ اصل ارگونومی و پیشگیری از عود فتق دیسک در کارمندان",
+    "slug": "spine-ergonomics-workplace-disc-newsletter",
+    "summary": "یادداشت بالینی دکتر مهران رادمنش درباره اصلاح زوایای نشستن، ارتفاع نمایشگر و تمرینات کششی ۲ دقیقه‌ای جهت کاهش فشار بر مهره‌های کمری L4-L5.",
+    "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
+    "imageAlt": "تصویر معاینه ارگونومی ستون فقرات در خبرنامه پزشکی",
+    "pillarId": 9,
+    "pillarSlug": "/mag/newsletter/",
+    "categoryName": "خبرنامه",
+    "categoryIcon": "newsletter",
+    "doctorId": "dr-radmanesh",
+    "author": {
+      "name": "دکتر مهران رادمنش",
+      "title": "متخصص جراحی مغز، اعصاب و ستون فقرات",
+      "mcNumber": "۱۱۴۲۸۵",
+      "mc": "۱۱۴۲۸۵",
+      "avatar": "/mag/uploads/doctors/dr-radmanesh.webp"
+    },
+    "readTime": "۴ دقیقه مطالعه",
+    "lastReviewed": "به‌روزرسانی آبان ۱۴۰۵",
+    "tag": "خبرنامه ستون فقرات",
+    "tagClass": "tag-blue",
+    "status": "publish",
+    "isNewsletter": true,
+    "metaTitle": "خبرنامه ارگونومی و پیشگیری از دیسک کمر | دکتر رادمنش",
+    "metaDescription": "یادداشت بالینی دکتر مهران رادمنش درباره اصلاح وضعیت نشستن و کاهش فشار بر ستون فقرات.",
+    "focusKeyword": "خبرنامه ستون فقرات",
+    "faqs": [
+      {
+        "q": "چند بار در طول روز کاری باید تمرینات کششی ستون فقرات انجام شود؟",
+        "a": "حداقل هر ۴۵ تا ۶۰ دقیقه یک بار، به مدت ۱ الی ۲ دقیقه برخاستن و انجام کشش‌های اکستنشن کمری توصیه می‌شود."
+      }
+    ],
+    "sections": [],
+    "showInPediatrics": false,
+    "show_in_pediatrics": false,
+    "showInPharma": false,
+    "show_in_pharma": false
+  },
+  {
     "id": "art-spine-lumbar-disc-guide",
     "dbId": 2,
     "title": "درمان دیسک کمر بدون جراحی؛ جدیدترین روش‌های فیزیوتراپی و توانبخشی",
