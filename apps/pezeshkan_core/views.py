@@ -286,9 +286,9 @@ def index_page(request):
     except Exception:
         return serve_static_file(candidate)
 
-    # SSR: Query published articles for homepage magazine section (maximum 4 latest)
+    # SSR: Query published articles for homepage magazine section (strictly 3 latest for clean 1-row layout)
     try:
-        published = list(Article.objects.filter(status='published').order_by('-id')[:4])
+        published = list(Article.objects.filter(status='published').order_by('-id')[:3])
     except Exception:
         published = []
 
@@ -341,8 +341,8 @@ def index_page(request):
             '<section id="home-magazine-section" class="home-magazine-section" style="display:block;">'
         )
         content = content.replace(
-            '<div class="grid-3 home-magazine-grid" id="home-magazine-grid"></div>',
-            f'<div class="grid-3 home-magazine-grid" id="home-magazine-grid">\n{grid_content}\n      </div>'
+            '<div class="home-magazine-grid" id="home-magazine-grid"></div>',
+            f'<div class="home-magazine-grid" id="home-magazine-grid">\n{grid_content}\n      </div>'
         )
         content = content.replace(
             '<div class="home-mag-slider-dots" id="homeMagSliderDots" aria-label="صفحات اسلایدر مقالات"></div>',

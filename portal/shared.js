@@ -2792,7 +2792,7 @@ document.addEventListener('click', (e) => {
       })
       .then(articles => {
         if (!Array.isArray(articles)) return;
-        const published = articles.filter(a => !a.status || a.status === 'published').slice(0, 6);
+        const published = articles.filter(a => !a.status || a.status === 'published').slice(0, 3);
         if (published.length === 0) {
           section.style.display = 'none';
           grid.innerHTML = '';
@@ -2807,6 +2807,8 @@ document.addEventListener('click', (e) => {
           const img = art.image || 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80';
           const alt = escapeHtml(art.imageAlt || art.title || '');
           const authorName = escapeHtml(art.author && art.author.name ? art.author.name : (typeof art.author === 'string' && art.author ? art.author : 'تحریریه بالینی پزشکآن'));
+          const cat = escapeHtml(art.category_name || art.category || art.tag || 'مجله سلامت');
+          const readTime = escapeHtml(art.read_time || art.readTime || '۵ دقیقه');
 
           html += `
             <a href="/mag/${slug}" class="pez-mag-cover-card" data-slide-index="${idx}" title="${title}">

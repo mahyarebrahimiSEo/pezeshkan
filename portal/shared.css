@@ -14570,14 +14570,30 @@ main .product-module-grid li:hover > svg {
   width: 100%;
 }
 
+#home-magazine-grid,
+.home-magazine-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  width: 100% !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  #home-magazine-grid,
+  .home-magazine-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+
 /* Base Card Styling (Desktop) */
 .pez-mag-cover-card {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 370px;
-  min-height: 360px;
+  height: 380px;
+  min-height: 380px;
   border-radius: 20px;
   overflow: hidden;
   text-decoration: none !important;
@@ -14743,6 +14759,7 @@ main .product-module-grid li:hover > svg {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 45px;
   transition: color 0.25s ease;
 }
 
@@ -14759,6 +14776,7 @@ main .product-module-grid li:hover > svg {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 38px;
 }
 
 .mag-cover-footer-row {
@@ -14869,35 +14887,45 @@ main .product-module-grid li:hover > svg {
   }
 
   /* Transform vertical grid into horizontal touch slide */
-  #home-magazine-grid.home-magazine-grid {
+  #home-magazine-grid,
+  .home-magazine-grid {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
+    overflow-y: hidden !important;
     scroll-snap-type: x mandatory !important;
     scroll-behavior: smooth !important;
     -webkit-overflow-scrolling: touch !important;
     gap: 14px !important;
-    padding: 6px 16px 14px !important;
-    margin: 0 -16px !important;
+    padding: 6px 2px 14px 2px !important;
+    margin: 0 0 8px 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
   }
 
-  #home-magazine-grid.home-magazine-grid::-webkit-scrollbar {
+  #home-magazine-grid::-webkit-scrollbar,
+  .home-magazine-grid::-webkit-scrollbar {
     display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   /* Disciplined Compact Mobile Card Dimensions */
   #home-magazine-grid .pez-mag-cover-card {
-    flex: 0 0 280px !important;
-    width: 280px !important;
-    max-width: 82vw !important;
-    height: 310px !important;
+    flex: 0 0 84% !important;
+    width: 84% !important;
+    min-width: 84% !important;
+    max-width: 84% !important;
+    height: 320px !important;
     min-height: 310px !important;
     border-radius: 18px !important;
     scroll-snap-align: start !important;
     scroll-snap-stop: normal !important;
+    box-sizing: border-box !important;
   }
 
   .pez-mag-cover-card .mag-cover-top-row {
