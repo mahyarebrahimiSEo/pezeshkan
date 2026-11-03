@@ -1274,6 +1274,556 @@ def api_newsletters(request):
 
 
 @csrf_exempt
+def api_newsletter_feed(request):
+    """
+    Public Cross-Origin REST API for Syndicating Newsletters to External Websites.
+    Supports filtering by slug, limit, doctor_id, format=widget, and search query.
+    Enforces CORS (Access-Control-Allow-Origin: *) for direct frontend/backend consumption.
+    """
+    if request.method == "OPTIONS":
+        res = HttpResponse()
+        res["Access-Control-Allow-Origin"] = "*"
+        res["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        res["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With"
+        return res
+
+    req_format = request.GET.get("format", "json").lower()
+    if req_format == "widget":
+        return api_newsletter_widget(request)
+
+    slug_filter = request.GET.get("slug", "").strip()
+    doctor_filter = request.GET.get("doctor_id", "").strip() or request.GET.get("doctor", "").strip()
+    query_search = request.GET.get("q", "").strip() or request.GET.get("search", "").strip()
+    
+    try:
+        limit = min(int(request.GET.get("limit", 20)), 100)
+    except (ValueError, TypeError):
+        limit = 20
+
+    public_domain = "https://pezeshkan.me"
+    
+    # Load newsletter doctors map for enrichment
+    ndocs_file = settings.BASE_DIR / 'mag' / 'content' / 'newsletter_doctors.json'
+    ndocs_map = {}
+    if ndocs_file.exists():
+        try:
+            with open(ndocs_file, 'r', encoding='utf-8') as df:
+                ndocs_list = json.load(df)
+                if isinstance(ndocs_list, list):
+                    for nd in ndocs_list:
+                        ndocs_map[str(nd.get("id"))] = nd
+        except Exception:
+            pass
+
+    from apps.pezeshkan_core.models import Article, Newsletter
+    from django.db.models import Q
+
+    # Query articles belonging to the newsletter category
+    art_q = Q(status="published") & (
+        Q(pillar_id="9") |
+        Q(pillar_id=9) |
+        Q(category_name__icontains="خبرنامه") |
+        Q(tag__icontains="خبرنامه") |
+        Q(custom_id__startswith="newsletter") |
+        Q(custom_id__startswith="art-newsletter")
+    )
+
+    if slug_filter:
+        art_q &= (Q(slug=slug_filter) | Q(custom_id=slug_filter))
+    if doctor_filter:
+        art_q &= Q(doctor_id=doctor_filter)
+    if query_search:
+        art_q &= (Q(title__icontains=query_search) | Q(summary__icontains=query_search))
+
+    db_articles = list(Article.objects.filter(art_q).order_by("-id")[:limit])
+
+    # Fallback to articles.json if DB has no newsletter articles yet
+    if not db_articles:
+        articles_json_path = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
+        if articles_json_path.exists():
+            try:
+                with open(articles_json_path, 'r', encoding='utf-8') as f_art:
+                    all_json = json.load(f_art)
+                    for a in all_json:
+                        if a.get("status") == "published" and (
+                            str(a.get("pillarId")) == "9" or
+                            "خبرنامه" in str(a.get("categoryName", "")) or
+                            "خبرنامه" in str(a.get("tag", "")) or
+                            str(a.get("id", "")).startswith("newsletter")
+                        ):
+                            if slug_filter and a.get("slug") != slug_filter and a.get("id") != slug_filter:
+                                continue
+                            if doctor_filter and a.get("doctorId") != doctor_filter:
+                                continue
+                            if query_search and query_search not in a.get("title", "") and query_search not in a.get("summary", ""):
+                                continue
+                            # Mimic to_dict
+                            db_articles.append(a)
+                            if len(db_articles) >= limit:
+                                break
+            except Exception:
+                pass
+
+    items = []
+    seen_slugs = set()
+
+    for a in db_articles:
+        ad = a.to_dict() if hasattr(a, 'to_dict') else a
+        s = ad.get("slug") or ad.get("id")
+        if not s or s in seen_slugs:
+            continue
+        seen_slugs.add(s)
+
+        img_url = ad.get("image", "")
+        if img_url and img_url.startswith("/"):
+            img_url = f"{public_domain}{img_url}"
+
+        # Resolve doctor/author info
+        doc_id = str(ad.get("doctorId") or "")
+        author_data = ad.get("author")
+        
+        if doc_id in ndocs_map:
+            doc_info = ndocs_map[doc_id]
+            av = doc_info.get("avatar") or "/mag/uploads/doctors/dr-bahrami.webp"
+            if av.startswith("/"):
+                av = f"{public_domain}{av}"
+            author_obj = {
+                "id": doc_info.get("id"),
+                "name": doc_info.get("name"),
+                "title": doc_info.get("title"),
+                "mcNumber": doc_info.get("mcNumber") or doc_info.get("mc", ""),
+                "dept": doc_info.get("dept") or "هیئت علمی خبرنامه",
+                "role": doc_info.get("role") or "دبیر علمی خبرنامه بالینی",
+                "avatar": av
+            }
+        elif isinstance(author_data, dict):
+            author_obj = dict(author_data)
+            av = author_obj.get("avatar", "")
+            if av and av.startswith("/"):
+                author_obj["avatar"] = f"{public_domain}{av}"
+        elif isinstance(author_data, str) and author_data.strip():
+            author_obj = {
+                "name": author_data.strip(),
+                "title": "پزشک متخصص و مؤلف خبرنامه",
+                "mcNumber": "",
+                "dept": "شورای علمی خبرنامه",
+                "role": "نویسنده خبرنامه بالینی",
+                "avatar": f"{public_domain}/pezeshkon-logo.svg"
+            }
+        else:
+            author_obj = {
+                "name": "تیم متخصصان خبرنامه",
+                "title": "شورای سردبیری مجله سلامت پزشکآن",
+                "mcNumber": "پزشکآن",
+                "dept": "تحریریه بالینی",
+                "role": "شورای علمی خبرنامه",
+                "avatar": f"{public_domain}/pezeshkon-logo.svg"
+            }
+
+        items.append({
+            "id": ad.get("id"),
+            "title": ad.get("title"),
+            "slug": s,
+            "permalink": f"{public_domain}/mag/{urllib.parse.quote(s)}",
+            "summary": ad.get("summary", ""),
+            "coverImage": img_url,
+            "imageAlt": ad.get("imageAlt") or ad.get("title"),
+            "publishedDate": ad.get("lastReviewed") or "آبان ۱۴۰۵",
+            "readTime": ad.get("readTime") or "۴ دقیقه",
+            "category": {
+                "id": 9,
+                "name": "خبرنامه",
+                "badge": "ویژه متخصصین"
+            },
+            "author": author_obj,
+            "faqs": ad.get("faqs", []),
+            "contentHtml": ad.get("rawHtml") or ad.get("contentHtml", "")
+        })
+
+    # Also include published Newsletter model issues if any exist
+    nl_issues = Newsletter.objects.filter(status="published")
+    if slug_filter:
+        nl_issues = nl_issues.filter(slug=slug_filter)
+    for n in nl_issues[:limit]:
+        nd = n.to_dict()
+        s = nd.get("slug")
+        if not s or s in seen_slugs:
+            continue
+        seen_slugs.add(s)
+        items.append({
+            "id": nd.get("id"),
+            "title": nd.get("title"),
+            "slug": s,
+            "permalink": f"{public_domain}/mag/{urllib.parse.quote(s)}",
+            "summary": nd.get("excerpt", ""),
+            "coverImage": f"{public_domain}/mag/uploads/doctors/dr-bahrami.webp",
+            "imageAlt": nd.get("title"),
+            "publishedDate": nd.get("date") or "آبان ۱۴۰۵",
+            "readTime": nd.get("readTime") or "۴ دقیقه",
+            "category": {"id": 9, "name": "خبرنامه", "badge": "بولتن تخصصی"},
+            "author": {
+                "name": "شورای علمی خبرنامه",
+                "title": "تحریریه و دبیرخانه خبرنامه بالینی",
+                "mcNumber": "پزشکآن",
+                "dept": "خبرنامه",
+                "role": "دبیرخانه علمی",
+                "avatar": f"{public_domain}/pezeshkon-logo.svg"
+            },
+            "faqs": [],
+            "contentHtml": nd.get("contentHtml", "")
+        })
+
+    payload = {
+        "success": True,
+        "version": "1.0",
+        "total": len(items),
+        "source": "Pezeshkan Medical Ecosystem",
+        "documentation": f"{public_domain}/admin.html#tab-newsletter-api",
+        "endpoints": {
+            "feed": f"{public_domain}/api/v1/newsletter/feed",
+            "single": f"{public_domain}/api/v1/newsletter/feed?slug={{slug}}",
+            "widget": f"{public_domain}/api/v1/newsletter/feed?format=widget"
+        },
+        "items": items
+    }
+
+    res = JsonResponse(payload, json_dumps_params={"ensure_ascii": False, "indent": 2})
+    res["Access-Control-Allow-Origin"] = "*"
+    res["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    res["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With"
+    res["Cache-Control"] = "public, max-age=60, s-maxage=120"
+    return res
+
+
+def api_newsletter_widget(request):
+    """
+    Renders an embeddable, responsive iframe/widget for displaying newsletters on third-party websites.
+    """
+    res = api_newsletter_feed(request)
+    data = json.loads(res.content.decode('utf-8'))
+    items = data.get("items", [])
+
+    items_html = ""
+    if items:
+        for it in items:
+            author = it.get("author", {})
+            items_html += f"""
+            <article class="nl-card">
+              <div class="nl-cover-wrap">
+                <img src="{it.get('coverImage') or '/mag/uploads/doctors/dr-bahrami.webp'}" alt="{it.get('title')}" class="nl-cover" loading="lazy" />
+                <span class="nl-badge">{it.get('category', {}).get('badge', 'ویژه')}</span>
+              </div>
+              <div class="nl-content">
+                <div class="nl-meta">
+                  <span class="nl-date">{it.get('publishedDate', '')}</span>
+                  <span class="nl-dot">•</span>
+                  <span class="nl-readtime">{it.get('readTime', '')}</span>
+                </div>
+                <h3 class="nl-title"><a href="{it.get('permalink')}" target="_blank" rel="noopener">{it.get('title')}</a></h3>
+                <p class="nl-summary">{it.get('summary', '')}</p>
+                <div class="nl-footer">
+                  <div class="nl-author">
+                    <img src="{author.get('avatar') or '/pezeshkon-logo.svg'}" alt="{author.get('name')}" class="nl-avatar" />
+                    <div class="nl-author-info">
+                      <strong class="nl-author-name">{author.get('name', 'پزشک متخصص')}</strong>
+                      <span class="nl-author-title">{author.get('title', '')}</span>
+                    </div>
+                  </div>
+                  <a href="{it.get('permalink')}" target="_blank" rel="noopener" class="nl-btn">
+                    <span>مطالعه خبرنامه</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+            """
+    else:
+        items_html = """
+        <div class="nl-empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <h4>هنوز خبرنامه‌ای منتشر نشده است</h4>
+          <p>به زودی جدیدترین بولتن‌های تخصصی پزشکان در این بخش قرار می‌گیرد.</p>
+        </div>
+        """
+
+    widget_html = f"""<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ویجت خبرنامه پزشکی پزشکآن</title>
+  <style>
+    :root {{
+      --bg: #0B1120;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent: #10B981;
+      --accent-hover: #059669;
+      --primary: #0284C7;
+      --font: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    }}
+    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    body {{
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-main);
+      padding: 16px;
+      direction: rtl;
+    }}
+    .nl-widget-header {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }}
+    .nl-header-title {{
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+    }}
+    .nl-powered {{
+      font-size: 11px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }}
+    .nl-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }}
+    .nl-card {{
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }}
+    .nl-card:hover {{
+      transform: translateY(-3px);
+      border-color: rgba(16, 185, 129, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }}
+    .nl-cover-wrap {{
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+      background: #1e293b;
+    }}
+    .nl-cover {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }}
+    .nl-card:hover .nl-cover {{
+      transform: scale(1.04);
+    }}
+    .nl-badge {{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(16, 185, 129, 0.9);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+    }}
+    .nl-content {{
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }}
+    .nl-meta {{
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+    .nl-dot {{ color: var(--accent); }}
+    .nl-title {{
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }}
+    .nl-title a {{
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.15s;
+    }}
+    .nl-title a:hover {{ color: var(--accent); }}
+    .nl-summary {{
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+    }}
+    .nl-footer {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: auto;
+    }}
+    .nl-author {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .nl-avatar {{
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--accent);
+    }}
+    .nl-author-info {{
+      display: flex;
+      flex-direction: column;
+    }}
+    .nl-author-name {{
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-main);
+    }}
+    .nl-author-title {{
+      font-size: 9.5px;
+      color: var(--text-muted);
+      max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }}
+    .nl-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }}
+    .nl-btn:hover {{
+      background: var(--accent);
+      color: #fff;
+    }}
+    .nl-empty {{
+      text-align: center;
+      padding: 48px 16px;
+      background: var(--card-bg);
+      border: 1px dashed var(--card-border);
+      border-radius: 16px;
+      color: var(--text-muted);
+    }}
+    .nl-empty h4 {{
+      color: var(--text-main);
+      margin: 12px 0 6px;
+      font-size: 16px;
+    }}
+  </style>
+</head>
+<body>
+  <div class="nl-widget-header">
+    <div class="nl-header-title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span>تازه‌ترین خبرنامه‌های تخصصی پزشکآن</span>
+    </div>
+    <a href="https://pezeshkan.me/mag/newsletter" target="_blank" rel="noopener" class="nl-powered">قدرت‌گرفته از پزشکآن</a>
+  </div>
+  <div class="nl-grid">
+    {items_html}
+  </div>
+</body>
+</html>"""
+
+    response = HttpResponse(widget_html, content_type="text/html; charset=utf-8")
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+@csrf_exempt
+def api_newsletter_seed_sample(request):
+    """
+    Creates a sample clinical newsletter article for immediate testing and verification of the API.
+    """
+    if request.method != "POST":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+
+    from apps.pezeshkan_core.models import Article
+
+    sample_slug = "cardio-silent-ischemia-hypertension-newsletter"
+    existing = Article.objects.filter(slug=sample_slug).first()
+    if existing:
+        return JsonResponse({"success": True, "message": "خبرنامه نمونه از قبل موجود است", "article": existing.to_dict()})
+
+    sample_art = Article.objects.create(
+        custom_id="art-newsletter-cardio-01",
+        title="خبرنامه سلامت قلب و عروق: علائم خاموش ایسکمی قلبی و راهنمای فوریت فشار خون",
+        slug=sample_slug,
+        summary="بولتن تخصصی و بالینی تدوین‌شده توسط دکتر کامران بهرامی: شناسایی زودهنگام گرفتگی عروق کرونر، تفاوت دردهای اسکلتی قفسه سینه با دردهای قلبی و دستورالعمل کنترل بحران فشار خون.",
+        raw_html="<p class=\"lead\">خبرنامه سلامت قلب و عروق مرجع به‌روزترین توصیه‌های خودمراقبتی و پروتکل‌های اورژانسی برای عموم مراجعین و کادر درمان است.</p><h2>علائم خاموش تنگی عروق کرونر</h2><p>بسیاری از حملات قلبی بدون درد کلاسیک تیرکشنده رخ می‌دهند و با احساس خستگی مفرط، سنگینی مبهم فک یا سرگیجه ناگهانی ظاهر می‌شوند.</p>",
+        content_html="<p class=\"lead\">خبرنامه سلامت قلب و عروق مرجع به‌روزترین توصیه‌های خودمراقبتی و پروتکل‌های اورژانسی برای عموم مراجعین و کادر درمان است.</p><h2>علائم خاموش تنگی عروق کرونر</h2><p>بسیاری از حملات قلبی بدون درد کلاسیک تیرکشنده رخ می‌دهند و با احساس خستگی مفرط، سنگینی مبهم فک یا سرگیجه ناگهانی ظاهر می‌شوند.</p>",
+        image="/mag/uploads/doctors/dr-bahrami.webp",
+        image_alt="خبرنامه سلامت قلب و عروق",
+        pillar_id="9",
+        category_name="خبرنامه",
+        category_icon="newsletter",
+        doctor_id="ndoc-bahrami",
+        author="دکتر کامران بهرامی",
+        read_time="۴ دقیقه",
+        last_reviewed="آبان ۱۴۰۵",
+        tag="خبرنامه",
+        tag_class="newsletter",
+        status="published",
+        meta_title="خبرنامه سلامت قلب و عروق؛ پیشگیری و علائم خاموش | پزشکآن",
+        meta_description="بولتن تخصصی خبرنامه سلامت قلب و عروق تدوین‌شده توسط متخصصان جهت اطلاع‌رسانی بالینی و پیشگیری از حملات قلبی.",
+        focus_keyword="خبرنامه سلامت قلب",
+        faqs=[
+            {"q": "آیا فشار خون بالا همیشه با سردرد همراه است؟", "a": "خیر، فشار خون به عنوان قاتل خاموش شناخته می‌شود و در اکثر موارد هیچ علامتی ایجاد نمی‌کند مگر اینکه وارد بحران حاد شود."}
+        ],
+        schema_type="MedicalWebPage",
+        robots="index, follow",
+        seo_score=95
+    )
+
+    # Invalidate caches
+    try:
+        from django.core.cache import cache
+        cache.delete("api_articles_all")
+        cache.delete("api_articles_published")
+    except Exception:
+        pass
+
+    return JsonResponse({"success": True, "message": "خبرنامه بالینی نمونه با موفقیت ایجاد شد", "article": sample_art.to_dict()})
+
+
+
+@csrf_exempt
 def api_subscribers(request):
     if request.method == "POST":
         data = read_json(request)

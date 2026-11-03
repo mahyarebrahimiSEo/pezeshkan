@@ -76,6 +76,15 @@ urlpatterns = [
 
     # 8. Newsletters, Subscribers, Schemas, CRM APIs
     path('api/newsletters', views.api_newsletters, name='api_newsletters'),
+    path('api/v1/newsletter/feed', views.api_newsletter_feed, name='api_v1_newsletter_feed'),
+    path('api/v1/newsletter/feed/', views.api_newsletter_feed, name='api_v1_newsletter_feed_slash'),
+    path('api/newsletter/feed', views.api_newsletter_feed, name='api_newsletter_feed'),
+    path('api/newsletter/feed/', views.api_newsletter_feed, name='api_newsletter_feed_slash'),
+    path('api/newsletter/articles', views.api_newsletter_feed, name='api_newsletter_articles'),
+    path('api/newsletter/articles/', views.api_newsletter_feed, name='api_newsletter_articles_slash'),
+    path('api/newsletter/widget', views.api_newsletter_widget, name='api_newsletter_widget'),
+    path('api/newsletter/widget/', views.api_newsletter_widget, name='api_newsletter_widget_slash'),
+    path('api/v1/newsletter/seed-sample', views.api_newsletter_seed_sample, name='api_newsletter_seed_sample'),
     path('api/subscribers', views.api_subscribers, name='api_subscribers'),
     path('api/schemas', views.api_schemas, name='api_schemas'),
     path('api/admin/schemas/validate', views.api_schema_validate, name='api_schema_validate'),
