@@ -2779,6 +2779,12 @@ document.addEventListener('click', (e) => {
     const grid = document.getElementById('home-magazine-grid');
     if (!section || !grid) return;
 
+    // Immediate hydration if SSR already populated the cards
+    if (grid.children.length > 0) {
+      section.style.display = 'block';
+      setupHomeMagazineSlider(grid, grid.querySelectorAll('.pez-mag-cover-card').length);
+    }
+
     fetch('/api/articles')
       .then(res => {
         if (!res.ok) throw new Error('Network error');
@@ -2786,7 +2792,7 @@ document.addEventListener('click', (e) => {
       })
       .then(articles => {
         if (!Array.isArray(articles)) return;
-        const published = articles.filter(a => !a.status || a.status === 'published').slice(0, 3);
+        const published = articles.filter(a => !a.status || a.status === 'published').slice(0, 6);
         if (published.length === 0) {
           section.style.display = 'none';
           grid.innerHTML = '';
@@ -2794,18 +2800,16 @@ document.addEventListener('click', (e) => {
         }
 
         let html = '';
-        published.forEach(art => {
+        published.forEach((art, idx) => {
           const slug = encodeURIComponent(art.slug || art.id || '');
           const title = escapeHtml(art.title || '');
           const summary = escapeHtml(art.summary || '');
           const img = art.image || 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80';
           const alt = escapeHtml(art.imageAlt || art.title || '');
-          const cat = escapeHtml(art.categoryName || art.tag || 'مجله سلامت');
-          const authorName = escapeHtml(art.author && art.author.name ? art.author.name : 'دکتر متخصص');
-          const readTime = escapeHtml(art.readTime || '۵ دقیقه');
+          const authorName = escapeHtml(art.author && art.author.name ? art.author.name : (typeof art.author === 'string' && art.author ? art.author : 'تحریریه بالینی پزشکآن'));
 
           html += `
-            <a href="/mag/${slug}" class="pez-mag-cover-card" title="${title}">
+            <a href="/mag/${slug}" class="pez-mag-cover-card" data-slide-index="${idx}" title="${title}">
               <div class="mag-cover-img-wrap" aria-hidden="true">
                 <img src="${img}" alt="${alt}" loading="lazy" decoding="async" class="mag-cover-bg-img" onerror="this.onerror=null; this.src='/mag/uploads/2026/10/11_1792233621_b823deb3.webp'" />
               </div>
@@ -2837,12 +2841,102 @@ document.addEventListener('click', (e) => {
 
         grid.innerHTML = html;
         section.style.display = 'block';
+
+        // Setup Responsive Touch Slider (Dots & Arrow navigation)
+        setupHomeMagazineSlider(grid, published.length);
       })
       .catch(() => {
         if (!grid.children.length) {
           section.style.display = 'none';
         }
       });
+  }
+
+  function setupHomeMagazineSlider(grid, totalCards) {
+    const dotsContainer = document.getElementById('homeMagSliderDots');
+    const prevBtn = document.getElementById('homeMagPrevBtn');
+    const nextBtn = document.getElementById('homeMagNextBtn');
+    const cards = grid.querySelectorAll('.pez-mag-cover-card');
+    let activeIndex = 0;
+
+    // Render interactive pagination dots
+    if (dotsContainer) {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalCards; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'home-mag-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `رفتن به اسلاید ${i + 1}`);
+        dot.dataset.index = i;
+        dot.addEventListener('click', (e) => {
+          e.preventDefault();
+          scrollToSlide(i);
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function scrollToSlide(idx) {
+      if (idx < 0 || idx >= totalCards || !cards[idx]) return;
+      activeIndex = idx;
+      cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      updateNavState(idx);
+    }
+
+    function updateNavState(idx) {
+      activeIndex = idx;
+      if (dotsContainer) {
+        const dots = dotsContainer.querySelectorAll('.home-mag-dot');
+        dots.forEach((d, i) => {
+          d.classList.toggle('active', i === idx);
+        });
+      }
+      if (prevBtn) prevBtn.disabled = (idx <= 0);
+      if (nextBtn) nextBtn.disabled = (idx >= totalCards - 1);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToSlide(Math.max(0, activeIndex - 1));
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToSlide(Math.min(totalCards - 1, activeIndex + 1));
+      });
+    }
+
+    // High performance IntersectionObserver for smooth touch scroll tracking
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            const idx = parseInt(entry.target.getAttribute('data-slide-index'), 10);
+            if (!isNaN(idx)) {
+              updateNavState(idx);
+            }
+          }
+        });
+      }, {
+        root: grid,
+        threshold: [0.5, 0.75]
+      });
+
+      cards.forEach(c => observer.observe(c));
+    } else {
+      // Fallback scroll listener
+      grid.addEventListener('scroll', () => {
+        const cardWidth = cards[0] ? cards[0].offsetWidth + 14 : 294;
+        const current = Math.round(Math.abs(grid.scrollLeft) / cardWidth);
+        updateNavState(Math.min(totalCards - 1, Math.max(0, current)));
+      }, { passive: true });
+    }
+
+    // Initial state
+    updateNavState(0);
   }
 
   function escapeHtml(str) {

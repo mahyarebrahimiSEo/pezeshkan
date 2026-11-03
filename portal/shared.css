@@ -14159,16 +14159,105 @@ main .product-module-grid li:hover > svg {
 }
 
 /* ==========================================================================
-   2026 Liquid Glass Full-Bleed Article Cover Cards (Cinematic Background & Blur Scrim)
+   2026 Liquid Glass Full-Bleed Article Cover Cards & Responsive Homepage Slider
    ========================================================================== */
+.home-magazine-section {
+  padding: 64px 0 72px;
+  background: var(--bg-surface-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-mag-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.home-mag-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.home-mag-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.home-mag-nav-arrows {
+  display: none; /* Shown on mobile and tablet */
+  align-items: center;
+  gap: 8px;
+}
+
+.home-mag-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(0, 102, 255, 0.22);
+  color: var(--brand-primary, #0066FF);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+[data-theme="dark"] .home-mag-nav-btn {
+  background: rgba(15, 23, 42, 0.82);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #38BDF8;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.home-mag-nav-btn:hover {
+  transform: scale(1.08);
+  background: #0066FF;
+  color: #FFFFFF;
+  border-color: #0066FF;
+  box-shadow: 0 6px 18px rgba(0, 102, 255, 0.35);
+}
+
+[data-theme="dark"] .home-mag-nav-btn:hover {
+  background: #38BDF8;
+  color: #080D1A;
+  border-color: #38BDF8;
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.45);
+}
+
+.home-mag-nav-btn:active {
+  transform: scale(0.92);
+}
+
+.home-mag-nav-btn:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.home-mag-slider-track-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* Base Card Styling (Desktop) */
 .pez-mag-cover-card {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 420px;
-  min-height: 400px;
-  border-radius: 24px;
+  height: 370px;
+  min-height: 360px;
+  border-radius: 20px;
   overflow: hidden;
   text-decoration: none !important;
   color: #FFFFFF !important;
@@ -14298,8 +14387,8 @@ main .product-module-grid li:hover > svg {
   position: relative;
   z-index: 3;
   margin: 12px;
-  padding: 18px 18px 16px;
-  border-radius: 18px;
+  padding: 16px 16px 14px;
+  border-radius: 16px;
   background: rgba(11, 19, 37, 0.78);
   backdrop-filter: blur(20px) saturate(190%) contrast(105%);
   -webkit-backdrop-filter: blur(20px) saturate(190%) contrast(105%);
@@ -14323,7 +14412,7 @@ main .product-module-grid li:hover > svg {
 }
 
 .mag-cover-title {
-  font-size: 15.5px;
+  font-size: 15px;
   font-weight: 800;
   line-height: 1.5;
   color: #FFFFFF !important;
@@ -14342,7 +14431,7 @@ main .product-module-grid li:hover > svg {
 
 .mag-cover-summary {
   font-size: 12px;
-  line-height: 1.65;
+  line-height: 1.6;
   color: #CBD5E1 !important;
   margin: 0;
   display: -webkit-box;
@@ -14386,22 +14475,175 @@ main .product-module-grid li:hover > svg {
   color: #94A3B8 !important;
   font-size: 11px;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
 }
 
+/* Dots Pagination */
+.home-mag-slider-dots {
+  display: none; /* hidden on desktop */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 4px 0;
+}
+
+.home-mag-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.35);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.home-mag-dot.active {
+  width: 22px;
+  background: #0066FF;
+  box-shadow: 0 0 10px rgba(0, 102, 255, 0.4);
+}
+
+[data-theme="dark"] .home-mag-dot.active {
+  background: #38BDF8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+/* ==========================================================================
+   Responsive Mobile & Tablet View (Touch Slide & Disciplined Compact Ergonomics)
+   ========================================================================== */
 @media (max-width: 768px) {
-  .pez-mag-cover-card {
-    height: 380px;
-    min-height: 360px;
-    border-radius: 20px;
+  .home-magazine-section {
+    padding: 36px 0 44px !important;
   }
-  .mag-cover-content-glass {
-    margin: 10px;
-    padding: 14px 14px 12px;
+
+  .home-mag-header-row {
+    margin-bottom: 18px !important;
+    gap: 12px !important;
   }
-  .mag-cover-title {
-    font-size: 14.5px;
+
+  .home-mag-title-wrap h2 {
+    font-size: 19px !important;
+    line-height: 1.4 !important;
   }
-  .mag-cover-summary {
-    font-size: 11.5px;
+
+  .home-mag-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .home-mag-nav-arrows {
+    display: inline-flex !important;
+  }
+
+  .home-mag-cta-btn {
+    font-size: 12px !important;
+    padding: 7px 12px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Transform vertical grid into horizontal touch slide */
+  #home-magazine-grid.home-magazine-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 14px !important;
+    padding: 6px 16px 14px !important;
+    margin: 0 -16px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  #home-magazine-grid.home-magazine-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Disciplined Compact Mobile Card Dimensions */
+  #home-magazine-grid .pez-mag-cover-card {
+    flex: 0 0 280px !important;
+    width: 280px !important;
+    max-width: 82vw !important;
+    height: 310px !important;
+    min-height: 310px !important;
+    border-radius: 18px !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: normal !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-top-row {
+    padding: 12px 14px 0 !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-category-badge {
+    font-size: 10.5px !important;
+    padding: 3px 10px !important;
+    gap: 4px !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-readtime-pill {
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+    gap: 4px !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-content-glass {
+    margin: 8px 10px 10px !important;
+    padding: 12px 12px 10px !important;
+    border-radius: 14px !important;
+    gap: 6px !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-title {
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-summary {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-footer-row {
+    padding-top: 8px !important;
+    margin-top: 2px !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-read-more {
+    font-size: 11px !important;
+    gap: 4px !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-arrow {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  .pez-mag-cover-card .mag-cover-author-pill {
+    font-size: 10.5px !important;
+    gap: 4px !important;
+  }
+
+  .home-mag-slider-dots {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 380px) {
+  #home-magazine-grid .pez-mag-cover-card {
+    flex: 0 0 258px !important;
+    width: 258px !important;
+    height: 295px !important;
+    min-height: 295px !important;
   }
 }

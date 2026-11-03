@@ -286,40 +286,67 @@ def index_page(request):
     except Exception:
         return serve_static_file(candidate)
 
-    # SSR: Query published articles for homepage magazine section (maximum 3 latest)
+    # SSR: Query published articles for homepage magazine section (maximum 4 latest)
     try:
-        published = list(Article.objects.filter(status='published').order_by('-id')[:3])
+        published = list(Article.objects.filter(status='published').order_by('-id')[:4])
     except Exception:
         published = []
 
     if published:
         cards_html = []
-        for art in published:
+        for idx, art in enumerate(published):
             slug = art.slug or str(art.id)
             title = html_escape.escape(art.title or '')
             summary = html_escape.escape(art.summary or '')
             img = html_escape.escape(art.image or 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80')
             alt = html_escape.escape(art.image_alt or art.title or '')
             cat = html_escape.escape(art.category_name or art.tag or 'مجله سلامت')
+            author_name = html_escape.escape(art.author if isinstance(art.author, str) and art.author else 'تیم متخصص محتوا نویس پزشکآن')
+            read_time = html_escape.escape(art.read_time or '۵ دقیقه')
 
-            card = f'''        <div class="panel-card" style="padding:0; overflow:hidden;">
-          <img src="{img}" alt="{alt}" width="600" height="180" loading="lazy" decoding="async" style="width:100%; height:180px; object-fit:cover;">
-          <div style="padding:20px;">
-            <span style="font-size:11px; background:var(--signal-cyan-bg); color:var(--signal-cyan); border:1px solid var(--signal-cyan-border); padding:2px 8px; border-radius:4px; font-weight:700;">{cat}</span>
-            <h3 style="font-size:15.5px; font-weight:800; margin:10px 0 6px;"><a href="/mag/{slug}">{title}</a></h3>
-            <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">{summary}</p>
+            card = f'''        <a href="/mag/{slug}" class="pez-mag-cover-card" data-slide-index="{idx}" title="{title}">
+          <div class="mag-cover-img-wrap" aria-hidden="true">
+            <img src="{img}" alt="{alt}" loading="lazy" decoding="async" class="mag-cover-bg-img" onerror="this.onerror=null; this.src='/mag/uploads/2026/10/11_1792233621_b823deb3.webp'" />
           </div>
-        </div>'''
+          <div class="mag-cover-scrim" aria-hidden="true"></div>
+          <div class="mag-cover-top-row">
+            <span class="mag-cover-category-badge">{cat}</span>
+            <span class="mag-cover-readtime-pill">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:12px;height:12px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>{read_time}</span>
+            </span>
+          </div>
+          <div class="mag-cover-content-glass">
+            <h3 class="mag-cover-title">{title}</h3>
+            <p class="mag-cover-summary">{summary}</p>
+            <div class="mag-cover-footer-row">
+              <span class="mag-cover-read-more">
+                <span>مطالعه مقاله کامل</span>
+                <svg class="svg-icon mag-cover-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" style="width:14px;height:14px;"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+              <span class="mag-cover-author-pill">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>{author_name}</span>
+              </span>
+            </div>
+          </div>
+        </a>'''
             cards_html.append(card)
 
         grid_content = "\n".join(cards_html)
+        dots_html = "".join([f'<button type="button" class="home-mag-dot{" active" if i == 0 else ""}" data-index="{i}" aria-label="رفتن به اسلاید {i + 1}"></button>' for i in range(len(published))])
+
         content = content.replace(
-            'id="home-magazine-section" style="padding:48px 0; background:var(--bg-surface-secondary); display:none;"',
-            'id="home-magazine-section" style="padding:48px 0; background:var(--bg-surface-secondary); display:block;"'
+            '<section id="home-magazine-section" class="home-magazine-section" style="display:none;">',
+            '<section id="home-magazine-section" class="home-magazine-section" style="display:block;">'
         )
         content = content.replace(
-            '<div class="grid-3" id="home-magazine-grid"></div>',
-            f'<div class="grid-3" id="home-magazine-grid">\n{grid_content}\n      </div>'
+            '<div class="grid-3 home-magazine-grid" id="home-magazine-grid"></div>',
+            f'<div class="grid-3 home-magazine-grid" id="home-magazine-grid">\n{grid_content}\n      </div>'
+        )
+        content = content.replace(
+            '<div class="home-mag-slider-dots" id="homeMagSliderDots" aria-label="صفحات اسلایدر مقالات"></div>',
+            f'<div class="home-mag-slider-dots" id="homeMagSliderDots" aria-label="صفحات اسلایدر مقالات">\n{dots_html}\n      </div>'
         )
 
     # Dynamic asset version injection for instant cache-busting on simple F5 refresh

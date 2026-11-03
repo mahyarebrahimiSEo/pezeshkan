@@ -1528,20 +1528,33 @@
 </section>
 
 <!-- 06. Latest from Health Magazine (Dynamic: Appears only when articles are published) -->
-<section id="home-magazine-section" style="padding:64px 0 72px; background:var(--bg-surface-secondary); display:none;">
-<div class="container">
-<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
-<div>
-<span class="section-pill-tag">مجله سلامت پزشکآن</span>
-<h2 class="section-h2" style="margin:0;">تازه‌ترین مقالات بالینی و سبک زندگی</h2>
-</div>
-<a class="btn btn-secondary" href="/mag">
-<span>ورود به مجله سلامت پزشکآن</span>
-<svg class="svg-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</a>
-</div>
-<div class="grid-3" id="home-magazine-grid"></div>
-</div>
+<section id="home-magazine-section" class="home-magazine-section" style="display:none;">
+  <div class="container">
+    <div class="home-mag-header-row">
+      <div class="home-mag-title-wrap">
+        <span class="section-pill-tag">مجله سلامت پزشکآن</span>
+        <h2 class="section-h2" style="margin:0;">تازه‌ترین مقالات بالینی و سبک زندگی</h2>
+      </div>
+      <div class="home-mag-actions">
+        <div class="home-mag-nav-arrows" id="homeMagNavArrows" aria-label="ورق زدن مقالات مجله">
+          <button type="button" class="home-mag-nav-btn prev" id="homeMagPrevBtn" aria-label="مقاله قبلی (حرکت به راست)" title="قبلی">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <button type="button" class="home-mag-nav-btn next" id="homeMagNextBtn" aria-label="مقاله بعدی (حرکت به چپ)" title="بعدی">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+        </div>
+        <a class="btn btn-secondary home-mag-cta-btn" href="/mag">
+          <span>ورود به مجله سلامت پزشکآن</span>
+          <svg class="svg-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+      </div>
+    </div>
+    <div class="home-mag-slider-track-wrap">
+      <div class="grid-3 home-magazine-grid" id="home-magazine-grid"></div>
+      <div class="home-mag-slider-dots" id="homeMagSliderDots" aria-label="صفحات اسلایدر مقالات"></div>
+    </div>
+  </div>
 </section>
 </main>
   <!-- Footer -->
