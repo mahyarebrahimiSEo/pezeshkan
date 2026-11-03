@@ -12,11 +12,10 @@
     "pillarId": "9",
     "categoryName": "خبرنامه",
     "categoryIcon": "newsletter",
-    "doctorId": "ndoc-bahrami",
+    "doctorId": "ndoc-sample-editorial",
     "author": {
-      "name": "دکتر کامران بهرامی",
-      "title": "متخصص جراحی مغز، اعصاب و ستون فقرات (سردبیر علمی خبرنامه سلامت)",
-      "mc": "۹۲۱۱۴",
+      "name": "دکتر شایان رستمی",
+      "title": "متخصص بیماری‌های قلب و عروق و فلوشیپ اقدامات مداخله‌ای (سردبیر علمی خبرنامه سلامت)",
       "avatar": "/mag/uploads/doctors/dr-radmanesh.webp"
     },
     "readTime": "۱ دقیقه",

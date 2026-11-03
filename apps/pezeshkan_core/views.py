@@ -301,7 +301,7 @@ def index_page(request):
             img = html_escape.escape(art.image or 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80')
             alt = html_escape.escape(art.image_alt or art.title or '')
             cat = html_escape.escape(art.category_name or art.tag or 'مجله سلامت')
-            author_name = html_escape.escape(art.author if isinstance(art.author, str) and art.author else 'تیم متخصص محتوا نویس پزشکآن')
+            author_name = html_escape.escape(art.author if isinstance(art.author, str) and art.author else 'تیم پزشکان')
             read_time = html_escape.escape(art.read_time or '۵ دقیقه')
 
             card = f'''        <a href="/mag/{slug}" class="pez-mag-cover-card" data-slide-index="{idx}" title="{title}">

@@ -6133,11 +6133,328 @@ body.intro-device-locked {
   }
 }
 
-
-
-
-
 /* ==========================================================================
+   Wizard Step 3: Interactive Plan & CRM Capabilities Selector
+   ========================================================================== */
+.wizard-preselected-banner {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #10B981;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+[data-theme="dark"] .wizard-preselected-banner {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.wizard-billing-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.wizard-billing-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(0, 102, 255, 0.18);
+  padding: 4px;
+  border-radius: 9999px;
+  gap: 4px;
+}
+[data-theme="dark"] .wizard-billing-toggle {
+  background: rgba(15, 23, 42, 0.65);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.wizard-billing-pill {
+  border: none;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.wizard-billing-pill.active {
+  background: #0066FF;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(0, 102, 255, 0.35);
+}
+[data-theme="dark"] .wizard-billing-pill.active {
+  background: #38BDF8;
+  color: #080D1A !important;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+}
+
+.wizard-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.wizard-plan-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(0, 102, 255, 0.16);
+  border-radius: 16px;
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+[data-theme="dark"] .wizard-plan-card {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.wizard-plan-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 102, 255, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 102, 255, 0.14);
+}
+[data-theme="dark"] .wizard-plan-card:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.wizard-plan-card.selected {
+  border-color: #0066FF !important;
+  background: rgba(0, 102, 255, 0.06);
+  box-shadow: 0 0 0 2px #0066FF, 0 10px 28px rgba(0, 102, 255, 0.22);
+}
+[data-theme="dark"] .wizard-plan-card.selected {
+  border-color: #38BDF8 !important;
+  background: rgba(56, 189, 248, 0.1);
+  box-shadow: 0 0 0 2px #38BDF8, 0 10px 28px rgba(56, 189, 248, 0.25);
+}
+
+.wizard-plan-card.popular-plan {
+  border-color: rgba(0, 102, 255, 0.3);
+}
+
+.wizard-popular-badge {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  background: linear-gradient(135deg, #0066FF, #0052CC);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 10px rgba(0, 102, 255, 0.35);
+  letter-spacing: -0.2px;
+}
+[data-theme="dark"] .wizard-popular-badge {
+  background: linear-gradient(135deg, #38BDF8, #00E5FF);
+  color: #080D1A;
+}
+
+.wizard-plan-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.wizard-plan-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-pure);
+  line-height: 1.35;
+}
+.wizard-plan-tag {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.wizard-plan-price-wrap {
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(0, 102, 255, 0.05);
+  border: 1px dashed rgba(0, 102, 255, 0.2);
+}
+[data-theme="dark"] .wizard-plan-price-wrap {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.wizard-plan-price-main {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--brand-primary);
+  font-variant-numeric: tabular-nums;
+}
+.wizard-plan-price-period {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+.wizard-plan-price-equiv {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.wizard-plan-desc {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* CRM Capabilities Checklist */
+.wizard-crm-box {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 102, 255, 0.18);
+  border-radius: 16px;
+  padding: 18px 16px;
+  margin-bottom: 24px;
+}
+[data-theme="dark"] .wizard-crm-box {
+  background: rgba(15, 23, 42, 0.55);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.wizard-crm-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+}
+[data-theme="dark"] .wizard-crm-box-header {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.wizard-crm-box-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-pure);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wizard-crm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.wizard-crm-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+[data-theme="dark"] .wizard-crm-item {
+  background: rgba(15, 23, 42, 0.45);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.wizard-crm-item:hover {
+  border-color: rgba(0, 102, 255, 0.3);
+  background: rgba(0, 102, 255, 0.04);
+}
+[data-theme="dark"] .wizard-crm-item:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.06);
+}
+
+.wizard-crm-item.active-item {
+  border-color: rgba(0, 102, 255, 0.4);
+  background: rgba(0, 102, 255, 0.08);
+}
+[data-theme="dark"] .wizard-crm-item.active-item {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.wizard-crm-item input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: #0066FF;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.wizard-crm-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.wizard-crm-item-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-pure);
+  line-height: 1.45;
+}
+
+.wizard-crm-item-badge {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+.wizard-crm-item-badge.tier-starter {
+  background: rgba(0, 102, 255, 0.12);
+  color: #0066FF;
+}
+.wizard-crm-item-badge.tier-pro {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+}
+.wizard-crm-item-badge.tier-enterprise {
+  background: rgba(147, 51, 234, 0.15);
+  color: #9333EA;
+}
+
+@media (max-width: 768px) {
+  .wizard-plan-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .wizard-crm-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+}
    Descriptive Drawer Auth Cards & Clinical Portal Guide Modal
    ========================================================================== */
 .drawer-auth-cards {
@@ -11278,16 +11595,12 @@ main .product-module-grid li:hover > svg {
 .service-card-desc {
   font-size: 14.5px;
   line-height: 1.75;
-  color: rgba(241, 245, 249, 0.92) !important;
+  color: #334155 !important;
   max-width: 680px;
   margin-bottom: 18px;
 }
 [data-theme="dark"] .service-card-desc {
-  color: rgba(241, 245, 249, 0.95) !important;
-}
-
-.service-scroll-fill-card .service-card-desc {
-  color: rgba(241, 245, 249, 0.92) !important;
+  color: rgba(226, 232, 240, 0.85) !important;
 }
 
 .service-tags-row {
@@ -11302,9 +11615,9 @@ main .product-module-grid li:hover > svg {
   gap: 6px;
   font-size: 12px;
   font-weight: 600;
-  color: #E2E8F0;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 3px 10px;
   border-radius: 8px;
 }
