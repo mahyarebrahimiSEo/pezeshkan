@@ -2337,7 +2337,8 @@ class ClinicalMediaStorageEngine:
         os.makedirs(target_dir, exist_ok=True)
 
         orig_ext = os.path.splitext(filename)[1].lower()
-        if orig_ext not in [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"]:
+        allowed_all = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".pdf", ".doc", ".docx"]
+        if orig_ext not in allowed_all:
             orig_ext = ".webp"
 
         base_clean = re.sub(r'[^a-zA-Z0-9_\-]', '', os.path.splitext(filename)[0])[:40] or "img"
@@ -2484,7 +2485,16 @@ class ClinicalMediaStorageEngine:
             s3_success = False
             if self.s3_client:
                 try:
-                    ct = "image/svg+xml" if orig_ext == ".svg" else "image/gif"
+                    if orig_ext == ".pdf":
+                        ct = "application/pdf"
+                    elif orig_ext == ".docx":
+                        ct = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    elif orig_ext == ".doc":
+                        ct = "application/msword"
+                    elif orig_ext == ".svg":
+                        ct = "image/svg+xml"
+                    else:
+                        ct = "image/gif"
                     prefix = f"uploads/{year_str}/{month_str}"
                     self.s3_client.put_object(
                         Bucket=S3_BUCKET_NAME,
@@ -4360,7 +4370,8 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                 return self.send_json({"error": "حجم فایل بیش از سقف مجاز سرور است (حداکثر ۱۵ مگابایت)"}, 400)
 
             orig_ext = os.path.splitext(filename)[1].lower()
-            if orig_ext not in [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"]:
+            allowed_upload = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".pdf", ".doc", ".docx"]
+            if orig_ext not in allowed_upload:
                 orig_ext = ".webp"
 
             # Magic bytes validation & SVG anti-XSS sanitization
@@ -4372,6 +4383,12 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             elif orig_ext == ".gif" and (raw_bytes.startswith(b"GIF87a") or raw_bytes.startswith(b"GIF89a")):
                 is_valid = True
             elif orig_ext == ".webp" and raw_bytes[:4] == b"RIFF" and raw_bytes[8:12] == b"WEBP":
+                is_valid = True
+            elif orig_ext == ".pdf" and (raw_bytes.startswith(b"%PDF-") or b"/PDF" in raw_bytes[:1024]):
+                is_valid = True
+            elif orig_ext == ".docx" and raw_bytes.startswith(b"PK\x03\x04"):
+                is_valid = True
+            elif orig_ext == ".doc" and (raw_bytes.startswith(b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1") or len(raw_bytes) > 256):
                 is_valid = True
             elif orig_ext == ".svg":
                 try:
