@@ -5008,7 +5008,52 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
             atomic_write_json(newsletters_path, newsletters)
             return self.send_json({"success": True, "newsletters": newsletters, "newsletter": data})
 
+        # 10.5. Newsletter Doctors Management via POST
+        if path in ("/api/newsletter-doctors", "/api/newsletter-doctors/"):
+            if not self.require_role("administrator", "editor"):
+                return
+            ndocs_path = os.path.join(CONTENT_DIR, "newsletter_doctors.json")
+            ndocs = load_json_file(ndocs_path, default=[])
+            target_id = data.get("id") or ("ndoc_" + secrets.token_hex(4))
+
+            if data.get("action") == "delete":
+                ndocs = [d for d in ndocs if str(d.get("id")) != str(target_id)]
+                atomic_write_json(ndocs_path, ndocs)
+                return self.send_json({"success": True, "doctors": ndocs})
+
+            new_doc = {
+                "id": str(target_id),
+                "name": sanitize_string(data.get("name", ""), 150),
+                "title": sanitize_string(data.get("title", ""), 200),
+                "mcNumber": sanitize_string(data.get("mcNumber") or data.get("mc", ""), 50),
+                "mc": sanitize_string(data.get("mcNumber") or data.get("mc", ""), 50),
+                "dept": sanitize_string(data.get("dept", ""), 150),
+                "role": sanitize_string(data.get("role", ""), 200),
+                "avatar": sanitize_string(data.get("avatar") or "/mag/uploads/doctors/dr-radmanesh.webp", 300),
+                "email": sanitize_string(data.get("email", ""), 100),
+                "bio": sanitize_string(data.get("bio", ""), 500)
+            }
+            existing_idx = next((i for i, d in enumerate(ndocs) if str(d.get("id")) == str(target_id)), -1)
+            if existing_idx != -1:
+                ndocs[existing_idx] = new_doc
+            else:
+                ndocs.append(new_doc)
+            atomic_write_json(ndocs_path, ndocs)
+            return self.send_json({"success": True, "doctor": new_doc, "doctors": ndocs})
+
         # 11. Create or Update Doctor via POST (Admin Doctors Management)
+        if path in ("/api/newsletter-doctors", "/api/newsletter-doctors/"):
+            if not self.require_role("administrator", "editor"):
+                return
+            query = urllib.parse.parse_qs(parsed.query)
+            doc_id = query.get("id", [""])[0]
+            ndocs_path = os.path.join(CONTENT_DIR, "newsletter_doctors.json")
+            ndocs = load_json_file(ndocs_path, default=[])
+            if doc_id:
+                ndocs = [d for d in ndocs if str(d.get("id")) != str(doc_id)]
+                atomic_write_json(ndocs_path, ndocs)
+            return self.send_json({"success": True, "doctors": ndocs})
+
         if path in ("/api/doctors", "/api/doctors/"):
             if not self.require_role("administrator", "editor"):
                 return

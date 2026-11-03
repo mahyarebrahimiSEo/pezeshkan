@@ -4463,7 +4463,7 @@
 
           </div>
 
-        </div>
+        
       </section>
 
       <!-- ================= 4. TAB: MEDIA LIBRARY ================= -->
@@ -7043,59 +7043,67 @@
     }
 
     function renderNewsletterDoctorsManagement(filterQuery = '') {
-      const container = document.getElementById('newsletterDoctorsListContainer');
-      const badge = document.getElementById('newsletterDoctorsTotalBadge');
-      if (!container) return;
+      try {
+        const container = document.getElementById('newsletterDoctorsListContainer');
+        const badge = document.getElementById('newsletterDoctorsTotalBadge');
+        if (!container) return;
 
-      const q = (filterQuery || '').trim().toLowerCase();
-      const filtered = (NEWSLETTER_DOCTORS || []).filter(d => {
-        if (!q) return true;
-        return (d.name || '').toLowerCase().includes(q) ||
-               (d.title || '').toLowerCase().includes(q) ||
-               (d.dept || '').toLowerCase().includes(q) ||
-               (d.role || '').toLowerCase().includes(q) ||
-               String(d.mcNumber || d.mc || '').includes(q);
-      });
+        const docs = (typeof NEWSLETTER_DOCTORS !== 'undefined' && Array.isArray(NEWSLETTER_DOCTORS)) ? NEWSLETTER_DOCTORS : [];
+        const q = (filterQuery || '').trim().toLowerCase();
+        const filtered = docs.filter(d => {
+          if (!d) return false;
+          if (!q) return true;
+          return (d.name || '').toLowerCase().includes(q) ||
+                 (d.title || '').toLowerCase().includes(q) ||
+                 (d.dept || '').toLowerCase().includes(q) ||
+                 (d.role || '').toLowerCase().includes(q) ||
+                 String(d.mcNumber || d.mc || '').includes(q);
+        });
 
-      if (badge) {
-        badge.textContent = `${NEWSLETTER_DOCTORS.length} پزشک خبرنامه`;
-      }
+        if (badge) {
+          badge.textContent = `${docs.length} پزشک خبرنامه`;
+        }
 
-      if (!filtered.length) {
-        container.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-muted); grid-column: 1 / -1;">هیچ پزشک خبرنامه‌ای با این مشخصات یافت نشد.</div>`;
-        return;
-      }
+        if (!filtered.length) {
+          container.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-muted); grid-column: 1 / -1; background: rgba(15, 23, 42, 0.4); border-radius: 12px; border: 1px dashed var(--border-subtle);">هیچ پزشک خبرنامه‌ای با این مشخصات یافت نشد.</div>`;
+          return;
+        }
 
-      container.innerHTML = filtered.map(d => {
-        const articlesCount = ARTICLES.filter(a => a.doctorId === d.id || (a.author && a.author.name === d.name)).length;
-        return `
-          <div class="card" style="padding: 20px; border: 1px solid rgba(16, 185, 129, 0.25); background: rgba(16, 185, 129, 0.02); display: flex; flex-direction: column; justify-content: space-between; border-radius: 12px; transition: transform 0.2s ease, border-color 0.2s ease;">
-            <div>
-              <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px;">
-                <img src="${d.avatar || '/mag/uploads/doctors/dr-radmanesh.webp'}" alt="${d.name}" style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(16, 185, 129, 0.5); flex-shrink: 0;" onerror="this.src='/mag/uploads/doctors/dr-radmanesh.webp'">
-                <div style="flex: 1; min-width: 0;">
-                  <h4 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 0 0 4px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.name}</h4>
-                  <div style="font-size: 12px; color: #10B981; font-weight: 700;">${d.title}</div>
+        const articles = (typeof ARTICLES !== 'undefined' && Array.isArray(ARTICLES)) ? ARTICLES : [];
+
+        container.innerHTML = filtered.map(d => {
+          const articlesCount = articles.filter(a => a && (a.doctorId === d.id || (a.author && a.author.name === d.name))).length;
+          return `
+            <div class="card" style="padding: 20px; border: 1px solid rgba(16, 185, 129, 0.25); background: rgba(16, 185, 129, 0.02); display: flex; flex-direction: column; justify-content: space-between; border-radius: 12px; transition: transform 0.2s ease, border-color 0.2s ease;">
+              <div>
+                <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px;">
+                  <img src="${d.avatar || '/mag/uploads/doctors/dr-radmanesh.webp'}" alt="${d.name}" style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(16, 185, 129, 0.5); flex-shrink: 0;" onerror="this.src='/mag/uploads/doctors/dr-radmanesh.webp'">
+                  <div style="flex: 1; min-width: 0;">
+                    <h4 style="font-size: 15px; font-weight: 800; color: var(--text-primary); margin: 0 0 4px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.name}</h4>
+                    <div style="font-size: 12px; color: #10B981; font-weight: 700;">${d.title}</div>
+                  </div>
                 </div>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+                  <span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(16, 185, 129, 0.12); color: #10B981; font-weight: 700;">نظام: ${d.mcNumber || d.mc || 'معتبر'}</span>
+                  <span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(59, 130, 246, 0.12); color: #60A5FA;">${d.dept || 'خبرنامه عمومی'}</span>
+                  <span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); color: var(--text-secondary);">${articlesCount} خبرنامه منتشر شده</span>
+                </div>
+
+                ${d.role ? `<div style="font-size: 11.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;"><span style="color:var(--text-muted);">سمت: </span>${d.role}</div>` : ''}
+                ${d.bio ? `<p style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 14px 0;">${d.bio}</p>` : ''}
               </div>
 
-              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
-                <span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(16, 185, 129, 0.12); color: #10B981; font-weight: 700;">نظام: ${d.mcNumber || d.mc || 'معتبر'}</span>
-                <span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(59, 130, 246, 0.12); color: #60A5FA;">${d.dept || 'خبرنامه عمومی'}</span>
-                <span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); color: var(--text-secondary);">${articlesCount} خبرنامه منتشر شده</span>
+              <div style="display: flex; justify-content: flex-end; gap: 8px; border-top: 1px solid var(--border-subtle); padding-top: 12px; margin-top: 8px;">
+                <button type="button" class="btn btn-secondary" style="font-size: 12px; padding: 4px 12px;" onclick="openNewsletterDoctorModal('${d.id}')">ویرایش</button>
+                <button type="button" class="btn btn-secondary" style="font-size: 12px; padding: 4px 12px; color: #F87171; border-color: rgba(239, 68, 68, 0.3);" onclick="deleteNewsletterDoctor('${d.id}')">حذف</button>
               </div>
-
-              ${d.role ? `<div style="font-size: 11.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;"><span style="color:var(--text-muted);">سمت: </span>${d.role}</div>` : ''}
-              ${d.bio ? `<p style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 14px 0;">${d.bio}</p>` : ''}
             </div>
-
-            <div style="display: flex; justify-content: flex-end; gap: 8px; border-top: 1px solid var(--border-subtle); padding-top: 12px; margin-top: 8px;">
-              <button type="button" class="btn btn-secondary" style="font-size: 12px; padding: 4px 12px;" onclick="openNewsletterDoctorModal('${d.id}')">ویرایش</button>
-              <button type="button" class="btn btn-secondary" style="font-size: 12px; padding: 4px 12px; color: #F87171; border-color: rgba(239, 68, 68, 0.3);" onclick="deleteNewsletterDoctor('${d.id}')">حذف</button>
-            </div>
-          </div>
-        `;
-      }).join('');
+          `;
+        }).join('');
+      } catch (renderErr) {
+        console.error('Error rendering newsletter doctors:', renderErr);
+      }
     }
 
     function openNewsletterDoctorModal(docId = null) {
@@ -7219,12 +7227,18 @@
     function switchTab(tabId) {
       activeTab = tabId;
       document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-section').forEach(el => {
+        el.classList.remove('active');
+        el.style.display = 'none';
+      });
 
       const menuEl = document.getElementById('menu-' + tabId);
       const tabEl = document.getElementById('tab-' + tabId);
       if (menuEl) menuEl.classList.add('active');
-      if (tabEl) tabEl.classList.add('active');
+      if (tabEl) {
+        tabEl.classList.add('active');
+        tabEl.style.display = 'block';
+      }
 
       if (tabId === 'leads') fetchLeads();
       if (tabId === 'dashboard') renderDashboard();
@@ -7233,7 +7247,7 @@
       if (tabId === 'crm') fetchCrmTutorials();
       if (tabId === 'users') fetchUsers();
       if (tabId === 'doctors') renderDoctorsManagement();
-      if (tabId === 'newsletter-doctors') renderNewsletterDoctorsManagement();
+      if (tabId === 'newsletter-doctors') { renderNewsletterDoctorsManagement(); fetchNewsletterDoctorsList(); }
       if (tabId === 'site-images') fetchSiteImages();
       if (tabId === 'redirects') renderRedirectsTable();
       if (tabId === 'schemas') renderSchemasTable();

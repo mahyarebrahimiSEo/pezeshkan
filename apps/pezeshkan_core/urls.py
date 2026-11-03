@@ -53,6 +53,10 @@ urlpatterns = [
     # 5. Clinical Data APIs
     path('api/pillars', views.api_pillars, name='api_pillars'),
     path('api/doctors', views.api_doctors, name='api_doctors'),
+    path('api/newsletter-doctors', views.api_newsletter_doctors, name='api_newsletter_doctors'),
+    path('api/newsletter-doctors/', views.api_newsletter_doctors, name='api_newsletter_doctors_slash'),
+    path('api/newsletter-doctors/<str:doc_id>', views.api_newsletter_doctors, name='api_newsletter_doctor_detail'),
+    path('api/newsletter-doctors/<str:doc_id>/', views.api_newsletter_doctors, name='api_newsletter_doctor_detail_slash'),
     path('api/articles', views.api_articles, name='api_articles'),
     path('api/articles/<str:slug>', views.api_articles, name='api_article_detail'),
 

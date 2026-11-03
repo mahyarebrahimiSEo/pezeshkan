@@ -622,6 +622,80 @@ def api_doctors(request):
 
 
 @csrf_exempt
+def api_newsletter_doctors(request, doc_id=None):
+    """
+    CRUD Endpoint for dedicated Newsletter Clinical Authors (independent of clinic appointment doctors).
+    Synchronizes directly with mag/content/newsletter_doctors.json.
+    """
+    newsletter_json_path = settings.BASE_DIR / 'mag' / 'content' / 'newsletter_doctors.json'
+
+    def load_newsletter_docs():
+        if newsletter_json_path.exists():
+            try:
+                with open(newsletter_json_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        return data
+            except Exception:
+                pass
+        return []
+
+    def save_newsletter_docs(docs):
+        try:
+            with open(newsletter_json_path, 'w', encoding='utf-8') as f:
+                json.dump(docs, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+    if request.method == "GET":
+        docs = load_newsletter_docs()
+        return JsonResponse(docs, safe=False)
+
+    elif request.method == "POST":
+        data = read_json(request)
+        target_id = doc_id or data.get("id") or f"ndoc_{int(datetime.now().timestamp())}"
+        docs = load_newsletter_docs()
+
+        # Handle deletion via POST action
+        if data.get("action") == "delete" or request.path.rstrip('/').endswith('/delete'):
+            docs = [d for d in docs if str(d.get("id")) != str(target_id)]
+            save_newsletter_docs(docs)
+            return JsonResponse({"success": True, "doctors": docs})
+
+        new_doc = {
+            "id": target_id,
+            "name": str(data.get("name", "")).strip(),
+            "title": str(data.get("title", "")).strip(),
+            "mcNumber": str(data.get("mcNumber") or data.get("mc") or "").strip(),
+            "mc": str(data.get("mcNumber") or data.get("mc") or "").strip(),
+            "dept": str(data.get("dept", "")).strip(),
+            "role": str(data.get("role", "")).strip(),
+            "avatar": str(data.get("avatar") or "/mag/uploads/doctors/dr-radmanesh.webp").strip(),
+            "email": str(data.get("email", "")).strip(),
+            "bio": str(data.get("bio", "")).strip(),
+        }
+
+        existing_idx = next((i for i, d in enumerate(docs) if str(d.get("id")) == str(target_id)), -1)
+        if existing_idx != -1:
+            docs[existing_idx] = new_doc
+        else:
+            docs.append(new_doc)
+
+        save_newsletter_docs(docs)
+        return JsonResponse({"success": True, "doctor": new_doc, "doctors": docs})
+
+    elif request.method == "DELETE":
+        target_id = doc_id or request.GET.get("id")
+        docs = load_newsletter_docs()
+        if target_id:
+            docs = [d for d in docs if str(d.get("id")) != str(target_id)]
+            save_newsletter_docs(docs)
+        return JsonResponse({"success": True, "doctors": docs})
+
+    return JsonResponse({"error": "Method not allowed"}, status=405)
+
+
+@csrf_exempt
 def api_articles(request, slug=None):
     if request.method == "GET":
         query_slug = slug or request.GET.get("slug")
