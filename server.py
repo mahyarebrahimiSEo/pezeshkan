@@ -2929,20 +2929,18 @@ def render_article_ssr(art, template_html):
         
         <!-- باکس نویسنده و تاییدیه علمی در ستون کناری -->
         <div class="author-verification-sidebar-card" style="border-top:1px solid var(--border-color); padding-top:16px;">
-          <div style="font-size:11px; font-weight:800; color:var(--color-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+          <div style="font-size:11px; font-weight:800; color:{'#10B981' if is_newsletter else 'var(--color-primary)'}; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
             <span><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/></svg></span>
-            <span>نویسنده و هیئت تحریریه بالینی</span>
+            <span>{'پزشک و نویسنده خبرنامه' if is_newsletter else 'نویسنده و هیئت تحریریه بالینی'}</span>
           </div>
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
             <div style="position:relative; flex-shrink:0;">
-              <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:19px; box-shadow:0 3px 10px rgba(0,115,255,0.25);">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><path d='M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1'/><path d='M8 15a6 6 0 0 0 12 0v-3'/><circle cx='20' cy='10' r='2'/></svg>
-              </div>
-              <span style="position:absolute; bottom:-2px; left:-2px; background:#00E599; color:#0F172A; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
+              {f'<img src="{author_avatar}" alt="{html.escape(author_name)}" style="width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid #10B981;" onerror="this.src=\'/mag/uploads/doctors/dr-radmanesh.webp\'">' if is_newsletter else f'<div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0073FF 0%, #00C48C 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:19px; box-shadow:0 3px 10px rgba(0,115,255,0.25);"><svg xmlns=\'http://www.w3.org/2000/svg\' width=\'18\' height=\'18\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2.2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' style=\'vertical-align:middle;\'><path d=\'M11 2v2M5 2v2m0-1H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\'/><path d=\'M8 15a6 6 0 0 0 12 0v-3\'/><circle cx=\'20\' cy=\'10\' r=\'2\'/></svg></div>'}
+              <span style="position:absolute; bottom:-2px; left:-2px; background:{'#10B981' if is_newsletter else '#00E599'}; color:#0F172A; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:900; border:2px solid #FFFFFF;"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:middle;'><polyline points='20 6 9 17 4 12'/></svg></span>
             </div>
             <div>
-              <div style="font-size:13.5px; font-weight:900; color:var(--text-heading); margin:0;">تیم متخصص محتوا نویس پزشکآن</div>
-              <span style="font-size:11px; color:var(--text-secondary); display:block; margin-top:2px;">تحریریه علمی و پایش بالینی مجله</span>
+              <div style="font-size:13.5px; font-weight:900; color:var(--text-heading); margin:0;">{html.escape(author_name)}</div>
+              <span style="font-size:11px; color:var(--text-secondary); display:block; margin-top:2px;">{html.escape(author_title)}</span>
             </div>
           </div>
 
