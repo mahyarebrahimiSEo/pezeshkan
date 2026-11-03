@@ -3436,6 +3436,10 @@
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="1.5"/><circle cx="14" cy="13" r="1.5"/><path d="M9 17h6"/></svg>
           <span>مدیریت فایل robots.txt</span>
         </li>
+        <li class="sidebar-item" id="menu-sitemap" onclick="switchTab('sitemap')">
+          <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <span>مدیریت نقشه سایت (sitemap.xml)</span>
+        </li>
         <li class="sidebar-item" id="menu-llms" onclick="switchTab('llms')">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
           <span>پیکربندی هوش مصنوعی (llms.txt)</span>
@@ -5096,6 +5100,173 @@
           </div>
         </div>
       </section>
+
+      <!-- ================= 10.5. TAB: SITEMAP.XML MANAGEMENT & VISUAL EDITOR ================= -->
+      <section id="tab-sitemap" class="tab-section">
+        <div class="section-header-box">
+          <div class="section-title-wrap">
+            <h2>
+              <span>مدیریت و ویرایشگر نقشه سایت (sitemap.xml)</span>
+              <span class="admin-badge-clinical" id="sitemapHeaderBadge" style="background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3);">آماده و فعال</span>
+            </h2>
+            <p>هدایت خزنده‌های گوگل، مدیریت اولویت صفحات (Priority)، بازه تغییرات (Changefreq) و بازتولید خودکار نقشه سایت بالینی</p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary" onclick="window.open('/sitemap.xml', '_blank')" title="مشاهده فایل زنده نقشه سایت روی سرور">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>مشاهده فایل زنده XML</span>
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="generateSitemapXml()" title="تولید خودکار نقشه سایت بر اساس تمام مقالات و صفحات فعال">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              <span>بازتولید هوشمند نقشه سایت</span>
+            </button>
+            <button type="button" class="btn btn-primary" onclick="saveSitemapXml()" style="padding: 10px 24px; font-weight: 800; font-size: 13.5px; box-shadow: 0 4px 18px rgba(0, 115, 255, 0.45); display: flex; align-items: center; gap: 8px;">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              <span>ذخیره فایل sitemap.xml</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 KPI Metrics Row -->
+        <div class="metrics-row" style="margin-bottom: 22px;">
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(16, 185, 129, 0.15); color: #10B981;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>تعداد کل URLهای نقشه</h4>
+              <div class="metric-num" id="sitemapMetricTotal" style="color: #10B981;">--</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(59, 130, 246, 0.08); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.18);">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>مقالات و خبرنامه‌ها</h4>
+              <div class="metric-num" id="sitemapMetricArticles" style="font-size: 20px; color: #38BDF8;">--</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>صفحات اصلی و پورتال</h4>
+              <div class="metric-num" id="sitemapMetricCore" style="font-size: 20px; color: #F59E0B;">--</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-wrap" style="background: rgba(139, 92, 246, 0.15); color: #A78BFA;">
+              <svg class="icon-svg" style="font-size: 24px;" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <div class="metric-info">
+              <h4>پروتکل و استاندارد گوگل</h4>
+              <div class="metric-num" id="sitemapMetricStatus" style="font-size: 15px; color: #A78BFA;">Sitemaps 0.9 رسمی</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-Column Split Workspace -->
+        <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; align-items: start;">
+
+          <!-- Column 1: XML Code Editor -->
+          <div>
+            <div class="robots-editor-card">
+              <div class="robots-editor-toolbar">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 12.5px; font-weight: 700; color: var(--text-primary);">کد منبع XML نقشه سایت:</span>
+                </div>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" class="robots-snippet-btn" onclick="insertSitemapPreset('new_url')">+ آدرس تازه</button>
+                  <button type="button" class="robots-snippet-btn" onclick="insertSitemapPreset('priority_10')">+ اولویت ۱.۰</button>
+                  <button type="button" class="robots-snippet-btn" onclick="insertSitemapPreset('priority_85')">+ اولویت ۰.۸۵</button>
+                  <button type="button" class="robots-snippet-btn" onclick="insertSitemapPreset('changefreq_daily')">+ فرکانس روزانه</button>
+                  <button type="button" class="robots-snippet-btn" onclick="insertSitemapPreset('changefreq_weekly')">+ فرکانس هفتگی</button>
+                </div>
+              </div>
+
+              <textarea id="sitemapXmlEditor" class="robots-textarea" spellcheck="false" dir="ltr" oninput="onSitemapContentChanged()" placeholder="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;&#10;&lt;/urlset&gt;" style="min-height: 440px; font-family: monospace; font-size: 12.5px; line-height: 1.6;"></textarea>
+
+              <div class="robots-editor-footer">
+                <div id="sitemapEditorMeta">تعداد سطور: -- | حجم فایل: -- بایت</div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span id="sitemapLiveStatus" style="color: #10B981; font-size: 11.5px;">فرمت XML معتبر است</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sticky Save Bar -->
+            <div class="robots-sticky-save-bar" style="margin-top: 16px;">
+              <div>
+                <h4 style="font-size: 14px; font-weight: 800; color: #F8FAFC; margin-bottom: 3px;">ذخیره و انتشار فوری نقشه سایت</h4>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin: 0;">همگام‌سازی بلافاصله با روت سرور (/sitemap.xml) و پورتال نوبت‌دهی</p>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="saveSitemapXml()" style="padding: 9px 24px; font-weight: 800; font-size: 13px;">ذخیره نقشه سایت</button>
+            </div>
+          </div>
+
+          <!-- Column 2: Live URL Explorer & Quick URL Adder -->
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+
+            <!-- Quick Add URL Box -->
+            <div class="card" style="padding: 18px 20px; border-radius: 12px; border: 1px solid rgba(0, 115, 255, 0.25); background: rgba(0, 115, 255, 0.03);">
+              <h4 style="font-size: 13.5px; font-weight: 800; color: var(--text-primary); margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon-svg" style="width: 16px; height: 16px; color: var(--color-primary);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>افزودن سریع آدرس جدید به نقشه</span>
+              </h4>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div>
+                  <label style="font-size: 11.5px; color: var(--text-muted); display: block; margin-bottom: 4px;">مسیر صفحه (URL):</label>
+                  <input type="text" id="quickSitemapLoc" class="form-control" dir="ltr" placeholder="https://pezeshkan.me/example" style="font-size: 12.5px;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div>
+                    <label style="font-size: 11.5px; color: var(--text-muted); display: block; margin-bottom: 4px;">اولویت (Priority):</label>
+                    <select id="quickSitemapPriority" class="form-control" style="font-size: 12px;">
+                      <option value="1.0">1.0 (صفحه اصلی)</option>
+                      <option value="0.95">0.95 (صفحات پیلار)</option>
+                      <option value="0.90">0.90 (بخش‌های کلیدی)</option>
+                      <option value="0.85" selected>0.85 (مقالات بالینی)</option>
+                      <option value="0.80">0.80 (خدمات و فرعی)</option>
+                      <option value="0.50">0.50 (عادی)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size: 11.5px; color: var(--text-muted); display: block; margin-bottom: 4px;">تغییرات (Changefreq):</label>
+                    <select id="quickSitemapFreq" class="form-control" style="font-size: 12px;">
+                      <option value="daily">daily (روزانه)</option>
+                      <option value="weekly" selected>weekly (هفتگی)</option>
+                      <option value="monthly">monthly (ماهانه)</option>
+                      <option value="yearly">yearly (سالانه)</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="addQuickUrlToSitemap()" style="font-size: 12px; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(0, 115, 255, 0.1); color: var(--color-primary); border-color: rgba(0, 115, 255, 0.3);">
+                  <span>درج آدرس در کد نقشه سایت</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Parsed URLs Explorer List -->
+            <div class="card" style="padding: 18px 20px; border-radius: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h4 style="font-size: 13.5px; font-weight: 800; color: var(--text-primary); margin: 0;">کاوشگر آدرس‌های ایندکس‌شده</h4>
+                <span id="sitemapExplorerCount" style="font-size: 11.5px; color: var(--text-muted);">-- آدرس</span>
+              </div>
+              <input type="text" id="sitemapFilterInput" class="form-control" placeholder="فیلتر آدرس‌ها..." style="font-size: 12px; margin-bottom: 12px;" oninput="filterSitemapExplorer(this.value)">
+              <div id="sitemapUrlsExplorerList" style="display: flex; flex-direction: column; gap: 8px; max-height: 480px; overflow-y: auto; padding-left: 4px;"></div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
 
       <!-- ================= 9. TAB: LLMS.TXT GENERATOR (AI SEARCH & LLMs) ================= -->
       <section id="tab-llms" class="tab-section">
@@ -6952,6 +7123,7 @@
       fetchRedirects();
       fetchSchemas();
       fetchRobotsTxt();
+      fetchSitemapXml();
       fetchLlmsSettings();
       fetchSiteStructure();
       setupPasteSanitizer();
@@ -7252,6 +7424,7 @@
       if (tabId === 'redirects') renderRedirectsTable();
       if (tabId === 'schemas') renderSchemasTable();
       if (tabId === 'robots') fetchRobotsTxt();
+      if (tabId === 'sitemap') fetchSitemapXml();
       if (tabId === 'llms') fetchLlmsSettings();
       if (tabId === 'structure') fetchSiteStructure();
       if (tabId === 'seo-audit') fetchSeoAudit();
@@ -12531,6 +12704,257 @@ function onEditorContentChanged() {
     // ==========================================================================
     let robotsDebounceTimer = null;
     let isRobotsSaving = false;
+
+
+    // ==========================================
+    // SITEMAP.XML MANAGEMENT & VISUAL EDITOR
+    // ==========================================
+    let SITEMAP_DATA = { content: '', urls: [] };
+
+    function getTodayIso() {
+      const now = new Date();
+      return now.toISOString().slice(0, 10) + 'T10:00:00+03:30';
+    }
+
+    async function fetchSitemapXml() {
+      try {
+        const res = await fetch('/api/admin/sitemap');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.success) {
+          SITEMAP_DATA = data;
+          const editor = document.getElementById('sitemapXmlEditor');
+          if (editor && (!editor.value || document.activeElement !== editor)) {
+            editor.value = data.content || '';
+          }
+          updateSitemapUI(data);
+        }
+      } catch (err) {
+        console.error('Error fetching sitemap:', err);
+      }
+    }
+
+    function updateSitemapUI(data) {
+      const total = data.total || (data.urls ? data.urls.length : 0);
+      const articles = data.articlesCount || 0;
+      const core = data.coreCount || 0;
+
+      const headerBadge = document.getElementById('sitemapHeaderBadge');
+      if (headerBadge) headerBadge.textContent = total + ' آدرس استاندارد';
+
+      const mTotal = document.getElementById('sitemapMetricTotal');
+      if (mTotal) mTotal.textContent = total + ' آدرس';
+
+      const mArticles = document.getElementById('sitemapMetricArticles');
+      if (mArticles) mArticles.textContent = articles + ' مقاله';
+
+      const mCore = document.getElementById('sitemapMetricCore');
+      if (mCore) mCore.textContent = core + ' صفحه پورتال';
+
+      const mStatus = document.getElementById('sitemapMetricStatus');
+      if (mStatus) mStatus.textContent = data.isValid ? 'Sitemaps 0.9 معتبر' : 'خطای فرمت XML';
+
+      const expCount = document.getElementById('sitemapExplorerCount');
+      if (expCount) expCount.textContent = total + ' آدرس';
+
+      updateSitemapMeta();
+      renderSitemapExplorer(data.urls || []);
+    }
+
+    function updateSitemapMeta() {
+      const editor = document.getElementById('sitemapXmlEditor');
+      const metaEl = document.getElementById('sitemapEditorMeta');
+      if (!editor || !metaEl) return;
+      const lines = (editor.value.match(/\n/g) || []).length + 1;
+      const bytes = new Blob([editor.value]).size;
+      metaEl.textContent = 'تعداد سطور: ' + lines.toLocaleString('fa-IR') + ' | حجم فایل: ' + bytes.toLocaleString('fa-IR') + ' بایت';
+
+      const statusEl = document.getElementById('sitemapLiveStatus');
+      if (statusEl) {
+        const isValid = editor.value.includes('<urlset') && editor.value.includes('</urlset>');
+        statusEl.textContent = isValid ? 'فرمت XML معتبر است' : 'هشدار: تگ urlset یافت نشد';
+        statusEl.style.color = isValid ? '#10B981' : '#F87171';
+      }
+    }
+
+    function onSitemapContentChanged() {
+      updateSitemapMeta();
+      const editor = document.getElementById('sitemapXmlEditor');
+      if (!editor) return;
+      const val = editor.value;
+
+      const urlMatches = val.match(/<url>([\s\S]*?)<\/url>/g) || [];
+      const parsedUrls = [];
+      for (const u of urlMatches) {
+        const locM = u.match(/<loc>(.*?)<\/loc>/);
+        const prioM = u.match(/<priority>(.*?)<\/priority>/);
+        const freqM = u.match(/<changefreq>(.*?)<\/changefreq>/);
+        const lastM = u.match(/<lastmod>(.*?)<\/lastmod>/);
+        if (locM) {
+          parsedUrls.push({
+            loc: locM[1].trim(),
+            priority: prioM ? prioM[1].trim() : '0.8',
+            changefreq: freqM ? freqM[1].trim() : 'weekly',
+            lastmod: lastM ? lastM[1].trim() : ''
+          });
+        }
+      }
+      const articlesCount = parsedUrls.filter(u => u.loc.includes('/mag/') && !u.loc.endsWith('/mag') && !u.loc.endsWith('/mag/newsletter')).length;
+      const coreCount = parsedUrls.length - articlesCount;
+      const isValid = val.includes('<urlset') && val.includes('</urlset>');
+
+      updateSitemapUI({
+        total: parsedUrls.length,
+        articlesCount,
+        coreCount,
+        isValid,
+        urls: parsedUrls
+      });
+    }
+
+    function renderSitemapExplorer(urls) {
+      const container = document.getElementById('sitemapUrlsExplorerList');
+      if (!container) return;
+      if (!urls.length) {
+        container.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 20px; font-size: 12px;">هیچ آدرسی در نقشه سایت یافت نشد.</div>';
+        return;
+      }
+
+      container.innerHTML = urls.map(u => {
+        const prioNum = parseFloat(u.priority) || 0.8;
+        const prioColor = prioNum >= 0.9 ? '#10B981' : prioNum >= 0.8 ? '#38BDF8' : '#F59E0B';
+        const displayLoc = u.loc.replace('https://pezeshkan.me', '');
+        return `
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+            <div style="min-width: 0; flex: 1;">
+              <div style="font-size: 12px; font-weight: 700; color: #F8FAFC; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; text-align: left;" title="${u.loc}">
+                ${displayLoc || '/'}
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px; font-size: 10.5px; color: var(--text-muted);">
+                <span>${u.changefreq || 'weekly'}</span>
+                <span>•</span>
+                <span>${(u.lastmod || '').slice(0, 10)}</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+              <span style="font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.06); color: ${prioColor}; border: 1px solid ${prioColor}44;">
+                ${u.priority || '0.8'}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterSitemapExplorer(query) {
+      const q = (query || '').trim().toLowerCase();
+      const urls = (SITEMAP_DATA && SITEMAP_DATA.urls) ? SITEMAP_DATA.urls : [];
+      if (!q) {
+        renderSitemapExplorer(urls);
+        return;
+      }
+      const filtered = urls.filter(u => (u.loc || '').toLowerCase().includes(q));
+      renderSitemapExplorer(filtered);
+    }
+
+    
+    const SITEMAP_PRESETS = {
+      new_url: () => '  <url>\n    <loc>https://pezeshkan.me/new-page</loc>\n    <lastmod>' + getTodayIso() + '</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>',
+      priority_10: () => '    <priority>1.0</priority>',
+      priority_85: () => '    <priority>0.85</priority>',
+      changefreq_daily: () => '    <changefreq>daily</changefreq>',
+      changefreq_weekly: () => '    <changefreq>weekly</changefreq>'
+    };
+
+    function insertSitemapPreset(key) {
+      if (SITEMAP_PRESETS[key]) {
+        insertSitemapSnippet(SITEMAP_PRESETS[key]());
+      }
+    }
+
+    function insertSitemapSnippet(snippet) {
+      const editor = document.getElementById('sitemapXmlEditor');
+      if (!editor) return;
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const text = editor.value;
+
+      if (start === end && text.includes('</urlset>')) {
+        const insertIdx = text.lastIndexOf('</urlset>');
+        editor.value = text.slice(0, insertIdx) + snippet + '\n' + text.slice(insertIdx);
+      } else {
+        editor.value = text.slice(0, start) + snippet + text.slice(end);
+      }
+      editor.focus();
+      onSitemapContentChanged();
+    }
+
+    function addQuickUrlToSitemap() {
+      const locIn = document.getElementById('quickSitemapLoc');
+      const prioIn = document.getElementById('quickSitemapPriority');
+      const freqIn = document.getElementById('quickSitemapFreq');
+      if (!locIn || !locIn.value.trim()) {
+        alert('لطفاً آدرس صفحه (URL) را وارد نمایید.');
+        return;
+      }
+
+      let urlVal = locIn.value.trim();
+      if (!urlVal.startsWith('http://') && !urlVal.startsWith('https://')) {
+        urlVal = 'https://pezeshkan.me' + (urlVal.startsWith('/') ? '' : '/') + urlVal;
+      }
+
+      const snippet = '  <url>\n    <loc>' + urlVal + '</loc>\n    <lastmod>' + getTodayIso() + '</lastmod>\n    <changefreq>' + freqIn.value + '</changefreq>\n    <priority>' + prioIn.value + '</priority>\n  </url>';
+      insertSitemapSnippet(snippet);
+      locIn.value = '';
+      alert('آدرس با موفقیت در کد نقشه سایت درج شد. لطفاً دکمه ذخیره را جهت انتشار بزنید.');
+    }
+
+    async function saveSitemapXml() {
+      const editor = document.getElementById('sitemapXmlEditor');
+      if (!editor) return;
+      try {
+        const res = await fetch('/api/admin/sitemap', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: editor.value })
+        });
+        const data = await res.json();
+        if (data.success) {
+          SITEMAP_DATA = data;
+          updateSitemapUI(data);
+          alert('فایل sitemap.xml با موفقیت ذخیره و منتشر شد.');
+        } else {
+          alert('خطا در ذخیره فایل نقشه سایت: ' + (data.error || 'خطای نامشخص'));
+        }
+      } catch (err) {
+        console.error('Error saving sitemap:', err);
+        alert('خطای ارتباط با سرور در هنگام ذخیره نقشه سایت.');
+      }
+    }
+
+    async function generateSitemapXml() {
+      if (!confirm('آیا مایل به بازتولید هوشمند نقشه سایت بر اساس تمام مقالات و صفحات فعال هستید؟')) return;
+      try {
+        const res = await fetch('/api/admin/sitemap/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+        const data = await res.json();
+        if (data.success) {
+          SITEMAP_DATA = data;
+          const editor = document.getElementById('sitemapXmlEditor');
+          if (editor) editor.value = data.content || '';
+          updateSitemapUI(data);
+          alert('نقشه سایت با موفقیت بر اساس تمام مقالات و صفحات به‌روزرسانی شد.');
+        } else {
+          alert('خطا در بازتولید نقشه سایت: ' + (data.error || 'خطای نامشخص'));
+        }
+      } catch (err) {
+        console.error('Error generating sitemap:', err);
+        alert('خطای ارتباط با سرور.');
+      }
+    }
 
     async function fetchRobotsTxt() {
       try {

@@ -3927,6 +3927,46 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                     return
                 return self.send_json({"success": True, "schemas": load_schemas()})
 
+            if path in ("/api/admin/sitemap", "/api/admin/sitemap/"):
+                if not self.require_role("administrator", "editor"):
+                    return
+                sitemap_path = os.path.join(BASE_DIR, "sitemap.xml")
+                xml_str = ""
+                if os.path.isfile(sitemap_path):
+                    try:
+                        with open(sitemap_path, "r", encoding="utf-8") as f:
+                            xml_str = f.read()
+                    except Exception:
+                        xml_str = ""
+                if not xml_str.strip():
+                    xml_str = generate_dynamic_sitemap_xml()
+
+                url_matches = re.findall(r'<url>(.*?)</url>', xml_str, re.DOTALL)
+                urls = []
+                for u in url_matches:
+                    loc_m = re.search(r'<loc>(.*?)</loc>', u)
+                    lastmod_m = re.search(r'<lastmod>(.*?)</lastmod>', u)
+                    freq_m = re.search(r'<changefreq>(.*?)</changefreq>', u)
+                    prio_m = re.search(r'<priority>(.*?)</priority>', u)
+                    if loc_m:
+                        urls.append({
+                            "loc": loc_m.group(1).strip(),
+                            "lastmod": lastmod_m.group(1).strip() if lastmod_m else "",
+                            "changefreq": freq_m.group(1).strip() if freq_m else "weekly",
+                            "priority": prio_m.group(1).strip() if prio_m else "0.8"
+                        })
+                articles_count = sum(1 for u in urls if '/mag/' in u['loc'] and not u['loc'].endswith('/mag') and not u['loc'].endswith('/mag/newsletter'))
+                core_count = len(urls) - articles_count
+                return self.send_json({
+                    "success": True,
+                    "content": xml_str,
+                    "urls": urls,
+                    "total": len(urls),
+                    "articlesCount": articles_count,
+                    "coreCount": core_count,
+                    "isValid": bool(re.search(r'<urlset[^>]*>', xml_str) and '</urlset>' in xml_str)
+                })
+
             if path in ("/api/admin/robots", "/api/admin/robots/"):
                 if not self.require_role("administrator"):
                     return
@@ -4720,6 +4760,46 @@ class PezeshkanRequestHandler(http.server.BaseHTTPRequestHandler):
                 "valid": True,
                 "message": "ساختار داده‌های نشانی معتبر بوده و با استانداردهای گوگل و Schema.org سازگار است.",
                 "type": str(stype)
+            })
+
+        if path in ("/api/admin/sitemap", "/api/admin/sitemap/", "/api/admin/sitemap/generate", "/api/admin/sitemap/generate/"):
+            if not self.require_role("administrator", "editor"):
+                return
+            if path.rstrip('/').endswith('/generate') or (isinstance(data, dict) and data.get('action') == 'generate'):
+                xml_str = generate_dynamic_sitemap_xml()
+            else:
+                xml_str = data.get("content", "") if isinstance(data, dict) else ""
+                if not xml_str.strip():
+                    xml_str = generate_dynamic_sitemap_xml()
+                else:
+                    atomic_write_text(os.path.join(BASE_DIR, "sitemap.xml"), xml_str)
+                    atomic_write_text(os.path.join(PORTAL_DIR, "sitemap.xml"), xml_str)
+
+            url_matches = re.findall(r'<url>(.*?)</url>', xml_str, re.DOTALL)
+            urls = []
+            for u in url_matches:
+                loc_m = re.search(r'<loc>(.*?)</loc>', u)
+                lastmod_m = re.search(r'<lastmod>(.*?)</lastmod>', u)
+                freq_m = re.search(r'<changefreq>(.*?)</changefreq>', u)
+                prio_m = re.search(r'<priority>(.*?)</priority>', u)
+                if loc_m:
+                    urls.append({
+                        "loc": loc_m.group(1).strip(),
+                        "lastmod": lastmod_m.group(1).strip() if lastmod_m else "",
+                        "changefreq": freq_m.group(1).strip() if freq_m else "weekly",
+                        "priority": prio_m.group(1).strip() if prio_m else "0.8"
+                    })
+            articles_count = sum(1 for u in urls if '/mag/' in u['loc'] and not u['loc'].endswith('/mag') and not u['loc'].endswith('/mag/newsletter'))
+            core_count = len(urls) - articles_count
+            return self.send_json({
+                "success": True,
+                "message": "فایل نقشه سایت (sitemap.xml) با موفقیت به‌روزرسانی و منتشر شد.",
+                "content": xml_str,
+                "urls": urls,
+                "total": len(urls),
+                "articlesCount": articles_count,
+                "coreCount": core_count,
+                "isValid": bool(re.search(r'<urlset[^>]*>', xml_str) and '</urlset>' in xml_str)
             })
 
         if path in ("/api/admin/robots", "/api/admin/robots/"):

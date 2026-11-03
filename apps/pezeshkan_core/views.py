@@ -1,3 +1,4 @@
+import urllib.parse
 # -*- coding: utf-8 -*-
 """
 Pezeshkan Medical Ecosystem - Enterprise Django API & View Controllers
@@ -1750,9 +1751,7 @@ def api_site_structure(request):
     return JsonResponse(data)
 
 
-@csrf_exempt
-
-def generate_sitemap_xml_django():
+def generate_sitemap_xml_django(request=None):
     """
     Dynamically generates Google-compliant XML Sitemap 0.9 from active articles,
     pillars, portal routes, and newsletter pages.
