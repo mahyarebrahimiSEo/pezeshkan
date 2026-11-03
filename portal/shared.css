@@ -3001,12 +3001,19 @@ a:hover {
     min-height: auto !important;
     max-height: none !important;
     height: auto !important;
-    overflow: visible !important;
+    overflow: hidden !important;
+  }
+  .pez-hero-ambient-glows {
+    overflow: hidden !important;
+  }
+  .pez-hero-ambient-glows .ambient-glow {
+    max-width: 260px !important;
+    max-height: 260px !important;
   }
   .pez-hero-container {
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 0 20px;
+    padding: 0 16px;
     max-width: 100%;
   }
   .pez-hero-3d-stage-left,
@@ -3129,6 +3136,32 @@ a:hover {
   }
   .hud-alert-title {
     font-size: 10.5px;
+  }
+}
+
+@media (max-width: 400px) {
+  .pez-hero-container {
+    padding: 0 12px !important;
+  }
+  .pez-hero-title {
+    font-size: 1.35rem !important;
+    line-height: 1.35 !important;
+  }
+  .pez-hero-subtitle {
+    font-size: 0.88rem !important;
+    line-height: 1.7 !important;
+  }
+  .pez-hero-trust-bar {
+    padding: 10px 4px !important;
+  }
+  .pez-hero-trust-bar .trust-item {
+    padding: 2px 4px !important;
+  }
+  .pez-hero-trust-bar .trust-val {
+    font-size: 12px !important;
+  }
+  .pez-hero-trust-bar .trust-lbl {
+    font-size: 8.5px !important;
   }
 }
 
@@ -4561,8 +4594,9 @@ body.intro-device-locked {
     font-size: 12.5px;
     gap: 4px;
   }
-  .brand-text span {
-    display: none;
+  .brand-text .brand-subtitle-fa,
+  .brand-text .brand-wordmark-en {
+    display: none !important;
   }
 }
 
@@ -4580,9 +4614,11 @@ body.intro-device-locked {
   }
   .brand-text h1, .brand-text .brand-title-fa {
     font-size: 16px;
+    display: inline-block !important;
   }
-  .brand-text span {
-    display: none;
+  .brand-text .brand-subtitle-fa,
+  .brand-text .brand-wordmark-en {
+    display: none !important;
   }
   .header-actions {
     gap: 6px !important;
@@ -4704,8 +4740,9 @@ body.intro-device-locked {
     min-height: 62px;
     gap: 10px;
   }
-  .brand-text span {
-    display: none;
+  .brand-text .brand-subtitle-fa,
+  .brand-text .brand-wordmark-en {
+    display: none !important;
   }
   .header-actions {
     gap: 8px;
@@ -7923,6 +7960,7 @@ body.intro-device-locked {
 }
 
 .brand-text h1, .brand-text .brand-title-fa {
+  display: inline-block !important;
   font-size: 18px !important;
   font-weight: 900 !important;
   color: var(--text-pure) !important;
@@ -7930,6 +7968,8 @@ body.intro-device-locked {
   margin: 0 !important;
   line-height: 1.15 !important;
   white-space: nowrap !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .brand-text .brand-wordmark-en {
@@ -8176,12 +8216,13 @@ body.intro-device-locked {
   }
   .brand-text h1, .brand-text .brand-title-fa {
     font-size: 15.5px !important;
+    display: inline-block !important;
   }
   .brand-text .brand-wordmark-en {
     display: none !important;
   }
   .brand-text .brand-subtitle-fa {
-    font-size: 9.5px !important;
+    display: none !important;
   }
   .header-actions {
     gap: 5px !important;
@@ -8205,6 +8246,7 @@ body.intro-device-locked {
     font-size: 11.2px !important;
     border-radius: 8px !important;
     gap: 3.5px !important;
+    white-space: nowrap !important;
   }
   .auth-capsule-btn .svg-icon {
     width: 13px !important;
@@ -8226,9 +8268,13 @@ body.intro-device-locked {
   .site-header .container {
     padding: 0 10px !important;
   }
+  .header-inner {
+    padding: 6px 0 !important;
+    gap: 4px !important;
+  }
   .brand-logo-emblem {
-    width: 33px !important;
-    height: 33px !important;
+    width: 32px !important;
+    height: 32px !important;
     border-radius: 0 !important;
     border: none !important;
     background: transparent !important;
@@ -8236,7 +8282,8 @@ body.intro-device-locked {
     padding: 0 !important;
   }
   .brand-text h1, .brand-text .brand-title-fa {
-    font-size: 14.5px !important;
+    font-size: 14px !important;
+    display: inline-block !important;
   }
   .brand-text .brand-subtitle-fa {
     display: none !important;
@@ -8257,6 +8304,20 @@ body.intro-device-locked {
   .mobile-menu-toggle {
     width: 30px !important;
     height: 30px !important;
+  }
+}
+
+/* Ultra Compact Viewport (<= 360px) */
+@media (max-width: 360px) {
+  .site-header .container {
+    padding: 0 6px !important;
+  }
+  .brand-text h1, .brand-text .brand-title-fa {
+    font-size: 13px !important;
+  }
+  .auth-capsule-btn {
+    padding: 0 5px !important;
+    font-size: 10.5px !important;
   }
 }
 

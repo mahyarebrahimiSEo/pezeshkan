@@ -12,7 +12,7 @@ import base64
 import secrets
 import mimetypes
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse, HttpResponseNotFound, FileResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -1751,6 +1751,163 @@ def api_site_structure(request):
 
 
 @csrf_exempt
+
+def generate_sitemap_xml_django():
+    """
+    Dynamically generates Google-compliant XML Sitemap 0.9 from active articles,
+    pillars, portal routes, and newsletter pages.
+    """
+    articles_path = settings.BASE_DIR / 'mag' / 'content' / 'articles.json'
+    articles = []
+    if articles_path.exists():
+        try:
+            with open(articles_path, 'r', encoding='utf-8') as f:
+                articles = json.load(f)
+        except Exception:
+            articles = []
+
+    now_iso = datetime.now(timezone(timedelta(hours=3, minutes=30))).strftime('%Y-%m-%dT%H:%M:%S+03:30')
+
+    urls = [
+        ("https://pezeshkan.me/", now_iso, "daily", "1.0"),
+        ("https://pezeshkan.me/mag", now_iso, "daily", "0.95"),
+        ("https://pezeshkan.me/appointments", now_iso, "daily", "0.9"),
+        ("https://pezeshkan.me/mag/newsletter", now_iso, "weekly", "0.9"),
+    ]
+
+    for a in articles:
+        slug = a.get("slug") or a.get("id")
+        if not slug:
+            continue
+        loc = f"https://pezeshkan.me/mag/{urllib.parse.quote(str(slug))}"
+        lastmod = a.get("publishDate") or a.get("lastReviewed") or now_iso
+        if len(str(lastmod)) == 10:
+            lastmod = f"{lastmod}T10:00:00+03:30"
+        urls.append((loc, str(lastmod), "weekly", "0.85"))
+
+    subpages = ["product", "features", "packages", "tutorials", "services", "start", "about", "contact", "download"]
+    for sp in subpages:
+        urls.append((f"https://pezeshkan.me/{sp}", now_iso, "weekly", "0.8"))
+
+    xml_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+        '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9',
+        '        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">'
+    ]
+    for loc, lastmod, changefreq, priority in urls:
+        xml_lines.append("  <url>")
+        xml_lines.append(f"    <loc>{loc}</loc>")
+        xml_lines.append(f"    <lastmod>{lastmod}</lastmod>")
+        xml_lines.append(f"    <changefreq>{changefreq}</changefreq>")
+        xml_lines.append(f"    <priority>{priority}</priority>")
+        xml_lines.append("  </url>")
+    xml_lines.append("</urlset>")
+
+    xml_content = "\n".join(xml_lines)
+    try:
+        with open(settings.BASE_DIR / 'sitemap.xml', 'w', encoding='utf-8') as f:
+            f.write(xml_content)
+        with open(settings.BASE_DIR / 'portal' / 'sitemap.xml', 'w', encoding='utf-8') as f:
+            f.write(xml_content)
+    except Exception:
+        pass
+    return xml_content
+
+
+def sitemap_xml_view(request):
+    """
+    Public Google/Bing sitemap.xml endpoint.
+    """
+    sitemap_path = settings.BASE_DIR / 'sitemap.xml'
+    if not sitemap_path.exists():
+        content = generate_sitemap_xml_django()
+    else:
+        try:
+            with open(sitemap_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception:
+            content = generate_sitemap_xml_django()
+    return HttpResponse(content, content_type="application/xml; charset=utf-8")
+
+
+@csrf_exempt
+def api_sitemap(request):
+    """
+    Sitemap.xml management, analysis, and generation endpoint.
+    """
+    sitemap_path = settings.BASE_DIR / 'sitemap.xml'
+    portal_sitemap_path = settings.BASE_DIR / 'portal' / 'sitemap.xml'
+
+    def parse_sitemap_content(content):
+        urls = []
+        url_matches = re.findall(r'<url>(.*?)</url>', content, re.DOTALL)
+        for u in url_matches:
+            loc_m = re.search(r'<loc>(.*?)</loc>', u)
+            lastmod_m = re.search(r'<lastmod>(.*?)</lastmod>', u)
+            freq_m = re.search(r'<changefreq>(.*?)</changefreq>', u)
+            prio_m = re.search(r'<priority>(.*?)</priority>', u)
+            if loc_m:
+                urls.append({
+                    "loc": loc_m.group(1).strip(),
+                    "lastmod": lastmod_m.group(1).strip() if lastmod_m else "",
+                    "changefreq": freq_m.group(1).strip() if freq_m else "weekly",
+                    "priority": prio_m.group(1).strip() if prio_m else "0.8"
+                })
+        articles_count = sum(1 for u in urls if '/mag/' in u['loc'] and not u['loc'].endswith('/mag') and not u['loc'].endswith('/mag/newsletter'))
+        core_count = len(urls) - articles_count
+        is_valid = bool(re.search(r'<urlset[^>]*>', content) and '</urlset>' in content)
+        return {
+            "urls": urls,
+            "total": len(urls),
+            "articlesCount": articles_count,
+            "coreCount": core_count,
+            "isValid": is_valid
+        }
+
+    if request.method == "POST":
+        data = read_json(request)
+        if request.path.rstrip('/').endswith('/generate') or data.get('action') == 'generate':
+            content = generate_sitemap_xml_django()
+        else:
+            content = data.get('content', '')
+            if not content.strip():
+                content = generate_sitemap_xml_django()
+            else:
+                try:
+                    with open(sitemap_path, 'w', encoding='utf-8') as f:
+                        f.write(content)
+                    with open(portal_sitemap_path, 'w', encoding='utf-8') as f:
+                        f.write(content)
+                except Exception as e:
+                    return JsonResponse({"success": False, "error": str(e)}, status=500)
+
+        parsed = parse_sitemap_content(content)
+        return JsonResponse({
+            "success": True,
+            "message": "فایل نقشه سایت (sitemap.xml) با موفقیت ذخیره و منتشر شد.",
+            "content": content,
+            **parsed
+        })
+    else:
+        content = ""
+        if sitemap_path.exists():
+            try:
+                with open(sitemap_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+            except Exception:
+                pass
+        if not content.strip():
+            content = generate_sitemap_xml_django()
+
+        parsed = parse_sitemap_content(content)
+        return JsonResponse({
+            "success": True,
+            "content": content,
+            **parsed
+        })
+
 def api_robots(request):
     """
     Robots.txt management and analysis endpoint.
