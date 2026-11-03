@@ -204,6 +204,9 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
 
     html {
       scroll-behavior: smooth;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: clip;
     }
 
     body {
@@ -212,7 +215,10 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       font-family: var(--font-main);
       font-size: 15px;
       line-height: 1.8;
-      overflow-x: hidden;
+      overflow-x: clip;
+      width: 100%;
+      max-width: 100%;
+      position: relative;
     }
 
     /* Global Sleek Scrollbar */
@@ -3328,36 +3334,104 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
         justify-content: center !important;
       }
 
-      /* Editorial articles: اسلایدر تک‌کارت ریسپانسیو فوق روان روی گوشی */
+      /* Section Headings Polish (2026 Liquid Glass & Modern Clinical) */
+      .specialty-showcase-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin-bottom: 38px !important;
+      }
+      .section-head-bar {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        margin-bottom: 16px !important;
+        padding-bottom: 12px !important;
+        border-bottom: 1px solid var(--border-color) !important;
+      }
+      .section-title-wrap {
+        width: 100% !important;
+      }
+      .section-title-wrap h2 {
+        font-size: clamp(16px, 4.3vw, 18px) !important;
+        font-weight: 800 !important;
+        line-height: 1.45 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin: 0 0 6px 0 !important;
+        color: var(--text-heading) !important;
+      }
+      .section-title-wrap h2 svg {
+        width: 20px !important;
+        height: 20px !important;
+        flex-shrink: 0 !important;
+      }
+      .section-title-wrap p {
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        color: var(--text-secondary) !important;
+        margin: 0 !important;
+      }
+      .section-view-all-link {
+        align-self: flex-start !important;
+        font-size: 11.5px !important;
+        font-weight: 700 !important;
+        padding: 5px 14px !important;
+        border-radius: 9999px !important;
+        background: rgba(0, 102, 255, 0.08) !important;
+        border: 1px solid rgba(0, 102, 255, 0.18) !important;
+        color: var(--color-primary) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        width: fit-content !important;
+        transition: all 0.2s ease !important;
+      }
+      [data-theme="dark"] .section-view-all-link {
+        background: rgba(56, 189, 248, 0.1) !important;
+        border-color: rgba(56, 189, 248, 0.25) !important;
+        color: #38BDF8 !important;
+      }
+
+      /* Editorial articles: اسلایدر تک‌کارت ریسپانسیو فوق روان و بدون اسکرول افقی صفحه */
       .editorial-cards-grid {
         display: flex !important;
         flex-direction: row !important;
         overflow-x: auto !important;
+        overflow-y: hidden !important;
         scroll-snap-type: x mandatory !important;
         scroll-behavior: smooth !important;
         -webkit-overflow-scrolling: touch !important;
-        gap: 16px !important;
-        padding: 4px 16px 20px 16px !important;
-        margin: 0 -16px 36px -16px !important;
+        gap: 14px !important;
+        padding: 4px 2px 18px 2px !important;
+        margin: 0 0 28px 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;
       }
       .editorial-cards-grid::-webkit-scrollbar {
         display: none !important;
+        width: 0 !important;
+        height: 0 !important;
       }
       .editorial-cards-grid > .magazine-article-card {
-        flex: 0 0 calc(100% - 28px) !important;
-        min-width: calc(100% - 28px) !important;
-        max-width: calc(100% - 28px) !important;
-        scroll-snap-align: center !important;
-        scroll-snap-stop: always !important;
-        height: 350px !important;
-        min-height: 330px !important;
+        flex: 0 0 84% !important;
+        min-width: 84% !important;
+        max-width: 84% !important;
+        scroll-snap-align: start !important;
+        scroll-snap-stop: normal !important;
+        height: 315px !important;
+        min-height: 295px !important;
         border-radius: 18px !important;
+        box-sizing: border-box !important;
       }
       .magazine-article-card {
-        height: 350px;
-        min-height: 330px;
+        height: 315px;
+        min-height: 295px;
         border-radius: 18px;
       }
       .card-thumb-wrap {
@@ -3368,7 +3442,7 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       }
       .article-card-body {
         margin: 8px;
-        padding: 12px 13px 10px;
+        padding: 11px 13px 9px;
         border-radius: 14px;
       }
       .mag-title {
@@ -3627,6 +3701,36 @@ html.theme-transitioning *:not(.switch-pill):not(.mag-theme-switch)::after {
       }
       .reader-article-body h1 {
         font-size: 17.5px;
+      }
+      .section-head-bar {
+        gap: 8px !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 10px !important;
+      }
+      .section-title-wrap h2 {
+        font-size: 15px !important;
+      }
+      .section-title-wrap p {
+        font-size: 11.5px !important;
+      }
+      .section-view-all-link {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+      }
+      .editorial-cards-grid > .magazine-article-card {
+        flex: 0 0 88% !important;
+        min-width: 88% !important;
+        max-width: 88% !important;
+        height: 295px !important;
+        min-height: 280px !important;
+      }
+      .magazine-article-card {
+        height: 295px;
+        min-height: 280px;
+      }
+      .article-card-body {
+        margin: 6px !important;
+        padding: 10px 11px 8px !important;
       }
     }
 

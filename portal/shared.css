@@ -11592,15 +11592,18 @@ main .product-module-grid li:hover > svg {
   }
 }
 
+.service-scroll-fill-card .service-card-desc,
 .service-card-desc {
-  font-size: 14.5px;
-  line-height: 1.75;
-  color: #334155 !important;
-  max-width: 680px;
-  margin-bottom: 18px;
+  font-size: 15px;
+  line-height: 1.85;
+  color: rgba(241, 245, 249, 0.94) !important;
+  max-width: 720px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.1px;
 }
 [data-theme="dark"] .service-card-desc {
-  color: rgba(226, 232, 240, 0.85) !important;
+  color: rgba(241, 245, 249, 0.94) !important;
 }
 
 .service-tags-row {
@@ -11613,20 +11616,21 @@ main .product-module-grid li:hover > svg {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #94A3B8;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 3px 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #E2E8F0 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  padding: 4px 12px;
   border-radius: 8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .service-tag::before {
   content: '✓';
   color: #00E5FF;
   font-weight: 900;
-  font-size: 11px;
+  font-size: 11.5px;
 }
 
 /* Card Actions & Metric Box */
